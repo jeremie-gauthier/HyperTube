@@ -23,7 +23,11 @@
 		"sourceMap": true,
 		"removeComments": true,
 		"moduleResolution": "node",
-		"pretty": true
+		"pretty": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./*"]
+		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]
