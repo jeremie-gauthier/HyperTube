@@ -1,0 +1,69 @@
+<babeledit_project be_version="2.7.1" version="1.2">
+    <!--
+
+    BabelEdit project file
+    https://www.codeandweb.com/babeledit
+
+    This file contains meta data for all translations, but not the translation texts itself.
+    They are stored in framework-specific message files (.json / .vue / .yaml / .properties)
+
+    -->
+    <preset_collections/>
+    <framework>i18next</framework>
+    <filename>translations.babel</filename>
+    <source_root_dir></source_root_dir>
+    <folder_node>
+        <name></name>
+        <children/>
+    </folder_node>
+    <isTemplateProject>false</isTemplateProject>
+    <languages>
+        <language>
+            <code>en-US</code>
+            <source_id></source_id>
+            <source_file>en</source_file>
+        </language>
+        <language>
+            <code>es-ES</code>
+            <source_id></source_id>
+            <source_file>es</source_file>
+        </language>
+        <language>
+            <code>fr-FR</code>
+            <source_id></source_id>
+            <source_file>fr</source_file>
+        </language>
+        <language>
+            <code>ja-JP</code>
+            <source_id></source_id>
+            <source_file>ja</source_file>
+        </language>
+    </languages>
+    <translation_files>
+        <translation_file>
+            <file>en</file>
+        </translation_file>
+        <translation_file>
+            <file>es</file>
+        </translation_file>
+        <translation_file>
+            <file>fr</file>
+        </translation_file>
+        <translation_file>
+            <file>ja</file>
+        </translation_file>
+    </translation_files>
+    <editor_configuration>
+        <save_empty_translations>true</save_empty_translations>
+        <copy_templates>
+            <copy_template>'%1'</copy_template>
+            <copy_template>{ this.props.t('%1') }</copy_template>
+            <copy_template>{ t('%1') }</copy_template>
+        </copy_templates>
+    </editor_configuration>
+    <primary_language>en-US</primary_language>
+    <configuration>
+        <indent>tab</indent>
+        <format>namespaced-json</format>
+    </configuration>
+</babeledit_project>
