@@ -1,0 +1,182 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2020": true,
+    "jest": true,
+    "jest/globals": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["@typescript-eslint", "react", "prettier", "jest"],
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/react"
+  ],
+  "rules": {
+    /* Possible Errors */
+    "comma-dangle": [1, "always-multiline"], //disallow or enforce trailing commas (recommended)
+    "no-cond-assign": [1, "except-parens"], //disallow assignment in conditional expressions (recommended)
+    "no-console": 0, //disallow use of console in the node environment (recommended)
+    "no-constant-condition": 1, //disallow use of constant expressions in conditions (recommended)
+    "no-control-regex": 1, //disallow control characters in regular expressions (recommended)
+    "no-debugger": 1, //disallow use of debugger (recommended)
+    "no-dupe-args": 1, //disallow duplicate arguments in functions (recommended)
+    "no-dupe-keys": 1, //disallow duplicate keys when creating object literals (recommended)
+    "no-duplicate-case": 1, //disallow a duplicate case label. (recommended)
+    "no-empty-character-class": 1, //disallow the use of empty character classes in regular expressions (recommended)
+    "no-empty": 1, //disallow empty statements (recommended)
+    "no-ex-assign": 1, //disallow assigning to the exception in a catch block (recommended)
+    "no-extra-boolean-cast": 1, //disallow double-negation boolean casts in a boolean context (recommended)
+    "no-extra-parens": 0, //disallow unnecessary parentheses
+    "no-extra-semi": 1, //disallow unnecessary semicolons (recommended) (fixable)
+    "no-func-assign": 1, //disallow overwriting functions written as function declarations (recommended)
+    "no-inner-declarations": [1, "functions"], //disallow function or variable declarations in nested blocks (recommended)
+    "no-invalid-regexp": 1, //disallow invalid regular expression strings in the RegExp constructor (recommended)
+    "no-irregular-whitespace": 1, //disallow irregular whitespace outside of strings and comments (recommended)
+    "no-negated-in-lhs": 1, //disallow negation of the left operand of an in expression (recommended)
+    "no-obj-calls": 1, //disallow the use of object properties of the global object (Math and JSON) as functions (recommended)
+    "no-regex-spaces": 1, //disallow multiple spaces in a regular expression literal (recommended)
+    "no-sparse-arrays": 1, //disallow sparse arrays (recommended)
+    "no-unexpected-multiline": 1, //Avoid code that looks like two expressions but is actually one
+    "no-unreachable": 1, //disallow unreachable statements after a return, throw, continue, or break statement (recommended)
+    "use-isnan": 1, //disallow comparisons with the value NaN (recommended)
+    "valid-jsdoc": 0, //Ensure JSDoc comments are valid
+    "valid-typeof": 1, //Ensure that the results of typeof are compared against a valid string (recommended)
+
+    /* Best Practices */
+    "default-case": 1, //require default case in switch statements
+    "eqeqeq": 1, //require the use of === and !== (fixable)
+    "no-empty-pattern": 1, //disallow use of empty destructuring patterns
+    "no-eq-null": 1, //disallow comparisons to null without a type-checking operator
+    "no-eval": 1, //disallow use of eval()
+    "no-implied-eval": 1, //disallow use of eval()-like methods
+    "no-extend-native": 1, //disallow adding to native types
+    "no-implicit-coercion": 1, //disallow the type conversions with shorter notations
+    "no-lone-blocks": 1, //disallow unnecessary nested blocks
+    "no-loop-func": 1, //disallow creation of functions within loops
+    "no-multi-spaces": 1, //disallow use of multiple spaces (fixable)
+    "no-multi-str": 1, //disallow use of multiline strings
+    "no-native-reassign": 1, //disallow reassignments of native objects
+    "no-new-func": 1, //disallow use of new operator for Function object
+    "no-new-wrappers": 1, //disallows creating new instances of String,Number, and Boolean
+    "no-octal-escape": 1, //disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
+    "no-octal": 1, //disallow use of octal literals (recommended)
+    "no-param-reassign": [1, { "props": false }], //disallow reassignment of function parameters
+    "no-redeclare": 1, //disallow declaring the same variable more than once (recommended)
+    "no-return-assign": 1, //disallow use of assignment in return statement
+    "no-self-compare": 1, //disallow comparisons where both sides are exactly the same
+    "no-unused-expressions": [
+      1,
+      { "allowShortCircuit": true, "allowTernary": true }
+    ], //disallow usage of expressions in statement position
+    "no-useless-call": 1, //disallow unnecessary .call() and .apply()
+    "no-useless-concat": 1, //disallow unnecessary concatenation of literals or template literals
+    "no-with": 1, //disallow use of the with statement
+    "vars-on-top": 1, //require declaration of all vars at the top of their containing scope
+
+    /* Strict Mode */
+    "strict": [1, "never"], //controls location of Use Strict Directives
+
+    /* Variables */
+    "no-catch-shadow": 1, //disallow the catch clause parameter name being the same as a variable in the outer scope
+    "no-delete-var": 1, //disallow deletion of variables (recommended)
+    "no-label-var": 1, //disallow labels that share a name with a variable
+    "no-shadow-restricted-names": 0, //disallow shadowing of names such as arguments
+    "no-shadow": 0, //disallow declaration of variables already declared in the outer scope
+    "no-unused-vars": [1, { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
+    "no-use-before-define": "off",
+    "no-underscore-dangle": "off",
+
+    /* Stylistic Issues */
+    "no-negated-condition": 1, //disallow negated conditions
+    "no-nested-ternary": 1, //disallow nested ternary expressions
+
+    /* ECMAScript 6 */
+    "arrow-body-style": [1, "as-needed"], // require braces in arrow function body
+    "arrow-parens": [0, "always"], // require parens in arrow function arguments
+    "arrow-spacing": [1, { "before": true, "after": true }], //require space before/after arrow function's arrow (fixable)
+    "constructor-super": 0, //verify calls of super() in constructors
+    "no-confusing-arrow": 0, // disallow arrow functions where a condition is expected
+    "generator-star-spacing": [1, "after"], // enforce spacing around the * in generator functions (fixable)
+    "no-class-assign": 1, //disallow modifying variables of class declarations
+    "no-const-assign": 2, //disallow modifying variables that are declared using const
+    "no-dupe-class-members": 1, //disallow duplicate name in class members
+    "no-this-before-super": 1, //disallow use of this/super before calling super() in constructors.
+    "no-var": 2, //require let or const instead of var
+    "object-shorthand": 1, // (see Babel section) require method and property shorthand syntax for object literals
+    "prefer-arrow-callback": 1, //suggest using arrow functions as callbacks
+    "prefer-const": 2, //suggest using const declaration for variables that are never modified after declared
+    "prefer-reflect": 2, //suggest using Reflect methods where applicable
+    "prefer-spread": 2, //suggest using the spread operator instead of .apply().
+    "prefer-template": 0, //suggest using template literals instead of strings concatenation
+    "require-yield": 1, //disallow generator functions that do not have yield
+
+    /* Legacy */
+    "max-depth": [0, 3], //specify the maximum depth that blocks can be nested
+    "max-len": [1, 81, 2], //specify the maximum length of a line in your program
+    "max-params": [1, 4], //limits the number of parameters that can be used in the function declaration.
+    "max-statements": [1, 5], //specify the maximum number of statement allowed in a function
+    "max-lines-per-function": [1, 50],
+    "no-bitwise": 0, //disallow use of bitwise operators
+    "no-plusplus": 0, //disallow use of unary operators, ++ and --
+
+    /* JS imports */
+    "import/extensions": 0,
+    "import/no-unresolve": "off",
+
+    /* React */
+    "react/jsx-pascal-case": 2, // Enforce PascalCase for user-defined JSX components
+    "react/no-danger": 1, //Prevent usage of dangerous JSX properties
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
+
+    /* React Hooks */
+    "react-hooks/exhaustive-deps": "warn",
+
+    /* TypeScript */
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/no-var-requires": "warn",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-explicit-any": "error",
+
+    /* Prettier */
+    "prettier/prettier": "error",
+
+    /* Jest */
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
+    "jest/no-conditional-expect": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "globals": {
+    "React": "writable"
+  }
+}
