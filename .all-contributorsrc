@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "jeremie-gauthier",
+      "name": "jergauth",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/28305181?v=4",
+      "profile": "https://jeremie-gauthier.github.io/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "HyperTube",
+  "projectOwner": "jeremie-gauthier",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
