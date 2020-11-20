@@ -1,5 +1,5 @@
 type FlexProps = {
-  children: JSX.Element;
+  children: JSX.Element[];
 } & Partial<DefaultProps>;
 
 type DefaultProps = {
