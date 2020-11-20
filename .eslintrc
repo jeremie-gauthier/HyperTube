@@ -148,7 +148,7 @@
     ],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
+    "react/jsx-props-no-spreading": "off",
 
     /* React Hooks */
     "react-hooks/exhaustive-deps": "warn",
