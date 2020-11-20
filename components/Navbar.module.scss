@@ -1,0 +1,9 @@
+.container {
+  @apply flex-1 h-16 p-4 bg-black items-baseline justify-between;
+
+  h1 {
+    @apply font-bold text-red text-3xl;
+
+    font-family: "Roboto Condensed", sans-serif;
+  }
+}
