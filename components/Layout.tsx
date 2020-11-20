@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Layout.module.scss";
 
 type LayoutProps = {
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
