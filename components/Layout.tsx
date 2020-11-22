@@ -1,10 +1,14 @@
-import React from "react";
-import styles from "./Layout.module.scss";
+import Navbar from "@/components/Navbar";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
-  return <div className={styles.container}>{children}</div>;
+  return (
+    <div className="h-screen" data-testid="layout-div">
+      <Navbar />
+      {children}
+    </div>
+  );
 }
