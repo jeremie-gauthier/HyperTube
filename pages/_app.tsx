@@ -1,7 +1,7 @@
 import { AppProps } from "next/app";
 import Layout from "@/components/Layout";
 import "@/locales/i18n";
-import "@/styles/globals.scss";
+import "@/styles/tailwind.scss";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (

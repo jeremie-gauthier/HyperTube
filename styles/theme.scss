@@ -1,17 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html,
-body {
+.body {
   @apply h-screen text-white p-0 m-0;
 
   font-family: "Roboto", sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
+// * {
+//   box-sizing: border-box;
+// }
 
 .arrow-up {
   @apply w-0 h-0;

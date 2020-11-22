@@ -31,7 +31,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body>
+        <body className="body">
           <Main />
           <NextScript />
         </body>
