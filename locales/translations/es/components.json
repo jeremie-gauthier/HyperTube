@@ -1,0 +1,15 @@
+{
+	"lang": {
+		"english": "Inglés",
+		"french": "Francés",
+		"japanese": "Japonés",
+		"spanish": "Español"
+	},
+	"navbar": {
+		"account": "",
+		"home": "",
+		"logout": "",
+		"my_list": "",
+		"search": ""
+	}
+}
