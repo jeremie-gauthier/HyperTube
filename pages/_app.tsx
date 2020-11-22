@@ -1,5 +1,6 @@
 import { AppProps } from "next/app";
 import Layout from "@/components/Layout";
+import "@/locales/i18n";
 import "@/styles/globals.scss";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
