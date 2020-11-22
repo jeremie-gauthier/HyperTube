@@ -18,7 +18,7 @@ module.exports = {
     "!**/*.d.ts",
     "!**/node_modules/**",
   ],
-  coveragePathIgnorePatterns: ["pages/_app.tsx"],
+  coveragePathIgnorePatterns: ["pages/_(.*).tsx"],
   setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.js"],
   testPathIgnorePatterns: ["/node_modules/", "/.next/"],
   transform: {
