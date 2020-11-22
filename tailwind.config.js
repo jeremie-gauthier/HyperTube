@@ -9,7 +9,7 @@ module.exports = {
         light: "#939393",
       },
       white: "#fff",
-      black: "#000",
+      black: "#141414",
     },
   },
   variants: {
