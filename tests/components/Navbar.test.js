@@ -3,8 +3,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@/tests/__mocks__/matchMedia";
 import Navbar from "@/components/Navbar";
+import i18n from "@/locales/i18n";
 
 describe("Navbar", () => {
+  const mockChangeLanguage = jest
+    .spyOn(i18n, "changeLanguage")
+    .mockImplementation((lang) => lang);
+
   test("renders correctly", () => {
     render(<Navbar />);
 
@@ -35,5 +40,15 @@ describe("Navbar", () => {
 
     const nextLink = screen.getByTestId("link-home");
     expect(nextLink.href).toEqual("http://localhost/");
+  });
+
+  test("change language", () => {
+    render(<Navbar />);
+
+    expect(screen.queryByText(/English/i)).not.toBeInTheDocument();
+    userEvent.hover(screen.getByTestId("lang-flag"));
+    expect(screen.getByText(/English/i)).toBeInTheDocument();
+    userEvent.click(screen.getByText(/French/i));
+    expect(mockChangeLanguage).toHaveReturnedWith("fr");
   });
 });

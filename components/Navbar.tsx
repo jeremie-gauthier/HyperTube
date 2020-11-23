@@ -5,6 +5,8 @@ import Link from "next/link";
 import userMock from "@/tests/__mocks__/user"; // MOCK
 import { getInitials } from "@/lib/helpers";
 import useHover from "@react-hook/hover";
+import { langs } from "@/locales/i18n";
+import CountryFlag from "@/components/CountryFlag";
 import Magnifier from "../public/icons/magnifier.svg";
 import styles from "./Navbar.module.scss";
 
@@ -90,11 +92,39 @@ const UserMenu = () => {
 };
 
 const LangFlag = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const hoverableNode = React.useRef(null);
+  const isHovering = useHover(hoverableNode, {
+    enterDelay: 0,
+    leaveDelay: 500,
+  });
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
 
   return (
-    <div className={styles.frame} data-testid="lang-flag">
+    <div ref={hoverableNode} className={styles.frame} data-testid="lang-flag">
       <span>lg</span>
+
+      {isHovering && (
+        <div className="absolute z-40 top-12 right-0">
+          <div className={styles.arrow} />
+          <FlexCol className={styles.floater}>
+            {langs.map((lang) => (
+              <button
+                key={`lang-${lang.value}`}
+                type="button"
+                onClick={() => changeLanguage(lang.value)}
+                className="flex flex-row items-center space-x-2"
+              >
+                <CountryFlag lang={lang.value} width={15} height={15} />
+                <span>{t(lang.key)}</span>
+              </button>
+            ))}
+          </FlexCol>
+        </div>
+      )}
     </div>
   );
 };
