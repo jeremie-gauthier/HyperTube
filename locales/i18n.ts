@@ -16,6 +16,13 @@ const LANGUAGES = {
   ja: { translation: { pages: {}, components: componentsJA } },
 };
 
+export const langs = [
+  { key: "common.lang.english", value: "en" },
+  { key: "common.lang.french", value: "fr" },
+  { key: "common.lang.spanish", value: "es" },
+  { key: "common.lang.japanese", value: "ja" },
+];
+
 i18n.use(initReactI18next).init({
   resources: LANGUAGES,
   lng: "en",
