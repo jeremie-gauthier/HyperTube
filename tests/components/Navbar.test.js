@@ -20,8 +20,14 @@ describe("Navbar", () => {
     render(<Navbar />);
     expect(screen.queryByText(/Account/i)).not.toBeInTheDocument();
     userEvent.hover(screen.getByText(/AD/i));
-    expect(screen.getByText(/Account/i)).toBeInTheDocument();
-    expect(screen.getByText(/Logout/i)).toBeInTheDocument();
+
+    const accountLink = screen.getByText(/Account/i);
+    expect(accountLink).toBeInTheDocument();
+    expect(accountLink.href).toEqual("http://localhost/account");
+
+    const logoutLink = screen.getByText(/Logout/i);
+    expect(logoutLink).toBeInTheDocument();
+    expect(logoutLink.href).toEqual("http://localhost/logout");
   });
 
   test("links", () => {
