@@ -43,7 +43,7 @@
   @apply flex items-center justify-center bg-red rounded h-8 w-8 cursor-pointer;
 
   span {
-    @apply uppercase font-bold text-sm;
+    @apply font-bold text-sm;
   }
 }
 
@@ -53,6 +53,10 @@
 
   a {
     @apply font-bold hover:underline;
+  }
+
+  span {
+    @apply hover:underline;
   }
 }
 
