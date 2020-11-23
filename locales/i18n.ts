@@ -9,11 +9,24 @@ import componentsEN from "./translations/en/components.json";
 import componentsES from "./translations/es/components.json";
 import componentsJA from "./translations/ja/components.json";
 
+import commonFR from "./translations/fr/common.json";
+import commonEN from "./translations/en/common.json";
+import commonES from "./translations/es/common.json";
+import commonJA from "./translations/ja/common.json";
+
 const LANGUAGES = {
-  fr: { translation: { pages: {}, components: componentsFR } },
-  en: { translation: { pages: {}, components: componentsEN } },
-  es: { translation: { pages: {}, components: componentsES } },
-  ja: { translation: { pages: {}, components: componentsJA } },
+  fr: {
+    translation: { pages: {}, components: componentsFR, common: commonFR },
+  },
+  en: {
+    translation: { pages: {}, components: componentsEN, common: commonEN },
+  },
+  es: {
+    translation: { pages: {}, components: componentsES, common: commonES },
+  },
+  ja: {
+    translation: { pages: {}, components: componentsJA, common: commonJA },
+  },
 };
 
 export const langs = [

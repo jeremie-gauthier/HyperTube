@@ -1,4 +1,4 @@
-<babeledit_project be_version="2.7.1" version="1.2">
+<babeledit_project version="1.2" be_version="2.7.1">
     <!--
 
     BabelEdit project file
@@ -16,7 +16,7 @@
         <name></name>
         <children>
             <file_node>
-                <name>components</name>
+                <name>common</name>
                 <children>
                     <folder_node>
                         <name>lang</name>
@@ -123,6 +123,12 @@
                             </concept_node>
                         </children>
                     </folder_node>
+                </children>
+                <filename></filename>
+            </file_node>
+            <file_node>
+                <name>components</name>
+                <children>
                     <folder_node>
                         <name>navbar</name>
                         <children>

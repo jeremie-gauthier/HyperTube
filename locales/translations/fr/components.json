@@ -1,10 +1,4 @@
 {
-	"lang": {
-		"english": "Anglais",
-		"french": "Français",
-		"japanese": "Japonais",
-		"spanish": "Espagnol"
-	},
 	"navbar": {
 		"account": "Mon compte",
 		"home": "Accueil",
