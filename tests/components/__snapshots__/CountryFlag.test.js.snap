@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CountryFlag /> should render null 1`] = `null`;
+
+exports[`<CountryFlag /> should render the French Flag 1`] = `
+<svg
+  viewBox="0 0 512 512"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M0 0h170.67v512H0z"
+    fill="#41479b"
+  />
+  <path
+    d="M170.67 0h170.67v512H170.67z"
+    fill="#f5f5f5"
+  />
+  <path
+    d="M341.33 0H512v512H341.33z"
+    fill="#ff4b55"
+  />
+</svg>
+`;

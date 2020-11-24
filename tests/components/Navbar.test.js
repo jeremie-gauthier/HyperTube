@@ -4,21 +4,23 @@ import userEvent from "@testing-library/user-event";
 import "@/tests/__mocks__/matchMedia";
 import Navbar from "@/components/Navbar";
 import i18n from "@/locales/i18n";
+import renderer from "react-test-renderer";
+
+test("renders correctly", () => {
+  const tree = renderer.create(<Navbar />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
 describe("Navbar", () => {
   const mockChangeLanguage = jest
     .spyOn(i18n, "changeLanguage")
     .mockImplementation((lang) => lang);
 
-  test("renders correctly", () => {
+  test("links", () => {
     render(<Navbar />);
 
-    expect(screen.getByText(/HYPERTUBE/i)).toBeInTheDocument();
-    expect(screen.getByTestId("link-home")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/Search/i)).toBeInTheDocument();
-    expect(screen.getByText(/My list/i)).toBeInTheDocument();
-    expect(screen.getByText(/AD/i)).toBeInTheDocument();
-    expect(screen.getByTestId("lang-flag")).toBeInTheDocument();
+    const nextLink = screen.getByTestId("link-home");
+    expect(nextLink.href).toEqual("http://localhost/");
   });
 
   test("display user menu", () => {
@@ -33,13 +35,6 @@ describe("Navbar", () => {
     const logoutLink = screen.getByText(/Logout/i);
     expect(logoutLink).toBeInTheDocument();
     expect(logoutLink.href).toEqual("http://localhost/logout");
-  });
-
-  test("links", () => {
-    render(<Navbar />);
-
-    const nextLink = screen.getByTestId("link-home");
-    expect(nextLink.href).toEqual("http://localhost/");
   });
 
   test("change language", () => {

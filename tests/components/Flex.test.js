@@ -1,21 +1,13 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
 import { FlexCol, FlexRow } from "@/components/Flex";
+import renderer from "react-test-renderer";
 
-describe("Flex", () => {
-  test("FlexCol renders correctly", () => {
-    render(<FlexCol />);
+test("<FlexCol /> should render correctly", () => {
+  const tree = renderer.create(<FlexCol />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
-    const flexCol = screen.getByTestId("flex-col");
-    expect(flexCol.classList.contains("flex-col")).toBe(true);
-    expect(flexCol.classList.contains("flex-row")).toBe(false);
-  });
-
-  test("FlexRow renders correctly", () => {
-    render(<FlexRow />);
-
-    const flexRow = screen.getByTestId("flex-row");
-    expect(flexRow.classList.contains("flex-row")).toBe(true);
-    expect(flexRow.classList.contains("flex-col")).toBe(false);
-  });
+test("<FlexRow /> should render correctly", () => {
+  const tree = renderer.create(<FlexRow />).toJSON();
+  expect(tree).toMatchSnapshot();
 });

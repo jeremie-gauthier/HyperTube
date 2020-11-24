@@ -1,15 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
 import Layout from "@/components/Layout";
+import renderer from "react-test-renderer";
 
-describe("Layout", () => {
-  test("Layout renders correctly", () => {
-    render(<Layout />);
-
-    const layout = screen.getByTestId("layout-div");
-    expect(layout.classList.contains("h-screen")).toBe(true);
-    expect(layout).toBeInTheDocument();
-
-    expect(screen.getByTestId("navbar-div")).toBeInTheDocument();
-  });
+test("<Layout /> should render correctly", () => {
+  const tree = renderer.create(<Layout />).toJSON();
+  expect(tree).toMatchSnapshot();
 });
