@@ -21,3 +21,7 @@ A React framework for developing single page Javascript applications.
 ## [tailwindcss](https://www.npmjs.com/package/tailwindcss)
 
 A utility-first CSS framework for rapidly building custom user interfaces.
+
+## [@react-hook/hover](https://www.npmjs.com/package/@react-hook/hover)
+
+A custom hook that detects whether the mouse is hovering an element.
