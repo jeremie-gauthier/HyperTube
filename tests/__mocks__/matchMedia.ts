@@ -1,4 +1,4 @@
-Reflect.defineProperty(window, "matchMedia", {
+export default Reflect.defineProperty(window, "matchMedia", {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
     matches: false,

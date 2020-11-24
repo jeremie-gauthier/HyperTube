@@ -8,6 +8,6 @@ test("<CountryFlag /> should render the French Flag", () => {
 });
 
 test("<CountryFlag /> should render null", () => {
-  const tree = renderer.create(<CountryFlag />).toJSON();
+  const tree = renderer.create(<CountryFlag lang="wrong_value" />).toJSON();
   expect(tree).toMatchSnapshot();
 });

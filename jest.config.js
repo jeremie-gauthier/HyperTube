@@ -3,6 +3,13 @@ module.exports = {
   cacheDirectory: "/tmp/jest_rs",
   coverageDirectory: "coverage",
   collectCoverage: false,
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
+  globals: {
+    "ts-jest": {
+      tsConfig: "tsconfig.jest.json",
+    },
+  },
   coverageThreshold: {
     global: {
       statements: 70,
@@ -19,11 +26,11 @@ module.exports = {
     "!**/node_modules/**",
   ],
   coveragePathIgnorePatterns: ["pages/_(.*).tsx"],
-  setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.js"],
+  setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.ts"],
   testPathIgnorePatterns: ["/node_modules/", "/.next/"],
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
-    "^.+\\.css$": "<rootDir>/tests/fileTransformer.js",
+    "^.+\\.css$": "<rootDir>/tests/fileTransformer.ts",
   },
   transformIgnorePatterns: [
     "/node_modules/",

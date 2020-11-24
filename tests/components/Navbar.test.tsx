@@ -12,14 +12,12 @@ test("renders correctly", () => {
 });
 
 describe("Navbar", () => {
-  const mockChangeLanguage = jest
-    .spyOn(i18n, "changeLanguage")
-    .mockImplementation((lang) => lang);
+  const mockChangeLanguage = jest.spyOn(i18n, "changeLanguage");
 
   test("links", () => {
     render(<Navbar />);
 
-    const nextLink = screen.getByTestId("link-home");
+    const nextLink = screen.getByTestId("link-home") as HTMLLinkElement;
     expect(nextLink.href).toEqual("http://localhost/");
   });
 
@@ -28,11 +26,11 @@ describe("Navbar", () => {
     expect(screen.queryByText(/Account/i)).not.toBeInTheDocument();
     userEvent.hover(screen.getByText(/AD/i));
 
-    const accountLink = screen.getByText(/Account/i);
+    const accountLink = screen.getByText(/Account/i) as HTMLLinkElement;
     expect(accountLink).toBeInTheDocument();
     expect(accountLink.href).toEqual("http://localhost/account");
 
-    const logoutLink = screen.getByText(/Logout/i);
+    const logoutLink = screen.getByText(/Logout/i) as HTMLLinkElement;
     expect(logoutLink).toBeInTheDocument();
     expect(logoutLink.href).toEqual("http://localhost/logout");
   });
@@ -44,6 +42,6 @@ describe("Navbar", () => {
     userEvent.hover(screen.getByTestId("lang-flag"));
     expect(screen.getByText(/English/i)).toBeInTheDocument();
     userEvent.click(screen.getByText(/French/i));
-    expect(mockChangeLanguage).toHaveReturnedWith("fr");
+    expect(mockChangeLanguage).toHaveBeenCalledWith("fr");
   });
 });

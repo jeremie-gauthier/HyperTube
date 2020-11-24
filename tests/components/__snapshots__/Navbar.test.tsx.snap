@@ -18,14 +18,14 @@ exports[`renders correctly 1`] = `
       onClick={[Function]}
       onMouseEnter={[Function]}
     >
-      Home
+      components.navbar.home
     </a>
     <a
       href="/movies/favorites"
       onClick={[Function]}
       onMouseEnter={[Function]}
     >
-      My list
+      components.navbar.my_list
     </a>
     <div
       className="flex flex-row searchInput"
@@ -45,7 +45,7 @@ exports[`renders correctly 1`] = `
       </svg>
       <input
         className="text-white placeholder-white placeholder-bold bg-black"
-        placeholder="Search"
+        placeholder="components.navbar.search"
       />
     </div>
   </div>
