@@ -29,6 +29,6 @@
 			"@/*": ["./*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middlewares/dbConnect.js", "api/index.js", "api/index.js"],
 	"exclude": ["node_modules"]
 }
