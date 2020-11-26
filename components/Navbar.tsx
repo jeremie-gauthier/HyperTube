@@ -75,10 +75,7 @@ const SearchInput = () => {
 const UserMenu = () => {
   const { t } = useTranslation();
   const hoverableNode = React.useRef(null);
-  const isHovering = useHover(hoverableNode, {
-    enterDelay: 0,
-    leaveDelay: 500,
-  });
+  const isHovering = useHover(hoverableNode, { leaveDelay: 500 });
 
   return (
     <div ref={hoverableNode} className={styles.frame + " bg-red"}>
@@ -100,10 +97,7 @@ const UserMenu = () => {
 const LangFlag = () => {
   const { t, i18n } = useTranslation();
   const hoverableNode = React.useRef(null);
-  const isHovering = useHover(hoverableNode, {
-    enterDelay: 0,
-    leaveDelay: 500,
-  });
+  const isHovering = useHover(hoverableNode, { leaveDelay: 500 });
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
