@@ -4,7 +4,7 @@ import FRFlag from "../public/icons/france.svg";
 import ESFlag from "../public/icons/spain.svg";
 import JAFlag from "../public/icons/japan.svg";
 
-type CountryFlagProps = {
+type CountryFlagProps = React.SVGProps<SVGSVGElement> & {
   lang: string;
 };
 
