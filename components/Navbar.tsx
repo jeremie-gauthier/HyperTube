@@ -124,7 +124,7 @@ const LangFlag = () => {
           <FlexCol className={styles.floaterContent}>
             {langs.map((lang) => (
               <button
-                key={`lang-${lang.value}`}
+                key={lang.value}
                 type="button"
                 onClick={() => changeLanguage(lang.value)}
               >
