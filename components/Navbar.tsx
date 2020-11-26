@@ -122,14 +122,14 @@ const LangFlag = () => {
         <div className={styles.floater}>
           <div className={styles.arrow} />
           <FlexCol className={styles.floaterContent}>
-            {langs.map((lang) => (
+            {Object.entries(langs).map(([langKey, langValue]) => (
               <button
-                key={lang.value}
+                key={langKey}
                 type="button"
-                onClick={() => changeLanguage(lang.value)}
+                onClick={() => changeLanguage(langKey)}
               >
-                <CountryFlag lang={lang.value} width={15} height={15} />
-                <span>{t(lang.key)}</span>
+                <CountryFlag lang={langKey} width={15} height={15} />
+                <span>{t(langValue)}</span>
               </button>
             ))}
           </FlexCol>

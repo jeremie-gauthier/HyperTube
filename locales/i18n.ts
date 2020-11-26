@@ -29,12 +29,12 @@ const LANGUAGES = {
   },
 };
 
-export const langs = [
-  { key: "common.lang.english", value: "en" },
-  { key: "common.lang.french", value: "fr" },
-  { key: "common.lang.spanish", value: "es" },
-  { key: "common.lang.japanese", value: "ja" },
-];
+export const langs = {
+  en: "common.lang.english",
+  fr: "common.lang.french",
+  es: "common.lang.spanish",
+  ja: "common.lang.japanese",
+};
 
 i18n.use(initReactI18next).init({
   resources: LANGUAGES,
