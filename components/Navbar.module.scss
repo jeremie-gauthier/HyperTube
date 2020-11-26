@@ -40,7 +40,7 @@
 
 .frame {
   @apply relative;
-  @apply flex items-center justify-center bg-red rounded h-8 w-8 cursor-pointer;
+  @apply flex items-center justify-center rounded h-8 w-8 cursor-pointer;
 
   span {
     @apply font-bold text-sm;

@@ -67,7 +67,7 @@ const UserMenu = () => {
   });
 
   return (
-    <div ref={hoverableNode} className={styles.frame}>
+    <div ref={hoverableNode} className={"bg-red " + styles.frame}>
       <span>{getInitials(userMock)}</span>
 
       {isHovering && (
@@ -105,7 +105,12 @@ const LangFlag = () => {
 
   return (
     <div ref={hoverableNode} className={styles.frame} data-testid="lang-flag">
-      <span>lg</span>
+      <CountryFlag
+        lang={i18n.language}
+        width={32}
+        height={32}
+        className="rounded"
+      />
 
       {isHovering && (
         <div className="absolute z-40 top-12 right-0">
