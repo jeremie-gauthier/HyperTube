@@ -15,10 +15,10 @@ export default function Navbar(): JSX.Element {
   return (
     <FlexRow className={styles.container}>
       <BrandLogo />
-      <FlexRow className={styles.content}>
+      <FlexRow className={styles.navlinks}>
         <Navigation />
       </FlexRow>
-      <FlexRow className="space-x-4">
+      <FlexRow className={styles.settings}>
         <UserMenu />
         <LangFlag />
       </FlexRow>
@@ -41,9 +41,7 @@ const Navigation = () => {
 
   return (
     <>
-      <Link href="/">
-        <a href="/">{t("components.navbar.home")}</a>
-      </Link>
+      <Link href="/">{t("components.navbar.home")}</Link>
       <Link href="/movies/favorites">{t("components.navbar.my_list")}</Link>
       <SearchInput />
     </>
@@ -57,10 +55,7 @@ const SearchInput = () => {
   return (
     <FlexRow className={styles.searchInput}>
       <Magnifier />
-      <input
-        placeholder={t("components.navbar.search")}
-        className="text-white placeholder-white placeholder-bold bg-black"
-      />
+      <input placeholder={t("components.navbar.search")} />
     </FlexRow>
   );
 };
@@ -81,12 +76,8 @@ const UserMenu = () => {
         <div className="absolute z-40 top-12 right-0">
           <div className={styles.arrow} />
           <FlexCol className={styles.floater}>
-            <Link href="account">
-              <a href="/account">{t("components.navbar.account")}</a>
-            </Link>
-            <Link href="logout">
-              <a href="/logout">{t("components.navbar.logout")}</a>
-            </Link>
+            <Link href="account">{t("components.navbar.account")}</Link>
+            <Link href="logout">{t("components.navbar.logout")}</Link>
           </FlexCol>
         </div>
       )}
