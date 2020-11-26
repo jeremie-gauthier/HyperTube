@@ -12,7 +12,11 @@ import ActiveLink from "@/components/ActiveLink";
 import Magnifier from "../public/icons/magnifier.svg";
 import styles from "./Navbar.module.scss";
 
+type HoverStatus = "idle" | "UserMenu" | "LangFlag";
+
 export default function Navbar(): JSX.Element {
+  const [hoverStatus, setHoverStatus] = React.useState<HoverStatus>("idle");
+
   return (
     <FlexRow className={styles.container}>
       <BrandLogo />
@@ -23,8 +27,8 @@ export default function Navbar(): JSX.Element {
       </FlexRow>
 
       <FlexRow className={styles.settings}>
-        <UserMenu />
-        <LangFlag />
+        <UserMenu hoverStatus={hoverStatus} setHoverStatus={setHoverStatus} />
+        <LangFlag hoverStatus={hoverStatus} setHoverStatus={setHoverStatus} />
       </FlexRow>
     </FlexRow>
   );
@@ -72,16 +76,26 @@ const SearchInput = () => {
   );
 };
 
-const UserMenu = () => {
+type SettingsProps = {
+  hoverStatus: HoverStatus;
+  setHoverStatus: React.Dispatch<React.SetStateAction<HoverStatus>>;
+};
+
+const UserMenu = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
   const { t } = useTranslation();
   const hoverableNode = React.useRef(null);
   const isHovering = useHover(hoverableNode, { leaveDelay: 500 });
+  const canDisplay = isHovering && hoverStatus !== "LangFlag";
+
+  React.useEffect(() => {
+    if (isHovering) setHoverStatus("UserMenu");
+  }, [isHovering, setHoverStatus]);
 
   return (
     <div ref={hoverableNode} className={styles.frame + " bg-red"}>
       <span>{getInitials(userMock)}</span>
 
-      {isHovering && (
+      {canDisplay && (
         <div className={styles.floater}>
           <div className={styles.arrow} />
           <FlexCol className={styles.floaterContent}>
@@ -94,10 +108,15 @@ const UserMenu = () => {
   );
 };
 
-const LangFlag = () => {
+const LangFlag = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
   const { t, i18n } = useTranslation();
   const hoverableNode = React.useRef(null);
   const isHovering = useHover(hoverableNode, { leaveDelay: 500 });
+  const canDisplay = isHovering && hoverStatus !== "UserMenu";
+
+  React.useEffect(() => {
+    if (isHovering) setHoverStatus("LangFlag");
+  }, [isHovering, setHoverStatus]);
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -112,7 +131,7 @@ const LangFlag = () => {
         className="rounded"
       />
 
-      {isHovering && (
+      {canDisplay && (
         <div className={styles.floater}>
           <div className={styles.arrow} />
           <FlexCol className={styles.floaterContent}>
