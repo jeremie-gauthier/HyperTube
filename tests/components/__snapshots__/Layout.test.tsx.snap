@@ -9,68 +9,76 @@ exports[`<Layout /> should render correctly 1`] = `
     className="flex flex-row container"
     data-testid="flex-row"
   >
-    <div
-      style={
-        Object {
-          "boxSizing": "border-box",
-          "display": "inline-block",
-          "margin": 0,
-          "maxWidth": "100%",
-          "overflow": "hidden",
-          "position": "relative",
-        }
-      }
+    <a
+      className="flex"
+      href="/"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       <div
         style={
           Object {
             "boxSizing": "border-box",
-            "display": "block",
+            "display": "inline-block",
+            "margin": 0,
             "maxWidth": "100%",
+            "overflow": "hidden",
+            "position": "relative",
           }
         }
       >
-        <img
-          alt=""
-          aria-hidden={true}
-          role="presentation"
-          src="data:image/svg+xml;charset=utf-8,<svg width=\\"115\\" height=\\"31\\" xmlns=\\"http://www.w3.org/2000/svg\\" version=\\"1.1\\"/>"
+        <div
           style={
             Object {
+              "boxSizing": "border-box",
               "display": "block",
               "maxWidth": "100%",
             }
           }
+        >
+          <img
+            alt=""
+            aria-hidden={true}
+            role="presentation"
+            src="data:image/svg+xml;charset=utf-8,<svg width=\\"115\\" height=\\"31\\" xmlns=\\"http://www.w3.org/2000/svg\\" version=\\"1.1\\"/>"
+            style={
+              Object {
+                "display": "block",
+                "maxWidth": "100%",
+              }
+            }
+          />
+        </div>
+        <img
+          alt="Hypertube logo"
+          className="cursor-pointer"
+          decoding="async"
+          src="/_next/image?url=%2Ficons%2Fhypertube.png&w=420&q=75"
+          srcSet="/_next/image?url=%2Ficons%2Fhypertube.png&w=320&q=75 1x, /_next/image?url=%2Ficons%2Fhypertube.png&w=420&q=75 2x"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "visibility": "visible",
+              "width": 0,
+            }
+          }
         />
       </div>
-      <img
-        alt="Hypertube logo"
-        decoding="async"
-        src="/_next/image?url=%2Ficons%2Fhypertube.png&w=420&q=75"
-        srcSet="/_next/image?url=%2Ficons%2Fhypertube.png&w=320&q=75 1x, /_next/image?url=%2Ficons%2Fhypertube.png&w=420&q=75 2x"
-        style={
-          Object {
-            "border": "none",
-            "bottom": 0,
-            "boxSizing": "border-box",
-            "display": "block",
-            "height": 0,
-            "left": 0,
-            "margin": "auto",
-            "maxHeight": "100%",
-            "maxWidth": "100%",
-            "minHeight": "100%",
-            "minWidth": "100%",
-            "padding": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "visibility": "visible",
-            "width": 0,
-          }
-        }
-      />
-    </div>
+    </a>
     <div
       className="flex flex-row items"
       data-testid="flex-row"

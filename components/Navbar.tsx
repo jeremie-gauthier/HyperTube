@@ -30,14 +30,21 @@ export default function Navbar(): JSX.Element {
   );
 }
 
+// The <a> markup is mandatory here to avoid errors
+// https://github.com/vercel/next.js/issues/7915
 const BrandLogo = () => (
-  <Image
-    src="/icons/hypertube.png"
-    alt="Hypertube logo"
-    height={31}
-    width={115}
-    priority
-  />
+  <Link href="/">
+    <a href="/" className="flex">
+      <Image
+        src="/icons/hypertube.png"
+        alt="Hypertube logo"
+        height={31}
+        width={115}
+        priority
+        className="cursor-pointer"
+      />
+    </a>
+  </Link>
 );
 
 const Navigation = () => {
