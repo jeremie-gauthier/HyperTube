@@ -1,0 +1,11 @@
+.active {
+  @apply font-bold cursor-default;
+}
+
+.inactive {
+  @apply cursor-pointer;
+
+  &:hover {
+    @apply text-grey-light duration-300;
+  }
+}

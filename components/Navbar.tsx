@@ -8,6 +8,7 @@ import { getInitials } from "@/lib/helpers";
 import useHover from "@react-hook/hover";
 import { langs } from "@/locales/i18n";
 import CountryFlag from "@/components/CountryFlag";
+import ActiveLink from "@/components/ActiveLink";
 import Magnifier from "../public/icons/magnifier.svg";
 import styles from "./Navbar.module.scss";
 
@@ -44,8 +45,10 @@ const Navigation = () => {
 
   return (
     <>
-      <Link href="/">{t("components.navbar.home")}</Link>
-      <Link href="/movies/favorites">{t("components.navbar.my_list")}</Link>
+      <ActiveLink href="/">{t("components.navbar.home")}</ActiveLink>
+      <ActiveLink href="/movies/favorites">
+        {t("components.navbar.my_list")}
+      </ActiveLink>
     </>
   );
 };
