@@ -72,7 +72,7 @@ exports[`<Layout /> should render correctly 1`] = `
       />
     </div>
     <div
-      className="flex flex-row content"
+      className="flex flex-row navlinks"
       data-testid="flex-row"
     >
       <a
@@ -106,17 +106,16 @@ exports[`<Layout /> should render correctly 1`] = `
           />
         </svg>
         <input
-          className="text-white placeholder-white placeholder-bold bg-black"
           placeholder="components.navbar.search"
         />
       </div>
     </div>
     <div
-      className="flex flex-row space-x-4"
+      className="flex flex-row settings"
       data-testid="flex-row"
     >
       <div
-        className="bg-red frame"
+        className="frame bg-red"
       >
         <span>
           AD

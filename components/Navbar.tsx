@@ -69,13 +69,13 @@ const UserMenu = () => {
   });
 
   return (
-    <div ref={hoverableNode} className={"bg-red " + styles.frame}>
+    <div ref={hoverableNode} className={styles.frame + " bg-red"}>
       <span>{getInitials(userMock)}</span>
 
       {isHovering && (
-        <div className="absolute z-40 top-12 right-0">
+        <div className={styles.floater}>
           <div className={styles.arrow} />
-          <FlexCol className={styles.floater}>
+          <FlexCol className={styles.floaterContent}>
             <Link href="account">{t("components.navbar.account")}</Link>
             <Link href="logout">{t("components.navbar.logout")}</Link>
           </FlexCol>
@@ -107,15 +107,14 @@ const LangFlag = () => {
       />
 
       {isHovering && (
-        <div className="absolute z-40 top-12 right-0">
+        <div className={styles.floater}>
           <div className={styles.arrow} />
-          <FlexCol className={styles.floater}>
+          <FlexCol className={styles.floaterContent}>
             {langs.map((lang) => (
               <button
                 key={`lang-${lang.value}`}
                 type="button"
                 onClick={() => changeLanguage(lang.value)}
-                className="flex flex-row items-center space-x-2"
               >
                 <CountryFlag lang={lang.value} width={15} height={15} />
                 <span>{t(lang.key)}</span>
