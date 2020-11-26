@@ -7,17 +7,75 @@ exports[`<Layout /> should render correctly 1`] = `
 >
   <div
     className="flex flex-row container"
-    data-testid="navbar-div"
+    data-testid="flex-row"
   >
+    <div
+      style={
+        Object {
+          "boxSizing": "border-box",
+          "display": "inline-block",
+          "margin": 0,
+          "maxWidth": "100%",
+          "overflow": "hidden",
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "boxSizing": "border-box",
+            "display": "block",
+            "maxWidth": "100%",
+          }
+        }
+      >
+        <img
+          alt=""
+          aria-hidden={true}
+          role="presentation"
+          src="data:image/svg+xml;charset=utf-8,<svg width=\\"115\\" height=\\"31\\" xmlns=\\"http://www.w3.org/2000/svg\\" version=\\"1.1\\"/>"
+          style={
+            Object {
+              "display": "block",
+              "maxWidth": "100%",
+            }
+          }
+        />
+      </div>
+      <img
+        alt="Hypertube logo"
+        decoding="async"
+        src="/_next/image?url=%2Ficons%2Fhypertube.png&w=420&q=75"
+        srcSet="/_next/image?url=%2Ficons%2Fhypertube.png&w=320&q=75 1x, /_next/image?url=%2Ficons%2Fhypertube.png&w=420&q=75 2x"
+        style={
+          Object {
+            "border": "none",
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "height": 0,
+            "left": 0,
+            "margin": "auto",
+            "maxHeight": "100%",
+            "maxWidth": "100%",
+            "minHeight": "100%",
+            "minWidth": "100%",
+            "padding": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "visibility": "visible",
+            "width": 0,
+          }
+        }
+      />
+    </div>
     <div
       className="flex flex-row content"
       data-testid="flex-row"
     >
-      <h1>
-        HYPERTUBE
-      </h1>
       <a
-        data-testid="link-home"
         href="/"
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -58,7 +116,7 @@ exports[`<Layout /> should render correctly 1`] = `
       data-testid="flex-row"
     >
       <div
-        className="frame"
+        className="bg-red frame"
       >
         <span>
           AD
@@ -67,11 +125,7 @@ exports[`<Layout /> should render correctly 1`] = `
       <div
         className="frame"
         data-testid="lang-flag"
-      >
-        <span>
-          lg
-        </span>
-      </div>
+      />
     </div>
   </div>
   <div />

@@ -17,7 +17,7 @@ describe("Navbar", () => {
   test("links", () => {
     render(<Navbar />);
 
-    const nextLink = screen.getByTestId("link-home") as HTMLLinkElement;
+    const nextLink = screen.getByText(/Home/i) as HTMLLinkElement;
     expect(nextLink.href).toEqual("http://localhost/");
   });
 

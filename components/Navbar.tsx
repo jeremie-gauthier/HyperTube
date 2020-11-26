@@ -13,7 +13,7 @@ import styles from "./Navbar.module.scss";
 
 export default function Navbar(): JSX.Element {
   return (
-    <FlexRow className={styles.container} data-testid="navbar-div">
+    <FlexRow className={styles.container}>
       <BrandLogo />
       <FlexRow className={styles.content}>
         <Navigation />
@@ -42,9 +42,7 @@ const Navigation = () => {
   return (
     <>
       <Link href="/">
-        <a href="/" data-testid="link-home">
-          {t("components.navbar.home")}
-        </a>
+        <a href="/">{t("components.navbar.home")}</a>
       </Link>
       <Link href="/movies/favorites">{t("components.navbar.my_list")}</Link>
       <SearchInput />
@@ -84,14 +82,10 @@ const UserMenu = () => {
           <div className={styles.arrow} />
           <FlexCol className={styles.floater}>
             <Link href="account">
-              <a href="/account" data-testid="link-account">
-                {t("components.navbar.account")}
-              </a>
+              <a href="/account">{t("components.navbar.account")}</a>
             </Link>
             <Link href="logout">
-              <a href="/logout" data-testid="link-logout">
-                {t("components.navbar.logout")}
-              </a>
+              <a href="/logout">{t("components.navbar.logout")}</a>
             </Link>
           </FlexCol>
         </div>
