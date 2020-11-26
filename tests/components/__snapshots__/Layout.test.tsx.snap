@@ -72,7 +72,7 @@ exports[`<Layout /> should render correctly 1`] = `
       />
     </div>
     <div
-      className="flex flex-row navlinks"
+      className="flex flex-row items"
       data-testid="flex-row"
     >
       <a

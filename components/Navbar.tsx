@@ -15,9 +15,12 @@ export default function Navbar(): JSX.Element {
   return (
     <FlexRow className={styles.container}>
       <BrandLogo />
-      <FlexRow className={styles.navlinks}>
+
+      <FlexRow className={styles.items}>
         <Navigation />
+        <SearchInput />
       </FlexRow>
+
       <FlexRow className={styles.settings}>
         <UserMenu />
         <LangFlag />
@@ -43,7 +46,6 @@ const Navigation = () => {
     <>
       <Link href="/">{t("components.navbar.home")}</Link>
       <Link href="/movies/favorites">{t("components.navbar.my_list")}</Link>
-      <SearchInput />
     </>
   );
 };

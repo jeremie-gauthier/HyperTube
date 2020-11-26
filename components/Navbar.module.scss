@@ -9,8 +9,8 @@
     font-family: "Roboto Condensed", sans-serif;
   }
 
-  .navlinks {
-    @apply flex-1 items-baseline space-x-6 font-bold text-sm ml-8;
+  .items {
+    @apply flex-1 space-x-6 text-sm ml-8;
   }
 
   .settings {
@@ -23,22 +23,6 @@
     input {
       @apply px-1 text-sm bg-black placeholder-white;
     }
-  }
-
-  ::-webkit-input-placeholder {
-    font-weight: bold;
-  }
-
-  ::-moz-placeholder {
-    font-weight: bold;
-  }
-
-  :-ms-input-placeholder {
-    font-weight: bold;
-  }
-
-  ::placeholder {
-    font-weight: bold;
   }
 }
 
