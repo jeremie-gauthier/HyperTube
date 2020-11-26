@@ -14,13 +14,6 @@ test("renders correctly", () => {
 describe("Navbar", () => {
   const mockChangeLanguage = jest.spyOn(i18n, "changeLanguage");
 
-  test("links", () => {
-    render(<Navbar />);
-
-    const nextLink = screen.getByText(/Home/i) as HTMLLinkElement;
-    expect(nextLink.href).toEqual("http://localhost/");
-  });
-
   test("display user menu", () => {
     render(<Navbar />);
     expect(screen.queryByText(/Account/i)).not.toBeInTheDocument();

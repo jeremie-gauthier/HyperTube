@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActiveLink <ActiveLink /> should render correctly when active 1`] = `
+<div
+  className="inactive"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Home
+</div>
+`;
+
+exports[`ActiveLink <ActiveLink /> should render correctly when inactive 1`] = `
+<div
+  className="inactive"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Home
+</div>
+`;

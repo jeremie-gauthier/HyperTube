@@ -4,6 +4,14 @@ import i18n from "@/locales/i18n.ts";
 // setting lng to 'cimode' will set t function to always return the key.
 i18n.changeLanguage("cimode");
 
+jest.mock("next/router", () => ({
+  useRouter: jest.fn().mockImplementation(() => ({
+    useRouter: {
+      pathname: "/",
+    },
+  })),
+}));
+
 process.env = {
   ...process.env,
   __NEXT_IMAGE_OPTS: {

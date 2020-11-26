@@ -75,20 +75,20 @@ exports[`<Layout /> should render correctly 1`] = `
       className="flex flex-row items"
       data-testid="flex-row"
     >
-      <a
-        href="/"
+      <div
+        className="inactive"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
         components.navbar.home
-      </a>
-      <a
-        href="/movies/favorites"
+      </div>
+      <div
+        className="inactive"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
         components.navbar.my_list
-      </a>
+      </div>
       <div
         className="flex flex-row searchInput"
         data-testid="flex-row"
