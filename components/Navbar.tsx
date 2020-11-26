@@ -2,6 +2,7 @@ import React from "react";
 import { FlexRow, FlexCol } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
+import Image from "next/image";
 import userMock from "@/tests/__mocks__/user"; // MOCK
 import { getInitials } from "@/lib/helpers";
 import useHover from "@react-hook/hover";
@@ -13,8 +14,8 @@ import styles from "./Navbar.module.scss";
 export default function Navbar(): JSX.Element {
   return (
     <FlexRow className={styles.container} data-testid="navbar-div">
+      <BrandLogo />
       <FlexRow className={styles.content}>
-        <BrandLogo />
         <Navigation />
       </FlexRow>
       <FlexRow className="space-x-4">
@@ -25,7 +26,15 @@ export default function Navbar(): JSX.Element {
   );
 }
 
-const BrandLogo = () => <h1>HYPERTUBE</h1>;
+const BrandLogo = () => (
+  <Image
+    src="/icons/hypertube.png"
+    alt="Hypertube logo"
+    height={31}
+    width={115}
+    priority
+  />
+);
 
 const Navigation = () => {
   const { t } = useTranslation();

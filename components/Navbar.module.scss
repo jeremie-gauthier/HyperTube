@@ -1,7 +1,7 @@
 @import "../styles/theme.scss";
 
 .container {
-  @apply flex-1 h-16 p-4 bg-black items-baseline justify-between;
+  @apply flex-1 h-16 p-4 bg-black items-center justify-between;
 
   h1 {
     @apply font-bold text-red text-3xl;
@@ -10,7 +10,7 @@
   }
 
   .content {
-    @apply flex-1 items-baseline space-x-6 font-bold text-sm;
+    @apply flex-1 items-baseline space-x-6 font-bold text-sm ml-8;
   }
 
   .searchInput {
