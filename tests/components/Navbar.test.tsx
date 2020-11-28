@@ -5,6 +5,7 @@ import "@/tests/__mocks__/matchMedia";
 import Navbar from "@/components/Navbar";
 import i18n from "@/locales/i18n";
 import renderer from "react-test-renderer";
+import StoreContextProvider from "@/state/store";
 
 test("renders correctly", () => {
   const tree = renderer.create(<Navbar />).toJSON();
@@ -13,6 +14,18 @@ test("renders correctly", () => {
 
 describe("Navbar", () => {
   const mockChangeLanguage = jest.spyOn(i18n, "changeLanguage");
+
+  test("search input update its value through context", () => {
+    render(
+      <StoreContextProvider>
+        <Navbar />
+      </StoreContextProvider>,
+    );
+
+    const input = screen.getByPlaceholderText(/search/i);
+    userEvent.type(input, "Scrubs");
+    expect(input).toHaveValue("Scrubs");
+  });
 
   test("display user menu", () => {
     render(<Navbar />);
