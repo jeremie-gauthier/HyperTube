@@ -6,7 +6,7 @@ import Image from "next/image";
 import userMock from "@/tests/__mocks__/user"; // MOCK
 import { getInitials } from "@/lib/helpers";
 import useHover from "@react-hook/hover";
-import { langs, TLang } from "@/locales/i18n";
+import { langs } from "@/locales/i18n";
 import CountryFlag from "@/components/CountryFlag";
 import ActiveLink from "@/components/ActiveLink";
 import { RootState } from "@/state/types";
@@ -125,7 +125,7 @@ const UserMenu = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
 };
 
 const LangFlag = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
-  const currentLang = useSelector((state) => state.user.lang) as TLang;
+  const currentLang = useSelector((state) => state.user.lang) as string;
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const hoverableNode = React.useRef(null);
@@ -136,7 +136,7 @@ const LangFlag = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
     if (isHovering) setHoverStatus("LangFlag");
   }, [isHovering, setHoverStatus]);
 
-  const changeLanguage = (lang: TLang) => {
+  const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
     dispatch(setLang(lang));
   };
