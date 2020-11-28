@@ -22,7 +22,6 @@ export default function StoreProvider({
   const [state, dispatch] = React.useReducer(rootReducer, initialState);
   const store = React.useMemo(() => ({ state, dispatch }), [state]);
 
-  console.log(store.state);
   return (
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   );
