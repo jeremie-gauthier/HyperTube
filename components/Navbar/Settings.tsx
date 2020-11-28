@@ -12,38 +12,24 @@ import useDispatch from "@/hooks/useDispatch";
 import { setLang } from "@/state/users/actions";
 import styles from "./Navbar.module.scss";
 
-type HoverStatus = "idle" | "UserSettings" | "LangSettings";
-
 export default function Settings(): JSX.Element {
-  const [hoverStatus, setHoverStatus] = React.useState<HoverStatus>("idle");
-
   return (
     <FlexRow className={styles.settings}>
-      <UserSettings hoverStatus={hoverStatus} setHoverStatus={setHoverStatus} />
-      <LangSettings hoverStatus={hoverStatus} setHoverStatus={setHoverStatus} />
+      <UserSettings />
+      <LangSettings />
     </FlexRow>
   );
 }
 
-type SettingsProps = {
-  hoverStatus: HoverStatus;
-  setHoverStatus: React.Dispatch<React.SetStateAction<HoverStatus>>;
-};
-
-const UserSettings = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
+const UserSettings = () => {
   const hoverableNode = React.useRef(null);
-  const isHovering = useHover(hoverableNode, { leaveDelay: 500 });
-  const canDisplay = isHovering && hoverStatus !== "LangSettings";
-
-  React.useEffect(() => {
-    if (isHovering) setHoverStatus("UserSettings");
-  }, [isHovering, setHoverStatus]);
+  const isHovering = useHover(hoverableNode);
 
   return (
     <FlexCol ref={hoverableNode} className={`${styles.frame} bg-red`}>
       <span>{getInitials(userMock)}</span>
 
-      {canDisplay && (
+      {isHovering && (
         <div className={styles.floater}>
           <UserLinks />
         </div>
@@ -63,15 +49,10 @@ const UserLinks = () => {
   );
 };
 
-const LangSettings = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
+const LangSettings = () => {
   const currentLang = useSelector((state) => state.user.lang) as string;
   const hoverableNode = React.useRef(null);
-  const isHovering = useHover(hoverableNode, { leaveDelay: 500 });
-  const canDisplay = isHovering && hoverStatus !== "UserSettings";
-
-  React.useEffect(() => {
-    if (isHovering) setHoverStatus("LangSettings");
-  }, [isHovering, setHoverStatus]);
+  const isHovering = useHover(hoverableNode);
 
   return (
     <div ref={hoverableNode} className={styles.frame} data-testid="lang-flag">
@@ -82,7 +63,7 @@ const LangSettings = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
         className="rounded"
       />
 
-      {canDisplay && (
+      {isHovering && (
         <div className={styles.floater}>
           <LangOptions />
         </div>
