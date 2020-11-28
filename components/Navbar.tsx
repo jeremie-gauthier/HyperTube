@@ -6,9 +6,14 @@ import Image from "next/image";
 import userMock from "@/tests/__mocks__/user"; // MOCK
 import { getInitials } from "@/lib/helpers";
 import useHover from "@react-hook/hover";
-import { langs } from "@/locales/i18n";
+import { langs, TLang } from "@/locales/i18n";
 import CountryFlag from "@/components/CountryFlag";
 import ActiveLink from "@/components/ActiveLink";
+import { RootState } from "@/state/types";
+import useSelector from "@/hooks/useSelector";
+import useDispatch from "@/hooks/useDispatch";
+import { setLang } from "@/state/users/actions";
+import { setSearchInput } from "@/state/movies/actions";
 import Magnifier from "../public/icons/magnifier.svg";
 import styles from "./Navbar.module.scss";
 
@@ -66,12 +71,23 @@ const Navigation = () => {
 
 const SearchInput = () => {
   const { t } = useTranslation();
-  // I should probably use a context here for input
+  const searchInput = useSelector(
+    (state: RootState) => state.movie.searchInput,
+  ) as string;
+  const dispatch = useDispatch();
+
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchInput(evt.target.value));
+  };
 
   return (
     <FlexRow className={styles.searchInput}>
       <Magnifier />
-      <input placeholder={t("components.navbar.search")} />
+      <input
+        placeholder={t("components.navbar.search")}
+        value={searchInput}
+        onChange={handleChange}
+      />
     </FlexRow>
   );
 };
@@ -109,6 +125,8 @@ const UserMenu = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
 };
 
 const LangFlag = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
+  const currentLang = useSelector((state) => state.user.lang) as TLang;
+  const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const hoverableNode = React.useRef(null);
   const isHovering = useHover(hoverableNode, { leaveDelay: 500 });
@@ -118,14 +136,15 @@ const LangFlag = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
     if (isHovering) setHoverStatus("LangFlag");
   }, [isHovering, setHoverStatus]);
 
-  const changeLanguage = (lang: string) => {
+  const changeLanguage = (lang: TLang) => {
     i18n.changeLanguage(lang);
+    dispatch(setLang(lang));
   };
 
   return (
     <div ref={hoverableNode} className={styles.frame} data-testid="lang-flag">
       <CountryFlag
-        lang={i18n.language}
+        lang={currentLang}
         width={32}
         height={32}
         className="rounded"
