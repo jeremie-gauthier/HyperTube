@@ -1,4 +1,4 @@
-@import "../styles/theme.scss";
+@import "@/styles/theme.scss";
 
 .container {
   @apply flex-1 h-16 p-4 bg-black items-center justify-between text-white;
@@ -28,7 +28,7 @@
 
 .frame {
   @apply relative;
-  @apply flex items-center justify-center rounded h-8 w-8 cursor-pointer;
+  @apply items-center justify-center rounded h-8 w-8 cursor-pointer;
 
   span {
     @apply font-bold text-sm;
