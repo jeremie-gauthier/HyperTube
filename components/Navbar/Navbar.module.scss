@@ -36,7 +36,13 @@
 }
 
 .floater {
-  @apply absolute z-40 top-12 right-0;
+  @apply absolute z-40 top-8 right-0 pt-4;
+
+  &::before {
+    @apply absolute arrow-up top-2 right-2;
+
+    content: "";
+  }
 
   .floaterContent {
     @apply relative;
@@ -53,9 +59,5 @@
     span {
       @apply hover:underline;
     }
-  }
-
-  .arrow {
-    @apply absolute arrow-up -top-3 right-2;
   }
 }

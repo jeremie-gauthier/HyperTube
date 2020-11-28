@@ -45,7 +45,6 @@ const UserSettings = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
 
       {canDisplay && (
         <div className={styles.floater}>
-          <div className={styles.arrow} />
           <UserLinks />
         </div>
       )}
@@ -85,7 +84,6 @@ const LangSettings = ({ hoverStatus, setHoverStatus }: SettingsProps) => {
 
       {canDisplay && (
         <div className={styles.floater}>
-          <div className={styles.arrow} />
           <LangOptions />
         </div>
       )}
