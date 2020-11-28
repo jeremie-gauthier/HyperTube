@@ -25,3 +25,7 @@ A utility-first CSS framework for rapidly building custom user interfaces.
 ## [@react-hook/hover](https://www.npmjs.com/package/@react-hook/hover)
 
 A custom hook that detects whether the mouse is hovering an element.
+
+## [react-combine-reducers](https://www.npmjs.com/package/react-combine-reducers)
+
+This module contains a handy combineReducers function to use in conjunction with the React hook useReducer.
