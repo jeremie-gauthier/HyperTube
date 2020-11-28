@@ -7,7 +7,6 @@ exports[`<Layout /> should render correctly 1`] = `
 >
   <div
     className="flex flex-row container"
-    data-testid="flex-row"
   >
     <a
       className="flex"
@@ -81,7 +80,6 @@ exports[`<Layout /> should render correctly 1`] = `
     </a>
     <div
       className="flex flex-row items"
-      data-testid="flex-row"
     >
       <div
         className="inactive"
@@ -99,7 +97,6 @@ exports[`<Layout /> should render correctly 1`] = `
       </div>
       <div
         className="flex flex-row searchInput"
-        data-testid="flex-row"
       >
         <svg
           fill="none"
@@ -122,10 +119,9 @@ exports[`<Layout /> should render correctly 1`] = `
     </div>
     <div
       className="flex flex-row settings"
-      data-testid="flex-row"
     >
       <div
-        className="frame bg-red"
+        className="flex flex-col frame bg-red"
       >
         <span>
           AD
