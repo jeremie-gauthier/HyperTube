@@ -18,7 +18,10 @@ function ActiveLink({ children, href }: ActiveLinkProps): JSX.Element {
 
   return (
     <Link href={href}>
-      <div className={activeLink}>{children}</div>
+      <div className={activeLink}>
+        {children}
+        <div className={styles.border} />
+      </div>
     </Link>
   );
 }

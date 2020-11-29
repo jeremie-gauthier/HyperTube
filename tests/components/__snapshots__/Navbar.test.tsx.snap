@@ -83,6 +83,9 @@ exports[`renders correctly 1`] = `
       onMouseEnter={[Function]}
     >
       components.navbar.home
+      <div
+        className="border"
+      />
     </div>
     <div
       className="inactive"
@@ -90,6 +93,9 @@ exports[`renders correctly 1`] = `
       onMouseEnter={[Function]}
     >
       components.navbar.my_list
+      <div
+        className="border"
+      />
     </div>
     <div
       className="flex flex-row searchInput"
