@@ -46,18 +46,14 @@
 
   .floaterContent {
     @apply relative;
-    @apply bg-black opacity-75 py-2 px-4 text-sm space-y-2 min-w-max border border-grey-light;
+    @apply bg-grey-dark opacity-75 text-sm min-w-max border border-grey-light;
 
     a {
-      @apply font-bold hover:underline;
+      @apply font-bold space-x-2 hover:bg-black pl-3 pr-6 py-2;
     }
 
     button {
-      @apply flex flex-row items-center space-x-2;
-    }
-
-    span {
-      @apply hover:underline;
+      @apply flex flex-row items-center space-x-2 hover:bg-black pl-3 pr-6 py-2;
     }
   }
 }
