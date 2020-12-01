@@ -1,9 +1,9 @@
 {
 	"navbar": {
-		"account": "",
+		"account": "アカウント",
 		"home": "",
 		"logout": "",
-		"my_list": "",
-		"search": ""
+		"my_list": "私のリスト",
+		"search": "映画を検索する"
 	}
 }

@@ -10,18 +10,18 @@
   }
 
   .items {
-    @apply flex-1 space-x-6 text-sm ml-8;
+    @apply flex-1 space-x-6 text-sm ml-8 h-6 items-center;
   }
 
   .settings {
     @apply space-x-4;
   }
 
-  .searchInput {
-    @apply items-baseline space-x-1;
+  .searchGroup {
+    @apply items-center space-x-2 border border-white p-1;
 
     input {
-      @apply px-1 text-sm bg-black placeholder-white;
+      @apply text-sm bg-black outline-none;
     }
   }
 }

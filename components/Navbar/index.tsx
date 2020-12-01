@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React from "react";
 import { FlexRow } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
@@ -8,7 +9,9 @@ import { RootState } from "@/state/types";
 import useSelector from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setSearchInput } from "@/state/movies/actions";
+import classNames from "classnames";
 import Magnifier from "../../public/icons/magnifier.svg";
+import Cross from "../../public/icons/cross.svg";
 import styles from "./Navbar.module.scss";
 import Settings from "./Settings";
 
@@ -63,19 +66,40 @@ const SearchInput = () => {
     (state: RootState) => state.movie.searchInput,
   ) as string;
   const dispatch = useDispatch();
+  const isVisible = searchInput.length > 0;
+  const [showInput, setShowInput] = React.useState(isVisible);
+  const cancelSearch = classNames({
+    "cursor-pointer": true,
+    invisible: !isVisible,
+  });
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchInput(evt.target.value));
+  const handleSearch = () => {
+    console.log(`Request movies with name [${searchInput}]`);
   };
 
-  return (
-    <FlexRow className={styles.searchInput}>
-      <Magnifier />
+  return showInput ? (
+    <FlexRow className={styles.searchGroup}>
+      <Magnifier height={16} width={16} onClick={handleSearch} />
       <input
         placeholder={t("components.navbar.search")}
         value={searchInput}
-        onChange={handleChange}
+        onChange={(evt) => dispatch(setSearchInput(evt.target.value))}
+        onBlur={() => !isVisible && setShowInput(false)}
+        autoFocus
+      />
+      <Cross
+        height={16}
+        width={16}
+        className={cancelSearch}
+        onClick={() => dispatch(setSearchInput(""))}
       />
     </FlexRow>
+  ) : (
+    <Magnifier
+      height={16}
+      width={16}
+      onClick={() => setShowInput(true)}
+      className="cursor-pointer self-center"
+    />
   );
 };

@@ -1,9 +1,9 @@
 {
 	"navbar": {
-		"account": "",
+		"account": "Mi cuenta",
 		"home": "",
 		"logout": "",
-		"my_list": "",
-		"search": ""
+		"my_list": "Mi lista",
+		"search": "Buscar una película"
 	}
 }
