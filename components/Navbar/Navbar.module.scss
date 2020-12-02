@@ -3,12 +3,6 @@
 .container {
   @apply flex-1 h-16 p-4 bg-black items-center justify-between text-white;
 
-  h1 {
-    @apply font-bold text-red text-3xl;
-
-    font-family: "Roboto Condensed", sans-serif;
-  }
-
   .items {
     @apply flex-1 space-x-6 text-sm ml-8 h-6 items-center;
   }
