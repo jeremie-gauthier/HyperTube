@@ -33,3 +33,7 @@ This module contains a handy combineReducers function to use in conjunction with
 ## [react-responsive](https://www.npmjs.com/package/react-responsive)
 
 This module contains useful hook to make responsive design and tests.
+
+## [use-onclickoutside](https://www.npmjs.com/package/use-onclickoutside)
+
+React hook for listening for clicks outside of an element.

@@ -26,7 +26,8 @@
     "react-i18next": "^11.7.3",
     "react-responsive": "^8.2.0",
     "sass": "^1.29.0",
-    "tailwindcss": "^2.0.1"
+    "tailwindcss": "^2.0.1",
+    "use-onclickoutside": "^0.3.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.6",
