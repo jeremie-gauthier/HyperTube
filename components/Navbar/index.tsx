@@ -1,42 +1,120 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React from "react";
-import { FlexRow } from "@/components/Flex";
+import { FlexCol, FlexRow } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import Image from "next/image";
 import ActiveLink from "@/components/ActiveLink";
 import { RootState } from "@/state/types";
-import useSelector from "@/hooks/useSelector";
+import useSelector, { useResponsiveAttribute } from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setSearchInput } from "@/state/movies/actions";
 import classNames from "classnames";
+import userMock from "@/tests/__mocks__/user"; // MOCK
+import UserIcon from "@/components/UserIcon";
+import CountryFlag from "@/components/CountryFlag";
 import Magnifier from "../../public/icons/magnifier.svg";
 import Cross from "../../public/icons/cross.svg";
+import MenuBurger from "../../public/icons/menu-burger.svg";
 import styles from "./Navbar.module.scss";
 import Settings from "./Settings";
 
 export default function Navbar(): JSX.Element {
+  const isTabletOrMobile = useResponsiveAttribute();
+
   return (
     <FlexRow className={styles.container}>
       <BrandLogo />
 
-      <FlexRow className={styles.items}>
-        <NavLinks />
-        <SearchInput />
-      </FlexRow>
-
-      <Settings />
+      {isTabletOrMobile ? <MobileView /> : <DesktopView />}
     </FlexRow>
   );
 }
 
-const NavLinks = () => {
+const MobileView = (): JSX.Element => {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <FlexRow className={`relative ${styles.items} justify-end`}>
+        <SearchInput />
+        {open ? (
+          <Cross height={20} width={20} onClick={() => setOpen(false)} />
+        ) : (
+          <MenuBurger height={20} width={20} onClick={() => setOpen(true)} />
+        )}
+      </FlexRow>
+
+      {open && <DropdownMenu close={() => setOpen(false)} />}
+    </>
+  );
+};
+
+type DropdownMenuProps = {
+  close: () => void;
+};
+
+const DropdownMenu = ({ close }: DropdownMenuProps) => {
+  const currentLang = useSelector((state) => state.user.lang) as string;
+  const { t } = useTranslation();
+
+  return (
+    <FlexCol className={styles.dropdownMenu}>
+      <NavLinks activeClassName={styles.activeLink} onClick={close} />
+      <hr />
+      <ActiveLink
+        href="/account"
+        className={styles.linkWithIcon}
+        activeClassName={styles.activeLink}
+      >
+        <UserIcon user={userMock} />
+        <span>{t("components.navbar.account")}</span>
+      </ActiveLink>
+      <ActiveLink
+        href="/account#languages"
+        className={styles.linkWithIcon}
+        activeClassName={styles.activeLink}
+      >
+        <CountryFlag lang={currentLang} className={styles.countryFlag} />
+        <span>{t("common.lang.change_language")}</span>
+      </ActiveLink>
+      <hr />
+      <Link href="logout">{t("components.navbar.logout")}</Link>
+    </FlexCol>
+  );
+};
+
+const DesktopView = (): JSX.Element => (
+  <>
+    <FlexRow className={styles.items}>
+      <NavLinks />
+      <SearchInput />
+    </FlexRow>
+
+    <Settings />
+  </>
+);
+
+const NavLinks = ({ ...rest }) => {
   const { t } = useTranslation();
 
   return (
     <>
-      <ActiveLink href="/">{t("components.navbar.home")}</ActiveLink>
-      <ActiveLink href="/movies/favorites">
+      <ActiveLink
+        activeClassName={styles.activeBorder}
+        inactiveClassName={styles.inactiveBorder}
+        href="/"
+        {...rest}
+      >
+        {t("components.navbar.home")}
+      </ActiveLink>
+      <ActiveLink
+        activeClassName={styles.activeBorder}
+        inactiveClassName={styles.inactiveBorder}
+        href="/movies"
+        // href="/movies/favorites"
+        {...rest}
+      >
         {t("components.navbar.my_list")}
       </ActiveLink>
     </>
@@ -45,20 +123,28 @@ const NavLinks = () => {
 
 // The <a> markup is mandatory here to avoid errors
 // https://github.com/vercel/next.js/issues/7915
-const BrandLogo = () => (
-  <Link href="/">
-    <a href="/" className="flex">
-      <Image
-        src="/icons/hypertube.png"
-        alt="Hypertube logo"
-        height={31}
-        width={115}
-        priority
-        className="cursor-pointer"
-      />
-    </a>
-  </Link>
-);
+const BrandLogo = () => {
+  const isTabletOrMobile = useResponsiveAttribute();
+  const logo = isTabletOrMobile
+    ? "/icons/hypertube-short.png"
+    : "/icons/hypertube.png";
+  const width = isTabletOrMobile ? 17 : 115;
+
+  return (
+    <Link href="/">
+      <a href="/" className="flex">
+        <Image
+          src={logo}
+          alt="Hypertube logo"
+          width={width}
+          height={31}
+          priority
+          className="cursor-pointer"
+        />
+      </a>
+    </Link>
+  );
+};
 
 const SearchInput = () => {
   const { t } = useTranslation();
@@ -77,6 +163,11 @@ const SearchInput = () => {
     console.log(`Request movies with name [${searchInput}]`);
   };
 
+  const handleClose = () => {
+    dispatch(setSearchInput(""));
+    setShowInput(false);
+  };
+
   return showInput ? (
     <FlexRow className={styles.searchGroup}>
       <Magnifier height={16} width={16} onClick={handleSearch} />
@@ -91,7 +182,7 @@ const SearchInput = () => {
         height={16}
         width={16}
         className={cancelSearch}
-        onClick={() => dispatch(setSearchInput(""))}
+        onClick={handleClose}
       />
     </FlexRow>
   ) : (

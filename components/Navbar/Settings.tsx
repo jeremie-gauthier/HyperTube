@@ -3,13 +3,13 @@ import { FlexRow, FlexCol } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import userMock from "@/tests/__mocks__/user"; // MOCK
-import { getInitials } from "@/lib/helpers";
 import useHover from "@react-hook/hover";
 import { langs } from "@/locales/i18n";
 import CountryFlag from "@/components/CountryFlag";
 import useSelector from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setLang } from "@/state/users/actions";
+import UserIcon from "@/components/UserIcon";
 import styles from "./Navbar.module.scss";
 
 export default function Settings(): JSX.Element {
@@ -26,8 +26,8 @@ const UserSettings = () => {
   const isHovering = useHover(hoverableNode);
 
   return (
-    <FlexCol ref={hoverableNode} className={`${styles.frame} bg-red`}>
-      <span>{getInitials(userMock)}</span>
+    <FlexCol ref={hoverableNode} className="relative">
+      <UserIcon user={userMock} />
 
       {isHovering && (
         <div className={styles.floater}>
@@ -56,12 +56,7 @@ const LangSettings = () => {
 
   return (
     <div ref={hoverableNode} className={styles.frame} data-testid="lang-flag">
-      <CountryFlag
-        lang={currentLang}
-        width={32}
-        height={32}
-        className="rounded"
-      />
+      <CountryFlag lang={currentLang} className={styles.countryFlag} />
 
       {isHovering && (
         <div className={styles.floater}>

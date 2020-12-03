@@ -6,22 +6,35 @@ import styles from "./ActiveLink.module.scss";
 type ActiveLinkProps = {
   children: React.ReactNode;
   href: string;
+} & Partial<DefaultProps>;
+
+type DefaultProps = {
+  className: string;
+  inactiveClassName: string;
+  activeClassName: string;
 };
 
-function ActiveLink({ children, href }: ActiveLinkProps): JSX.Element {
+function ActiveLink({
+  children,
+  href,
+  className = "",
+  inactiveClassName = "",
+  activeClassName = "",
+  ...rest
+}: ActiveLinkProps): JSX.Element {
   const router = useRouter();
   const isActive = router.pathname === href;
   const activeLink = classNames({
-    [styles.inactive]: !isActive,
-    [styles.active]: isActive,
+    [className]: true,
+    [`${styles.inactive} ${inactiveClassName}`]: !isActive,
+    [`${styles.active} ${activeClassName}`]: isActive,
   });
 
   return (
     <Link href={href}>
-      <div className={activeLink}>
+      <a className={activeLink} {...rest}>
         {children}
-        <div className={styles.border} />
-      </div>
+      </a>
     </Link>
   );
 }
