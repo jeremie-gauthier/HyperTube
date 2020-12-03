@@ -81,67 +81,58 @@ exports[`<Layout /> should render correctly 1`] = `
     <div
       className="flex flex-row items"
     >
-      <div
-        className="inactive"
+      <a
+        className=" inactive inactiveBorder"
+        href="/"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
         components.navbar.home
-        <div
-          className="border"
-        />
-      </div>
-      <div
-        className="inactive"
+      </a>
+      <a
+        className=" inactive inactiveBorder"
+        href="/movies"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
         components.navbar.my_list
-        <div
-          className="border"
-        />
-      </div>
-      <div
-        className="flex flex-row searchInput"
+      </a>
+      <svg
+        className="cursor-pointer self-center"
+        fill="none"
+        height={16}
+        onClick={[Function]}
+        viewBox="0 0 11 12"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          fill="none"
-          height="12"
-          viewBox="0 0 11 12"
-          width="11"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.848 10.375L8.707 8.038a.494.494 0 0 0-.365-.164h-.35a5.138 5.138 0 0 0 .945-3c0-2.692-2-4.874-4.469-4.874C2 0 0 2.182 0 4.875c0 2.692 2 4.874 4.468 4.874a4.217 4.217 0 0 0 2.75-1.031V9.1c0 .15.054.293.15.398l2.142 2.337c.202.22.529.22.729 0l.607-.663a.602.602 0 0 0 .002-.797zm-6.38-2.5c-1.518 0-2.75-1.341-2.75-3 0-1.657 1.23-3 2.75-3s2.75 1.34 2.75 3c0 1.656-1.229 3-2.75 3z"
-            fill="#fff"
-          />
-        </svg>
-        <input
-          onChange={[Function]}
-          placeholder="components.navbar.search"
-          value=""
+        <path
+          d="M10.848 10.375L8.707 8.038a.494.494 0 0 0-.365-.164h-.35a5.138 5.138 0 0 0 .945-3c0-2.692-2-4.874-4.469-4.874C2 0 0 2.182 0 4.875c0 2.692 2 4.874 4.468 4.874a4.217 4.217 0 0 0 2.75-1.031V9.1c0 .15.054.293.15.398l2.142 2.337c.202.22.529.22.729 0l.607-.663a.602.602 0 0 0 .002-.797zm-6.38-2.5c-1.518 0-2.75-1.341-2.75-3 0-1.657 1.23-3 2.75-3s2.75 1.34 2.75 3c0 1.656-1.229 3-2.75 3z"
+          fill="#fff"
         />
-      </div>
+      </svg>
     </div>
     <div
       className="flex flex-row settings"
     >
       <div
-        className="flex flex-col frame bg-red"
+        className="flex flex-col relative"
       >
-        <span>
-          AD
-        </span>
+        <div
+          className="flex flex-col frame"
+        >
+          <span>
+            AD
+          </span>
+        </div>
       </div>
       <div
         className="frame"
         data-testid="lang-flag"
       >
         <svg
-          className="rounded"
-          height={32}
+          className="countryFlag"
           viewBox="0 0 512 512"
-          width={32}
           xmlns="http://www.w3.org/2000/svg"
         >
           <g
