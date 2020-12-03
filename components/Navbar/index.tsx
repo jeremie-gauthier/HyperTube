@@ -39,9 +39,17 @@ const MobileView = (): JSX.Element => {
       <FlexRow className={`relative ${styles.items} justify-end`}>
         <SearchInput />
         {open ? (
-          <Cross height={20} width={20} onClick={() => setOpen(false)} />
+          <Cross
+            className="h-5 w-5"
+            onClick={() => setOpen(false)}
+            data-testid="cross-icon"
+          />
         ) : (
-          <MenuBurger height={20} width={20} onClick={() => setOpen(true)} />
+          <MenuBurger
+            className="h-5 w-5"
+            onClick={() => setOpen(true)}
+            data-testid="menuburger-icon"
+          />
         )}
       </FlexRow>
 
