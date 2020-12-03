@@ -2,7 +2,8 @@ import { Schema } from "mongoose";
 
 export type TUser = {
   id: number;
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
 };
 
@@ -11,7 +12,11 @@ export const UserSchema: Schema = new Schema({
     type: Number,
     required: true,
   },
-  name: {
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
     type: String,
     required: true,
   },

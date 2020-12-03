@@ -1,0 +1,9 @@
+{
+	"navbar": {
+		"account": "Mon compte",
+		"home": "Accueil",
+		"logout": "Se déconnecter",
+		"my_list": "Ma liste",
+		"search": "Rechercher un film"
+	}
+}

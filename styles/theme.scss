@@ -1,0 +1,13 @@
+.body {
+  @apply h-screen text-white p-0 m-0;
+
+  font-family: "Roboto", sans-serif;
+}
+
+.arrow-up {
+  @apply w-0 h-0;
+
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 0.5rem solid white;
+}

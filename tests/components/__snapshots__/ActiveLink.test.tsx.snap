@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActiveLink <ActiveLink /> should render correctly 1`] = `
+<a
+  className=" inactive "
+  href="/"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Home
+</a>
+`;

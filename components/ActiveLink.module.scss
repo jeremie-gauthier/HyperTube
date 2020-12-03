@@ -1,0 +1,21 @@
+.active {
+  @apply relative font-bold cursor-default;
+
+  .border {
+    @apply absolute -bottom-6 w-full bg-white;
+
+    height: 0.33rem;
+  }
+}
+
+.inactive {
+  @apply relative cursor-pointer;
+
+  &:hover {
+    .border {
+      @apply absolute -bottom-6 w-full bg-white duration-300;
+
+      height: 0.33rem;
+    }
+  }
+}
