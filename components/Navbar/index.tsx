@@ -177,7 +177,11 @@ const SearchInput = () => {
 
   return showInput ? (
     <FlexRow className={styles.searchGroup}>
-      <Magnifier className="h-4 w-4" onClick={handleSearch} />
+      <Magnifier
+        className="h-4 w-4"
+        onClick={handleSearch}
+        data-testid="submit-search"
+      />
       <input
         placeholder={t("components.navbar.search")}
         value={searchInput}
@@ -185,7 +189,11 @@ const SearchInput = () => {
         onBlur={() => !isVisible && setShowInput(false)}
         autoFocus
       />
-      <Cross className={cancelSearch} onClick={handleClose} />
+      <Cross
+        className={cancelSearch}
+        onClick={handleClose}
+        data-testid="close-search"
+      />
     </FlexRow>
   ) : (
     <Magnifier

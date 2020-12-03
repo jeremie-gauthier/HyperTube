@@ -4,15 +4,54 @@ import userEvent from "@testing-library/user-event";
 import "@/tests/__mocks__/matchMedia";
 import Navbar from "@/components/Navbar";
 import i18n from "@/locales/i18n";
-import renderer from "react-test-renderer";
 import StoreContextProvider from "@/state/store";
+import { Context as ResponsiveContext } from "react-responsive";
 
-test("renders correctly", () => {
-  const tree = renderer.create(<Navbar />).toJSON();
-  expect(tree).toMatchSnapshot();
+describe("Snapshots", () => {
+  test("renders correctly on desktop", () => {
+    const { container: desktop } = render(
+      <ResponsiveContext.Provider value={{ width: 1920 }}>
+        <StoreContextProvider>
+          <Navbar />
+        </StoreContextProvider>
+      </ResponsiveContext.Provider>,
+    );
+    expect(desktop).toMatchSnapshot();
+  });
+
+  test("renders correctly on mobile", () => {
+    const { container: mobile } = render(
+      <ResponsiveContext.Provider value={{ width: 560 }}>
+        <StoreContextProvider>
+          <Navbar />
+        </StoreContextProvider>
+      </ResponsiveContext.Provider>,
+    );
+    expect(mobile).toMatchSnapshot();
+    userEvent.click(screen.getByTestId("menuburger-icon"));
+    expect(mobile).toMatchSnapshot();
+  });
 });
 
-describe("Navbar", () => {
+describe("Navbar on mobile", () => {
+  test("burger menu ", () => {
+    render(
+      <ResponsiveContext.Provider value={{ width: 560 }}>
+        <StoreContextProvider>
+          <Navbar />
+        </StoreContextProvider>
+      </ResponsiveContext.Provider>,
+    );
+
+    expect(screen.queryByTestId("cross-icon")).not.toBeInTheDocument();
+    expect(screen.getByTestId("menuburger-icon")).toBeInTheDocument();
+    userEvent.click(screen.getByTestId("menuburger-icon"));
+    expect(screen.getByTestId("cross-icon")).toBeInTheDocument();
+    expect(screen.queryByTestId("menuburger-icon")).not.toBeInTheDocument();
+  });
+});
+
+describe("Navbar on desktop", () => {
   const mockChangeLanguage = jest.spyOn(i18n, "changeLanguage");
 
   test("search input update its value through context", () => {
@@ -22,9 +61,14 @@ describe("Navbar", () => {
       </StoreContextProvider>,
     );
 
+    expect(screen.queryByPlaceholderText(/search/i)).not.toBeInTheDocument();
+    userEvent.click(screen.getByTestId("magnifier-icon"));
     const input = screen.getByPlaceholderText(/search/i);
     userEvent.type(input, "Scrubs");
     expect(input).toHaveValue("Scrubs");
+    userEvent.click(screen.getByTestId("submit-search"));
+    userEvent.click(screen.getByTestId("close-search"));
+    expect(screen.queryByTestId(/search/i)).not.toBeInTheDocument();
   });
 
   test("display user menu", () => {

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    class="flex flex-col frame"
+  >
+    <span>
+      AD
+    </span>
+  </div>
+</div>
+`;

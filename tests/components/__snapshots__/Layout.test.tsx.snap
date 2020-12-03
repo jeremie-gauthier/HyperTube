@@ -91,19 +91,20 @@ exports[`<Layout /> should render correctly 1`] = `
       </a>
       <a
         className=" inactive inactiveBorder"
-        href="/movies"
+        href="/movies/favorites"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
         components.navbar.my_list
       </a>
       <svg
-        className="cursor-pointer self-center"
+        className="h-4 w-4 cursor-pointer self-center"
+        data-testid="magnifier-icon"
         fill="none"
-        height={16}
+        height="12"
         onClick={[Function]}
         viewBox="0 0 11 12"
-        width={16}
+        width="11"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
