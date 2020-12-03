@@ -20,4 +20,5 @@ export type RootReducer = (
 export type RootContext = {
   state: RootState;
   dispatch: React.Dispatch<StoreContextActions>;
+  isTabletOrMobile: boolean;
 };
