@@ -154,7 +154,7 @@ const SearchInput = () => {
   const isVisible = searchInput.length > 0;
   const [showInput, setShowInput] = React.useState(isVisible);
   const cancelSearch = classNames({
-    "cursor-pointer h-8 w-8": true,
+    "cursor-pointer h-4 w-4": true,
     invisible: !isVisible,
   });
 
