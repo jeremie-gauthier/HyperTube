@@ -111,8 +111,7 @@ const NavLinks = ({ ...rest }) => {
       <ActiveLink
         activeClassName={styles.activeBorder}
         inactiveClassName={styles.inactiveBorder}
-        href="/movies"
-        // href="/movies/favorites"
+        href="/movies/favorites"
         {...rest}
       >
         {t("components.navbar.my_list")}
@@ -155,7 +154,7 @@ const SearchInput = () => {
   const isVisible = searchInput.length > 0;
   const [showInput, setShowInput] = React.useState(isVisible);
   const cancelSearch = classNames({
-    "cursor-pointer": true,
+    "cursor-pointer h-8 w-8": true,
     invisible: !isVisible,
   });
 
@@ -170,7 +169,7 @@ const SearchInput = () => {
 
   return showInput ? (
     <FlexRow className={styles.searchGroup}>
-      <Magnifier height={16} width={16} onClick={handleSearch} />
+      <Magnifier className="h-8 w-8" onClick={handleSearch} />
       <input
         placeholder={t("components.navbar.search")}
         value={searchInput}
@@ -178,19 +177,13 @@ const SearchInput = () => {
         onBlur={() => !isVisible && setShowInput(false)}
         autoFocus
       />
-      <Cross
-        height={16}
-        width={16}
-        className={cancelSearch}
-        onClick={handleClose}
-      />
+      <Cross className={cancelSearch} onClick={handleClose} />
     </FlexRow>
   ) : (
     <Magnifier
-      height={16}
-      width={16}
       onClick={() => setShowInput(true)}
-      className="cursor-pointer self-center"
+      className="h-8 w-8 cursor-pointer self-center"
+      data-testid="magnifier-icon"
     />
   );
 };
