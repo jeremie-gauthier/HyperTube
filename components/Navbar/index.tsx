@@ -169,7 +169,7 @@ const SearchInput = () => {
 
   return showInput ? (
     <FlexRow className={styles.searchGroup}>
-      <Magnifier className="h-8 w-8" onClick={handleSearch} />
+      <Magnifier className="h-4 w-4" onClick={handleSearch} />
       <input
         placeholder={t("components.navbar.search")}
         value={searchInput}
@@ -182,7 +182,7 @@ const SearchInput = () => {
   ) : (
     <Magnifier
       onClick={() => setShowInput(true)}
-      className="h-8 w-8 cursor-pointer self-center"
+      className="h-4 w-4 cursor-pointer self-center"
       data-testid="magnifier-icon"
     />
   );
