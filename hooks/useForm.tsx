@@ -20,7 +20,6 @@ export default function useForm<V>(
   const [errors, setErrors] = React.useState<FormErrors<V>>({});
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
-  console.log(values, errors);
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     if (values) {
       evt.persist();
