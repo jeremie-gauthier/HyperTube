@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"authentication": "Authentification",
+		"login": {
+			"connection": "S'identifier"
+		}
+	}
+}

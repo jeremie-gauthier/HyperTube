@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"authentication": "認証",
+		"login": {
+			"connection": "ログイン"
+		}
+	}
+}

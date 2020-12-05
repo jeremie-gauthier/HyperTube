@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"authentication": "Authentication",
+		"login": {
+			"connection": "Login"
+		}
+	}
+}

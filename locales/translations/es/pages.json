@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"authentication": "Autenticación",
+		"login": {
+			"connection": "Iniciar sesión"
+		}
+	}
+}
