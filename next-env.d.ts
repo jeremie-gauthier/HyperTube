@@ -1,5 +1,6 @@
 declare module "*.scss";
 declare module "*.svg";
+declare module "*.jpg";
 
 type NextImageOpts = {
   deviceSizes: number[];
