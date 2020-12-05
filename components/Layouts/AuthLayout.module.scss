@@ -1,0 +1,11 @@
+.layout {
+  @apply h-screen justify-center items-center;
+}
+
+.brandLogo {
+  @apply absolute top-2 left-2;
+}
+
+.container {
+  @apply bg-black opacity-75 rounded;
+}
