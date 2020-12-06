@@ -1,4 +1,7 @@
 {
+	"forms": {
+		"required": "This field is required"
+	},
 	"lang": {
 		"change_language": "Change language",
 		"english": "English",
