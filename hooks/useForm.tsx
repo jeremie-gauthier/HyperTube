@@ -2,7 +2,9 @@ import React from "react";
 
 type FormCallback<V> = (values: V) => void;
 type FormResolver<V> = (values: V) => FormErrors<V>;
-export type FormErrors<V> = { [P in keyof V]?: string };
+export type FormErrors<V> = {
+  [P in keyof V]?: string;
+};
 
 type HookForm<V> = {
   values: V;
