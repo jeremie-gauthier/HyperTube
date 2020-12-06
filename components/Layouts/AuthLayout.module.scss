@@ -7,5 +7,7 @@
 }
 
 .container {
-  @apply bg-black opacity-75 rounded;
+  @apply z-10 rounded;
+
+  background-color: rgba(0, 0, 0, 0.75);
 }
