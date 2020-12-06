@@ -31,7 +31,10 @@ export default function useForm<V>(
       setIsSubmitting(false);
       setValues((oldValues) => ({
         ...oldValues,
-        [evt.target.name]: evt.target.value,
+        [evt.target.name]:
+          evt.target.type === "checkbox"
+            ? evt.target.checked
+            : evt.target.value,
       }));
     }
   };
