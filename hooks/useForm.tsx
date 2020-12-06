@@ -36,7 +36,7 @@ export default function useForm<V>(
     }
   }, [resolver, isSubmitting, values]);
 
-  const handleSubmit = (evt: React.FormEvent<HTMLButtonElement>): void => {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
     setErrors(resolver(values));
     setIsSubmitting(true);
