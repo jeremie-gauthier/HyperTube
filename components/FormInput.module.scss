@@ -2,7 +2,15 @@
   @apply relative;
 
   label {
-    @apply absolute z-10 -top-2 left-2 px-1 bg-black text-xs;
+    @apply absolute z-10 -top-2 left-2 px-1 text-xs rounded-b;
+
+    // prettier-ignore
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(34, 34, 34, 1) 50%
+      );
   }
 
   input {
