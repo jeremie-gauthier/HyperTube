@@ -14,7 +14,7 @@
   }
 
   input {
-    @apply relative border rounded p-3 outline-none;
+    @apply relative border rounded p-3 outline-none min-w-full;
   }
 
   .inputError {

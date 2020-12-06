@@ -1,9 +1,15 @@
 .layout {
   @apply h-screen justify-center items-center;
+
+  &::before {
+    @apply absolute z-10 inset-0 bg-black opacity-50;
+
+    content: "";
+  }
 }
 
 .brandLogo {
-  @apply absolute top-2 left-2;
+  @apply absolute top-2 left-2 z-20;
 }
 
 .container {

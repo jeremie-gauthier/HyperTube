@@ -1,5 +1,7 @@
 .container {
-  @apply py-8 px-12 text-sm;
+  @apply py-14 px-16 text-sm;
+
+  min-width: 26rem;
 
   h1 {
     @apply font-bold mb-7;
@@ -20,7 +22,7 @@
   }
 
   button {
-    @apply bg-red rounded w-full py-2 font-extrabold mt-8 text-base;
+    @apply bg-red rounded w-full py-3 font-extrabold mt-8 text-base;
   }
 }
 
