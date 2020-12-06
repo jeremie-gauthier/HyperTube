@@ -19,18 +19,43 @@ import commonEN from "./translations/en/common.json";
 import commonES from "./translations/es/common.json";
 import commonJA from "./translations/ja/common.json";
 
+import modelsFR from "./translations/fr/models.json";
+import modelsEN from "./translations/en/models.json";
+import modelsES from "./translations/es/models.json";
+import modelsJA from "./translations/ja/models.json";
+
 const LANGUAGES = {
   fr: {
-    translation: { pages: pagesFR, components: componentsFR, common: commonFR },
+    translation: {
+      pages: pagesFR,
+      components: componentsFR,
+      common: commonFR,
+      models: modelsFR,
+    },
   },
   en: {
-    translation: { pages: pagesEN, components: componentsEN, common: commonEN },
+    translation: {
+      pages: pagesEN,
+      components: componentsEN,
+      common: commonEN,
+      models: modelsEN,
+    },
   },
   es: {
-    translation: { pages: pagesES, components: componentsES, common: commonES },
+    translation: {
+      pages: pagesES,
+      components: componentsES,
+      common: commonES,
+      models: modelsES,
+    },
   },
   ja: {
-    translation: { pages: pagesJA, components: componentsJA, common: commonJA },
+    translation: {
+      pages: pagesJA,
+      components: componentsJA,
+      common: commonJA,
+      models: modelsJA,
+    },
   },
 };
 
