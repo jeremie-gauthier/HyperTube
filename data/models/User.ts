@@ -1,7 +1,7 @@
 // Move back to ../data if needed
 
 import mongoose, { Schema } from "mongoose";
-// import { IUser } from "../,,/types/user";
+import { IUser } from "../../types/user";
 
 const UserSchema: Schema = new Schema(
   {
@@ -25,12 +25,18 @@ const UserSchema: Schema = new Schema(
       type: Boolean,
       required: true,
     },
+
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   { timestamps: true },
 );
 
-module.exports = mongoose.models.User || mongoose.model("User", UserSchema);
-// export default model<IUser>("User", UserSchema);
+const User = mongoose.model<IUser>("User", UserSchema);
+export default User;
 
 /* const UserSchema = new mongoose.Schema({
   id: {
