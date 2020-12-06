@@ -24,14 +24,22 @@ export default function FormInput({
 
   const isFocused = classnames({
     [className]: true,
-    "border-white": showLabel,
-    "border-grey-light": !showLabel,
+    "border-white": hasFocus,
+    "border-grey-light": !hasFocus,
     [styles.inputError]: error,
+  });
+  const labelStyle = classnames({
+    "text-white": hasFocus,
+    "text-grey-light": !hasFocus,
   });
 
   return (
     <div className={styles.container}>
-      {showLabel && <label htmlFor={rest.name}>{rest.placeholder}</label>}
+      {showLabel && (
+        <label htmlFor={rest.name} className={labelStyle}>
+          {rest.placeholder}
+        </label>
+      )}
       <input
         id={rest.name}
         {...rest}
