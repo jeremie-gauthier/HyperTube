@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+import { useTranslation } from "react-i18next";
 import styles from "./FormInput.module.scss";
 
 type FormInputProps = {
@@ -21,6 +22,7 @@ export default function FormInput({
   const [hasFocus, setHasFocus] = React.useState<boolean>(false);
   const hasValue = rest.value.length > 0;
   const showLabel = hasFocus || hasValue;
+  const { t } = useTranslation();
 
   const isFocused = classnames({
     [className]: true,
@@ -48,7 +50,7 @@ export default function FormInput({
         onBlur={() => setHasFocus(false)}
         onFocus={() => setHasFocus(true)}
       />
-      {error && <p>{error}</p>}
+      {error && <p>{t(error)}</p>}
     </div>
   );
 }
