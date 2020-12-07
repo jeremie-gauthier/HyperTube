@@ -1,18 +1,9 @@
 import mongoose from "mongoose";
 
-const dbConnect: () => Promise<void> = async () => {
-  const connection = {
-    isConnected: 69420,
-  };
-  const db = await mongoose.connect(`${process.env.DB_CONNECT_DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  connection.isConnected = db.connections[0].readyState;
+mongoose.connect("mongodb+srv://test:test@cluster0.8nlmr.mongodb.net/test", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-  if (connection.isConnected) {
-    console.log("Lol im in bitches", connection.isConnected);
-  }
-};
-
-export default dbConnect;
+const db = mongoose.connection;
+export default db;
