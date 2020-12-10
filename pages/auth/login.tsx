@@ -23,23 +23,20 @@ function Login(): JSX.Element {
   const { t } = useTranslation();
 
   return (
-    <>
+    <main className={styles.container}>
       <HeadContent />
+      <div className="absolute top-4 right-4">
+        <LangSettings />
+      </div>
 
-      <main className={styles.container}>
-        <div className="absolute top-4 right-4">
-          <LangSettings />
-        </div>
-
-        <h1>{t("pages.auth.login.connection")}</h1>
-        <LoginForm />
-        <OAuthLinks />
-        <FlexCol className={styles.registerLink}>
-          <p>{t("pages.auth.login.first_visit")}</p>
-          <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
-        </FlexCol>
-      </main>
-    </>
+      <h1>{t("pages.auth.login.connection")}</h1>
+      <LoginForm />
+      <OAuthLinks />
+      <FlexCol className={styles.registerLink}>
+        <p>{t("pages.auth.login.first_visit")}</p>
+        <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
+      </FlexCol>
+    </main>
   );
 }
 
