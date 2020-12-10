@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import { useTranslation } from "react-i18next";
@@ -8,6 +9,7 @@ import resolver from "@/lib/resolvers/login";
 import Checkbox from "@/components/Checkbox";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import Link from "next/link";
+import { LangSettings } from "@/components/CountryFlag";
 import styles from "./login.module.scss";
 import Oauth42 from "../../public/icons/42_logo.svg";
 
@@ -25,6 +27,10 @@ function Login(): JSX.Element {
       <HeadContent />
 
       <main className={styles.container}>
+        <div className="absolute top-4 right-4">
+          <LangSettings />
+        </div>
+
         <h1>{t("pages.auth.login.connection")}</h1>
         <LoginForm />
         <OAuthLinks />
