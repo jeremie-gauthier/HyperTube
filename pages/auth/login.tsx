@@ -10,6 +10,8 @@ import Checkbox from "@/components/Checkbox";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import Link from "next/link";
 import { LangSettings } from "@/components/CountryFlag";
+import { useResponsiveAttribute } from "@/hooks/useSelector";
+import classnames from "classnames";
 import styles from "./login.module.scss";
 import Oauth42 from "../../public/icons/42_logo.svg";
 
@@ -21,9 +23,14 @@ const initialState: TFormValues = {
 
 function Login(): JSX.Element {
   const { t } = useTranslation();
+  const isTabletOrMobile = useResponsiveAttribute();
+  const containerStyle = classnames({
+    [styles.containerDesktop]: !isTabletOrMobile,
+    [styles.containerMobile]: isTabletOrMobile,
+  });
 
   return (
-    <main className={styles.container}>
+    <main className={containerStyle}>
       <HeadContent />
       <div className="absolute top-4 right-4">
         <LangSettings />
@@ -32,10 +39,7 @@ function Login(): JSX.Element {
       <h1>{t("pages.auth.login.connection")}</h1>
       <LoginForm />
       <OAuthLinks />
-      <FlexCol className={styles.registerLink}>
-        <p>{t("pages.auth.login.first_visit")}</p>
-        <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
-      </FlexCol>
+      <SignupLink />
     </main>
   );
 }
@@ -45,7 +49,7 @@ export default Login;
 
 const LoginForm = () => {
   const { t } = useTranslation();
-  const submit = (values: TFormValues): void => {
+  const submit = (values: TFormValues) => {
     console.log(values);
   };
 
@@ -106,5 +110,18 @@ const HeadContent = () => {
       <title>{t("pages.auth.authentication")}</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
+  );
+};
+
+const SignupLink = () => {
+  const { t } = useTranslation();
+  const isTabletOrMobile = useResponsiveAttribute();
+  const FlexBox = isTabletOrMobile ? FlexRow : FlexCol;
+
+  return (
+    <FlexBox className={styles.registerLink}>
+      <p>{t("pages.auth.login.first_visit")}</p>
+      <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
+    </FlexBox>
   );
 };

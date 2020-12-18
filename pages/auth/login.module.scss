@@ -1,12 +1,24 @@
-.container {
+.title {
+  @apply font-bold mb-7;
+
+  font-size: 2rem;
+}
+
+.containerMobile {
+  @apply px-8 pt-8;
+
+  h1 {
+    @apply title;
+  }
+}
+
+.containerDesktop {
   @apply relative py-14 px-16 text-sm;
 
   min-width: 26rem;
 
   h1 {
-    @apply font-bold mb-7;
-
-    font-size: 2rem;
+    @apply title;
   }
 }
 
@@ -22,7 +34,7 @@
   }
 
   button {
-    @apply bg-red rounded w-full py-3 font-extrabold mt-8 text-base;
+    @apply bg-red rounded w-full py-3 font-extrabold mt-8;
   }
 }
 
@@ -30,6 +42,6 @@
   @apply mt-4 font-bold text-sm;
 
   p {
-    @apply text-grey-light;
+    @apply text-grey-light mr-2;
   }
 }
