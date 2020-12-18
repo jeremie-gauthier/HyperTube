@@ -1,4 +1,8 @@
-.layout {
+.layoutMobile {
+  @apply h-screen w-screen bg-black;
+}
+
+.layoutDesktop {
   @apply h-screen justify-center items-center;
 
   &::before {
