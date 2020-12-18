@@ -49,6 +49,7 @@ export default function FormInput({
         placeholder={showLabel ? "" : rest.placeholder}
         onBlur={() => setHasFocus(false)}
         onFocus={() => setHasFocus(true)}
+        autoComplete="off"
       />
       {error && <p>{t(error)}</p>}
     </div>
