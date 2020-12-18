@@ -1,5 +1,5 @@
 .container {
-  @apply items-center space-x-2 cursor-pointer select-none text-sm;
+  @apply items-center space-x-2 select-none text-sm;
 
   input[type="checkbox"] {
     @apply h-4 w-4 appearance-none outline-none shadow-none text-center cursor-pointer rounded;
