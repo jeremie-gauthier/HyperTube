@@ -1,10 +1,11 @@
 import React from "react";
-import useSelector from "@/hooks/useSelector";
+import useSelector, { useResponsiveAttribute } from "@/hooks/useSelector";
 import useHover from "@react-hook/hover";
 import useDispatch from "@/hooks/useDispatch";
 import { useTranslation } from "react-i18next";
 import { setLang } from "@/state/users/actions";
 import { langs } from "@/locales/i18n";
+import useOnClickOutside from "use-onclickoutside";
 import JAFlag from "../public/icons/japan.svg";
 import ESFlag from "../public/icons/spain.svg";
 import FRFlag from "../public/icons/france.svg";
@@ -34,7 +35,41 @@ export default function CountryFlag({
 }
 
 export function LangSettings(): JSX.Element {
+  const isTabletOrMobile = useResponsiveAttribute();
   const currentLang = useSelector((state) => state.user.lang) as string;
+
+  return isTabletOrMobile ? (
+    <LangClickable currentLang={currentLang} />
+  ) : (
+    <LangHoverable currentLang={currentLang} />
+  );
+}
+
+const LangClickable = ({ currentLang }: { currentLang: string }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const ref = React.useRef(null);
+  useOnClickOutside(ref, () => setIsOpen(false));
+
+  return (
+    <button
+      type="button"
+      ref={ref}
+      className={styles.frame}
+      data-testid="lang-flag"
+      onClick={() => setIsOpen(true)}
+    >
+      <CountryFlag lang={currentLang} className={styles.countryFlag} />
+
+      {isOpen && (
+        <div className={styles.floaterMobile}>
+          <LangOptions />
+        </div>
+      )}
+    </button>
+  );
+};
+
+const LangHoverable = ({ currentLang }: { currentLang: string }) => {
   const hoverableNode = React.useRef(null);
   const isHovering = useHover(hoverableNode);
 
@@ -43,13 +78,13 @@ export function LangSettings(): JSX.Element {
       <CountryFlag lang={currentLang} className={styles.countryFlag} />
 
       {isHovering && (
-        <div className={styles.floater}>
+        <div className={styles.floaterDesktop}>
           <LangOptions />
         </div>
       )}
     </div>
   );
-}
+};
 
 const LangOptions = () => {
   const dispatch = useDispatch();
