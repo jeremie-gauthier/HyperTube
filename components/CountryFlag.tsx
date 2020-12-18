@@ -51,12 +51,13 @@ const LangClickable = ({ currentLang }: { currentLang: string }) => {
   useOnClickOutside(ref, () => setIsOpen(false));
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
       ref={ref}
       className={styles.frame}
       data-testid="lang-flag"
       onClick={() => setIsOpen(true)}
+      aria-hidden="true"
     >
       <CountryFlag lang={currentLang} className={styles.countryFlag} />
 
@@ -65,7 +66,7 @@ const LangClickable = ({ currentLang }: { currentLang: string }) => {
           <LangOptions />
         </div>
       )}
-    </button>
+    </div>
   );
 };
 
