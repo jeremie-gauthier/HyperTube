@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import ActiveLink from "@/components/ActiveLink";
 import { RootState } from "@/state/types";
-import useSelector, { useResponsiveAttribute } from "@/hooks/useSelector";
+import useSelector from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setSearchInput } from "@/state/movies/actions";
 import classNames from "classnames";
@@ -19,22 +19,21 @@ import styles from "./Navbar.module.scss";
 import Settings from "./Settings";
 
 export default function Navbar(): JSX.Element {
-  const isTabletOrMobile = useResponsiveAttribute();
-
   return (
     <FlexRow className={styles.container}>
       <BrandLogo />
 
-      {isTabletOrMobile ? <MobileView /> : <DesktopView />}
+      <MobileView className={styles.mobileView} />
+      <DesktopView className={styles.desktopView} />
     </FlexRow>
   );
 }
 
-const MobileView = (): JSX.Element => {
+const MobileView = ({ className }: { className: string }): JSX.Element => {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <>
+    <div className={className}>
       <FlexRow className={`relative ${styles.items} justify-end`}>
         <SearchInput />
         {open ? (
@@ -53,7 +52,7 @@ const MobileView = (): JSX.Element => {
       </FlexRow>
 
       {open && <DropdownMenu close={() => setOpen(false)} />}
-    </>
+    </div>
   );
 };
 
@@ -91,15 +90,15 @@ const DropdownMenu = ({ close }: DropdownMenuProps) => {
   );
 };
 
-const DesktopView = (): JSX.Element => (
-  <>
+const DesktopView = ({ className }: { className: string }): JSX.Element => (
+  <div className={`${className} items-center`}>
     <FlexRow className={styles.items}>
       <NavLinks />
       <SearchInput />
     </FlexRow>
 
     <Settings />
-  </>
+  </div>
 );
 
 const NavLinks = ({ ...rest }) => {
