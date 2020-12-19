@@ -6,11 +6,11 @@ import { useTranslation } from "react-i18next";
 import { setLang } from "@/state/users/actions";
 import { langs } from "@/locales/i18n";
 import useOnClickOutside from "use-onclickoutside";
-import JAFlag from "../public/icons/japan.svg";
-import ESFlag from "../public/icons/spain.svg";
-import FRFlag from "../public/icons/france.svg";
-import UKFlag from "../public/icons/united-kingdom.svg";
-import { FlexCol } from "./Flex";
+import { FlexCol } from "@/components/Flex";
+import JAFlag from "../../public/icons/japan.svg";
+import ESFlag from "../../public/icons/spain.svg";
+import FRFlag from "../../public/icons/france.svg";
+import UKFlag from "../../public/icons/united-kingdom.svg";
 import styles from "./CountryFlag.module.scss";
 
 type CountryFlagProps = React.SVGProps<SVGSVGElement> & {
