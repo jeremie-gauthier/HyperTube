@@ -55,7 +55,7 @@ describe("Navbar on desktop", () => {
     );
 
     expect(screen.queryByPlaceholderText(/search/i)).not.toBeInTheDocument();
-    userEvent.click(screen.getByTestId("magnifier-icon"));
+    userEvent.click(screen.getAllByTestId("magnifier-icon")[1]);
     const input = screen.getByPlaceholderText(/search/i);
     userEvent.type(input, "Scrubs");
     expect(input).toHaveValue("Scrubs");
@@ -82,7 +82,7 @@ describe("Navbar on desktop", () => {
     render(<Navbar />);
 
     expect(screen.queryByText(/English/i)).not.toBeInTheDocument();
-    userEvent.hover(screen.getByTestId("lang-flag"));
+    userEvent.hover(screen.getByTestId("lang-flag-hoverable"));
     expect(screen.getByText(/English/i)).toBeInTheDocument();
     userEvent.click(screen.getByText(/French/i));
     expect(mockChangeLanguage).toHaveBeenCalledWith("fr");

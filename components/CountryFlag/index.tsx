@@ -57,7 +57,7 @@ const LangClickable = ({ currentLang, className }: LangIconProps) => {
       role="button"
       ref={ref}
       className={[styles.frame, className].join(" ")}
-      data-testid="lang-flag"
+      data-testid="lang-flag-clickable"
       onClick={() => setIsOpen(true)}
       aria-hidden="true"
     >
@@ -80,7 +80,7 @@ const LangHoverable = ({ currentLang, className }: LangIconProps) => {
     <div
       ref={hoverableNode}
       className={[styles.frame, className].join(" ")}
-      data-testid="lang-flag"
+      data-testid="lang-flag-hoverable"
     >
       <CountryFlag lang={currentLang} className={styles.countryFlag} />
 

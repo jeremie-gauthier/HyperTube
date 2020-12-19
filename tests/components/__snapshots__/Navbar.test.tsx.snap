@@ -95,7 +95,7 @@ exports[`Snapshots renders correctly on desktop 1`] = `
         <div
           aria-hidden="true"
           class="frame mobileView"
-          data-testid="lang-flag"
+          data-testid="lang-flag-clickable"
           role="button"
         >
           <svg
@@ -131,7 +131,7 @@ exports[`Snapshots renders correctly on desktop 1`] = `
         </div>
         <div
           class="frame desktopView"
-          data-testid="lang-flag"
+          data-testid="lang-flag-hoverable"
         >
           <svg
             class="countryFlag"
@@ -265,7 +265,7 @@ exports[`Snapshots renders correctly on mobile 1`] = `
         <div
           aria-hidden="true"
           class="frame mobileView"
-          data-testid="lang-flag"
+          data-testid="lang-flag-clickable"
           role="button"
         >
           <svg
@@ -301,7 +301,7 @@ exports[`Snapshots renders correctly on mobile 1`] = `
         </div>
         <div
           class="frame desktopView"
-          data-testid="lang-flag"
+          data-testid="lang-flag-hoverable"
         >
           <svg
             class="countryFlag"
@@ -511,7 +511,7 @@ exports[`Snapshots renders correctly on mobile 2`] = `
         <div
           aria-hidden="true"
           class="frame mobileView"
-          data-testid="lang-flag"
+          data-testid="lang-flag-clickable"
           role="button"
         >
           <svg
@@ -547,7 +547,7 @@ exports[`Snapshots renders correctly on mobile 2`] = `
         </div>
         <div
           class="frame desktopView"
-          data-testid="lang-flag"
+          data-testid="lang-flag-hoverable"
         >
           <svg
             class="countryFlag"

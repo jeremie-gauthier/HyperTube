@@ -107,7 +107,7 @@ exports[`<Layout /> should render correctly 1`] = `
         <div
           aria-hidden="true"
           className="frame mobileView"
-          data-testid="lang-flag"
+          data-testid="lang-flag-clickable"
           onClick={[Function]}
           role="button"
         >
@@ -144,7 +144,7 @@ exports[`<Layout /> should render correctly 1`] = `
         </div>
         <div
           className="frame desktopView"
-          data-testid="lang-flag"
+          data-testid="lang-flag-hoverable"
         >
           <svg
             className="countryFlag"
