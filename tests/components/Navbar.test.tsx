@@ -5,27 +5,22 @@ import "@/tests/__mocks__/matchMedia";
 import Navbar from "@/components/Navbar";
 import i18n from "@/locales/i18n";
 import StoreContextProvider from "@/state/store";
-import { Context as ResponsiveContext } from "react-responsive";
 
 describe("Snapshots", () => {
   test("renders correctly on desktop", () => {
     const { container: desktop } = render(
-      <ResponsiveContext.Provider value={{ width: 1920 }}>
-        <StoreContextProvider>
-          <Navbar />
-        </StoreContextProvider>
-      </ResponsiveContext.Provider>,
+      <StoreContextProvider>
+        <Navbar />
+      </StoreContextProvider>,
     );
     expect(desktop).toMatchSnapshot();
   });
 
   test("renders correctly on mobile", () => {
     const { container: mobile } = render(
-      <ResponsiveContext.Provider value={{ width: 560 }}>
-        <StoreContextProvider>
-          <Navbar />
-        </StoreContextProvider>
-      </ResponsiveContext.Provider>,
+      <StoreContextProvider>
+        <Navbar />
+      </StoreContextProvider>,
     );
     expect(mobile).toMatchSnapshot();
     userEvent.click(screen.getByTestId("menuburger-icon"));
@@ -36,11 +31,9 @@ describe("Snapshots", () => {
 describe("Navbar on mobile", () => {
   test("burger menu ", () => {
     render(
-      <ResponsiveContext.Provider value={{ width: 560 }}>
-        <StoreContextProvider>
-          <Navbar />
-        </StoreContextProvider>
-      </ResponsiveContext.Provider>,
+      <StoreContextProvider>
+        <Navbar />
+      </StoreContextProvider>,
     );
 
     expect(screen.queryByTestId("cross-icon")).not.toBeInTheDocument();
