@@ -1,13 +1,13 @@
 import React from "react";
-import Layout from "@/components/Layouts/SiteLayout";
+import AuthLayout from "@/components/Layouts/AuthLayout";
 import renderer from "react-test-renderer";
 
-test("<Layout /> should render correctly", () => {
+test("<AuthLayout /> should render correctly", () => {
   const tree = renderer
     .create(
-      <Layout>
+      <AuthLayout>
         <div />
-      </Layout>,
+      </AuthLayout>,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

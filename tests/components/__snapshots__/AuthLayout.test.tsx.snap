@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AuthLayout /> should render correctly 1`] = `
+<div
+  className="flexCol layout"
+  data-testid="layout-div"
+>
+  <div
+    className="brandLogo"
+  />
+  <div
+    className="flexCol container"
+  >
+    <div />
+  </div>
+</div>
+`;
