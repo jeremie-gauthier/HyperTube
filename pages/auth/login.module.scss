@@ -4,18 +4,13 @@
   font-size: 2rem;
 }
 
-.containerMobile {
-  @apply px-8 pt-8;
+.container {
+  @apply px-8 pt-16;
+  @apply md:relative md:py-14 md:px-16 md:text-sm;
 
-  h1 {
-    @apply title;
+  @media (min-width: 768px) {
+    min-width: 26rem;
   }
-}
-
-.containerDesktop {
-  @apply relative py-14 px-16 text-sm;
-
-  min-width: 26rem;
 
   h1 {
     @apply title;
@@ -39,7 +34,8 @@
 }
 
 .registerLink {
-  @apply mt-4 font-bold text-sm;
+  @apply flex flex-row mt-4 font-bold text-sm;
+  @apply md:flex-col;
 
   p {
     @apply text-grey-light mr-2;

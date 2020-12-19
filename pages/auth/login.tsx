@@ -7,11 +7,9 @@ import FormInput from "@/components/FormInput";
 import { TFormValues } from "@/lib/types/login";
 import resolver from "@/lib/resolvers/login";
 import Checkbox from "@/components/Checkbox";
-import { FlexCol, FlexRow } from "@/components/Flex";
+import { FlexRow } from "@/components/Flex";
 import Link from "next/link";
 import { LangSettings } from "@/components/CountryFlag";
-import { useResponsiveAttribute } from "@/hooks/useSelector";
-import classnames from "classnames";
 import styles from "./login.module.scss";
 import Oauth42 from "../../public/icons/42_logo.svg";
 
@@ -21,16 +19,11 @@ const initialState: TFormValues = {
   remember: false,
 };
 
-function Login(): JSX.Element {
+function Login() {
   const { t } = useTranslation();
-  const isTabletOrMobile = useResponsiveAttribute();
-  const containerStyle = classnames({
-    [styles.containerDesktop]: !isTabletOrMobile,
-    [styles.containerMobile]: isTabletOrMobile,
-  });
 
   return (
-    <main className={containerStyle}>
+    <main className={styles.container}>
       <HeadContent />
       <div className="absolute top-4 right-4">
         <LangSettings />
@@ -115,13 +108,11 @@ const HeadContent = () => {
 
 const SignupLink = () => {
   const { t } = useTranslation();
-  const isTabletOrMobile = useResponsiveAttribute();
-  const FlexBox = isTabletOrMobile ? FlexRow : FlexCol;
 
   return (
-    <FlexBox className={styles.registerLink}>
+    <div className={styles.registerLink}>
       <p>{t("pages.auth.login.first_visit")}</p>
       <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
-    </FlexBox>
+    </div>
   );
 };
