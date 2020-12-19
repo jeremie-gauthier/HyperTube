@@ -1,5 +1,5 @@
 import React from "react";
-import useSelector, { useResponsiveAttribute } from "@/hooks/useSelector";
+import useSelector from "@/hooks/useSelector";
 import useHover from "@react-hook/hover";
 import useDispatch from "@/hooks/useDispatch";
 import { useTranslation } from "react-i18next";
@@ -35,17 +35,22 @@ export default function CountryFlag({
 }
 
 export function LangSettings(): JSX.Element {
-  const isTabletOrMobile = useResponsiveAttribute();
   const currentLang = useSelector((state) => state.user.lang) as string;
 
-  return isTabletOrMobile ? (
-    <LangClickable currentLang={currentLang} />
-  ) : (
-    <LangHoverable currentLang={currentLang} />
+  return (
+    <>
+      <LangClickable currentLang={currentLang} className={styles.mobileView} />
+      <LangHoverable currentLang={currentLang} className={styles.desktopView} />
+    </>
   );
 }
 
-const LangClickable = ({ currentLang }: { currentLang: string }) => {
+type LangIconProps = {
+  currentLang: string;
+  className: string;
+};
+
+const LangClickable = ({ currentLang, className }: LangIconProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const ref = React.useRef(null);
   useOnClickOutside(ref, () => setIsOpen(false));
@@ -54,7 +59,7 @@ const LangClickable = ({ currentLang }: { currentLang: string }) => {
     <div
       role="button"
       ref={ref}
-      className={styles.frame}
+      className={[styles.frame, className].join(" ")}
       data-testid="lang-flag"
       onClick={() => setIsOpen(true)}
       aria-hidden="true"
@@ -70,12 +75,16 @@ const LangClickable = ({ currentLang }: { currentLang: string }) => {
   );
 };
 
-const LangHoverable = ({ currentLang }: { currentLang: string }) => {
+const LangHoverable = ({ currentLang, className }: LangIconProps) => {
   const hoverableNode = React.useRef(null);
   const isHovering = useHover(hoverableNode);
 
   return (
-    <div ref={hoverableNode} className={styles.frame} data-testid="lang-flag">
+    <div
+      ref={hoverableNode}
+      className={[styles.frame, className].join(" ")}
+      data-testid="lang-flag"
+    >
       <CountryFlag lang={currentLang} className={styles.countryFlag} />
 
       {isHovering && (
