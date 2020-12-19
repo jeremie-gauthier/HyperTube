@@ -60,7 +60,6 @@ const LoginForm = () => {
         onChange={handleChange}
         placeholder={t("models.user.username")}
         error={errors.username}
-        required
       />
       <FormInput
         type="password"
@@ -69,7 +68,6 @@ const LoginForm = () => {
         onChange={handleChange}
         placeholder={t("models.user.password")}
         error={errors.password}
-        required
       />
       <button type="submit">{t("pages.auth.login.connection")}</button>
       <Checkbox
