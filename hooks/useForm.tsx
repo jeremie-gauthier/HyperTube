@@ -25,7 +25,7 @@ export default function useForm<V>(
     false,
   );
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if (values) {
       evt.persist();
       setIsSubmitting(false);
@@ -45,7 +45,7 @@ export default function useForm<V>(
     }
   }, [resolver, hasSubmittingOnce, values]);
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setErrors(resolver(values));
     setIsSubmitting(true);
