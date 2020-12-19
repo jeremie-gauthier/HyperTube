@@ -6,161 +6,177 @@ exports[`<Layout /> should render correctly 1`] = `
   data-testid="layout-div"
 >
   <div
-    className="flex flex-row container"
+    className="flexRow container"
   >
-    <a
-      className="flex"
-      href="/"
+    <div
+      className="brandLogo"
       onClick={[Function]}
       onMouseEnter={[Function]}
-    >
-      <div
-        style={
-          Object {
-            "boxSizing": "border-box",
-            "display": "inline-block",
-            "margin": 0,
-            "maxWidth": "100%",
-            "overflow": "hidden",
-            "position": "relative",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "boxSizing": "border-box",
-              "display": "block",
-              "maxWidth": "100%",
-            }
-          }
-        >
-          <img
-            alt=""
-            aria-hidden={true}
-            role="presentation"
-            src="data:image/svg+xml;charset=utf-8,<svg width=\\"115\\" height=\\"31\\" xmlns=\\"http://www.w3.org/2000/svg\\" version=\\"1.1\\"/>"
-            style={
-              Object {
-                "display": "block",
-                "maxWidth": "100%",
-              }
-            }
-          />
-        </div>
-        <img
-          alt="Hypertube logo"
-          className="cursor-pointer"
-          decoding="async"
-          src="/_next/image?url=%2Ficons%2Fhypertube.png&w=420&q=75"
-          srcSet="/_next/image?url=%2Ficons%2Fhypertube.png&w=320&q=75 1x, /_next/image?url=%2Ficons%2Fhypertube.png&w=420&q=75 2x"
-          style={
-            Object {
-              "border": "none",
-              "bottom": 0,
-              "boxSizing": "border-box",
-              "display": "block",
-              "height": 0,
-              "left": 0,
-              "margin": "auto",
-              "maxHeight": "100%",
-              "maxWidth": "100%",
-              "minHeight": "100%",
-              "minWidth": "100%",
-              "padding": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-              "width": 0,
-            }
-          }
-        />
-      </div>
-    </a>
+    />
     <div
-      className="flex flex-row items"
-    >
-      <a
-        className=" inactive inactiveBorder"
-        href="/"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-      >
-        components.navbar.home
-      </a>
-      <a
-        className=" inactive inactiveBorder"
-        href="/movies/favorites"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-      >
-        components.navbar.my_list
-      </a>
-      <svg
-        className="h-4 w-4 cursor-pointer self-center"
-        data-testid="magnifier-icon"
-        fill="none"
-        height="12"
-        onClick={[Function]}
-        viewBox="0 0 11 12"
-        width="11"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10.848 10.375L8.707 8.038a.494.494 0 0 0-.365-.164h-.35a5.138 5.138 0 0 0 .945-3c0-2.692-2-4.874-4.469-4.874C2 0 0 2.182 0 4.875c0 2.692 2 4.874 4.468 4.874a4.217 4.217 0 0 0 2.75-1.031V9.1c0 .15.054.293.15.398l2.142 2.337c.202.22.529.22.729 0l.607-.663a.602.602 0 0 0 .002-.797zm-6.38-2.5c-1.518 0-2.75-1.341-2.75-3 0-1.657 1.23-3 2.75-3s2.75 1.34 2.75 3c0 1.656-1.229 3-2.75 3z"
-          fill="#fff"
-        />
-      </svg>
-    </div>
-    <div
-      className="flex flex-row settings"
+      className="mobileView"
     >
       <div
-        className="flex flex-col relative"
-      >
-        <div
-          className="flex flex-col frame"
-        >
-          <span>
-            AD
-          </span>
-        </div>
-      </div>
-      <div
-        className="frame"
-        data-testid="lang-flag"
+        className="flexRow relative items justify-end"
       >
         <svg
-          className="countryFlag"
-          viewBox="0 0 512 512"
+          className="h-4 w-4 cursor-pointer self-center"
+          data-testid="magnifier-icon"
+          fill="none"
+          height="12"
+          onClick={[Function]}
+          viewBox="0 0 11 12"
+          width="11"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g
-            fill="#41479b"
-          >
-            <path
-              d="M188.632 0H0v39.954L188.632 163.54zM0 136.598v52.034h79.419zM0 323.369v52.033l79.419-52.033zM512 39.954V0H323.368v163.54zM512 375.402v-52.033h-79.419zM323.368 348.46V512H512v-39.954zM512 188.632v-52.034l-79.419 52.034zM0 472.046V512h188.632V348.46z"
-            />
-          </g>
-          <g
-            fill="#f5f5f5"
-          >
-            <path
-              d="M512 472.046v-39.928L344.465 323.369h49.496L512 399.989v-24.587l-79.419-52.033H512v-26.948H296.421V512h26.947V348.46zM0 296.421v26.948h79.419L0 375.402v37.801l138.395-89.834h49.496L0 445.332v26.714L188.632 348.46V512h26.947V296.421zM215.579 0h-26.947v163.54L0 39.954v43.725l161.684 104.953h-49.496L0 115.807v20.791l79.419 52.034H0v26.947h215.579zM512 215.579v-26.947h-79.419L512 136.598V98.314l-139.136 90.318h-49.496L512 66.185V39.954L323.368 163.54V0h-26.947v215.579z"
-            />
-          </g>
-          <g
-            fill="#ff4b55"
-          >
-            <path
-              d="M512 296.421v-80.842H296.421V0h-80.842v215.579H0v80.842h215.579V512h80.842V296.421z"
-            />
-            <path
-              d="M138.395 323.369L0 413.203v32.129l187.891-121.963zM344.465 323.369L512 432.118v-32.129l-118.039-76.62zM161.684 188.632L0 83.679v32.128l112.188 72.825zM372.864 188.632L512 98.314V66.185L323.368 188.632z"
-            />
-          </g>
+          <path
+            d="M10.848 10.375L8.707 8.038a.494.494 0 0 0-.365-.164h-.35a5.138 5.138 0 0 0 .945-3c0-2.692-2-4.874-4.469-4.874C2 0 0 2.182 0 4.875c0 2.692 2 4.874 4.468 4.874a4.217 4.217 0 0 0 2.75-1.031V9.1c0 .15.054.293.15.398l2.142 2.337c.202.22.529.22.729 0l.607-.663a.602.602 0 0 0 .002-.797zm-6.38-2.5c-1.518 0-2.75-1.341-2.75-3 0-1.657 1.23-3 2.75-3s2.75 1.34 2.75 3c0 1.656-1.229 3-2.75 3z"
+            fill="#fff"
+          />
         </svg>
+        <svg
+          className="h-5 w-5"
+          data-testid="menuburger-icon"
+          fill="none"
+          height="19"
+          onClick={[Function]}
+          viewBox="0 0 28 19"
+          width="28"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 1h28M0 9h28M0 18h28"
+            stroke="#fff"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      className="desktopView items-center"
+    >
+      <div
+        className="flexRow items"
+      >
+        <a
+          className=" inactive inactiveBorder"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          components.navbar.home
+        </a>
+        <a
+          className=" inactive inactiveBorder"
+          href="/movies/favorites"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          components.navbar.my_list
+        </a>
+        <svg
+          className="h-4 w-4 cursor-pointer self-center"
+          data-testid="magnifier-icon"
+          fill="none"
+          height="12"
+          onClick={[Function]}
+          viewBox="0 0 11 12"
+          width="11"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10.848 10.375L8.707 8.038a.494.494 0 0 0-.365-.164h-.35a5.138 5.138 0 0 0 .945-3c0-2.692-2-4.874-4.469-4.874C2 0 0 2.182 0 4.875c0 2.692 2 4.874 4.468 4.874a4.217 4.217 0 0 0 2.75-1.031V9.1c0 .15.054.293.15.398l2.142 2.337c.202.22.529.22.729 0l.607-.663a.602.602 0 0 0 .002-.797zm-6.38-2.5c-1.518 0-2.75-1.341-2.75-3 0-1.657 1.23-3 2.75-3s2.75 1.34 2.75 3c0 1.656-1.229 3-2.75 3z"
+            fill="#fff"
+          />
+        </svg>
+      </div>
+      <div
+        className="flexRow settings"
+      >
+        <div
+          className="flexCol relative"
+        >
+          <div
+            className="flexCol frame"
+          >
+            <span>
+              AD
+            </span>
+          </div>
+        </div>
+        <div
+          aria-hidden="true"
+          className="frame mobileView"
+          data-testid="lang-flag"
+          onClick={[Function]}
+          role="button"
+        >
+          <svg
+            className="countryFlag"
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="#41479b"
+            >
+              <path
+                d="M188.632 0H0v39.954L188.632 163.54zM0 136.598v52.034h79.419zM0 323.369v52.033l79.419-52.033zM512 39.954V0H323.368v163.54zM512 375.402v-52.033h-79.419zM323.368 348.46V512H512v-39.954zM512 188.632v-52.034l-79.419 52.034zM0 472.046V512h188.632V348.46z"
+              />
+            </g>
+            <g
+              fill="#f5f5f5"
+            >
+              <path
+                d="M512 472.046v-39.928L344.465 323.369h49.496L512 399.989v-24.587l-79.419-52.033H512v-26.948H296.421V512h26.947V348.46zM0 296.421v26.948h79.419L0 375.402v37.801l138.395-89.834h49.496L0 445.332v26.714L188.632 348.46V512h26.947V296.421zM215.579 0h-26.947v163.54L0 39.954v43.725l161.684 104.953h-49.496L0 115.807v20.791l79.419 52.034H0v26.947h215.579zM512 215.579v-26.947h-79.419L512 136.598V98.314l-139.136 90.318h-49.496L512 66.185V39.954L323.368 163.54V0h-26.947v215.579z"
+              />
+            </g>
+            <g
+              fill="#ff4b55"
+            >
+              <path
+                d="M512 296.421v-80.842H296.421V0h-80.842v215.579H0v80.842h215.579V512h80.842V296.421z"
+              />
+              <path
+                d="M138.395 323.369L0 413.203v32.129l187.891-121.963zM344.465 323.369L512 432.118v-32.129l-118.039-76.62zM161.684 188.632L0 83.679v32.128l112.188 72.825zM372.864 188.632L512 98.314V66.185L323.368 188.632z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="frame desktopView"
+          data-testid="lang-flag"
+        >
+          <svg
+            className="countryFlag"
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="#41479b"
+            >
+              <path
+                d="M188.632 0H0v39.954L188.632 163.54zM0 136.598v52.034h79.419zM0 323.369v52.033l79.419-52.033zM512 39.954V0H323.368v163.54zM512 375.402v-52.033h-79.419zM323.368 348.46V512H512v-39.954zM512 188.632v-52.034l-79.419 52.034zM0 472.046V512h188.632V348.46z"
+              />
+            </g>
+            <g
+              fill="#f5f5f5"
+            >
+              <path
+                d="M512 472.046v-39.928L344.465 323.369h49.496L512 399.989v-24.587l-79.419-52.033H512v-26.948H296.421V512h26.947V348.46zM0 296.421v26.948h79.419L0 375.402v37.801l138.395-89.834h49.496L0 445.332v26.714L188.632 348.46V512h26.947V296.421zM215.579 0h-26.947v163.54L0 39.954v43.725l161.684 104.953h-49.496L0 115.807v20.791l79.419 52.034H0v26.947h215.579zM512 215.579v-26.947h-79.419L512 136.598V98.314l-139.136 90.318h-49.496L512 66.185V39.954L323.368 163.54V0h-26.947v215.579z"
+              />
+            </g>
+            <g
+              fill="#ff4b55"
+            >
+              <path
+                d="M512 296.421v-80.842H296.421V0h-80.842v215.579H0v80.842h215.579V512h80.842V296.421z"
+              />
+              <path
+                d="M138.395 323.369L0 413.203v32.129l187.891-121.963zM344.465 323.369L512 432.118v-32.129l-118.039-76.62zM161.684 188.632L0 83.679v32.128l112.188 72.825zM372.864 188.632L512 98.314V66.185L323.368 188.632z"
+              />
+            </g>
+          </svg>
+        </div>
       </div>
     </div>
   </div>

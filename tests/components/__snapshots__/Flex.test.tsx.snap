@@ -2,7 +2,7 @@
 
 exports[`<FlexCol /> should render correctly 1`] = `
 <div
-  className="flex flex-col "
+  className="flexCol "
 >
   <div />
 </div>
@@ -10,7 +10,7 @@ exports[`<FlexCol /> should render correctly 1`] = `
 
 exports[`<FlexRow /> should render correctly 1`] = `
 <div
-  className="flex flex-row "
+  className="flexRow "
 >
   <div />
 </div>
