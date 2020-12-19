@@ -6,10 +6,7 @@ type CheckboxProps = {
   name: string;
 } & Partial<React.InputHTMLAttributes<HTMLInputElement>>;
 
-export default function Checkbox({
-  label,
-  ...rest
-}: CheckboxProps): JSX.Element {
+export default function Checkbox({ label, ...rest }: CheckboxProps) {
   return (
     <FlexRow className={styles.container}>
       <input type="checkbox" {...rest} />

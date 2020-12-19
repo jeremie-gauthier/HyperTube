@@ -16,9 +16,7 @@ export const StoreContext = React.createContext<RootContext>({
   dispatch: () => null,
 });
 
-export default function StoreProvider({
-  children,
-}: StoreProviderProps): JSX.Element {
+export default function StoreProvider({ children }: StoreProviderProps) {
   const [state, dispatch] = React.useReducer(rootReducer, initialState);
   const store = React.useMemo(() => ({ state, dispatch }), [state]);
 

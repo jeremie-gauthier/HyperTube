@@ -17,10 +17,7 @@ type CountryFlagProps = React.SVGProps<SVGSVGElement> & {
   lang: string;
 };
 
-export default function CountryFlag({
-  lang,
-  ...rest
-}: CountryFlagProps): JSX.Element | null {
+export default function CountryFlag({ lang, ...rest }: CountryFlagProps) {
   const isUK = lang === "en";
   const isFrance = lang === "fr";
   const isSpain = lang === "es";
@@ -34,7 +31,7 @@ export default function CountryFlag({
   return null;
 }
 
-export function LangSettings(): JSX.Element {
+export function LangSettings() {
   const currentLang = useSelector((state) => state.user.lang) as string;
 
   return (

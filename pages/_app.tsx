@@ -8,10 +8,7 @@ type PageWithLayout = {
   Layout: (props: { children: React.ReactNode }) => JSX.Element;
 };
 
-function MyApp({
-  Component,
-  pageProps,
-}: AppProps<PageWithLayout>): JSX.Element {
+function MyApp({ Component, pageProps }: AppProps<PageWithLayout>) {
   const Layout = Component.Layout ? Component.Layout : React.Fragment;
 
   return (

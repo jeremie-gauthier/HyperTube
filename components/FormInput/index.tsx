@@ -18,7 +18,7 @@ export default function FormInput({
   className = "",
   error = undefined,
   ...rest
-}: FormInputProps): JSX.Element {
+}: FormInputProps) {
   const [hasFocus, setHasFocus] = React.useState<boolean>(false);
   const hasValue = rest.value.length > 0;
   const showLabel = hasFocus || hasValue;

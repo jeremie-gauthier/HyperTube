@@ -8,7 +8,7 @@ import { LangSettings } from "@/components/CountryFlag";
 import UserIcon from "@/components/UserIcon";
 import styles from "./Navbar.module.scss";
 
-export default function Settings(): JSX.Element {
+export default function Settings() {
   return (
     <FlexRow className={styles.settings}>
       <UserSettings />

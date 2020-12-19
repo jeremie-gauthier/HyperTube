@@ -15,7 +15,7 @@ class MyDocument extends Document {
     return { ...initialProps };
   }
 
-  render(): JSX.Element {
+  render() {
     return (
       <Html>
         <Head>

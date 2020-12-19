@@ -1,7 +1,7 @@
 import Head from "next/head";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 
-function Movies(): JSX.Element {
+function Movies() {
   return (
     <div>
       <Head>

@@ -18,7 +18,7 @@ import MenuBurger from "../../public/icons/menu-burger.svg";
 import styles from "./Navbar.module.scss";
 import Settings from "./Settings";
 
-export default function Navbar(): JSX.Element {
+export default function Navbar() {
   return (
     <FlexRow className={styles.container}>
       <BrandLogo />
@@ -29,7 +29,7 @@ export default function Navbar(): JSX.Element {
   );
 }
 
-const MobileView = ({ className }: { className: string }): JSX.Element => {
+const MobileView = ({ className }: { className: string }) => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -90,7 +90,7 @@ const DropdownMenu = ({ close }: DropdownMenuProps) => {
   );
 };
 
-const DesktopView = ({ className }: { className: string }): JSX.Element => (
+const DesktopView = ({ className }: { className: string }) => (
   <div className={`${className} items-center`}>
     <FlexRow className={styles.items}>
       <NavLinks />
