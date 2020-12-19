@@ -20,6 +20,18 @@
   }
 }
 
+.brandLogo {
+  @apply relative cursor-pointer h-8 w-4 md:w-28;
+
+  @media (max-width: 768px) {
+    background: no-repeat center/100% url("/img/hypertube-short.png");
+  }
+
+  @media (min-width: 768px) {
+    background: no-repeat center/100% url("/img/hypertube.png");
+  }
+}
+
 .countryFlag {
   @apply h-8 w-8 rounded;
 }
