@@ -2,11 +2,17 @@
 	"auth": {
 		"authentication": "Authentification",
 		"login": {
-			"connection": "S'identifier",
 			"first_visit": "Première visite sur Hypertube ?",
+			"login": "S'identifier",
 			"login_with_42": "S'identifier avec intra42",
 			"register": "Inscrivez-vous",
 			"remember": "Se souvenir de moi"
+		},
+		"register": {
+			"already_registered": "Déjà inscrit ?",
+			"login": "Connectez-vous",
+			"register": "S'inscrire",
+			"register_with_42": "S'inscrire avec intra42"
 		}
 	}
 }

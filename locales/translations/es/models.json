@@ -1,5 +1,9 @@
 {
 	"user": {
+		"cpassword": "Confirmación de contraseña",
+		"email": "Email",
+		"firstname": "Nombre de pila",
+		"lastname": "Apellido",
 		"password": "Contraseña",
 		"username": "Nombre de usuario"
 	}

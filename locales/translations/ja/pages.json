@@ -2,11 +2,17 @@
 	"auth": {
 		"authentication": "認証",
 		"login": {
-			"connection": "ログイン",
 			"first_visit": "Hypertubeの新機能？",
+			"login": "ログイン",
 			"login_with_42": "intra42でログイン",
 			"register": "サインアップ",
 			"remember": "私を覚えて"
+		},
+		"register": {
+			"already_registered": "すでに登録 ？",
+			"login": "サインイン",
+			"register": "サインアップ",
+			"register_with_42": "intra42でサインアップ"
 		}
 	}
 }

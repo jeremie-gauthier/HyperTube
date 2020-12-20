@@ -1,5 +1,7 @@
 {
 	"forms": {
+		"diff_pwd": "Les mots de passe doivent être identiques",
+		"email_format": "Format d'email invalide",
 		"required": "Ce champ est requis"
 	},
 	"lang": {
