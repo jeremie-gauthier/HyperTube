@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./Flex.module.scss";
 
 type FlexProps = {
   children: React.ReactNode;
@@ -10,7 +11,11 @@ type DefaultProps = {
 
 export const FlexCol = React.forwardRef<HTMLDivElement, FlexProps>(
   ({ children, className = "", ...rest }, forwardRef) => (
-    <div ref={forwardRef} className={`flex flex-col ${className}`} {...rest}>
+    <div
+      ref={forwardRef}
+      className={[styles.flexCol, className].join(" ")}
+      {...rest}
+    >
       {children}
     </div>
   ),
@@ -18,7 +23,11 @@ export const FlexCol = React.forwardRef<HTMLDivElement, FlexProps>(
 
 export const FlexRow = React.forwardRef<HTMLDivElement, FlexProps>(
   ({ children, className = "", ...rest }, forwardRef) => (
-    <div ref={forwardRef} className={`flex flex-row ${className}`} {...rest}>
+    <div
+      ref={forwardRef}
+      className={[styles.flexRow, className].join(" ")}
+      {...rest}
+    >
       {children}
     </div>
   ),

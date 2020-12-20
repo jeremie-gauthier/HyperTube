@@ -1,6 +1,7 @@
 import Head from "next/head";
+import SiteLayout from "@/components/Layouts/SiteLayout";
 
-export default function Home(): JSX.Element {
+function Movies() {
   return (
     <div>
       <Head>
@@ -14,3 +15,7 @@ export default function Home(): JSX.Element {
     </div>
   );
 }
+
+Movies.Layout = SiteLayout;
+
+export default Movies;

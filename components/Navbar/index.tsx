@@ -3,10 +3,9 @@ import React from "react";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import Image from "next/image";
 import ActiveLink from "@/components/ActiveLink";
 import { RootState } from "@/state/types";
-import useSelector, { useResponsiveAttribute } from "@/hooks/useSelector";
+import useSelector from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setSearchInput } from "@/state/movies/actions";
 import classNames from "classnames";
@@ -19,23 +18,22 @@ import MenuBurger from "../../public/icons/menu-burger.svg";
 import styles from "./Navbar.module.scss";
 import Settings from "./Settings";
 
-export default function Navbar(): JSX.Element {
-  const isTabletOrMobile = useResponsiveAttribute();
-
+export default function Navbar() {
   return (
     <FlexRow className={styles.container}>
       <BrandLogo />
 
-      {isTabletOrMobile ? <MobileView /> : <DesktopView />}
+      <MobileView className={styles.mobileView} />
+      <DesktopView className={styles.desktopView} />
     </FlexRow>
   );
 }
 
-const MobileView = (): JSX.Element => {
+const MobileView = ({ className }: { className: string }) => {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <>
+    <div className={className}>
       <FlexRow className={`relative ${styles.items} justify-end`}>
         <SearchInput />
         {open ? (
@@ -54,7 +52,7 @@ const MobileView = (): JSX.Element => {
       </FlexRow>
 
       {open && <DropdownMenu close={() => setOpen(false)} />}
-    </>
+    </div>
   );
 };
 
@@ -92,15 +90,15 @@ const DropdownMenu = ({ close }: DropdownMenuProps) => {
   );
 };
 
-const DesktopView = (): JSX.Element => (
-  <>
+const DesktopView = ({ className }: { className: string }) => (
+  <div className={`${className} items-center`}>
     <FlexRow className={styles.items}>
       <NavLinks />
       <SearchInput />
     </FlexRow>
 
     <Settings />
-  </>
+  </div>
 );
 
 const NavLinks = ({ ...rest }) => {
@@ -128,30 +126,11 @@ const NavLinks = ({ ...rest }) => {
   );
 };
 
-// The <a> markup is mandatory here to avoid errors
-// https://github.com/vercel/next.js/issues/7915
-const BrandLogo = () => {
-  const isTabletOrMobile = useResponsiveAttribute();
-  const logo = isTabletOrMobile
-    ? "/icons/hypertube-short.png"
-    : "/icons/hypertube.png";
-  const width = isTabletOrMobile ? 17 : 115;
-
-  return (
-    <Link href="/">
-      <a href="/" className="flex">
-        <Image
-          src={logo}
-          alt="Hypertube logo"
-          width={width}
-          height={31}
-          priority
-          className="cursor-pointer"
-        />
-      </a>
-    </Link>
-  );
-};
+const BrandLogo = () => (
+  <Link href="/">
+    <div className={styles.brandLogo} />
+  </Link>
+);
 
 const SearchInput = () => {
   const { t } = useTranslation();

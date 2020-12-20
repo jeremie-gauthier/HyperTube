@@ -21,7 +21,7 @@ function ActiveLink({
   inactiveClassName = "",
   activeClassName = "",
   ...rest
-}: ActiveLinkProps): JSX.Element {
+}: ActiveLinkProps) {
   const router = useRouter();
   const isActive = router.pathname === href;
   const activeLink = classNames({

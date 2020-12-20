@@ -1,4 +1,7 @@
 {
+	"forms": {
+		"required": "Este campo es requerido"
+	},
 	"lang": {
 		"change_language": "Cambiar idioma",
 		"english": "English",

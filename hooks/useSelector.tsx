@@ -8,8 +8,3 @@ export default function useSelector(callback: CallbackFn): unknown {
   const { state } = React.useContext(StoreContext);
   return callback(state);
 }
-
-export function useResponsiveAttribute(): boolean {
-  const { isTabletOrMobile } = React.useContext(StoreContext);
-  return isTabletOrMobile;
-}

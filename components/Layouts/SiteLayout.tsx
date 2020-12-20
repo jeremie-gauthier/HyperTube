@@ -4,7 +4,7 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-export default function Layout({ children }: LayoutProps): JSX.Element {
+export default function Layout({ children }: LayoutProps) {
   return (
     <div className="h-screen" data-testid="layout-div">
       <Navbar />

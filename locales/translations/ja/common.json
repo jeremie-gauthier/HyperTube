@@ -1,4 +1,7 @@
 {
+	"forms": {
+		"required": "この項目は必須です"
+	},
 	"lang": {
 		"change_language": "言語を変えてください",
 		"english": "English",

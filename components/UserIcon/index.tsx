@@ -7,10 +7,7 @@ type UserIconProps = {
   user: TUser;
 };
 
-export default function UserIcon({
-  user,
-  ...rest
-}: UserIconProps): JSX.Element {
+export default function UserIcon({ user, ...rest }: UserIconProps) {
   return (
     <FlexCol className={styles.frame} {...rest}>
       <span>{getInitials(user)}</span>

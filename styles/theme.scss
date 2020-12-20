@@ -11,3 +11,11 @@
   border-right: 0.5rem solid transparent;
   border-bottom: 0.5rem solid white;
 }
+
+.mobileView {
+  @apply flex flex-1 md:hidden;
+}
+
+.desktopView {
+  @apply hidden md:flex md:flex-1;
+}

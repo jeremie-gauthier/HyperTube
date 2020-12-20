@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FormInput /> should render correctly when focused 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <label
+      class="text-white"
+      for="test"
+    >
+      test
+    </label>
+    <input
+      autocomplete="off"
+      class=" border-white"
+      id="test"
+      name="test"
+      placeholder=""
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<FormInput /> should render correctly when focused 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <input
+      autocomplete="off"
+      class=" border-grey-light"
+      id="test"
+      name="test"
+      placeholder="test"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<FormInput /> should render correctly with error 1`] = `
+<div
+  className="container"
+>
+  <input
+    autoComplete="off"
+    className=" border-grey-light inputError"
+    id="test"
+    name="test"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="test"
+    value=""
+  />
+  <p>
+    something wrong, I can feel it
+  </p>
+</div>
+`;
+
+exports[`<FormInput /> should render correctly without error 1`] = `
+<div
+  className="container"
+>
+  <input
+    autoComplete="off"
+    className=" border-grey-light"
+    id="test"
+    name="test"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="test"
+    value=""
+  />
+</div>
+`;

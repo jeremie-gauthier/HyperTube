@@ -1,0 +1,12 @@
+{
+	"auth": {
+		"authentication": "Authentification",
+		"login": {
+			"connection": "S'identifier",
+			"first_visit": "Première visite sur Hypertube ?",
+			"login_with_42": "S'identifier avec intra42",
+			"register": "Inscrivez-vous",
+			"remember": "Se souvenir de moi"
+		}
+	}
+}
