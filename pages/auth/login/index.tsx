@@ -11,7 +11,7 @@ import { FlexRow } from "@/components/Flex";
 import Link from "next/link";
 import { LangSettings } from "@/components/CountryFlag";
 import styles from "./login.module.scss";
-import Oauth42 from "../../public/icons/42_logo.svg";
+import Oauth42 from "../../../public/icons/42_logo.svg";
 
 const initialState: TFormValues = {
   username: "",
