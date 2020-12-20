@@ -1,0 +1,63 @@
+import { FormErrors } from "@/hooks/useForm";
+import { TRegisterForm } from "@/lib/types/register";
+
+export default function loginResolver(
+  values: TRegisterForm,
+): FormErrors<TRegisterForm> {
+  const checksRegister = [
+    checkUsername,
+    checkPassword,
+    checkEmail,
+    checkLastname,
+    checkFirstname,
+  ];
+
+  const errors = checksRegister.reduce(
+    (err, fn) => ({ ...err, ...fn(values) }),
+    {},
+  ) as FormErrors<TRegisterForm>;
+
+  return errors;
+}
+
+function checkUsername({ username }: { username: string }) {
+  return username.length === 0 ? { username: "common.forms.required" } : {};
+}
+
+function checkPassword({
+  password,
+  cpassword,
+}: {
+  password: string;
+  cpassword: string;
+}) {
+  if (password.length === 0) {
+    return { password: "common.forms.required" };
+  }
+  if (password !== cpassword) {
+    return {
+      password: "common.forms.diff_pwd",
+      cpassword: "common.forms.diff_pwd",
+    };
+  }
+  return {};
+}
+
+function checkEmail({ email }: { email: string }) {
+  const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+  if (email.length === 0) {
+    return { email: "common.forms.required" };
+  }
+  if (emailRegex.test(email) === false) {
+    return { email: "common.forms.email_format" };
+  }
+  return {};
+}
+
+function checkLastname({ lastname }: { lastname: string }) {
+  return lastname.length === 0 ? { lastname: "common.forms.required" } : {};
+}
+
+function checkFirstname({ firstname }: { firstname: string }) {
+  return firstname.length === 0 ? { firstname: "common.forms.required" } : {};
+}

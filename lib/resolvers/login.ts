@@ -1,10 +1,10 @@
 import { FormErrors } from "@/hooks/useForm";
-import { TFormValues } from "@/lib/types/login";
+import { TLoginForm } from "@/lib/types/login";
 
 export default function loginResolver(
-  values: TFormValues,
-): FormErrors<TFormValues> {
-  const errors: FormErrors<TFormValues> = {};
+  values: TLoginForm,
+): FormErrors<TLoginForm> {
+  const errors: FormErrors<TLoginForm> = {};
 
   if (values.username.length === 0) {
     errors.username = "common.forms.required";

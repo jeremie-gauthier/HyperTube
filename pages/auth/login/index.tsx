@@ -4,7 +4,7 @@ import AuthLayout from "@/components/Layouts/AuthLayout";
 import { useTranslation } from "react-i18next";
 import useForm from "@/hooks/useForm";
 import FormInput from "@/components/FormInput";
-import { TFormValues } from "@/lib/types/login";
+import { TLoginForm } from "@/lib/types/login";
 import resolver from "@/lib/resolvers/login";
 import Checkbox from "@/components/Checkbox";
 import { FlexRow } from "@/components/Flex";
@@ -13,7 +13,7 @@ import { LangSettings } from "@/components/CountryFlag";
 import styles from "./login.module.scss";
 import Oauth42 from "../../../public/icons/42_logo.svg";
 
-const initialState: TFormValues = {
+const initialState: TLoginForm = {
   username: "",
   password: "",
   remember: false,
@@ -29,7 +29,7 @@ function Login() {
         <LangSettings />
       </div>
 
-      <h1>{t("pages.auth.login.connection")}</h1>
+      <h1>{t("pages.auth.login.login")}</h1>
       <LoginForm />
       <OAuthLinks />
       <SignupLink />
@@ -42,18 +42,18 @@ export default Login;
 
 const LoginForm = () => {
   const { t } = useTranslation();
-  const submit = (values: TFormValues) => {
+  const submit = (values: TLoginForm) => {
     console.log(values);
   };
 
-  const { values, errors, handleChange, handleSubmit } = useForm<TFormValues>(
+  const { values, errors, handleChange, handleSubmit } = useForm<TLoginForm>(
     submit,
     resolver,
     initialState,
   );
 
   return (
-    <form onSubmit={handleSubmit} className={styles.loginForm}>
+    <form onSubmit={handleSubmit} className={styles.authForm}>
       <FormInput
         name="username"
         value={values.username}
@@ -69,7 +69,7 @@ const LoginForm = () => {
         placeholder={t("models.user.password")}
         error={errors.password}
       />
-      <button type="submit">{t("pages.auth.login.connection")}</button>
+      <button type="submit">{t("pages.auth.login.login")}</button>
       <Checkbox
         label={t("pages.auth.login.remember")}
         name="remember"
@@ -108,7 +108,7 @@ const SignupLink = () => {
   const { t } = useTranslation();
 
   return (
-    <div className={styles.registerLink}>
+    <div className={styles.switchAuthLink}>
       <p>{t("pages.auth.login.first_visit")}</p>
       <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
     </div>
