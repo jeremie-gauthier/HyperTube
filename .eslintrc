@@ -98,7 +98,6 @@
     "no-label-var": 1, //disallow labels that share a name with a variable
     "no-shadow-restricted-names": 0, //disallow shadowing of names such as arguments
     "no-shadow": 0, //disallow declaration of variables already declared in the outer scope
-    "no-unused-vars": [1, { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
     "no-use-before-define": "off",
     "no-underscore-dangle": "off",
 
