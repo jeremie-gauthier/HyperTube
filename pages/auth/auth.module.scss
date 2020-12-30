@@ -13,7 +13,8 @@
   }
 
   h1 {
-    @apply title;
+    @apply font-bold text-3xl;
+    @apply md:text-4xl;
   }
 }
 
