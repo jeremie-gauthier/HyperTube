@@ -83,7 +83,7 @@ const HypertubeFormData = ({ values, handleChange, errors }: FormData) => {
   const { t } = useTranslation();
 
   return (
-    <FlexCol>
+    <FlexCol className={styles.fieldsGroup}>
       <FormInput
         name="username"
         value={values.username}
@@ -115,7 +115,7 @@ const PersonalFormData = ({ values, handleChange, errors }: FormData) => {
   const { t } = useTranslation();
 
   return (
-    <FlexCol>
+    <FlexCol className={styles.fieldsGroup}>
       <FormInput
         name="email"
         value={values.email}
@@ -145,12 +145,14 @@ const OAuthLinks = () => {
   const { t } = useTranslation();
 
   return (
-    <Link href="/auth/register/intra42">
-      <FlexRow className="items-center space-x-2 cursor-pointer text-sm">
-        <Oauth42 className="h-4 w-4 cursor-pointer" />
-        <span>{t("pages.auth.register.register_with_42")}</span>
-      </FlexRow>
-    </Link>
+    <FlexCol className={styles.OAuthLinks}>
+      <Link href="/auth/register/intra42">
+        <FlexRow className="items-center space-x-2 cursor-pointer text-sm">
+          <Oauth42 className="h-4 w-4 cursor-pointer" />
+          <span>{t("pages.auth.register.register_with_42")}</span>
+        </FlexRow>
+      </Link>
+    </FlexCol>
   );
 };
 

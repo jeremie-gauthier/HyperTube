@@ -7,7 +7,7 @@ import FormInput from "@/components/FormInput";
 import { TLoginForm } from "@/lib/types/login";
 import resolver from "@/lib/resolvers/login";
 import Checkbox from "@/components/Checkbox";
-import { FlexRow } from "@/components/Flex";
+import { FlexCol, FlexRow } from "@/components/Flex";
 import Link from "next/link";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import styles from "./login.module.scss";
@@ -53,21 +53,23 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.authForm}>
-      <FormInput
-        name="username"
-        value={values.username}
-        onChange={handleChange}
-        placeholder={t("models.user.username")}
-        error={errors.username}
-      />
-      <FormInput
-        type="password"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        placeholder={t("models.user.password")}
-        error={errors.password}
-      />
+      <FlexCol className={styles.fieldsGroup}>
+        <FormInput
+          name="username"
+          value={values.username}
+          onChange={handleChange}
+          placeholder={t("models.user.username")}
+          error={errors.username}
+        />
+        <FormInput
+          type="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          placeholder={t("models.user.password")}
+          error={errors.password}
+        />
+      </FlexCol>
       <button type="submit">{t("pages.auth.login.login")}</button>
       <Checkbox
         label={t("pages.auth.login.remember")}
@@ -83,12 +85,14 @@ const OAuthLinks = () => {
   const { t } = useTranslation();
 
   return (
-    <Link href="/auth/login/intra42">
-      <FlexRow className="items-center space-x-2 cursor-pointer text-sm">
-        <Oauth42 className="h-4 w-4 cursor-pointer" />
-        <span>{t("pages.auth.login.login_with_42")}</span>
-      </FlexRow>
-    </Link>
+    <FlexCol className={styles.OAuthLinks}>
+      <Link href="/auth/login/intra42">
+        <FlexRow className="items-center space-x-2 cursor-pointer text-sm">
+          <Oauth42 className="h-4 w-4 cursor-pointer" />
+          <span>{t("pages.auth.login.login_with_42")}</span>
+        </FlexRow>
+      </Link>
+    </FlexCol>
   );
 };
 

@@ -17,19 +17,23 @@
 }
 
 .authForm {
-  @apply mb-4 text-base;
+  @apply text-base space-y-4;
 
-  div {
-    @apply mt-4;
+  .fieldsGroup {
+    @apply space-y-4 mt-4;
+  }
 
-    input {
-      background-color: #414141;
-    }
+  input {
+    background-color: #414141;
   }
 
   button {
     @apply bg-red rounded w-full py-3 font-extrabold mt-8;
   }
+}
+
+.OAuthLinks {
+  @apply mt-4 space-y-4;
 }
 
 .switchAuthLink {
