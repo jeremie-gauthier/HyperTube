@@ -1,0 +1,6 @@
+@import "../auth.module.scss";
+
+.registerForm {
+  @apply flex flex-col;
+  @apply md:flex-row md:space-x-24;
+}

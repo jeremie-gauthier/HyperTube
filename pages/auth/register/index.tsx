@@ -10,7 +10,7 @@ import Link from "next/link";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import resolver from "@/lib/resolvers/register";
 import { requiredField } from "@/lib/helpers";
-import styles from "../login/login.module.scss";
+import styles from "./register.module.scss";
 import Oauth42 from "../../../public/icons/42_logo.svg";
 
 const initialState: TRegisterForm = {
@@ -58,7 +58,7 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.authForm}>
-      <FlexRow className="space-x-24">
+      <div className={styles.registerForm}>
         <HypertubeFormData
           values={values}
           handleChange={handleChange}
@@ -69,7 +69,7 @@ const RegisterForm = () => {
           handleChange={handleChange}
           errors={errors}
         />
-      </FlexRow>
+      </div>
       <button type="submit">{t("pages.auth.register.register")}</button>
     </form>
   );
