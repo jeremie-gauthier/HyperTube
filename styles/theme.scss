@@ -1,3 +1,5 @@
+@import "react-perfect-scrollbar/dist/css/styles.css";
+
 .body {
   @apply h-screen text-white p-0 m-0;
 
@@ -13,9 +15,13 @@
 }
 
 .mobileView {
-  @apply flex flex-1 md:hidden;
+  @apply flex md:hidden;
 }
 
 .desktopView {
-  @apply hidden md:flex md:flex-1;
+  @apply hidden md:flex;
+}
+
+.ps__rail-y {
+  opacity: 0.6;
 }

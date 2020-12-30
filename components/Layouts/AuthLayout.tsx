@@ -1,4 +1,5 @@
-import { FlexCol } from "../Flex";
+import { FlexCol } from "@/components/Flex";
+import { LangSettings } from "@/components/CountryFlag";
 import styles from "./AuthLayout.module.scss";
 
 type LayoutProps = {
@@ -8,7 +9,10 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <FlexCol className={styles.layout} data-testid="layout-div">
-      <div className={styles.brandLogo} />
+      <div className={styles.header}>
+        <div className={styles.brandLogo} />
+        <LangSettings />
+      </div>
       <FlexCol className={styles.container}>{children}</FlexCol>
     </FlexCol>
   );

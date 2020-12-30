@@ -1,11 +1,9 @@
-.title {
-  @apply font-bold mb-7;
-
-  font-size: 2rem;
+.container {
+  @apply max-h-full overflow-hidden;
 }
 
-.container {
-  @apply px-8 pt-16;
+.scrollContainer {
+  @apply px-8 pb-8;
   @apply md:relative md:py-14 md:px-16 md:text-sm;
 
   @media (min-width: 768px) {

@@ -5,11 +5,11 @@ import { useTranslation } from "react-i18next";
 import useForm, { FormErrors } from "@/hooks/useForm";
 import FormInput from "@/components/FormInput";
 import { TRegisterForm } from "@/lib/types/register";
-import { LangSettings } from "@/components/CountryFlag";
 import Link from "next/link";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import resolver from "@/lib/resolvers/register";
 import { requiredField } from "@/lib/helpers";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import styles from "./register.module.scss";
 import Oauth42 from "../../../public/icons/42_logo.svg";
 
@@ -29,14 +29,12 @@ function Register() {
     <main className={styles.container}>
       <HeadContent />
 
-      <div className="absolute top-4 right-4">
-        <LangSettings />
-      </div>
-
-      <h1>{t("pages.auth.register.register")}</h1>
-      <RegisterForm />
-      <OAuthLinks />
-      <LoginLink />
+      <PerfectScrollbar className={styles.scrollContainer}>
+        <h1>{t("pages.auth.register.register")}</h1>
+        <RegisterForm />
+        <OAuthLinks />
+        <LoginLink />
+      </PerfectScrollbar>
     </main>
   );
 }
