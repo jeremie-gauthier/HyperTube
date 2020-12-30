@@ -9,7 +9,7 @@ import resolver from "@/lib/resolvers/login";
 import Checkbox from "@/components/Checkbox";
 import { FlexRow } from "@/components/Flex";
 import Link from "next/link";
-import { LangSettings } from "@/components/CountryFlag";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import styles from "./login.module.scss";
 import Oauth42 from "../../../public/icons/42_logo.svg";
 
@@ -25,14 +25,13 @@ function Login() {
   return (
     <main className={styles.container}>
       <HeadContent />
-      <div className="absolute top-4 right-4">
-        <LangSettings />
-      </div>
 
-      <h1>{t("pages.auth.login.login")}</h1>
-      <LoginForm />
-      <OAuthLinks />
-      <SignupLink />
+      <PerfectScrollbar className={styles.scrollContainer}>
+        <h1>{t("pages.auth.login.login")}</h1>
+        <LoginForm />
+        <OAuthLinks />
+        <SignupLink />
+      </PerfectScrollbar>
     </main>
   );
 }
