@@ -81,6 +81,7 @@ type FormData = {
 
 const HypertubeFormData = ({ values, handleChange, errors }: FormData) => {
   const { t } = useTranslation();
+  const [isPwdFocused, setIsPwdFocused] = React.useState(false);
 
   return (
     <FlexCol className={styles.fieldsGroup}>
@@ -91,14 +92,19 @@ const HypertubeFormData = ({ values, handleChange, errors }: FormData) => {
         placeholder={requiredField(t("models.user.username"))}
         error={errors.username}
       />
-      <FormInput
-        type="password"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        placeholder={requiredField(t("models.user.password"))}
-        error={errors.password}
-      />
+      <div className="relative">
+        <FormInput
+          type="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          placeholder={requiredField(t("models.user.password"))}
+          error={errors.password}
+          onFocus={() => setIsPwdFocused(true)}
+          onBlur={() => setIsPwdFocused(false)}
+        />
+        {isPwdFocused && <PasswordTooltip />}
+      </div>
       <FormInput
         type="password"
         name="cpassword"
@@ -153,6 +159,20 @@ const OAuthLinks = () => {
         </FlexRow>
       </Link>
     </FlexCol>
+  );
+};
+
+const PasswordTooltip = () => {
+  const { t } = useTranslation();
+
+  return (
+    <ul className={styles.passwordTooltip}>
+      <li>{t("pages.auth.register.pwd.minimal_length")}</li>
+      <li>{t("pages.auth.register.pwd.should_contain_min")}</li>
+      <li>{t("pages.auth.register.pwd.should_contain_maj")}</li>
+      <li>{t("pages.auth.register.pwd.should_contain_number")}</li>
+      <li>{t("pages.auth.register.pwd.should_contain_special")}</li>
+    </ul>
   );
 };
 

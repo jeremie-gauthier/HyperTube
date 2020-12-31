@@ -10,22 +10,23 @@ type FormInputProps = {
 } & Partial<DefaultProps>;
 
 type DefaultProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  className: string;
   error: string;
 };
 
 export default function FormInput({
-  className = "",
   error = undefined,
   ...rest
 }: FormInputProps) {
-  const [hasFocus, setHasFocus] = React.useState<boolean>(false);
+  const { hasFocus, handleFocus, handleBlur } = useFocus(
+    rest.onFocus,
+    rest.onBlur,
+  );
   const hasValue = rest.value.length > 0;
   const showLabel = hasFocus || hasValue;
   const { t } = useTranslation();
 
   const isFocused = classnames({
-    [className]: true,
+    [rest.className ?? ""]: true,
     "border-white": hasFocus,
     "border-grey-light": !hasFocus,
     [styles.inputError]: error,
@@ -47,11 +48,41 @@ export default function FormInput({
         {...rest}
         className={isFocused}
         placeholder={showLabel ? "" : rest.placeholder}
-        onBlur={() => setHasFocus(false)}
-        onFocus={() => setHasFocus(true)}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
         autoComplete="off"
       />
       {error && <p>{t(error)}</p>}
     </div>
   );
 }
+
+type FocusEvent =
+  | ((evt: React.FocusEvent<HTMLInputElement>) => void)
+  | undefined;
+
+const useFocus = (onFocus: FocusEvent, onBlur: FocusEvent) => {
+  const [hasFocus, setHasFocus] = React.useState<boolean>(false);
+
+  const handleFocus = React.useCallback(
+    (evt) => {
+      setHasFocus(true);
+      if (onFocus) {
+        onFocus(evt);
+      }
+    },
+    [onFocus],
+  );
+
+  const handleBlur = React.useCallback(
+    (evt) => {
+      setHasFocus(false);
+      if (onBlur) {
+        onBlur(evt);
+      }
+    },
+    [onBlur],
+  );
+
+  return { hasFocus, handleFocus, handleBlur };
+};
