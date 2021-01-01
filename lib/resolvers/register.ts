@@ -21,7 +21,9 @@ export default function loginResolver(
 }
 
 function checkUsername({ username }: { username: string }) {
-  return username.length === 0 ? { username: "common.forms.required" } : {};
+  return username.trim().length === 0
+    ? { username: "common.forms.required" }
+    : {};
 }
 
 function checkPassword({
@@ -64,9 +66,13 @@ function checkEmail({ email }: { email: string }) {
 }
 
 function checkLastname({ lastname }: { lastname: string }) {
-  return lastname.length === 0 ? { lastname: "common.forms.required" } : {};
+  return lastname.trim().length === 0
+    ? { lastname: "common.forms.required" }
+    : {};
 }
 
 function checkFirstname({ firstname }: { firstname: string }) {
-  return firstname.length === 0 ? { firstname: "common.forms.required" } : {};
+  return firstname.trim().length === 0
+    ? { firstname: "common.forms.required" }
+    : {};
 }
