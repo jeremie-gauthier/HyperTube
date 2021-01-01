@@ -41,6 +41,9 @@ describe("Navbar on mobile", () => {
     userEvent.click(screen.getByTestId("menuburger-icon"));
     expect(screen.getByTestId("cross-icon")).toBeInTheDocument();
     expect(screen.queryByTestId("menuburger-icon")).not.toBeInTheDocument();
+    userEvent.click(screen.getByTestId("cross-icon"));
+    expect(screen.queryByTestId("cross-icon")).not.toBeInTheDocument();
+    expect(screen.getByTestId("menuburger-icon")).toBeInTheDocument();
   });
 });
 

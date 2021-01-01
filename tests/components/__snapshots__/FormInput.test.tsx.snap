@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FormInput /> should render correctly when focused 1`] = `
+exports[`<FormInput /> should render correctly when focused without focus callbacks 1`] = `
 <DocumentFragment>
   <div
     class="container"
@@ -23,7 +23,7 @@ exports[`<FormInput /> should render correctly when focused 1`] = `
 </DocumentFragment>
 `;
 
-exports[`<FormInput /> should render correctly when focused 2`] = `
+exports[`<FormInput /> should render correctly when focused without focus callbacks 2`] = `
 <DocumentFragment>
   <div
     class="container"

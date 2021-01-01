@@ -24,14 +24,42 @@ test("<FormInput /> should render correctly with error", () => {
   expect(tree).toMatchSnapshot();
 });
 
-test("<FormInput /> should render correctly when focused", () => {
-  const screen = render(
-    <FormInput value="" name="test" placeholder="test" onChange={() => null} />,
-    {},
-  );
-  const input = screen.getByPlaceholderText("test");
-  fireEvent.focus(input);
-  expect(screen.asFragment()).toMatchSnapshot();
-  fireEvent.blur(input);
-  expect(screen.asFragment()).toMatchSnapshot();
+describe("<FormInput /> should render correctly when focused", () => {
+  test("with focus callbacks", () => {
+    const onFocus = jest.fn();
+    const onBlur = jest.fn();
+    const screen = render(
+      <FormInput
+        value=""
+        name="test"
+        placeholder="test"
+        onChange={() => null}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />,
+      {},
+    );
+    const input = screen.getByPlaceholderText("test");
+    fireEvent.focus(input);
+    expect(onFocus).toHaveBeenCalledTimes(1);
+    fireEvent.blur(input);
+    expect(onBlur).toHaveBeenCalledTimes(1);
+  });
+
+  test("without focus callbacks", () => {
+    const screen = render(
+      <FormInput
+        value=""
+        name="test"
+        placeholder="test"
+        onChange={() => null}
+      />,
+      {},
+    );
+    const input = screen.getByPlaceholderText("test");
+    fireEvent.focus(input);
+    expect(screen.asFragment()).toMatchSnapshot();
+    fireEvent.blur(input);
+    expect(screen.asFragment()).toMatchSnapshot();
+  });
 });
