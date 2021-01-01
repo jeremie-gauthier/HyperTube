@@ -31,8 +31,16 @@ function checkPassword({
   password: string;
   cpassword: string;
 }) {
+  const pwdRegex = [/[a-z]/, /[A-Z]/, /\d/, /[\W_]/];
+
   if (password.length === 0) {
     return { password: "common.forms.required" };
+  }
+  if (
+    password.length < 8 ||
+    pwdRegex.every((pattern) => pattern.test(password))
+  ) {
+    return { password: "common.forms.invalid_pwd" };
   }
   if (password !== cpassword) {
     return {
@@ -45,6 +53,7 @@ function checkPassword({
 
 function checkEmail({ email }: { email: string }) {
   const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
   if (email.length === 0) {
     return { email: "common.forms.required" };
   }
