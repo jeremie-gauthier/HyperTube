@@ -2,6 +2,7 @@
 	"forms": {
 		"diff_pwd": "Las contraseñas deben ser las mismas",
 		"email_format": "Formato de correo inválido",
+		"invalid_pwd": "La contraseña no respeta las reglas de validación",
 		"required": "Este campo es requerido"
 	},
 	"lang": {
