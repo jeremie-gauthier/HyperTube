@@ -40,7 +40,7 @@ function checkPassword({
   }
   if (
     password.length < 8 ||
-    pwdRegex.every((pattern) => pattern.test(password))
+    !pwdRegex.every((pattern) => pattern.test(password))
   ) {
     return { password: "common.forms.invalid_pwd" };
   }
