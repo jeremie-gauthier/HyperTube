@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Login /> should render correctly 1`] = `
+exports[`<Register /> should render correctly 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -12,58 +12,106 @@ Object {
           class="scrollbar-container scrollContainer ps"
         >
           <h1>
-            pages.auth.login.login
+            pages.auth.register.register
           </h1>
           <form
             class="authForm"
           >
             <div
-              class="flexCol fieldsGroup"
+              class="registerForm"
             >
               <div
-                class="container"
+                class="flexCol fieldsGroup"
               >
-                <input
-                  autocomplete="off"
-                  class=" border-grey-light"
-                  id="username"
-                  name="username"
-                  placeholder="models.user.username"
-                  value=""
-                />
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="username"
+                    name="username"
+                    placeholder="models.user.username*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="relative"
+                >
+                  <div
+                    class="container"
+                  >
+                    <input
+                      autocomplete="off"
+                      class=" border-grey-light"
+                      id="password"
+                      name="password"
+                      placeholder="models.user.password*"
+                      type="password"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="cpassword"
+                    name="cpassword"
+                    placeholder="models.user.cpassword*"
+                    type="password"
+                    value=""
+                  />
+                </div>
               </div>
               <div
-                class="container"
+                class="flexCol fieldsGroup"
               >
-                <input
-                  autocomplete="off"
-                  class=" border-grey-light"
-                  id="password"
-                  name="password"
-                  placeholder="models.user.password"
-                  type="password"
-                  value=""
-                />
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="email"
+                    name="email"
+                    placeholder="models.user.email*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="lastname"
+                    name="lastname"
+                    placeholder="models.user.lastname*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="firstname"
+                    name="firstname"
+                    placeholder="models.user.firstname*"
+                    value=""
+                  />
+                </div>
               </div>
             </div>
             <button
               type="submit"
             >
-              pages.auth.login.login
+              pages.auth.register.register
             </button>
-            <div
-              class="flexRow container"
-            >
-              <input
-                name="remember"
-                type="checkbox"
-              />
-              <label
-                for="remember"
-              >
-                pages.auth.login.remember
-              </label>
-            </div>
           </form>
           <div
             class="flexCol OAuthLinks"
@@ -88,7 +136,7 @@ Object {
                 </g>
               </svg>
               <span>
-                pages.auth.login.login_with_42
+                pages.auth.register.register_with_42
               </span>
             </div>
           </div>
@@ -96,12 +144,12 @@ Object {
             class="switchAuthLink"
           >
             <p>
-              pages.auth.login.first_visit
+              pages.auth.register.already_registered
             </p>
             <a
-              href="/auth/register"
+              href="/auth/login"
             >
-              pages.auth.login.register
+              pages.auth.register.login
             </a>
           </div>
           <div
@@ -136,58 +184,106 @@ Object {
         class="scrollbar-container scrollContainer ps"
       >
         <h1>
-          pages.auth.login.login
+          pages.auth.register.register
         </h1>
         <form
           class="authForm"
         >
           <div
-            class="flexCol fieldsGroup"
+            class="registerForm"
           >
             <div
-              class="container"
+              class="flexCol fieldsGroup"
             >
-              <input
-                autocomplete="off"
-                class=" border-grey-light"
-                id="username"
-                name="username"
-                placeholder="models.user.username"
-                value=""
-              />
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="username"
+                  name="username"
+                  placeholder="models.user.username*"
+                  value=""
+                />
+              </div>
+              <div
+                class="relative"
+              >
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="password"
+                    name="password"
+                    placeholder="models.user.password*"
+                    type="password"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="cpassword"
+                  name="cpassword"
+                  placeholder="models.user.cpassword*"
+                  type="password"
+                  value=""
+                />
+              </div>
             </div>
             <div
-              class="container"
+              class="flexCol fieldsGroup"
             >
-              <input
-                autocomplete="off"
-                class=" border-grey-light"
-                id="password"
-                name="password"
-                placeholder="models.user.password"
-                type="password"
-                value=""
-              />
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="email"
+                  name="email"
+                  placeholder="models.user.email*"
+                  value=""
+                />
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="models.user.lastname*"
+                  value=""
+                />
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="firstname"
+                  name="firstname"
+                  placeholder="models.user.firstname*"
+                  value=""
+                />
+              </div>
             </div>
           </div>
           <button
             type="submit"
           >
-            pages.auth.login.login
+            pages.auth.register.register
           </button>
-          <div
-            class="flexRow container"
-          >
-            <input
-              name="remember"
-              type="checkbox"
-            />
-            <label
-              for="remember"
-            >
-              pages.auth.login.remember
-            </label>
-          </div>
         </form>
         <div
           class="flexCol OAuthLinks"
@@ -212,7 +308,7 @@ Object {
               </g>
             </svg>
             <span>
-              pages.auth.login.login_with_42
+              pages.auth.register.register_with_42
             </span>
           </div>
         </div>
@@ -220,12 +316,12 @@ Object {
           class="switchAuthLink"
         >
           <p>
-            pages.auth.login.first_visit
+            pages.auth.register.already_registered
           </p>
           <a
-            href="/auth/register"
+            href="/auth/login"
           >
-            pages.auth.login.register
+            pages.auth.register.login
           </a>
         </div>
         <div
