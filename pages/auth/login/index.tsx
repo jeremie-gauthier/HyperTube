@@ -10,6 +10,7 @@ import Checkbox from "@/components/Checkbox";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import Link from "next/link";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { SignupLink } from "@/components/Links";
 import styles from "./login.module.scss";
 import Oauth42 from "../../../public/icons/42_logo.svg";
 
@@ -108,23 +109,14 @@ const HeadContent = () => {
   );
 };
 
-const SignupLink = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div className={styles.switchAuthLink}>
-      <p>{t("pages.auth.login.first_visit")}</p>
-      <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
-    </div>
-  );
-};
-
 const PwdForgottenLink = () => {
   const { t } = useTranslation();
 
   return (
     <div className={styles.switchAuthLink}>
-      <Link href="/auth/reset">{t("pages.auth.reset.pwd_forgotten")}</Link>
+      <Link href="/auth/reset">
+        {t("pages.auth.reset.pwd_forgotten_question")}
+      </Link>
     </div>
   );
 };

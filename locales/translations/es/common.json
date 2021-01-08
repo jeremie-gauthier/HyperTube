@@ -1,4 +1,7 @@
 {
+	"buttons": {
+		"submit": "Enviar"
+	},
 	"forms": {
 		"diff_pwd": "Las contraseñas deben ser las mismas",
 		"email_format": "Formato de correo inválido",

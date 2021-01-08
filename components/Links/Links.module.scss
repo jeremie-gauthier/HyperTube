@@ -1,0 +1,8 @@
+.switchAuthLink {
+  @apply flex flex-row mt-4 font-bold text-sm;
+  @apply md:flex-col;
+
+  p {
+    @apply text-grey-light mr-2;
+  }
+}

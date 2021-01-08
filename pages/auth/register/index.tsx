@@ -10,6 +10,7 @@ import { FlexCol, FlexRow } from "@/components/Flex";
 import resolver from "@/lib/resolvers/register";
 import { requiredField } from "@/lib/helpers";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { LoginLink } from "@/components/Links";
 import styles from "./register.module.scss";
 import Oauth42 from "../../../public/icons/42_logo.svg";
 
@@ -184,16 +185,5 @@ const HeadContent = () => {
       <title>{t("pages.auth.authentication")}</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-  );
-};
-
-const LoginLink = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div className={styles.switchAuthLink}>
-      <p>{t("pages.auth.register.already_registered")}</p>
-      <Link href="/auth/login">{t("pages.auth.register.login")}</Link>
-    </div>
   );
 };
