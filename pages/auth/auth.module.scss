@@ -7,7 +7,7 @@
   @apply md:relative md:py-14 md:px-16 md:text-sm;
 
   @media (min-width: 768px) {
-    min-width: 26rem;
+    min-width: 36rem;
   }
 
   h1 {
@@ -21,6 +21,8 @@
 
   .fieldsGroup {
     @apply space-y-4 mt-4;
+
+    min-width: 18rem;
   }
 
   input {
