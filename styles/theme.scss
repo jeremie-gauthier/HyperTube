@@ -22,6 +22,22 @@
   border-bottom: 0.5rem solid transparent;
 }
 
+.isTouchScreen {
+  @apply hidden;
+
+  @media (hover: none) {
+    @apply flex;
+  }
+}
+
+.isNotTouchScreen {
+  @apply hidden;
+
+  @media (hover: hover) {
+    @apply flex;
+  }
+}
+
 .mobileView {
   @apply flex md:hidden;
 }

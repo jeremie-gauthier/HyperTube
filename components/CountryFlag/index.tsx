@@ -36,8 +36,14 @@ export function LangSettings() {
 
   return (
     <>
-      <LangClickable currentLang={currentLang} className={styles.mobileView} />
-      <LangHoverable currentLang={currentLang} className={styles.desktopView} />
+      <LangClickable
+        currentLang={currentLang}
+        className={styles.isTouchScreen}
+      />
+      <LangHoverable
+        currentLang={currentLang}
+        className={styles.isNotTouchScreen}
+      />
     </>
   );
 }
