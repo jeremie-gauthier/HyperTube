@@ -91,7 +91,7 @@ const DropdownMenu = ({ close }: DropdownMenuProps) => {
 };
 
 const DesktopView = ({ className }: { className: string }) => (
-  <div className={`${className} items-center`}>
+  <div className={`${className} items-center flex-1`}>
     <FlexRow className={styles.items}>
       <NavLinks />
       <SearchInput />

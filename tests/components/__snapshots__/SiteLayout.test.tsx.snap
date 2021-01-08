@@ -53,7 +53,7 @@ exports[`<SiteLayout /> should render correctly 1`] = `
       </div>
     </div>
     <div
-      className="desktopView items-center"
+      className="desktopView items-center flex-1"
     >
       <div
         className="flexRow items"
