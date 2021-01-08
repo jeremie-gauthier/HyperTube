@@ -7,7 +7,7 @@
 }
 
 .passwordTooltip {
-  @apply absolute z-10;
+  @apply absolute z-20;
   @apply w-full bg-grey-dark bg-opacity-90 rounded border border-grey-light p-2 text-sm;
   @apply md:top-0;
 
