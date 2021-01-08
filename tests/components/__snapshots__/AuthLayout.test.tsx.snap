@@ -13,7 +13,7 @@ exports[`<AuthLayout /> should render correctly 1`] = `
     />
     <div
       aria-hidden="true"
-      className="frame mobileView"
+      className="frame isTouchScreen"
       data-testid="lang-flag-clickable"
       onClick={[Function]}
       role="button"
@@ -50,7 +50,7 @@ exports[`<AuthLayout /> should render correctly 1`] = `
       </svg>
     </div>
     <div
-      className="frame desktopView"
+      className="frame isNotTouchScreen"
       data-testid="lang-flag-hoverable"
     >
       <svg

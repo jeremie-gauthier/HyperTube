@@ -6,7 +6,7 @@ const formValues = {
   cpassword: "IH@veTheR1ng!",
   firstname: "Frodo",
   lastname: "Baggins",
-  email: "Frodo.Baggins@TheShire.com",
+  email: "Frodo.Baggins@student.42.fr",
 };
 
 test("valid register form", () => {
@@ -35,7 +35,7 @@ test("email error", () => {
   expect(resolver({ ...formValues, email: "" })).toEqual({
     email: "common.forms.required",
   });
-  expect(resolver({ ...formValues, email: "frodo@shire.lotr" })).toEqual({
+  expect(resolver({ ...formValues, email: "frodo@shire.l" })).toEqual({
     email: "common.forms.email_format",
   });
 });

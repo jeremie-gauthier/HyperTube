@@ -29,7 +29,7 @@ Object {
     <div>
       <div
         aria-hidden="true"
-        class="frame mobileView"
+        class="frame isTouchScreen"
         data-testid="lang-flag-clickable"
         role="button"
       >
@@ -334,7 +334,7 @@ Object {
         </div>
       </div>
       <div
-        class="frame desktopView"
+        class="frame isNotTouchScreen"
         data-testid="lang-flag-hoverable"
       >
         <svg
@@ -373,7 +373,7 @@ Object {
   "container": <div>
     <div
       aria-hidden="true"
-      class="frame mobileView"
+      class="frame isTouchScreen"
       data-testid="lang-flag-clickable"
       role="button"
     >
@@ -678,7 +678,7 @@ Object {
       </div>
     </div>
     <div
-      class="frame desktopView"
+      class="frame isNotTouchScreen"
       data-testid="lang-flag-hoverable"
     >
       <svg
