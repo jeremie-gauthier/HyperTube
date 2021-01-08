@@ -1,6 +1,6 @@
 import { FormErrors } from "@/hooks/useForm";
 import { TRegisterForm } from "@/lib/types/register";
-import { checkEmail, checkPassword } from "./checkers";
+import { checkEmail, checkPassword, checkUsername } from "./checkers";
 
 export default function loginResolver(
   values: TRegisterForm,
@@ -35,12 +35,6 @@ function checkBothPassword({
         password: "common.forms.diff_pwd",
         cpassword: "common.forms.diff_pwd",
       };
-}
-
-function checkUsername({ username }: { username: string }) {
-  return username.trim().length === 0
-    ? { username: "common.forms.required" }
-    : {};
 }
 
 function checkLastname({ lastname }: { lastname: string }) {

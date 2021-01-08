@@ -66,52 +66,63 @@ Object {
             </div>
           </form>
           <div
-            class="flexCol OAuthLinks"
+            class="extras"
           >
             <div
-              class="flexRow items-center space-x-2 cursor-pointer text-sm"
+              class="flexCol "
             >
-              <svg
-                class="h-4 w-4 cursor-pointer"
-                viewBox="0 0 137.6 96.599998"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="flexCol OAuthLinks"
               >
-                <g
-                  fill="#fff"
+                <div
+                  class="flexRow items-center space-x-2 cursor-pointer text-sm"
                 >
-                  <path
-                    d="M0 71.2h50.7v25.4H76V50.7H25.4L76 0H50.7L0 50.7zM86.9 25.4L112.2 0H86.9z"
-                  />
-                  <path
-                    d="M112.2 25.4L86.9 50.7V76h25.3V50.7l25.4-25.3V0h-25.4zM137.6 50.7L112.2 76h25.4z"
-                  />
-                </g>
-              </svg>
-              <span>
-                pages.auth.login.login_with_42
-              </span>
+                  <svg
+                    class="h-4 w-4 cursor-pointer"
+                    viewBox="0 0 137.6 96.599998"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="#fff"
+                    >
+                      <path
+                        d="M0 71.2h50.7v25.4H76V50.7H25.4L76 0H50.7L0 50.7zM86.9 25.4L112.2 0H86.9z"
+                      />
+                      <path
+                        d="M112.2 25.4L86.9 50.7V76h25.3V50.7l25.4-25.3V0h-25.4zM137.6 50.7L112.2 76h25.4z"
+                      />
+                    </g>
+                  </svg>
+                  <span>
+                    pages.auth.login.login_with_42
+                  </span>
+                </div>
+              </div>
+              <div
+                class="switchAuthLink"
+              >
+                <p>
+                  pages.auth.login.first_visit
+                </p>
+                <a
+                  href="/auth/register"
+                >
+                  pages.auth.login.register
+                </a>
+              </div>
+              <div
+                class="switchAuthLink"
+              >
+                <a
+                  href="/auth/reset"
+                >
+                  pages.auth.reset.pwd_forgotten_question
+                </a>
+              </div>
             </div>
-          </div>
-          <div
-            class="switchAuthLink"
-          >
-            <p>
-              pages.auth.login.first_visit
-            </p>
-            <a
-              href="/auth/register"
-            >
-              pages.auth.login.register
-            </a>
-          </div>
-          <div
-            class="switchAuthLink"
-          >
-            <a
-              href="/auth/reset"
-            >
-              pages.auth.reset.pwd_forgotten_question
-            </a>
+            <div
+              class="flexCol "
+            />
           </div>
           <div
             class="ps__rail-x"
@@ -199,52 +210,63 @@ Object {
           </div>
         </form>
         <div
-          class="flexCol OAuthLinks"
+          class="extras"
         >
           <div
-            class="flexRow items-center space-x-2 cursor-pointer text-sm"
+            class="flexCol "
           >
-            <svg
-              class="h-4 w-4 cursor-pointer"
-              viewBox="0 0 137.6 96.599998"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="flexCol OAuthLinks"
             >
-              <g
-                fill="#fff"
+              <div
+                class="flexRow items-center space-x-2 cursor-pointer text-sm"
               >
-                <path
-                  d="M0 71.2h50.7v25.4H76V50.7H25.4L76 0H50.7L0 50.7zM86.9 25.4L112.2 0H86.9z"
-                />
-                <path
-                  d="M112.2 25.4L86.9 50.7V76h25.3V50.7l25.4-25.3V0h-25.4zM137.6 50.7L112.2 76h25.4z"
-                />
-              </g>
-            </svg>
-            <span>
-              pages.auth.login.login_with_42
-            </span>
+                <svg
+                  class="h-4 w-4 cursor-pointer"
+                  viewBox="0 0 137.6 96.599998"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="#fff"
+                  >
+                    <path
+                      d="M0 71.2h50.7v25.4H76V50.7H25.4L76 0H50.7L0 50.7zM86.9 25.4L112.2 0H86.9z"
+                    />
+                    <path
+                      d="M112.2 25.4L86.9 50.7V76h25.3V50.7l25.4-25.3V0h-25.4zM137.6 50.7L112.2 76h25.4z"
+                    />
+                  </g>
+                </svg>
+                <span>
+                  pages.auth.login.login_with_42
+                </span>
+              </div>
+            </div>
+            <div
+              class="switchAuthLink"
+            >
+              <p>
+                pages.auth.login.first_visit
+              </p>
+              <a
+                href="/auth/register"
+              >
+                pages.auth.login.register
+              </a>
+            </div>
+            <div
+              class="switchAuthLink"
+            >
+              <a
+                href="/auth/reset"
+              >
+                pages.auth.reset.pwd_forgotten_question
+              </a>
+            </div>
           </div>
-        </div>
-        <div
-          class="switchAuthLink"
-        >
-          <p>
-            pages.auth.login.first_visit
-          </p>
-          <a
-            href="/auth/register"
-          >
-            pages.auth.login.register
-          </a>
-        </div>
-        <div
-          class="switchAuthLink"
-        >
-          <a
-            href="/auth/reset"
-          >
-            pages.auth.reset.pwd_forgotten_question
-          </a>
+          <div
+            class="flexCol "
+          />
         </div>
         <div
           class="ps__rail-x"

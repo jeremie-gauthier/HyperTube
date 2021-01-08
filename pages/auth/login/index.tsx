@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import { useTranslation } from "react-i18next";
-import useForm from "@/hooks/useForm";
+import useForm, { FormErrors, HookForm } from "@/hooks/useForm";
 import FormInput from "@/components/FormInput";
 import { TLoginForm } from "@/lib/types/login";
 import resolver from "@/lib/resolvers/login";
@@ -11,6 +11,7 @@ import { FlexCol, FlexRow } from "@/components/Flex";
 import Link from "next/link";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { SignupLink } from "@/components/Links";
+import PasswordTips from "@/components/PasswordTips";
 import styles from "./login.module.scss";
 import Oauth42 from "../../../public/icons/42_logo.svg";
 
@@ -22,6 +23,11 @@ const initialState: TLoginForm = {
 
 function Login() {
   const { t } = useTranslation();
+  const submit = (values: TLoginForm) => {
+    console.log(values);
+  };
+
+  const methods = useForm<TLoginForm>(submit, resolver, initialState);
 
   return (
     <main className={styles.container}>
@@ -29,10 +35,8 @@ function Login() {
 
       <PerfectScrollbar className={styles.scrollContainer}>
         <h1>{t("pages.auth.login.login")}</h1>
-        <LoginForm />
-        <OAuthLinks />
-        <SignupLink />
-        <PwdForgottenLink />
+        <LoginForm methods={methods} />
+        <Extras errors={methods.errors} />
       </PerfectScrollbar>
     </main>
   );
@@ -41,17 +45,9 @@ function Login() {
 Login.Layout = AuthLayout;
 export default Login;
 
-const LoginForm = () => {
+const LoginForm = ({ methods }: { methods: HookForm<TLoginForm> }) => {
   const { t } = useTranslation();
-  const submit = (values: TLoginForm) => {
-    console.log(values);
-  };
-
-  const { values, errors, handleChange, handleSubmit } = useForm<TLoginForm>(
-    submit,
-    resolver,
-    initialState,
-  );
+  const { values, errors, handleChange, handleSubmit } = methods;
 
   return (
     <form onSubmit={handleSubmit} className={styles.authForm}>
@@ -82,6 +78,19 @@ const LoginForm = () => {
     </form>
   );
 };
+
+const Extras = ({ errors }: { errors: FormErrors<TLoginForm> }) => (
+  <div className={styles.extras}>
+    <FlexCol>
+      <OAuthLinks />
+      <SignupLink />
+      <PwdForgottenLink />
+    </FlexCol>
+    <FlexCol>
+      {hasInvalidPwd(errors) && <PasswordTips className={styles.pwdTips} />}
+    </FlexCol>
+  </div>
+);
 
 const OAuthLinks = () => {
   const { t } = useTranslation();
@@ -120,3 +129,6 @@ const PwdForgottenLink = () => {
     </div>
   );
 };
+
+const hasInvalidPwd = (errors: FormErrors<TLoginForm>) =>
+  "password" in errors && errors.password === "common.forms.invalid_pwd";

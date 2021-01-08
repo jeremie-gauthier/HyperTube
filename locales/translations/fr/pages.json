@@ -16,7 +16,8 @@
 				"should_contain_maj": "Doit contenir un caractère majuscule",
 				"should_contain_min": "Doit contenir un caractère minuscule",
 				"should_contain_number": "Doit contenir un nombre",
-				"should_contain_special": "Doit contenir un caractère spécial"
+				"should_contain_special": "Doit contenir un caractère spécial",
+				"your_password": "Votre mot de passe:"
 			},
 			"register": "S'inscrire",
 			"register_with_42": "S'inscrire avec intra42"

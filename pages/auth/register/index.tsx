@@ -11,6 +11,7 @@ import resolver from "@/lib/resolvers/register";
 import { requiredField } from "@/lib/helpers";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { LoginLink } from "@/components/Links";
+import PasswordTips from "@/components/PasswordTips";
 import styles from "./register.module.scss";
 import Oauth42 from "../../../public/icons/42_logo.svg";
 
@@ -104,7 +105,7 @@ const HypertubeFormData = ({ values, handleChange, errors }: FormData) => {
           onFocus={() => setIsPwdFocused(true)}
           onBlur={() => setIsPwdFocused(false)}
         />
-        {isPwdFocused && <PasswordTooltip />}
+        {isPwdFocused && <PasswordTips className={styles.passwordTooltip} />}
       </div>
       <FormInput
         type="password"
@@ -160,20 +161,6 @@ const OAuthLinks = () => {
         </FlexRow>
       </Link>
     </FlexCol>
-  );
-};
-
-const PasswordTooltip = () => {
-  const { t } = useTranslation();
-
-  return (
-    <ul className={styles.passwordTooltip}>
-      <li>{t("pages.auth.register.pwd.minimal_length")}</li>
-      <li>{t("pages.auth.register.pwd.should_contain_min")}</li>
-      <li>{t("pages.auth.register.pwd.should_contain_maj")}</li>
-      <li>{t("pages.auth.register.pwd.should_contain_number")}</li>
-      <li>{t("pages.auth.register.pwd.should_contain_special")}</li>
-    </ul>
   );
 };
 

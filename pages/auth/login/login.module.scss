@@ -4,3 +4,24 @@
 .restPwdLink {
   @apply switchAuthLink;
 }
+
+.extras {
+  @apply flex flex-col justify-between;
+  @apply md:flex-row;
+
+  .pwdTips {
+    @apply mt-4 space-y-1;
+
+    p {
+      @apply font-bold;
+    }
+
+    ul {
+      @apply px-2;
+    }
+
+    li {
+      @apply list-disc ml-3;
+    }
+  }
+}

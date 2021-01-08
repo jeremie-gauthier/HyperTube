@@ -3,7 +3,7 @@ import resolver from "@/lib/resolvers/login";
 describe("loginResolver", () => {
   const formValues = {
     username: "HomerSimpsons",
-    password: "dumbH0m3R",
+    password: "@dumbH0m3R",
     remember: true,
   };
 
@@ -20,6 +20,9 @@ describe("loginResolver", () => {
   test("password error", () => {
     expect(resolver({ ...formValues, password: "" })).toEqual({
       password: "common.forms.required",
+    });
+    expect(resolver({ ...formValues, password: "too_simple" })).toEqual({
+      password: "common.forms.invalid_pwd",
     });
   });
 

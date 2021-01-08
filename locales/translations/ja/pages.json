@@ -16,7 +16,8 @@
 				"should_contain_maj": "大文字を含める必要があります",
 				"should_contain_min": "小文字を含める必要があります",
 				"should_contain_number": "数字を含める必要があります",
-				"should_contain_special": "特別な文字を含める必要があります"
+				"should_contain_special": "特別な文字を含める必要があります",
+				"your_password": "あなたのパスワード："
 			},
 			"register": "サインアップ",
 			"register_with_42": "intra42でサインアップ"

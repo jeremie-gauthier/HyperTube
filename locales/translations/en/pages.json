@@ -16,7 +16,8 @@
 				"should_contain_maj": "Should contain an uppercase char",
 				"should_contain_min": "Should contain a lowercase char",
 				"should_contain_number": "Should contain a number",
-				"should_contain_special": "Should contain a special char"
+				"should_contain_special": "Should contain a special char",
+				"your_password": "Your password:"
 			},
 			"register": "Register",
 			"register_with_42": "Register with intra42"
