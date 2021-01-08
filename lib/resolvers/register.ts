@@ -54,7 +54,7 @@ function checkPassword({
 }
 
 function checkEmail({ email }: { email: string }) {
-  const emailRegex = /^[\w.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+  const emailRegex = /^[\w.]+@[a-zA-Z_]+?\.[a-zA-Z0-9.]{2,}$/;
 
   if (email.length === 0) {
     return { email: "common.forms.required" };
