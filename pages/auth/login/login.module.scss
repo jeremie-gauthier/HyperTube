@@ -1,1 +1,5 @@
 @import "../auth.module.scss";
+
+.restPwdLink {
+  @apply switchAuthLink;
+}

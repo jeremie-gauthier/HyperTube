@@ -1,25 +1,28 @@
 {
-	"auth": {
-		"authentication": "Authentication",
-		"login": {
-			"first_visit": "New to Hypertube ?",
-			"login": "Login",
-			"login_with_42": "Login with intra42",
-			"register": "Sign up",
-			"remember": "Remember me"
-		},
-		"register": {
-			"already_registered": "Already registered ?",
-			"login": "Sign in",
-			"pwd": {
-				"minimal_length": "Should contain at least 8 chars",
-				"should_contain_maj": "Should contain an uppercase char",
-				"should_contain_min": "Should contain a lowercase char",
-				"should_contain_number": "Should contain a number",
-				"should_contain_special": "Should contain a special char"
-			},
-			"register": "Register",
-			"register_with_42": "Register with intra42"
-		}
-	}
+  "auth": {
+    "authentication": "Authentication",
+    "login": {
+      "first_visit": "New to Hypertube ?",
+      "login": "Login",
+      "login_with_42": "Login with intra42",
+      "register": "Sign up",
+      "remember": "Remember me"
+    },
+    "register": {
+      "already_registered": "Already registered ?",
+      "login": "Sign in",
+      "pwd": {
+        "minimal_length": "Should contain at least 8 chars",
+        "should_contain_maj": "Should contain an uppercase char",
+        "should_contain_min": "Should contain a lowercase char",
+        "should_contain_number": "Should contain a number",
+        "should_contain_special": "Should contain a special char"
+      },
+      "register": "Register",
+      "register_with_42": "Register with intra42"
+    },
+    "reset": {
+      "pwd_forgotten": "Forgot your password ?"
+    }
+  }
 }

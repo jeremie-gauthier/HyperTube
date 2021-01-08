@@ -31,6 +31,7 @@ function Login() {
         <LoginForm />
         <OAuthLinks />
         <SignupLink />
+        <PwdForgottenLink />
       </PerfectScrollbar>
     </main>
   );
@@ -114,6 +115,16 @@ const SignupLink = () => {
     <div className={styles.switchAuthLink}>
       <p>{t("pages.auth.login.first_visit")}</p>
       <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
+    </div>
+  );
+};
+
+const PwdForgottenLink = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className={styles.switchAuthLink}>
+      <Link href="/auth/reset">{t("pages.auth.reset.pwd_forgotten")}</Link>
     </div>
   );
 };

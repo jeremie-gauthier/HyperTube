@@ -105,6 +105,15 @@ Object {
             </a>
           </div>
           <div
+            class="switchAuthLink"
+          >
+            <a
+              href="/auth/reset"
+            >
+              pages.auth.reset.pwd_forgotten
+            </a>
+          </div>
+          <div
             class="ps__rail-x"
             style="left: 0px; top: 0px;"
           >
@@ -226,6 +235,15 @@ Object {
             href="/auth/register"
           >
             pages.auth.login.register
+          </a>
+        </div>
+        <div
+          class="switchAuthLink"
+        >
+          <a
+            href="/auth/reset"
+          >
+            pages.auth.reset.pwd_forgotten
           </a>
         </div>
         <div
