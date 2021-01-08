@@ -1,5 +1,8 @@
 {
 	"forms": {
+		"diff_pwd": "Passwords must be the same",
+		"email_format": "Invalid email format",
+		"invalid_pwd": "Password does not respect validation rules",
 		"required": "This field is required"
 	},
 	"lang": {

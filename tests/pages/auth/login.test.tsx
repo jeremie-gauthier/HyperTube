@@ -1,8 +1,8 @@
 import React from "react";
 import Login from "@/pages/auth/login";
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
 
 test("<Login /> should render correctly", () => {
-  const tree = renderer.create(<Login />).toJSON();
+  const tree = render(<Login />);
   expect(tree).toMatchSnapshot();
 });

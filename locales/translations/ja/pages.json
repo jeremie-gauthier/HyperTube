@@ -2,11 +2,24 @@
 	"auth": {
 		"authentication": "認証",
 		"login": {
-			"connection": "ログイン",
 			"first_visit": "Hypertubeの新機能？",
+			"login": "ログイン",
 			"login_with_42": "intra42でログイン",
 			"register": "サインアップ",
 			"remember": "私を覚えて"
+		},
+		"register": {
+			"already_registered": "すでに登録 ？",
+			"login": "サインイン",
+			"pwd": {
+				"minimal_length": "少なくとも8文字が含まれている必要があります",
+				"should_contain_maj": "大文字を含める必要があります",
+				"should_contain_min": "小文字を含める必要があります",
+				"should_contain_number": "数字を含める必要があります",
+				"should_contain_special": "特別な文字を含める必要があります"
+			},
+			"register": "サインアップ",
+			"register_with_42": "intra42でサインアップ"
 		}
 	}
 }

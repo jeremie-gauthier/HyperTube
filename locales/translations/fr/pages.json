@@ -2,11 +2,24 @@
 	"auth": {
 		"authentication": "Authentification",
 		"login": {
-			"connection": "S'identifier",
 			"first_visit": "Première visite sur Hypertube ?",
+			"login": "S'identifier",
 			"login_with_42": "S'identifier avec intra42",
 			"register": "Inscrivez-vous",
 			"remember": "Se souvenir de moi"
+		},
+		"register": {
+			"already_registered": "Déjà inscrit ?",
+			"login": "Connectez-vous",
+			"pwd": {
+				"minimal_length": "Doit contenir au moins 8 caractères",
+				"should_contain_maj": "Doit contenir un caractère majuscule",
+				"should_contain_min": "Doit contenir un caractère minuscule",
+				"should_contain_number": "Doit contenir un nombre",
+				"should_contain_special": "Doit contenir un caractère spécial"
+			},
+			"register": "S'inscrire",
+			"register_with_42": "S'inscrire avec intra42"
 		}
 	}
 }

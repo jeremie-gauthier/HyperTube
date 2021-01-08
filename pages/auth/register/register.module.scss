@@ -1,0 +1,40 @@
+@import "@/styles/theme.scss";
+@import "../auth.module.scss";
+
+.registerForm {
+  @apply flex flex-col;
+  @apply md:flex-row md:space-x-6;
+}
+
+.passwordTooltip {
+  @apply absolute z-20;
+  @apply w-full bg-grey-dark bg-opacity-90 rounded border border-grey-light p-2 text-sm;
+  @apply md:top-0;
+
+  li {
+    @apply list-disc ml-3;
+  }
+
+  @media (max-width: 768px) {
+    top: 60px;
+  }
+
+  @media (min-width: 768px) {
+    right: -240px;
+  }
+
+  &::before {
+    @apply absolute -top-2;
+    @apply md:top-4 md:-left-2;
+
+    @media (max-width: 768px) {
+      @apply arrow-up;
+    }
+
+    @media (min-width: 768px) {
+      @apply arrow-left;
+    }
+
+    content: "";
+  }
+}

@@ -46,7 +46,7 @@ exports[`Snapshots renders correctly on desktop 1`] = `
       </div>
     </div>
     <div
-      class="desktopView items-center"
+      class="desktopView items-center flex-1"
     >
       <div
         class="flexRow items"
@@ -94,7 +94,7 @@ exports[`Snapshots renders correctly on desktop 1`] = `
         </div>
         <div
           aria-hidden="true"
-          class="frame mobileView"
+          class="frame isTouchScreen"
           data-testid="lang-flag-clickable"
           role="button"
         >
@@ -130,7 +130,7 @@ exports[`Snapshots renders correctly on desktop 1`] = `
           </svg>
         </div>
         <div
-          class="frame desktopView"
+          class="frame isNotTouchScreen"
           data-testid="lang-flag-hoverable"
         >
           <svg
@@ -216,7 +216,7 @@ exports[`Snapshots renders correctly on mobile 1`] = `
       </div>
     </div>
     <div
-      class="desktopView items-center"
+      class="desktopView items-center flex-1"
     >
       <div
         class="flexRow items"
@@ -264,7 +264,7 @@ exports[`Snapshots renders correctly on mobile 1`] = `
         </div>
         <div
           aria-hidden="true"
-          class="frame mobileView"
+          class="frame isTouchScreen"
           data-testid="lang-flag-clickable"
           role="button"
         >
@@ -300,7 +300,7 @@ exports[`Snapshots renders correctly on mobile 1`] = `
           </svg>
         </div>
         <div
-          class="frame desktopView"
+          class="frame isNotTouchScreen"
           data-testid="lang-flag-hoverable"
         >
           <svg
@@ -462,7 +462,7 @@ exports[`Snapshots renders correctly on mobile 2`] = `
       </div>
     </div>
     <div
-      class="desktopView items-center"
+      class="desktopView items-center flex-1"
     >
       <div
         class="flexRow items"
@@ -510,7 +510,7 @@ exports[`Snapshots renders correctly on mobile 2`] = `
         </div>
         <div
           aria-hidden="true"
-          class="frame mobileView"
+          class="frame isTouchScreen"
           data-testid="lang-flag-clickable"
           role="button"
         >
@@ -546,7 +546,7 @@ exports[`Snapshots renders correctly on mobile 2`] = `
           </svg>
         </div>
         <div
-          class="frame desktopView"
+          class="frame isNotTouchScreen"
           data-testid="lang-flag-hoverable"
         >
           <svg
