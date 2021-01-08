@@ -110,7 +110,7 @@ Object {
             <a
               href="/auth/reset"
             >
-              pages.auth.reset.pwd_forgotten
+              pages.auth.reset.pwd_forgotten_question
             </a>
           </div>
           <div
@@ -243,7 +243,7 @@ Object {
           <a
             href="/auth/reset"
           >
-            pages.auth.reset.pwd_forgotten
+            pages.auth.reset.pwd_forgotten_question
           </a>
         </div>
         <div

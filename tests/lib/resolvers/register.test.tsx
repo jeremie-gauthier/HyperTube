@@ -52,9 +52,11 @@ test("lastname error", () => {
 test("password error", () => {
   expect(resolver({ ...formValues, password: "" })).toEqual({
     password: "common.forms.required",
+    cpassword: "common.forms.diff_pwd",
   });
   expect(resolver({ ...formValues, password: "A7@1234" })).toEqual({
     password: "common.forms.invalid_pwd",
+    cpassword: "common.forms.diff_pwd",
   });
 });
 
@@ -66,7 +68,9 @@ test("passwords doesn't match", () => {
 });
 
 test("multiple errors", () => {
-  expect(resolver({ ...formValues, username: "", password: "" })).toEqual({
+  expect(
+    resolver({ ...formValues, username: "", password: "", cpassword: "" }),
+  ).toEqual({
     username: "common.forms.required",
     password: "common.forms.required",
   });
