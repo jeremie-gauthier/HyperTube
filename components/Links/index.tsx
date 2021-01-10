@@ -1,6 +1,7 @@
 import Link from "next/link";
-import React from "react";
 import { useTranslation } from "react-i18next";
+import { FlexCol, FlexRow } from "../Flex";
+import Oauth42 from "../../public/icons/42_logo.svg";
 import styles from "./Links.module.scss";
 
 export function LoginLink() {
@@ -22,5 +23,20 @@ export function SignupLink() {
       <p>{t("pages.auth.login.first_visit")}</p>
       <Link href="/auth/register">{t("pages.auth.login.register")}</Link>
     </div>
+  );
+}
+
+export function OAuthLinks() {
+  const { t } = useTranslation();
+
+  return (
+    <FlexCol className={styles.OAuthLinks}>
+      <Link href="/auth/login/intra42">
+        <FlexRow className={styles.OAuthLink}>
+          <Oauth42 />
+          <span>{t("pages.auth.login.login_with_42")}</span>
+        </FlexRow>
+      </Link>
+    </FlexCol>
   );
 }

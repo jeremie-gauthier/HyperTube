@@ -4,15 +4,13 @@ import { useTranslation } from "react-i18next";
 import useForm, { FormErrors } from "@/hooks/useForm";
 import FormInput from "@/components/FormInput";
 import { TRegisterForm } from "@/lib/types/register";
-import Link from "next/link";
-import { FlexCol, FlexRow } from "@/components/Flex";
+import { FlexCol } from "@/components/Flex";
 import resolver from "@/lib/resolvers/register";
 import { requiredField } from "@/lib/helpers";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { LoginLink } from "@/components/Links";
+import { LoginLink, OAuthLinks } from "@/components/Links";
 import PasswordTips from "@/components/PasswordTips";
 import styles from "./register.module.scss";
-import Oauth42 from "../../../public/icons/42_logo.svg";
 
 const initialState: TRegisterForm = {
   username: "",
@@ -143,21 +141,6 @@ const PersonalFormData = ({ values, handleChange, errors }: FormData) => {
         placeholder={requiredField(t("models.user.firstname"))}
         error={errors.firstname}
       />
-    </FlexCol>
-  );
-};
-
-const OAuthLinks = () => {
-  const { t } = useTranslation();
-
-  return (
-    <FlexCol className={styles.OAuthLinks}>
-      <Link href="/auth/register/intra42">
-        <FlexRow className="items-center space-x-2 cursor-pointer text-sm">
-          <Oauth42 className="h-4 w-4 cursor-pointer" />
-          <span>{t("pages.auth.register.register_with_42")}</span>
-        </FlexRow>
-      </Link>
     </FlexCol>
   );
 };
