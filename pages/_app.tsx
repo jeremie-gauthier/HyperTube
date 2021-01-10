@@ -1,14 +1,10 @@
 import React from "react";
-import { AppProps } from "next/app";
+import { AppLayoutProps } from "next/app";
 import "@/locales/i18n";
 import "@/styles/tailwind.scss";
 import StoreProvider from "state/store";
 
-type PageWithLayout = {
-  Layout: (props: { children: React.ReactNode }) => JSX.Element;
-};
-
-function MyApp({ Component, pageProps }: AppProps<PageWithLayout>) {
+function MyApp({ Component, pageProps }: AppLayoutProps) {
   const Layout = Component.Layout ? Component.Layout : React.Fragment;
 
   return (
