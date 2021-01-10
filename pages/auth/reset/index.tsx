@@ -31,6 +31,7 @@ function Reset() {
 }
 
 Reset.Layout = AuthLayout;
+Reset.Title = "pages.auth.authentication";
 export default Reset;
 
 const ResetForm = () => {

@@ -22,6 +22,7 @@ declare module "next" {
     P = Record<string, unknown>
   > = NextComponentType<P> & {
     Layout?: (page: React.ReactNode) => JSX.Element;
+    Title?: string;
   };
 
   type NextLayoutPage<P = Record<string, unknown>, IP = P> = NextComponentType<
@@ -30,6 +31,7 @@ declare module "next" {
     P
   > & {
     Layout?: (page: React.ReactNode) => JSX.Element;
+    Title?: string;
   };
 }
 

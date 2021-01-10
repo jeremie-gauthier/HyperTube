@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import { useTranslation } from "react-i18next";
 import useForm, { FormErrors, HookForm } from "@/hooks/useForm";
@@ -31,8 +30,6 @@ function Login() {
 
   return (
     <main className={styles.container}>
-      <HeadContent />
-
       <PerfectScrollbar className={styles.scrollContainer}>
         <h1>{t("pages.auth.login.login")}</h1>
         <LoginForm methods={methods} />
@@ -43,6 +40,7 @@ function Login() {
 }
 
 Login.Layout = AuthLayout;
+Login.Title = "pages.auth.authentication";
 export default Login;
 
 const LoginForm = ({ methods }: { methods: HookForm<TLoginForm> }) => {
@@ -104,17 +102,6 @@ const OAuthLinks = () => {
         </FlexRow>
       </Link>
     </FlexCol>
-  );
-};
-
-const HeadContent = () => {
-  const { t } = useTranslation();
-
-  return (
-    <Head>
-      <title>{t("pages.auth.authentication")}</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
   );
 };
 

@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import { useTranslation } from "react-i18next";
 import useForm, { FormErrors } from "@/hooks/useForm";
@@ -29,8 +28,6 @@ function Register() {
 
   return (
     <main className={styles.container}>
-      <HeadContent />
-
       <PerfectScrollbar className={styles.scrollContainer}>
         <h1>{t("pages.auth.register.register")}</h1>
         <RegisterForm />
@@ -42,6 +39,7 @@ function Register() {
 }
 
 Register.Layout = AuthLayout;
+Register.Title = "pages.auth.authentication";
 export default Register;
 
 const RegisterForm = () => {
@@ -161,16 +159,5 @@ const OAuthLinks = () => {
         </FlexRow>
       </Link>
     </FlexCol>
-  );
-};
-
-const HeadContent = () => {
-  const { t } = useTranslation();
-
-  return (
-    <Head>
-      <title>{t("pages.auth.authentication")}</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
   );
 };
