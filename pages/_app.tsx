@@ -5,7 +5,7 @@ import "@/styles/tailwind.scss";
 import StoreProvider from "state/store";
 
 function MyApp({ Component, pageProps }: AppLayoutProps) {
-  const Layout = Component.Layout ? Component.Layout : React.Fragment;
+  const Layout = Component.Layout ?? React.Fragment;
 
   return (
     <StoreProvider>
