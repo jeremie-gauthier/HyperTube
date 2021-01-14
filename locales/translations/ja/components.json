@@ -1,8 +1,8 @@
 {
 	"navbar": {
 		"account": "アカウント",
-		"home": "",
-		"logout": "",
+		"home": "ホーム",
+		"logout": "ログアウト",
 		"my_list": "私のリスト",
 		"search": "映画を検索する"
 	}

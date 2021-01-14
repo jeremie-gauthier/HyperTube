@@ -1,4 +1,23 @@
 {
+	"account": {
+		"my_account": "My account",
+		"preferences": {
+			"edit_default_language": "Edit default language",
+			"preferences": "Preferences"
+		},
+		"profile": {
+			"edit_firstname": "Edit firstname",
+			"edit_lastname": "Edit lastname",
+			"edit_profile_picture": "Edit profile picture",
+			"my_profile": "My profile"
+		},
+		"security": {
+			"edit_email": "Edit account email",
+			"edit_password": "Edit password",
+			"edit_username": "Edit username",
+			"security": "Security"
+		}
+	},
 	"auth": {
 		"authentication": "Authentication",
 		"login": {

@@ -1,8 +1,8 @@
 {
 	"navbar": {
 		"account": "Mi cuenta",
-		"home": "",
-		"logout": "",
+		"home": "Casa",
+		"logout": "Cerrar sesión",
 		"my_list": "Mi lista",
 		"search": "Buscar una película"
 	}

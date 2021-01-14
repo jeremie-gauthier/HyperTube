@@ -10,7 +10,7 @@
     -->
     <preset_collections/>
     <framework>i18next</framework>
-    <filename>translations.babel</filename>
+    <filename>hypertube.babel</filename>
     <source_root_dir></source_root_dir>
     <folder_node>
         <name></name>
@@ -38,7 +38,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -68,7 +68,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -93,7 +93,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -118,7 +118,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -143,7 +143,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -173,7 +173,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -198,7 +198,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -223,7 +223,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -248,7 +248,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -273,7 +273,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -309,7 +309,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -334,7 +334,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -359,7 +359,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -384,7 +384,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -409,7 +409,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -445,7 +445,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -470,7 +470,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -495,7 +495,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -520,7 +520,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -545,7 +545,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -570,7 +570,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -606,7 +606,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -614,6 +614,271 @@
                                     </translation>
                                 </translations>
                             </concept_node>
+                            <folder_node>
+                                <name>preferences</name>
+                                <children>
+                                    <concept_node>
+                                        <name>edit_default_language</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>preferences</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                </children>
+                            </folder_node>
+                            <folder_node>
+                                <name>profile</name>
+                                <children>
+                                    <concept_node>
+                                        <name>edit_firstname</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>edit_lastname</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>edit_profile_picture</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>my_profile</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                </children>
+                            </folder_node>
+                            <folder_node>
+                                <name>security</name>
+                                <children>
+                                    <concept_node>
+                                        <name>edit_email</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>edit_password</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>edit_username</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>security</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>es-ES</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>fr-FR</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>ja-JP</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                </children>
+                            </folder_node>
                         </children>
                     </folder_node>
                     <folder_node>
@@ -636,7 +901,7 @@
                                     </translation>
                                     <translation>
                                         <language>fr-FR</language>
-                                        <approved>false</approved>
+                                        <approved>true</approved>
                                     </translation>
                                     <translation>
                                         <language>ja-JP</language>
@@ -664,7 +929,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -689,7 +954,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -714,7 +979,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -739,7 +1004,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -764,7 +1029,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -794,7 +1059,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -819,7 +1084,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -847,7 +1112,7 @@
                                                     </translation>
                                                     <translation>
                                                         <language>fr-FR</language>
-                                                        <approved>false</approved>
+                                                        <approved>true</approved>
                                                     </translation>
                                                     <translation>
                                                         <language>ja-JP</language>
@@ -872,7 +1137,7 @@
                                                     </translation>
                                                     <translation>
                                                         <language>fr-FR</language>
-                                                        <approved>false</approved>
+                                                        <approved>true</approved>
                                                     </translation>
                                                     <translation>
                                                         <language>ja-JP</language>
@@ -897,7 +1162,7 @@
                                                     </translation>
                                                     <translation>
                                                         <language>fr-FR</language>
-                                                        <approved>false</approved>
+                                                        <approved>true</approved>
                                                     </translation>
                                                     <translation>
                                                         <language>ja-JP</language>
@@ -922,7 +1187,7 @@
                                                     </translation>
                                                     <translation>
                                                         <language>fr-FR</language>
-                                                        <approved>false</approved>
+                                                        <approved>true</approved>
                                                     </translation>
                                                     <translation>
                                                         <language>ja-JP</language>
@@ -947,7 +1212,7 @@
                                                     </translation>
                                                     <translation>
                                                         <language>fr-FR</language>
-                                                        <approved>false</approved>
+                                                        <approved>true</approved>
                                                     </translation>
                                                     <translation>
                                                         <language>ja-JP</language>
@@ -972,7 +1237,7 @@
                                                     </translation>
                                                     <translation>
                                                         <language>fr-FR</language>
-                                                        <approved>false</approved>
+                                                        <approved>true</approved>
                                                     </translation>
                                                     <translation>
                                                         <language>ja-JP</language>
@@ -999,7 +1264,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -1024,7 +1289,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -1054,7 +1319,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -1079,7 +1344,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -1104,7 +1369,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
@@ -1129,7 +1394,7 @@
                                             </translation>
                                             <translation>
                                                 <language>fr-FR</language>
-                                                <approved>false</approved>
+                                                <approved>true</approved>
                                             </translation>
                                             <translation>
                                                 <language>ja-JP</language>
