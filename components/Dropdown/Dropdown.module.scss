@@ -1,0 +1,32 @@
+@import "../../styles/theme.scss";
+
+.container {
+  @apply flex flex-col pt-3 border-t;
+  @apply md:flex-row md:items-baseline;
+}
+
+.header {
+  @apply justify-between items-center text-xl;
+  @apply md:text-2xl md:mr-32;
+
+  .arrow {
+    @apply arrow-up;
+    @apply md:hidden;
+
+    border-bottom-color: black !important;
+  }
+
+  .down {
+    @apply transform rotate-180;
+  }
+}
+
+.elementsWrapper {
+  @apply w-full space-y-2 mt-2;
+  @apply md:space-y-4 md:mt-0;
+}
+
+.element {
+  @apply flex flex-col w-full;
+  @apply md:flex-row md:justify-between;
+}
