@@ -12,6 +12,7 @@ import classnames from "classnames";
 import userMock from "@/tests/__mocks__/user"; // MOCK
 import UserIcon from "@/components/UserIcon";
 import CountryFlag from "@/components/CountryFlag";
+import { useRouter } from "next/router";
 import Magnifier from "../../public/icons/magnifier.svg";
 import Cross from "../../public/icons/cross.svg";
 import MenuBurger from "../../public/icons/menu-burger.svg";
@@ -30,7 +31,9 @@ export default function Navbar() {
 }
 
 const MobileView = ({ className }: { className: string }) => {
+  const { asPath } = useRouter();
   const [open, setOpen] = React.useState(false);
+  React.useEffect(() => setOpen(false), [asPath]);
 
   return (
     <div className={className}>
@@ -51,22 +54,18 @@ const MobileView = ({ className }: { className: string }) => {
         )}
       </FlexRow>
 
-      {open && <DropdownMenu close={() => setOpen(false)} />}
+      {open && <DropdownMenu />}
     </div>
   );
 };
 
-type DropdownMenuProps = {
-  close: () => void;
-};
-
-const DropdownMenu = ({ close }: DropdownMenuProps) => {
+const DropdownMenu = () => {
   const currentLang = useSelector((state) => state.user.lang) as string;
   const { t } = useTranslation();
 
   return (
     <FlexCol className={styles.dropdownMenu}>
-      <NavLinks activeClassName={styles.activeLink} onClick={close} />
+      <NavLinks activeClassName={styles.activeLink} />
       <hr />
       <ActiveLink
         href="/account"
