@@ -64,7 +64,7 @@ export const langs = {
   fr: "common.lang.french",
   es: "common.lang.spanish",
   ja: "common.lang.japanese",
-};
+} as const;
 
 i18n.use(initReactI18next).init({
   resources: LANGUAGES,
