@@ -8,7 +8,7 @@ import { RootState } from "@/state/types";
 import useSelector from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setSearchInput } from "@/state/movies/actions";
-import classNames from "classnames";
+import classnames from "classnames";
 import userMock from "@/tests/__mocks__/user"; // MOCK
 import UserIcon from "@/components/UserIcon";
 import CountryFlag from "@/components/CountryFlag";
@@ -140,7 +140,7 @@ const SearchInput = () => {
   const dispatch = useDispatch();
   const isVisible = searchInput.length > 0;
   const [showInput, setShowInput] = React.useState(isVisible);
-  const cancelSearch = classNames({
+  const cancelSearch = classnames({
     "cursor-pointer h-4 w-4": true,
     invisible: !isVisible,
   });
