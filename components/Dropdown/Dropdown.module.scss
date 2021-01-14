@@ -6,8 +6,8 @@
 }
 
 .header {
-  @apply justify-between items-center text-xl;
-  @apply md:text-2xl md:mr-32;
+  @apply w-full justify-between items-center text-xl break-words flex-wrap;
+  @apply md:text-2xl md:w-2/6;
 
   .arrow {
     @apply arrow-up;
@@ -23,7 +23,7 @@
 
 .elementsWrapper {
   @apply w-full space-y-2 mt-2;
-  @apply md:space-y-4 md:mt-0;
+  @apply md:space-y-4 md:mt-0 md:w-4/6;
 }
 
 .element {
