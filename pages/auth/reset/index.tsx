@@ -19,7 +19,7 @@ function Reset() {
   return (
     <main className={styles.container}>
       <PerfectScrollbar className={styles.scrollContainer}>
-        <h1>{t("pages.auth.reset.forgotten_password")}</h1>
+        <h1 className="title">{t("pages.auth.reset.forgotten_password")}</h1>
         <ResetForm />
         <div className={styles.authLinksGroup}>
           <SignupLink />

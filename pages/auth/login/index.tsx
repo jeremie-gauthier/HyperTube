@@ -30,7 +30,7 @@ function Login() {
   return (
     <main className={styles.container}>
       <PerfectScrollbar className={styles.scrollContainer}>
-        <h1>{t("pages.auth.login.login")}</h1>
+        <h1 className="title">{t("pages.auth.login.login")}</h1>
         <LoginForm methods={methods} />
         <Extras errors={methods.errors} />
       </PerfectScrollbar>

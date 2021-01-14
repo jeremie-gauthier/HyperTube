@@ -49,3 +49,8 @@
 .ps__rail-y {
   opacity: 0.6;
 }
+
+.title {
+  @apply font-bold text-3xl;
+  @apply md:text-4xl;
+}

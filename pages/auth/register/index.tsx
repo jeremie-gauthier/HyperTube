@@ -27,7 +27,7 @@ function Register() {
   return (
     <main className={styles.container}>
       <PerfectScrollbar className={styles.scrollContainer}>
-        <h1>{t("pages.auth.register.register")}</h1>
+        <h1 className="title">{t("pages.auth.register.register")}</h1>
         <RegisterForm />
         <OAuthLinks />
         <LoginLink />
