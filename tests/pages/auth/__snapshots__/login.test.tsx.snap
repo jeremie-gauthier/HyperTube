@@ -75,10 +75,9 @@ Object {
                 class="flexCol OAuthLinks"
               >
                 <div
-                  class="flexRow items-center space-x-2 cursor-pointer text-sm"
+                  class="flexRow OAuthLink"
                 >
                   <svg
-                    class="h-4 w-4 cursor-pointer"
                     viewBox="0 0 137.6 96.599998"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -219,10 +218,9 @@ Object {
               class="flexCol OAuthLinks"
             >
               <div
-                class="flexRow items-center space-x-2 cursor-pointer text-sm"
+                class="flexRow OAuthLink"
               >
                 <svg
-                  class="h-4 w-4 cursor-pointer"
                   viewBox="0 0 137.6 96.599998"
                   xmlns="http://www.w3.org/2000/svg"
                 >
