@@ -11,7 +11,9 @@ Object {
         <div
           class="scrollbar-container scrollContainer ps"
         >
-          <h1>
+          <h1
+            class="title"
+          >
             pages.auth.login.login
           </h1>
           <form
@@ -154,7 +156,9 @@ Object {
       <div
         class="scrollbar-container scrollContainer ps"
       >
-        <h1>
+        <h1
+          class="title"
+        >
           pages.auth.login.login
         </h1>
         <form

@@ -11,7 +11,9 @@ Object {
         <div
           class="scrollbar-container scrollContainer ps"
         >
-          <h1>
+          <h1
+            class="title"
+          >
             pages.auth.register.register
           </h1>
           <form
@@ -212,7 +214,9 @@ Object {
       <div
         class="scrollbar-container scrollContainer ps"
       >
-        <h1>
+        <h1
+          class="title"
+        >
           pages.auth.register.register
         </h1>
         <form
@@ -470,7 +474,9 @@ Object {
         <div
           class="scrollbar-container scrollContainer ps"
         >
-          <h1>
+          <h1
+            class="title"
+          >
             pages.auth.register.register
           </h1>
           <form
@@ -641,7 +647,9 @@ Object {
       <div
         class="scrollbar-container scrollContainer ps"
       >
-        <h1>
+        <h1
+          class="title"
+        >
           pages.auth.register.register
         </h1>
         <form
