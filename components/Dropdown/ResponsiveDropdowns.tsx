@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import classnames from "classnames";
@@ -17,7 +18,9 @@ export function DropdownMobile({
   children,
   initialState = false,
 }: DropdownProps) {
-  const [isVisible, setIsVisible] = React.useState(initialState);
+  const [isVisible, setIsVisible] = React.useState(false);
+  React.useEffect(() => setIsVisible(initialState), []);
+
   const arrow = classnames({
     [styles.arrow]: true,
     [styles.down]: isVisible,

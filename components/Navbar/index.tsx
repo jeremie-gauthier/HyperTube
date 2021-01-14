@@ -77,7 +77,7 @@ const DropdownMenu = ({ close }: DropdownMenuProps) => {
         <span>{t("components.navbar.account")}</span>
       </ActiveLink>
       <ActiveLink
-        href="/account#languages"
+        href="/account#preferences"
         className={styles.linkWithIcon}
         activeClassName={styles.activeLink}
       >
