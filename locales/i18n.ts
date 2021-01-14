@@ -59,6 +59,8 @@ const LANGUAGES = {
   },
 } as const;
 
+export type TLangs = "en" | "fr" | "es" | "ja";
+
 export const langs = {
   en: "common.lang.english",
   fr: "common.lang.french",
