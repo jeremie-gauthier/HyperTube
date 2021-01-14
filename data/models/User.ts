@@ -69,6 +69,9 @@ module.exports = Mongoose.models.User || Mongoose.model("User", UserSchema); */
   firstname: string;
   lastname: string;
   email: string;
+  username: string;
+  password: string;
+  language: TLangs;
 };
 
 export const UserSchema: Schema = new Schema({
