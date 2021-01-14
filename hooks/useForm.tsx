@@ -6,7 +6,7 @@ export type FormErrors<V> = {
   [P in keyof V]?: string;
 };
 
-type HookForm<V> = {
+export type HookForm<V> = {
   values: V;
   errors: FormErrors<V>;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;

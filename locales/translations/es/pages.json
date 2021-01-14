@@ -16,10 +16,17 @@
 				"should_contain_maj": "Debe contener un carácter en mayúsculas",
 				"should_contain_min": "Debe contener un carácter en minúsculas",
 				"should_contain_number": "Debe contener un número",
-				"should_contain_special": "Debe contener un carácter especial"
+				"should_contain_special": "Debe contener un carácter especial",
+				"your_password": "Tu contraseña:"
 			},
 			"register": "Regístrate",
 			"register_with_42": "Regístrar con intra42"
+		},
+		"reset": {
+			"associated_email": "Dirección de correo electrónico asociada a su cuenta",
+			"explanation": "Si olvidó su contraseña, podemos enviarle un correo electrónico de recuperación.",
+			"forgotten_password": "Contraseña olvidada",
+			"pwd_forgotten_question": "Olvidaste tu contraseña ?"
 		}
 	}
 }

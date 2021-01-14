@@ -57,7 +57,7 @@ const LANGUAGES = {
       models: modelsJA,
     },
   },
-};
+} as const;
 
 export const langs = {
   en: "common.lang.english",

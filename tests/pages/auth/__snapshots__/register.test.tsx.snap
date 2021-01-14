@@ -57,25 +57,30 @@ Object {
                       value=""
                     />
                   </div>
-                  <ul
+                  <div
                     class="passwordTooltip"
                   >
-                    <li>
-                      pages.auth.register.pwd.minimal_length
-                    </li>
-                    <li>
-                      pages.auth.register.pwd.should_contain_min
-                    </li>
-                    <li>
-                      pages.auth.register.pwd.should_contain_maj
-                    </li>
-                    <li>
-                      pages.auth.register.pwd.should_contain_number
-                    </li>
-                    <li>
-                      pages.auth.register.pwd.should_contain_special
-                    </li>
-                  </ul>
+                    <p>
+                      pages.auth.register.pwd.your_password
+                    </p>
+                    <ul>
+                      <li>
+                        pages.auth.register.pwd.minimal_length
+                      </li>
+                      <li>
+                        pages.auth.register.pwd.should_contain_min
+                      </li>
+                      <li>
+                        pages.auth.register.pwd.should_contain_maj
+                      </li>
+                      <li>
+                        pages.auth.register.pwd.should_contain_number
+                      </li>
+                      <li>
+                        pages.auth.register.pwd.should_contain_special
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div
                   class="container"
@@ -254,25 +259,30 @@ Object {
                     value=""
                   />
                 </div>
-                <ul
+                <div
                   class="passwordTooltip"
                 >
-                  <li>
-                    pages.auth.register.pwd.minimal_length
-                  </li>
-                  <li>
-                    pages.auth.register.pwd.should_contain_min
-                  </li>
-                  <li>
-                    pages.auth.register.pwd.should_contain_maj
-                  </li>
-                  <li>
-                    pages.auth.register.pwd.should_contain_number
-                  </li>
-                  <li>
-                    pages.auth.register.pwd.should_contain_special
-                  </li>
-                </ul>
+                  <p>
+                    pages.auth.register.pwd.your_password
+                  </p>
+                  <ul>
+                    <li>
+                      pages.auth.register.pwd.minimal_length
+                    </li>
+                    <li>
+                      pages.auth.register.pwd.should_contain_min
+                    </li>
+                    <li>
+                      pages.auth.register.pwd.should_contain_maj
+                    </li>
+                    <li>
+                      pages.auth.register.pwd.should_contain_number
+                    </li>
+                    <li>
+                      pages.auth.register.pwd.should_contain_special
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div
                 class="container"

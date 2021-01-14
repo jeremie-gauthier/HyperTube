@@ -1,11 +1,13 @@
 import { FormErrors } from "@/hooks/useForm";
 import { TRegisterForm } from "@/lib/types/register";
+import { checkEmail, checkPassword, checkUsername } from "./checkers";
 
 export default function loginResolver(
   values: TRegisterForm,
 ): FormErrors<TRegisterForm> {
   const checksRegister = [
     checkUsername,
+    checkBothPassword,
     checkPassword,
     checkEmail,
     checkLastname,
@@ -20,49 +22,19 @@ export default function loginResolver(
   return errors;
 }
 
-function checkUsername({ username }: { username: string }) {
-  return username.trim().length === 0
-    ? { username: "common.forms.required" }
-    : {};
-}
-
-function checkPassword({
+function checkBothPassword({
   password,
   cpassword,
 }: {
   password: string;
   cpassword: string;
 }) {
-  const pwdRegex = [/[a-z]/, /[A-Z]/, /\d/, /[\W_]/];
-
-  if (password.length === 0) {
-    return { password: "common.forms.required" };
-  }
-  if (
-    password.length < 8 ||
-    !pwdRegex.every((pattern) => pattern.test(password))
-  ) {
-    return { password: "common.forms.invalid_pwd" };
-  }
-  if (password !== cpassword) {
-    return {
-      password: "common.forms.diff_pwd",
-      cpassword: "common.forms.diff_pwd",
-    };
-  }
-  return {};
-}
-
-function checkEmail({ email }: { email: string }) {
-  const emailRegex = /^[\w.]+@[a-zA-Z_]+?\.[a-zA-Z0-9.]{2,}$/;
-
-  if (email.length === 0) {
-    return { email: "common.forms.required" };
-  }
-  if (emailRegex.test(email) === false) {
-    return { email: "common.forms.email_format" };
-  }
-  return {};
+  return password === cpassword
+    ? {}
+    : {
+        password: "common.forms.diff_pwd",
+        cpassword: "common.forms.diff_pwd",
+      };
 }
 
 function checkLastname({ lastname }: { lastname: string }) {

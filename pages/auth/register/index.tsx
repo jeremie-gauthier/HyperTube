@@ -1,17 +1,16 @@
 import React from "react";
-import Head from "next/head";
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import { useTranslation } from "react-i18next";
 import useForm, { FormErrors } from "@/hooks/useForm";
 import FormInput from "@/components/FormInput";
 import { TRegisterForm } from "@/lib/types/register";
-import Link from "next/link";
-import { FlexCol, FlexRow } from "@/components/Flex";
+import { FlexCol } from "@/components/Flex";
 import resolver from "@/lib/resolvers/register";
 import { requiredField } from "@/lib/helpers";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { LoginLink, OAuthLinks } from "@/components/Links";
+import PasswordTips from "@/components/PasswordTips";
 import styles from "./register.module.scss";
-import Oauth42 from "../../../public/icons/42_logo.svg";
 
 const initialState: TRegisterForm = {
   username: "",
@@ -27,8 +26,6 @@ function Register() {
 
   return (
     <main className={styles.container}>
-      <HeadContent />
-
       <PerfectScrollbar className={styles.scrollContainer}>
         <h1>{t("pages.auth.register.register")}</h1>
         <RegisterForm />
@@ -40,6 +37,7 @@ function Register() {
 }
 
 Register.Layout = AuthLayout;
+Register.Title = "pages.auth.authentication";
 export default Register;
 
 const RegisterForm = () => {
@@ -103,7 +101,7 @@ const HypertubeFormData = ({ values, handleChange, errors }: FormData) => {
           onFocus={() => setIsPwdFocused(true)}
           onBlur={() => setIsPwdFocused(false)}
         />
-        {isPwdFocused && <PasswordTooltip />}
+        {isPwdFocused && <PasswordTips className={styles.passwordTooltip} />}
       </div>
       <FormInput
         type="password"
@@ -144,56 +142,5 @@ const PersonalFormData = ({ values, handleChange, errors }: FormData) => {
         error={errors.firstname}
       />
     </FlexCol>
-  );
-};
-
-const OAuthLinks = () => {
-  const { t } = useTranslation();
-
-  return (
-    <FlexCol className={styles.OAuthLinks}>
-      <Link href="/auth/register/intra42">
-        <FlexRow className="items-center space-x-2 cursor-pointer text-sm">
-          <Oauth42 className="h-4 w-4 cursor-pointer" />
-          <span>{t("pages.auth.register.register_with_42")}</span>
-        </FlexRow>
-      </Link>
-    </FlexCol>
-  );
-};
-
-const PasswordTooltip = () => {
-  const { t } = useTranslation();
-
-  return (
-    <ul className={styles.passwordTooltip}>
-      <li>{t("pages.auth.register.pwd.minimal_length")}</li>
-      <li>{t("pages.auth.register.pwd.should_contain_min")}</li>
-      <li>{t("pages.auth.register.pwd.should_contain_maj")}</li>
-      <li>{t("pages.auth.register.pwd.should_contain_number")}</li>
-      <li>{t("pages.auth.register.pwd.should_contain_special")}</li>
-    </ul>
-  );
-};
-
-const HeadContent = () => {
-  const { t } = useTranslation();
-
-  return (
-    <Head>
-      <title>{t("pages.auth.authentication")}</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-  );
-};
-
-const LoginLink = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div className={styles.switchAuthLink}>
-      <p>{t("pages.auth.register.already_registered")}</p>
-      <Link href="/auth/login">{t("pages.auth.register.login")}</Link>
-    </div>
   );
 };

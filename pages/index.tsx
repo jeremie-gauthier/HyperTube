@@ -1,14 +1,8 @@
-import Head from "next/head";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 
 function Home() {
   return (
     <div>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main>
         <h1 className="text-black">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -19,5 +13,4 @@ function Home() {
 }
 
 Home.Layout = SiteLayout;
-
 export default Home;

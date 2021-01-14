@@ -1,18 +1,22 @@
 import React from "react";
-import { AppProps } from "next/app";
+import { AppLayoutProps } from "next/app";
 import "@/locales/i18n";
 import "@/styles/tailwind.scss";
 import StoreProvider from "state/store";
+import Head from "next/head";
+import { useTranslation } from "react-i18next";
 
-type PageWithLayout = {
-  Layout: (props: { children: React.ReactNode }) => JSX.Element;
-};
-
-function MyApp({ Component, pageProps }: AppProps<PageWithLayout>) {
-  const Layout = Component.Layout ? Component.Layout : React.Fragment;
+function MyApp({ Component, pageProps }: AppLayoutProps) {
+  const Layout = Component.Layout ?? React.Fragment;
+  const Title = Component.Title ?? "Hypertube";
+  const { t } = useTranslation();
 
   return (
     <StoreProvider>
+      <Head>
+        <title>{t(Title)}</title>
+      </Head>
+
       <Layout>
         <Component {...pageProps} />
       </Layout>

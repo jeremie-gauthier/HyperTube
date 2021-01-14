@@ -1,4 +1,7 @@
 {
+	"buttons": {
+		"submit": "提出する"
+	},
 	"forms": {
 		"diff_pwd": "パスワードは同じである必要があります",
 		"email_format": "無効なメールフォーマット",
