@@ -29,6 +29,7 @@
     "react-i18next": "^11.8.4",
     "react-perfect-scrollbar": "^1.5.8",
     "sass": "^1.30.0",
+    "swr": "^0.4.0",
     "tailwindcss": "^2.0.2",
     "use-onclickoutside": "^0.3.1"
   },
