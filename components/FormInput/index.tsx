@@ -3,7 +3,7 @@ import classnames from "classnames";
 import { useTranslation } from "react-i18next";
 import styles from "./FormInput.module.scss";
 
-type FormInputProps = {
+export type FormInputProps = {
   value: string;
   name: string;
   placeholder: string;
