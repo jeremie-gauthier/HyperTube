@@ -62,7 +62,7 @@ type FocusEvent =
   | undefined;
 
 const useFocus = (onFocus: FocusEvent, onBlur: FocusEvent) => {
-  const [hasFocus, setHasFocus] = React.useState<boolean>(false);
+  const [hasFocus, setHasFocus] = React.useState(false);
 
   const handleFocus = React.useCallback(
     (evt) => {
