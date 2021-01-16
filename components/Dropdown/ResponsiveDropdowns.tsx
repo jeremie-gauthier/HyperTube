@@ -10,12 +10,14 @@ export type DropdownProps = {
 
 type DropdownDefaultProps = {
   initialState: boolean;
+  className: string;
 };
 
 export function DropdownMobile({
   title,
   children,
   initialState = false,
+  className = "",
 }: DropdownProps) {
   const [isVisible, setIsVisible] = React.useState(false);
   React.useEffect(() => setIsVisible(initialState), [initialState]);
@@ -36,17 +38,25 @@ export function DropdownMobile({
         <span className={arrow} />
       </FlexRow>
       {isVisible && (
-        <FlexCol className={styles.elementsWrapper}>{children}</FlexCol>
+        <FlexCol className={[styles.elementsWrapper, className].join(" ")}>
+          {children}
+        </FlexCol>
       )}
     </div>
   );
 }
 
-export function DropdownDesktop({ title, children }: DropdownProps) {
+export function DropdownDesktop({
+  title,
+  children,
+  className = "",
+}: DropdownProps) {
   return (
     <div className={[styles.container, "desktopView"].join(" ")}>
       <FlexRow className={styles.header}>{title}</FlexRow>
-      <FlexCol className={styles.elementsWrapper}>{children}</FlexCol>
+      <FlexCol className={[styles.elementsWrapper, className].join(" ")}>
+        {children}
+      </FlexCol>
     </div>
   );
 }
