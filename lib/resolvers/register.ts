@@ -1,5 +1,6 @@
 import { FormErrors } from "@/hooks/useForm";
 import { TRegisterForm } from "@/lib/types/register";
+import isEmpty from "@ramda/isempty";
 import { checkEmail, checkPassword, checkUsername } from "./checkers";
 
 export default function loginResolver(
@@ -38,13 +39,11 @@ function checkBothPassword({
 }
 
 function checkLastname({ lastname }: { lastname: string }) {
-  return lastname.trim().length === 0
-    ? { lastname: "common.forms.required" }
-    : {};
+  return isEmpty(lastname.trim()) ? { lastname: "common.forms.required" } : {};
 }
 
 function checkFirstname({ firstname }: { firstname: string }) {
-  return firstname.trim().length === 0
+  return isEmpty(firstname.trim())
     ? { firstname: "common.forms.required" }
     : {};
 }

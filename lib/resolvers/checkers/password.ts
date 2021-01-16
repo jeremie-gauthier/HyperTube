@@ -1,9 +1,11 @@
-export default function checkPassword({ password }: { password: string }) {
-  const pwdRegex = [/[a-z]/, /[A-Z]/, /\d/, /[\W_]/];
+import isEmpty from "@ramda/isempty";
 
-  if (password.length === 0) {
+export default function checkPassword({ password }: { password: string }) {
+  if (isEmpty(password)) {
     return { password: "common.forms.required" };
   }
+
+  const pwdRegex = [/[a-z]/, /[A-Z]/, /\d/, /[\W_]/];
   if (
     password.length < 8 ||
     !pwdRegex.every((pattern) => pattern.test(password))
