@@ -1,6 +1,8 @@
 declare module "*.scss";
 declare module "*.svg";
 declare module "*.jpg";
+declare module "@ramda/isempty";
+declare module "@ramda/pipe";
 
 type NextImageOpts = {
   deviceSizes: number[];
