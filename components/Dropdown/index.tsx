@@ -7,13 +7,24 @@ import {
   DropdownProps,
 } from "./ResponsiveDropdowns";
 
-function Dropdown({ title, children, initialState = false }: DropdownProps) {
+function Dropdown({
+  title,
+  children,
+  initialState = false,
+  className = "",
+}: DropdownProps) {
   return (
     <>
-      <DropdownMobile title={title} initialState={initialState}>
+      <DropdownMobile
+        title={title}
+        initialState={initialState}
+        className={className}
+      >
         {children}
       </DropdownMobile>
-      <DropdownDesktop title={title}>{children}</DropdownDesktop>
+      <DropdownDesktop title={title} className={className}>
+        {children}
+      </DropdownDesktop>
     </>
   );
 }
