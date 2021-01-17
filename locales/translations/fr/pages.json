@@ -1,0 +1,32 @@
+{
+	"auth": {
+		"authentication": "Authentification",
+		"login": {
+			"first_visit": "Première visite sur Hypertube ?",
+			"login": "S'identifier",
+			"login_with_42": "S'identifier avec intra42",
+			"register": "Inscrivez-vous",
+			"remember": "Se souvenir de moi"
+		},
+		"register": {
+			"already_registered": "Déjà inscrit ?",
+			"login": "Connectez-vous",
+			"pwd": {
+				"minimal_length": "Doit contenir au moins 8 caractères",
+				"should_contain_maj": "Doit contenir un caractère majuscule",
+				"should_contain_min": "Doit contenir un caractère minuscule",
+				"should_contain_number": "Doit contenir un nombre",
+				"should_contain_special": "Doit contenir un caractère spécial",
+				"your_password": "Votre mot de passe:"
+			},
+			"register": "S'inscrire",
+			"register_with_42": "S'inscrire avec intra42"
+		},
+		"reset": {
+			"associated_email": "Adresse e-mail associée à votre compte",
+			"explanation": "Si vous avez oublié votre mot de passe, nous pouvons vous envoyer un e-mail de récupération",
+			"forgotten_password": "Mot de passe oublié",
+			"pwd_forgotten_question": "Mot de passe oublié ?"
+		}
+	}
+}

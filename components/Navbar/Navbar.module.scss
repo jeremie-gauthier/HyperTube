@@ -1,0 +1,84 @@
+@import "@/styles/theme.scss";
+
+.container {
+  @apply flex-1 h-16 p-4 bg-black items-center justify-between text-white;
+
+  .items {
+    @apply flex-1 space-x-6 text-sm ml-8 h-6 items-center;
+  }
+
+  .settings {
+    @apply space-x-4;
+  }
+
+  .searchGroup {
+    @apply items-center space-x-2 border border-white p-1;
+
+    input {
+      @apply text-sm bg-black outline-none;
+    }
+  }
+}
+
+.brandLogo {
+  @apply relative cursor-pointer h-8 w-4 md:w-28;
+
+  @media (max-width: 768px) {
+    background: no-repeat center/100% url("/img/hypertube-short.png");
+  }
+
+  @media (min-width: 768px) {
+    background: no-repeat center/100% url("/img/hypertube.png");
+  }
+}
+
+.countryFlag {
+  @apply h-8 w-8 rounded;
+}
+
+.floater {
+  @apply absolute z-40 top-8 right-0 pt-4;
+
+  &::before {
+    @apply absolute arrow-up top-2 right-2;
+
+    content: "";
+  }
+
+  .floaterContent {
+    @apply relative;
+    @apply bg-grey-dark opacity-75 text-sm min-w-max border border-grey-light;
+
+    a {
+      @apply font-bold space-x-2 hover:bg-black pl-3 pr-6 py-2;
+    }
+
+    button {
+      @apply flex flex-row items-center space-x-2 hover:bg-black pl-3 pr-6 py-2;
+    }
+  }
+}
+
+.dropdownMenu {
+  @apply absolute z-40 top-16 left-0 right-0 w-screen bg-grey-dark py-4 text-xl;
+
+  a {
+    @apply py-4 pl-10;
+
+    &:hover {
+      @apply bg-black;
+    }
+  }
+
+  hr {
+    @apply border-black;
+  }
+
+  .linkWithIcon {
+    @apply flex flex-row items-center space-x-4;
+  }
+
+  .activeLink {
+    @apply bg-black;
+  }
+}

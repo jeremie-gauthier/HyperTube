@@ -1,0 +1,60 @@
+@import "@/styles/theme.scss";
+
+.countryFlag {
+  @apply h-8 w-8 rounded;
+}
+
+.frame {
+  @apply relative;
+  @apply items-center justify-center rounded h-8 w-8 cursor-pointer;
+
+  span {
+    @apply font-bold text-sm;
+  }
+}
+
+.floaterDesktop {
+  @apply absolute z-40 top-8 right-0 pt-4;
+
+  &::before {
+    @apply absolute arrow-up top-2 right-2;
+
+    content: "";
+  }
+
+  .floaterContent {
+    @apply relative;
+    @apply bg-grey-dark opacity-75 text-sm min-w-max border border-grey-light;
+
+    a {
+      @apply font-bold space-x-2 hover:bg-black pl-3 pr-6 py-2;
+    }
+
+    button {
+      @apply flex flex-row items-center space-x-2 hover:bg-black pl-3 pr-6 py-2;
+    }
+  }
+}
+
+.floaterMobile {
+  @apply absolute z-40 top-8 right-0 mt-4;
+
+  &::before {
+    @apply absolute arrow-up -top-2 right-2;
+
+    content: "";
+  }
+
+  .floaterContent {
+    @apply relative;
+    @apply bg-grey-dark text-sm min-w-max border border-grey-light;
+
+    a {
+      @apply font-bold space-x-2 hover:bg-black pl-3 pr-6 py-2;
+    }
+
+    button {
+      @apply flex flex-row items-center space-x-2 hover:bg-black pl-3 pr-6 py-2;
+    }
+  }
+}

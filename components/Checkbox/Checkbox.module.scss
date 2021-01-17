@@ -1,0 +1,18 @@
+.container {
+  @apply items-center space-x-2 select-none text-sm;
+
+  input[type="checkbox"] {
+    @apply h-4 w-4 appearance-none outline-none shadow-none text-center cursor-pointer rounded;
+
+    line-height: 1em;
+
+    &:focus {
+      @apply bg-white;
+    }
+  }
+
+  input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: #000;
+  }
+}

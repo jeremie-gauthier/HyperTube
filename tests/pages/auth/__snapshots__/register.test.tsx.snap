@@ -1,0 +1,863 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Register /> should render correctly 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <main
+        class="container"
+      >
+        <div
+          class="scrollbar-container scrollContainer ps"
+        >
+          <h1>
+            pages.auth.register.register
+          </h1>
+          <form
+            class="authForm"
+          >
+            <div
+              class="registerForm"
+            >
+              <div
+                class="flexCol fieldsGroup"
+              >
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="username"
+                    name="username"
+                    placeholder="models.user.username*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="relative"
+                >
+                  <div
+                    class="container"
+                  >
+                    <label
+                      class="text-white"
+                      for="password"
+                    >
+                      models.user.password*
+                    </label>
+                    <input
+                      autocomplete="off"
+                      class=" border-white"
+                      id="password"
+                      name="password"
+                      placeholder=""
+                      type="password"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="passwordTooltip"
+                  >
+                    <p>
+                      pages.auth.register.pwd.your_password
+                    </p>
+                    <ul>
+                      <li>
+                        pages.auth.register.pwd.minimal_length
+                      </li>
+                      <li>
+                        pages.auth.register.pwd.should_contain_min
+                      </li>
+                      <li>
+                        pages.auth.register.pwd.should_contain_maj
+                      </li>
+                      <li>
+                        pages.auth.register.pwd.should_contain_number
+                      </li>
+                      <li>
+                        pages.auth.register.pwd.should_contain_special
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="cpassword"
+                    name="cpassword"
+                    placeholder="models.user.cpassword*"
+                    type="password"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="flexCol fieldsGroup"
+              >
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="email"
+                    name="email"
+                    placeholder="models.user.email*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="lastname"
+                    name="lastname"
+                    placeholder="models.user.lastname*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="firstname"
+                    name="firstname"
+                    placeholder="models.user.firstname*"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+            >
+              pages.auth.register.register
+            </button>
+          </form>
+          <div
+            class="flexCol OAuthLinks"
+          >
+            <div
+              class="flexRow items-center space-x-2 cursor-pointer text-sm"
+            >
+              <svg
+                class="h-4 w-4 cursor-pointer"
+                viewBox="0 0 137.6 96.599998"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="#fff"
+                >
+                  <path
+                    d="M0 71.2h50.7v25.4H76V50.7H25.4L76 0H50.7L0 50.7zM86.9 25.4L112.2 0H86.9z"
+                  />
+                  <path
+                    d="M112.2 25.4L86.9 50.7V76h25.3V50.7l25.4-25.3V0h-25.4zM137.6 50.7L112.2 76h25.4z"
+                  />
+                </g>
+              </svg>
+              <span>
+                pages.auth.register.register_with_42
+              </span>
+            </div>
+          </div>
+          <div
+            class="switchAuthLink"
+          >
+            <p>
+              pages.auth.register.already_registered
+            </p>
+            <a
+              href="/auth/login"
+            >
+              pages.auth.register.login
+            </a>
+          </div>
+          <div
+            class="ps__rail-x"
+            style="left: 0px; top: 0px;"
+          >
+            <div
+              class="ps__thumb-x"
+              style="left: 0px; width: 0px;"
+              tabindex="0"
+            />
+          </div>
+          <div
+            class="ps__rail-y"
+            style="top: 0px; left: 0px;"
+          >
+            <div
+              class="ps__thumb-y"
+              style="top: 0px; height: 0px;"
+              tabindex="0"
+            />
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>,
+  "container": <div>
+    <main
+      class="container"
+    >
+      <div
+        class="scrollbar-container scrollContainer ps"
+      >
+        <h1>
+          pages.auth.register.register
+        </h1>
+        <form
+          class="authForm"
+        >
+          <div
+            class="registerForm"
+          >
+            <div
+              class="flexCol fieldsGroup"
+            >
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="username"
+                  name="username"
+                  placeholder="models.user.username*"
+                  value=""
+                />
+              </div>
+              <div
+                class="relative"
+              >
+                <div
+                  class="container"
+                >
+                  <label
+                    class="text-white"
+                    for="password"
+                  >
+                    models.user.password*
+                  </label>
+                  <input
+                    autocomplete="off"
+                    class=" border-white"
+                    id="password"
+                    name="password"
+                    placeholder=""
+                    type="password"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="passwordTooltip"
+                >
+                  <p>
+                    pages.auth.register.pwd.your_password
+                  </p>
+                  <ul>
+                    <li>
+                      pages.auth.register.pwd.minimal_length
+                    </li>
+                    <li>
+                      pages.auth.register.pwd.should_contain_min
+                    </li>
+                    <li>
+                      pages.auth.register.pwd.should_contain_maj
+                    </li>
+                    <li>
+                      pages.auth.register.pwd.should_contain_number
+                    </li>
+                    <li>
+                      pages.auth.register.pwd.should_contain_special
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="cpassword"
+                  name="cpassword"
+                  placeholder="models.user.cpassword*"
+                  type="password"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              class="flexCol fieldsGroup"
+            >
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="email"
+                  name="email"
+                  placeholder="models.user.email*"
+                  value=""
+                />
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="models.user.lastname*"
+                  value=""
+                />
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="firstname"
+                  name="firstname"
+                  placeholder="models.user.firstname*"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+          >
+            pages.auth.register.register
+          </button>
+        </form>
+        <div
+          class="flexCol OAuthLinks"
+        >
+          <div
+            class="flexRow items-center space-x-2 cursor-pointer text-sm"
+          >
+            <svg
+              class="h-4 w-4 cursor-pointer"
+              viewBox="0 0 137.6 96.599998"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="#fff"
+              >
+                <path
+                  d="M0 71.2h50.7v25.4H76V50.7H25.4L76 0H50.7L0 50.7zM86.9 25.4L112.2 0H86.9z"
+                />
+                <path
+                  d="M112.2 25.4L86.9 50.7V76h25.3V50.7l25.4-25.3V0h-25.4zM137.6 50.7L112.2 76h25.4z"
+                />
+              </g>
+            </svg>
+            <span>
+              pages.auth.register.register_with_42
+            </span>
+          </div>
+        </div>
+        <div
+          class="switchAuthLink"
+        >
+          <p>
+            pages.auth.register.already_registered
+          </p>
+          <a
+            href="/auth/login"
+          >
+            pages.auth.register.login
+          </a>
+        </div>
+        <div
+          class="ps__rail-x"
+          style="left: 0px; top: 0px;"
+        >
+          <div
+            class="ps__thumb-x"
+            style="left: 0px; width: 0px;"
+            tabindex="0"
+          />
+        </div>
+        <div
+          class="ps__rail-y"
+          style="top: 0px; left: 0px;"
+        >
+          <div
+            class="ps__thumb-y"
+            style="top: 0px; height: 0px;"
+            tabindex="0"
+          />
+        </div>
+      </div>
+    </main>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`<Register /> should render correctly 2`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <main
+        class="container"
+      >
+        <div
+          class="scrollbar-container scrollContainer ps"
+        >
+          <h1>
+            pages.auth.register.register
+          </h1>
+          <form
+            class="authForm"
+          >
+            <div
+              class="registerForm"
+            >
+              <div
+                class="flexCol fieldsGroup"
+              >
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="username"
+                    name="username"
+                    placeholder="models.user.username*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="relative"
+                >
+                  <div
+                    class="container"
+                  >
+                    <input
+                      autocomplete="off"
+                      class=" border-grey-light"
+                      id="password"
+                      name="password"
+                      placeholder="models.user.password*"
+                      type="password"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="cpassword"
+                    name="cpassword"
+                    placeholder="models.user.cpassword*"
+                    type="password"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="flexCol fieldsGroup"
+              >
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="email"
+                    name="email"
+                    placeholder="models.user.email*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="lastname"
+                    name="lastname"
+                    placeholder="models.user.lastname*"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="firstname"
+                    name="firstname"
+                    placeholder="models.user.firstname*"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+            >
+              pages.auth.register.register
+            </button>
+          </form>
+          <div
+            class="flexCol OAuthLinks"
+          >
+            <div
+              class="flexRow items-center space-x-2 cursor-pointer text-sm"
+            >
+              <svg
+                class="h-4 w-4 cursor-pointer"
+                viewBox="0 0 137.6 96.599998"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="#fff"
+                >
+                  <path
+                    d="M0 71.2h50.7v25.4H76V50.7H25.4L76 0H50.7L0 50.7zM86.9 25.4L112.2 0H86.9z"
+                  />
+                  <path
+                    d="M112.2 25.4L86.9 50.7V76h25.3V50.7l25.4-25.3V0h-25.4zM137.6 50.7L112.2 76h25.4z"
+                  />
+                </g>
+              </svg>
+              <span>
+                pages.auth.register.register_with_42
+              </span>
+            </div>
+          </div>
+          <div
+            class="switchAuthLink"
+          >
+            <p>
+              pages.auth.register.already_registered
+            </p>
+            <a
+              href="/auth/login"
+            >
+              pages.auth.register.login
+            </a>
+          </div>
+          <div
+            class="ps__rail-x"
+            style="left: 0px; top: 0px;"
+          >
+            <div
+              class="ps__thumb-x"
+              style="left: 0px; width: 0px;"
+              tabindex="0"
+            />
+          </div>
+          <div
+            class="ps__rail-y"
+            style="top: 0px; left: 0px;"
+          >
+            <div
+              class="ps__thumb-y"
+              style="top: 0px; height: 0px;"
+              tabindex="0"
+            />
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>,
+  "container": <div>
+    <main
+      class="container"
+    >
+      <div
+        class="scrollbar-container scrollContainer ps"
+      >
+        <h1>
+          pages.auth.register.register
+        </h1>
+        <form
+          class="authForm"
+        >
+          <div
+            class="registerForm"
+          >
+            <div
+              class="flexCol fieldsGroup"
+            >
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="username"
+                  name="username"
+                  placeholder="models.user.username*"
+                  value=""
+                />
+              </div>
+              <div
+                class="relative"
+              >
+                <div
+                  class="container"
+                >
+                  <input
+                    autocomplete="off"
+                    class=" border-grey-light"
+                    id="password"
+                    name="password"
+                    placeholder="models.user.password*"
+                    type="password"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="cpassword"
+                  name="cpassword"
+                  placeholder="models.user.cpassword*"
+                  type="password"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              class="flexCol fieldsGroup"
+            >
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="email"
+                  name="email"
+                  placeholder="models.user.email*"
+                  value=""
+                />
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="models.user.lastname*"
+                  value=""
+                />
+              </div>
+              <div
+                class="container"
+              >
+                <input
+                  autocomplete="off"
+                  class=" border-grey-light"
+                  id="firstname"
+                  name="firstname"
+                  placeholder="models.user.firstname*"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+          >
+            pages.auth.register.register
+          </button>
+        </form>
+        <div
+          class="flexCol OAuthLinks"
+        >
+          <div
+            class="flexRow items-center space-x-2 cursor-pointer text-sm"
+          >
+            <svg
+              class="h-4 w-4 cursor-pointer"
+              viewBox="0 0 137.6 96.599998"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="#fff"
+              >
+                <path
+                  d="M0 71.2h50.7v25.4H76V50.7H25.4L76 0H50.7L0 50.7zM86.9 25.4L112.2 0H86.9z"
+                />
+                <path
+                  d="M112.2 25.4L86.9 50.7V76h25.3V50.7l25.4-25.3V0h-25.4zM137.6 50.7L112.2 76h25.4z"
+                />
+              </g>
+            </svg>
+            <span>
+              pages.auth.register.register_with_42
+            </span>
+          </div>
+        </div>
+        <div
+          class="switchAuthLink"
+        >
+          <p>
+            pages.auth.register.already_registered
+          </p>
+          <a
+            href="/auth/login"
+          >
+            pages.auth.register.login
+          </a>
+        </div>
+        <div
+          class="ps__rail-x"
+          style="left: 0px; top: 0px;"
+        >
+          <div
+            class="ps__thumb-x"
+            style="left: 0px; width: 0px;"
+            tabindex="0"
+          />
+        </div>
+        <div
+          class="ps__rail-y"
+          style="top: 0px; left: 0px;"
+        >
+          <div
+            class="ps__thumb-y"
+            style="top: 0px; height: 0px;"
+            tabindex="0"
+          />
+        </div>
+      </div>
+    </main>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

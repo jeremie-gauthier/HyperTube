@@ -1,0 +1,6 @@
+@import "../auth.module.scss";
+
+.authLinksGroup {
+  @apply flex flex-col justify-between;
+  @apply md:flex-row;
+}

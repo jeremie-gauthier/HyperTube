@@ -1,0 +1,20 @@
+.switchAuthLink {
+  @apply flex flex-row mt-4 font-bold text-sm;
+  @apply md:flex-col;
+
+  p {
+    @apply text-grey-light mr-2;
+  }
+}
+
+.OAuthLinks {
+  @apply mt-4 space-y-4;
+
+  .OAuthLink {
+    @apply items-center space-x-2 cursor-pointer text-sm;
+
+    svg {
+      @apply h-4 w-4 cursor-pointer;
+    }
+  }
+}

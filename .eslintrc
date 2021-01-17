@@ -98,7 +98,6 @@
     "no-label-var": 1, //disallow labels that share a name with a variable
     "no-shadow-restricted-names": 0, //disallow shadowing of names such as arguments
     "no-shadow": 0, //disallow declaration of variables already declared in the outer scope
-    "no-unused-vars": [1, { "vars": "local", "args": "after-used" }], //disallow declaration of variables that are not used in the code (recommended)
     "no-use-before-define": "off",
     "no-underscore-dangle": "off",
 
@@ -130,7 +129,7 @@
     "max-depth": [0, 3], //specify the maximum depth that blocks can be nested
     "max-len": [1, 81, 2], //specify the maximum length of a line in your program
     "max-params": [1, 4], //limits the number of parameters that can be used in the function declaration.
-    "max-statements": [1, 5], //specify the maximum number of statement allowed in a function
+    "max-statements": 1, //specify the maximum number of statement allowed in a function
     "max-lines-per-function": [1, 50],
     "no-bitwise": 0, //disallow use of bitwise operators
     "no-plusplus": 0, //disallow use of unary operators, ++ and --
@@ -142,10 +141,14 @@
     /* React */
     "react/jsx-pascal-case": 2, // Enforce PascalCase for user-defined JSX components
     "react/no-danger": 1, //Prevent usage of dangerous JSX properties
-    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "react/display-name": 0,
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
+    "react/jsx-props-no-spreading": "off",
 
     /* React Hooks */
     "react-hooks/exhaustive-deps": "warn",
@@ -154,8 +157,8 @@
     "@typescript-eslint/ban-ts-comment": "warn",
     "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/no-var-requires": "warn",
-    "@typescript-eslint/no-use-before-define": ["error"],
     "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
 
     /* Prettier */
     "prettier/prettier": "error",

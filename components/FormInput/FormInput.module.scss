@@ -1,0 +1,29 @@
+.container {
+  @apply relative;
+
+  label {
+    @apply absolute z-10 -top-2 left-2 px-1 text-xs rounded-b;
+
+    // prettier-ignore
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(65, 65, 65, 1) 50%
+      );
+  }
+
+  input {
+    @apply relative border rounded p-3 outline-none min-w-full;
+  }
+
+  .inputError {
+    @apply border-b-2;
+
+    border-bottom-color: rgb(229, 9, 20);
+  }
+
+  p {
+    @apply text-red text-xs mt-1;
+  }
+}

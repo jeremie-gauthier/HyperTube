@@ -1,0 +1,10 @@
+{
+	"user": {
+		"cpassword": "Confirmation du mot de passe",
+		"email": "Adresse mail",
+		"firstname": "Prénom",
+		"lastname": "Nom",
+		"password": "Mot de passe",
+		"username": "Nom d'utilisateur"
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"user": {
+		"cpassword": "パスワード確認",
+		"email": "Eメール",
+		"firstname": "ファーストネーム",
+		"lastname": "苗字",
+		"password": "パスワード",
+		"username": "ユーザー名"
+	}
+}
