@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col mx-8 my-4 text-black space-y-8;
+  @apply flex flex-col mx-8 my-4 space-y-8;
   @apply md:mx-32 md:my-8;
 
   a:last-child,
@@ -15,4 +15,15 @@
 
 .scrollContainer {
   @apply pb-8 space-y-4;
+}
+
+.dropdown > div {
+  @apply flex h-12;
+  @apply md:items-center;
+}
+
+.switchableInput {
+  input {
+    background-color: #414141;
+  }
 }
