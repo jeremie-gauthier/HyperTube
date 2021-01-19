@@ -22,6 +22,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "zedin27",
+      "name": "Zeid Tisnes",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/14841261?v=4",
+      "profile": "https://github.com/zedin27",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
