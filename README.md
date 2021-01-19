@@ -1,7 +1,9 @@
 # HyperTube
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A Netflix clone app with NextJS and MongoDB.
@@ -12,7 +14,7 @@ A Netflix clone app with NextJS and MongoDB.
 
 ### Install neccessary dependencies
 
-```npm install```
+`npm install`
 
 ### Start dev mode
 
@@ -78,6 +80,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://jeremie-gauthier.github.io/"><img src="https://avatars0.githubusercontent.com/u/28305181?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jergauth</b></sub></a><br /><a href="https://github.com/jeremie-gauthier/HyperTube/commits?author=jeremie-gauthier" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/caro-rokah"><img src="https://avatars0.githubusercontent.com/u/36737143?v=4?s=100" width="100px;" alt=""/><br /><sub><b>caro-rokah</b></sub></a><br /><a href="#design-caro-rokah" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/zedin27"><img src="https://avatars3.githubusercontent.com/u/14841261?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zeid Tisnes</b></sub></a><br /><a href="https://github.com/jeremie-gauthier/HyperTube/commits?author=zedin27" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/0auBSQ"><img src="https://avatars3.githubusercontent.com/u/58159635?v=4?s=100" width="100px;" alt=""/><br /><sub><b>0auBSQ</b></sub></a><br /><a href="https://github.com/jeremie-gauthier/HyperTube/commits?author=0auBSQ" title="Code">💻</a></td>
   </tr>
 </table>
 
