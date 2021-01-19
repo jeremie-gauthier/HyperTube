@@ -12,10 +12,13 @@
     "clean": "docker-compose stop mongo"
   },
   "dependencies": {
+    "@types/mongodb": "^3.5.33",
     "@react-hook/hover": "^4.0.0",
     "@types/react-combine-reducers": "^1.0.0",
     "classnames": "^2.2.6",
+    "dotenv": "^8.2.0",
     "i18next": "^19.8.4",
+    "mockgoose": "^8.0.4",
     "mongoose": "^5.11.8",
     "next": "10.0.1",
     "postcss-flexbugs-fixes": "^5.0.2",

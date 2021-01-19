@@ -10,6 +10,10 @@ A Netflix clone app with NextJS and MongoDB.
 
 ## Main commands
 
+### Install neccessary dependencies
+
+```npm install```
+
 ### Start dev mode
 
 ```
