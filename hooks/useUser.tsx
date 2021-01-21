@@ -1,16 +1,25 @@
-import useSWR from "swr";
+import useSWR, { ConfigInterface, mutate } from "swr";
 import fetcher from "@/lib/fetcher";
 import { TUser } from "@/data/models/User";
-import mockUser from "@/tests/__mocks__/user";
 
-export default function useUser(id: number) {
-  // const { data, error } = useSWR(`/api/user/${id}`, fetcher);
-  const data = mockUser;
-  const error = null;
+type UserSWR = {
+  user: TUser;
+  isLoading: boolean;
+  isError: boolean;
+  mutation: (newUserValues: Partial<TUser>) => Promise<unknown>;
+};
+
+export default function useUser(id: number, config?: ConfigInterface): UserSWR {
+  const URL = `/api/user/${id}`;
+  const { data, error } = useSWR(URL, fetcher, config);
+
+  const mutation = (newUserValues: Partial<TUser>) =>
+    mutate(URL, { ...data, ...newUserValues }, false);
 
   return {
-    user: data,
+    user: data ?? ({} as TUser),
     isLoading: !error && !data,
     isError: error,
+    mutation,
   };
 }
