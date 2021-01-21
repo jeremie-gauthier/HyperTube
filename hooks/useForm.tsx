@@ -11,13 +11,15 @@ export type HookForm<V> = {
   errors: FormErrors<V>;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (evt: React.FormEvent<HTMLFormElement>) => void;
+  handleCancel: () => void;
 };
 
+// eslint-disable-next-line max-lines-per-function
 export default function useForm<V>(
   callback: FormCallback<V>,
   resolver: FormResolver<V>,
   initialValues: V,
-): HookForm<V> {
+) {
   const [values, setValues] = React.useState<V>(initialValues);
   const [errors, setErrors] = React.useState<FormErrors<V>>({});
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
@@ -58,5 +60,12 @@ export default function useForm<V>(
     }
   }, [callback, isSubmitting, errors, values]);
 
-  return { values, errors, handleChange, handleSubmit };
+  const handleCancel = () => {
+    setValues(initialValues);
+    setErrors({});
+    setHasSubmittingOnce(false);
+    setIsSubmitting(false);
+  };
+
+  return { values, errors, handleChange, handleSubmit, handleCancel };
 }
