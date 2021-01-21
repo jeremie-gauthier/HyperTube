@@ -1,10 +1,18 @@
 import React from "react";
-import { AppLayoutProps } from "next/app";
 import "@/locales/i18n";
 import "@/styles/tailwind.scss";
 import StoreProvider from "state/store";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
+import { AppProps } from "next/dist/next-server/lib/router/router";
+import { NextComponentType } from "next";
+
+type AppLayoutProps = AppProps & {
+  Component: NextComponentType & {
+    Layout?: (page: React.ReactNode) => JSX.Element;
+    Title?: string;
+  };
+};
 
 function MyApp({ Component, pageProps }: AppLayoutProps) {
   const Layout = Component.Layout ?? React.Fragment;
