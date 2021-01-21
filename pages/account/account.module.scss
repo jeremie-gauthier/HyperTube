@@ -4,7 +4,7 @@
 
   a:last-child,
   button:last-child {
-    @apply text-blue-500 flex;
+    @apply text-blue-500 flex text-right;
 
     &:hover,
     &:focus {
@@ -26,4 +26,8 @@
   input {
     background-color: #414141;
   }
+}
+
+.toggle {
+  @apply flex flex-row items-center space-x-4;
 }
