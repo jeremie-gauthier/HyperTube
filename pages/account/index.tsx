@@ -27,7 +27,7 @@ function Account({ user }: ServerSideProps) {
       <h1 className="title">{t("pages.account.my_account")}</h1>
       <ScrollBar className={styles.scrollContainer}>
         <SecurityParams initialData={user} />
-        <ProfileParams />
+        <ProfileParams initialData={user} />
         <PreferenceParams initialData={user} />
       </ScrollBar>
     </main>
@@ -66,7 +66,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
           </Link>
         </Dropdown.Element>
 
-        <UsernameForm initialData={user} />
+        <UsernameForm initialData={initialData} />
 
         <Dropdown.Element>
           <div>{"*".repeat(8)}</div>
@@ -79,7 +79,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
   );
 };
 
-const ProfileParams = () => {
+const ProfileParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
 
   return (
@@ -88,38 +88,8 @@ const ProfileParams = () => {
         title={<h2>{t("pages.account.profile.my_profile")}</h2>}
         className={styles.dropdown}
       >
-        {/* <Dropdown.Element>
-          <SwitchableInput>
-            <SwitchableInput.Input
-              className={styles.switchableInput}
-              name="lastname"
-              placeholder={t("models.user.lastname")}
-              methods={methods}
-            />
-            <SwitchableInput.Toggle
-              label={t("pages.account.profile.edit_lastname")}
-              isLoading={false}
-              className="flex flex-row items-center space-x-4"
-              handleCancel={methods.handleCancel}
-            />
-          </SwitchableInput>
-        </Dropdown.Element>
-        <Dropdown.Element>
-          <SwitchableInput>
-            <SwitchableInput.Input
-              className={styles.switchableInput}
-              name="firstname"
-              placeholder={t("models.user.firstname")}
-              methods={methods}
-            />
-            <SwitchableInput.Toggle
-              label={t("pages.account.profile.edit_firstname")}
-              isLoading={false}
-              className="flex flex-row items-center space-x-4"
-              handleCancel={methods.handleCancel}
-            />
-          </SwitchableInput>
-        </Dropdown.Element> */}
+        <LastnameForm initialData={initialData} />
+        <FirstnameForm initialData={initialData} />
         <Dropdown.Element>
           <div>|Profile picture here|</div>
           <button type="button">
@@ -169,23 +139,81 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
   const methods = useForm<UsernameFormType>(onSubmit, resolveUsername, user);
 
   return (
-    <form onSubmit={methods.handleSubmit}>
-      <Dropdown.Element>
-        <SwitchableInput>
-          <SwitchableInput.Input
-            className={styles.switchableInput}
-            name="username"
-            placeholder={t("models.user.username")}
-            methods={methods}
-          />
-          <SwitchableInput.Toggle
-            label={t("pages.account.security.edit_username")}
-            isLoading={false}
-            className={styles.toggle}
-            methods={methods}
-          />
-        </SwitchableInput>
-      </Dropdown.Element>
-    </form>
+    <Dropdown.Element>
+      <SwitchableInput>
+        <SwitchableInput.Input
+          className={styles.switchableInput}
+          name="username"
+          placeholder={t("models.user.username")}
+          methods={methods}
+        />
+        <SwitchableInput.Toggle
+          label={t("pages.account.security.edit_username")}
+          isLoading={false}
+          className={styles.toggle}
+          methods={methods}
+        />
+      </SwitchableInput>
+    </Dropdown.Element>
+  );
+};
+
+const LastnameForm = ({ initialData }: SWRConfigProps) => {
+  const { t } = useTranslation();
+  const { user, mutation } = useUser(-42, { initialData });
+
+  function onSubmit(values: UsernameFormType) {
+    mutation(values);
+  }
+
+  const methods = useForm<UsernameFormType>(onSubmit, resolveUsername, user);
+
+  return (
+    <Dropdown.Element>
+      <SwitchableInput>
+        <SwitchableInput.Input
+          className={styles.switchableInput}
+          name="lastname"
+          placeholder={t("models.user.lastname")}
+          methods={methods}
+        />
+        <SwitchableInput.Toggle
+          label={t("pages.account.profile.edit_lastname")}
+          isLoading={false}
+          className="flex flex-row items-center space-x-4"
+          methods={methods}
+        />
+      </SwitchableInput>
+    </Dropdown.Element>
+  );
+};
+
+const FirstnameForm = ({ initialData }: SWRConfigProps) => {
+  const { t } = useTranslation();
+  const { user, mutation } = useUser(-42, { initialData });
+
+  function onSubmit(values: UsernameFormType) {
+    mutation(values);
+  }
+
+  const methods = useForm<UsernameFormType>(onSubmit, resolveUsername, user);
+
+  return (
+    <Dropdown.Element>
+      <SwitchableInput>
+        <SwitchableInput.Input
+          className={styles.switchableInput}
+          name="firstname"
+          placeholder={t("models.user.firstname")}
+          methods={methods}
+        />
+        <SwitchableInput.Toggle
+          label={t("pages.account.profile.edit_firstname")}
+          isLoading={false}
+          className="flex flex-row items-center space-x-4"
+          methods={methods}
+        />
+      </SwitchableInput>
+    </Dropdown.Element>
   );
 };
