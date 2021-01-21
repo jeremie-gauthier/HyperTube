@@ -17,9 +17,14 @@
   @apply pb-8 space-y-4;
 }
 
+.dropdown {
+  @apply space-y-4;
+  @apply md:space-y-0;
+}
+
 .dropdown > div {
-  @apply flex h-12;
-  @apply md:items-center;
+  @apply flex;
+  @apply md:items-center md:h-12;
 }
 
 .switchableInput {
