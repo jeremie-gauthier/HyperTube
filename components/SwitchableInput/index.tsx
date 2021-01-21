@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { HookForm } from "@/hooks/useForm";
-import { AccountForm } from "@/lib/types/account";
 import React from "react";
+import { HookForm } from "@/hooks/useForm";
 import Spinner from "@/components/Spinner";
+import isEmpty from "@ramda/isempty";
 import FormInput from "../FormInput";
 
 type ComponentContext = {
@@ -15,7 +15,6 @@ const SwitchableInputContext = React.createContext({} as ComponentContext);
 type SwitchableInputProps = {
   children: React.ReactNode;
 };
-
 function SwitchableInput({ children }: SwitchableInputProps) {
   const [isEditable, setIsEditable] = React.useState(false);
   const toggle = React.useCallback(
@@ -32,9 +31,9 @@ function SwitchableInput({ children }: SwitchableInputProps) {
 }
 
 type InputProps = {
-  name: keyof AccountForm;
+  name: string;
   placeholder: string;
-  methods: HookForm<AccountForm>;
+  methods: HookForm<Record<string, string | (string & readonly string[])>>;
 } & Partial<InputDefaultProps>;
 
 type InputDefaultProps = {
@@ -71,26 +70,49 @@ function Input({
 type ToggleProps = {
   label: React.ReactNode;
   isLoading: boolean;
+  methods: HookForm<Record<string, string | (string & readonly string[])>>;
 } & Partial<ToggleDefaultProps>;
 
 type ToggleDefaultProps = {
   className?: string;
 };
 
-function Toggle({ label, isLoading, className = "" }: ToggleProps) {
+function Toggle({ label, isLoading, methods, className = "" }: ToggleProps) {
   const { isEditable, toggle } = React.useContext(SwitchableInputContext);
+  const [hasSubmit, setHasSubmit] = React.useState(false);
+
+  const onCancel = () => {
+    toggle();
+    methods.handleCancel();
+  };
+
+  const onSubmit = (evt: React.FormEvent) => {
+    methods.handleSubmit(evt as React.FormEvent<HTMLFormElement>);
+    setHasSubmit(true);
+  };
+
+  React.useEffect(() => {
+    if (hasSubmit) {
+      if (isEmpty(methods.errors)) {
+        toggle();
+      }
+      setHasSubmit(false);
+    }
+  }, [hasSubmit]);
 
   return (
     <div className={className}>
       {isEditable ? (
         <>
-          <button type="button" onClick={toggle} disabled={isLoading}>
+          <button type="button" onClick={onCancel} disabled={isLoading}>
             Cancel
           </button>
           {isLoading ? (
             <Spinner className="text-blue-500" />
           ) : (
-            <button type="submit">Submit</button>
+            <button type="submit" onClick={onSubmit}>
+              Submit
+            </button>
           )}
         </>
       ) : (

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React from "react";
 
 type FormCallback<V> = (values: V) => void;
@@ -14,7 +15,6 @@ export type HookForm<V> = {
   handleCancel: () => void;
 };
 
-// eslint-disable-next-line max-lines-per-function
 export default function useForm<V>(
   callback: FormCallback<V>,
   resolver: FormResolver<V>,
