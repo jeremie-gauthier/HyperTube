@@ -3,6 +3,7 @@ import React from "react";
 import { HookForm } from "@/hooks/useForm";
 import Spinner from "@/components/Spinner";
 import isEmpty from "@ramda/isempty";
+import pipe from "@ramda/pipe";
 import { useTranslation } from "react-i18next";
 import FormInput from "@/components/FormInput";
 
@@ -87,10 +88,7 @@ function Toggle({ label, isLoading, methods, className = "" }: ToggleProps) {
   const { isEditable, toggle } = React.useContext(SwitchableInputContext);
   const [hasSubmit, setHasSubmit] = React.useState(false);
 
-  const onCancel = () => {
-    toggle();
-    methods.handleCancel();
-  };
+  const onCancel = pipe(toggle, methods.handleCancel);
 
   const onSubmit = (evt: React.FormEvent) => {
     methods.handleSubmit(evt as React.FormEvent<HTMLFormElement>);
