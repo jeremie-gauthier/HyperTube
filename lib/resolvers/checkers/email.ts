@@ -1,6 +1,7 @@
+import { User } from "@/types/user";
 import isEmpty from "@ramda/isempty";
 
-export default function checkEmail({ email }: { email: string }) {
+export default function checkEmail({ email }: Pick<User, "email">) {
   if (isEmpty(email)) {
     return { email: "common.forms.required" };
   }

@@ -1,6 +1,7 @@
+import { User } from "@/types/user";
 import isEmpty from "@ramda/isempty";
 
-export default function checkPassword({ password }: { password: string }) {
+export default function checkPassword({ password }: Pick<User, "password">) {
   if (isEmpty(password)) {
     return { password: "common.forms.required" };
   }
