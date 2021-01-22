@@ -184,7 +184,7 @@ const LastnameForm = ({ initialData }: SWRConfigProps) => {
         <SwitchableInput.Toggle
           label={t("pages.account.profile.edit_lastname")}
           isLoading={false}
-          className="flex flex-row items-center space-x-4"
+          className={styles.toggle}
           methods={methods}
         />
       </SwitchableInput>
@@ -216,7 +216,7 @@ const FirstnameForm = ({ initialData }: SWRConfigProps) => {
         <SwitchableInput.Toggle
           label={t("pages.account.profile.edit_firstname")}
           isLoading={false}
-          className="flex flex-row items-center space-x-4"
+          className={styles.toggle}
           methods={methods}
         />
       </SwitchableInput>
