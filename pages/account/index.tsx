@@ -12,11 +12,11 @@ import resolveUsername from "@/lib/resolvers/checkers/username";
 import SwitchableInput from "@/components/SwitchableInput";
 import React from "react";
 import fetcher from "@/lib/fetcher";
-import { TUser } from "@/data/models/User";
+import { User } from "@/types/user";
 import styles from "./account.module.scss";
 
 type ServerSideProps = {
-  user: TUser;
+  user: User;
 };
 
 function Account({ user }: ServerSideProps) {
@@ -39,14 +39,14 @@ Account.Title = "pages.account.my_account";
 export default Account;
 
 export async function getServerSideProps() {
-  const user = await fetcher(`http://localhost:3000/api/user/${-42}`, {
+  const user = await fetcher(`http://localhost:3000/api/users/${-42}`, {
     method: "GET",
   });
   return { props: { user } };
 }
 
 type SWRConfigProps = {
-  initialData: TUser;
+  initialData: User;
 };
 
 const SecurityParams = ({ initialData }: SWRConfigProps) => {

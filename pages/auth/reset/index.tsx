@@ -1,7 +1,7 @@
 import FormInput from "@/components/FormInput";
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import useForm from "@/hooks/useForm";
-import { TResetForm } from "@/lib/types/reset";
+import { ResetForm } from "@/lib/types/reset";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -9,7 +9,7 @@ import resolver from "@/lib/resolvers/reset";
 import { LoginLink, SignupLink } from "@/components/Links";
 import styles from "./reset.module.scss";
 
-const initialState: TResetForm = {
+const initialState: ResetForm = {
   email: "",
 };
 
@@ -20,7 +20,7 @@ function Reset() {
     <main className={styles.container}>
       <PerfectScrollbar className={styles.scrollContainer}>
         <h1 className="title">{t("pages.auth.reset.forgotten_password")}</h1>
-        <ResetForm />
+        <FormReset />
         <div className={styles.authLinksGroup}>
           <SignupLink />
           <LoginLink />
@@ -34,13 +34,13 @@ Reset.Layout = AuthLayout;
 Reset.Title = "pages.auth.authentication";
 export default Reset;
 
-const ResetForm = () => {
+const FormReset = () => {
   const { t } = useTranslation();
-  const submit = (values: TResetForm) => {
+  const submit = (values: ResetForm) => {
     console.log(values);
   };
 
-  const { values, errors, handleChange, handleSubmit } = useForm<TResetForm>(
+  const { values, errors, handleChange, handleSubmit } = useForm<ResetForm>(
     submit,
     resolver,
     initialState,

@@ -3,7 +3,7 @@ import AuthLayout from "@/components/Layouts/AuthLayout";
 import { useTranslation } from "react-i18next";
 import useForm, { FormErrors } from "@/hooks/useForm";
 import FormInput from "@/components/FormInput";
-import { TRegisterForm } from "@/lib/types/register";
+import { RegisterForm } from "@/lib/types/register";
 import { FlexCol } from "@/components/Flex";
 import resolver from "@/lib/resolvers/register";
 import { requiredField } from "@/lib/helpers";
@@ -12,7 +12,7 @@ import { LoginLink, OAuthLinks } from "@/components/Links";
 import PasswordTips from "@/components/PasswordTips";
 import styles from "./register.module.scss";
 
-const initialState: TRegisterForm = {
+const initialState: RegisterForm = {
   username: "",
   password: "",
   cpassword: "",
@@ -28,7 +28,7 @@ function Register() {
     <main className={styles.container}>
       <PerfectScrollbar className={styles.scrollContainer}>
         <h1 className="title">{t("pages.auth.register.register")}</h1>
-        <RegisterForm />
+        <FormRegister />
         <OAuthLinks />
         <LoginLink />
       </PerfectScrollbar>
@@ -40,13 +40,13 @@ Register.Layout = AuthLayout;
 Register.Title = "pages.auth.authentication";
 export default Register;
 
-const RegisterForm = () => {
+const FormRegister = () => {
   const { t } = useTranslation();
-  const submit = (values: TRegisterForm) => {
+  const submit = (values: RegisterForm) => {
     console.log(values);
   };
 
-  const { values, errors, handleChange, handleSubmit } = useForm<TRegisterForm>(
+  const { values, errors, handleChange, handleSubmit } = useForm<RegisterForm>(
     submit,
     resolver,
     initialState,
@@ -72,9 +72,9 @@ const RegisterForm = () => {
 };
 
 type FormData = {
-  values: TRegisterForm;
+  values: RegisterForm;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-  errors: FormErrors<TRegisterForm>;
+  errors: FormErrors<RegisterForm>;
 };
 
 const HypertubeFormData = ({ values, handleChange, errors }: FormData) => {

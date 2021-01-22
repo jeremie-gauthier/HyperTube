@@ -1,11 +1,11 @@
 import { FormErrors } from "@/hooks/useForm";
-import { TRegisterForm } from "@/lib/types/register";
+import { RegisterForm } from "@/lib/types/register";
 import isEmpty from "@ramda/isempty";
 import { checkEmail, checkPassword, checkUsername } from "./checkers";
 
 export default function loginResolver(
-  values: TRegisterForm,
-): FormErrors<TRegisterForm> {
+  values: RegisterForm,
+): FormErrors<RegisterForm> {
   const checksRegister = [
     checkUsername,
     checkBothPassword,
@@ -18,7 +18,7 @@ export default function loginResolver(
   const errors = checksRegister.reduce(
     (err, fn) => ({ ...err, ...fn(values) }),
     {},
-  ) as FormErrors<TRegisterForm>;
+  ) as FormErrors<RegisterForm>;
 
   return errors;
 }

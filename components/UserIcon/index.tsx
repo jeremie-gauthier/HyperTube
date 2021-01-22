@@ -1,15 +1,15 @@
-import { TUser } from "@/data/models/User";
+import { User } from "@/types/user";
 import { FlexCol } from "@/components/Flex";
 import { getInitials } from "@/lib/helpers";
 import styles from "./UserIcon.module.scss";
 
-type UserIconProps = {
-  user: TUser;
+type UserIconProps = React.HTMLAttributes<HTMLDivElement> & {
+  user: User;
 };
 
 export default function UserIcon({ user, ...rest }: UserIconProps) {
   return (
-    <FlexCol className={styles.frame} {...rest}>
+    <FlexCol {...rest} className={styles.frame}>
       <span>{getInitials(user)}</span>
     </FlexCol>
   );

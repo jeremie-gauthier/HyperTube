@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import mockUser from "@/tests/__mocks__/user";
-import { TUser } from "@/data/models/User";
+import { User } from "@/types/user";
 
 export default function userHandler(
   req: NextApiRequest,
-  res: NextApiResponse<TUser>,
+  res: NextApiResponse<User>,
 ) {
   const {
     query: { id },

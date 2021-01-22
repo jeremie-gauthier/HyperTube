@@ -57,11 +57,9 @@ export default function FormInput({
   );
 }
 
-type FocusEvent =
-  | ((evt: React.FocusEvent<HTMLInputElement>) => void)
-  | undefined;
+type FocusEvent = (evt: React.FocusEvent<HTMLInputElement>) => void;
 
-const useFocus = (onFocus: FocusEvent, onBlur: FocusEvent) => {
+const useFocus = (onFocus?: FocusEvent, onBlur?: FocusEvent) => {
   const [hasFocus, setHasFocus] = React.useState(false);
 
   const handleFocus = React.useCallback(

@@ -41,8 +41,6 @@ type InputDefaultProps = {
   className: string;
 };
 
-// Should be uncontrolled form
-// Must create Hook for uncontrolled form before
 function Input({
   name,
   methods: { values, errors, handleChange },

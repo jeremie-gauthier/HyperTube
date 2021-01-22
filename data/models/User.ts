@@ -1,7 +1,7 @@
 // Move back to ../data if needed
 
 import mongoose, { Schema } from "mongoose";
-import { IUser } from "../../types/user";
+import { User } from "../../types/user";
 
 const UserSchema: Schema = new Schema(
   {
@@ -35,5 +35,5 @@ const UserSchema: Schema = new Schema(
   { timestamps: true },
 );
 
-const User = mongoose.model<IUser>("User", UserSchema);
+const User = mongoose.model<User>("User", UserSchema);
 export default User;
