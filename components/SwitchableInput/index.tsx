@@ -3,7 +3,8 @@ import React from "react";
 import { HookForm } from "@/hooks/useForm";
 import Spinner from "@/components/Spinner";
 import isEmpty from "@ramda/isempty";
-import FormInput from "../FormInput";
+import { useTranslation } from "react-i18next";
+import FormInput from "@/components/FormInput";
 
 type ComponentContext = {
   isEditable: boolean;
@@ -78,6 +79,7 @@ type ToggleDefaultProps = {
 };
 
 function Toggle({ label, isLoading, methods, className = "" }: ToggleProps) {
+  const { t } = useTranslation();
   const { isEditable, toggle } = React.useContext(SwitchableInputContext);
   const [hasSubmit, setHasSubmit] = React.useState(false);
 
@@ -105,13 +107,13 @@ function Toggle({ label, isLoading, methods, className = "" }: ToggleProps) {
       {isEditable ? (
         <>
           <button type="button" onClick={onCancel} disabled={isLoading}>
-            Cancel
+            {t("common.buttons.cancel")}
           </button>
           {isLoading ? (
             <Spinner className="text-blue-500" />
           ) : (
             <button type="submit" onClick={onSubmit}>
-              Submit
+              {t("common.buttons.submit")}
             </button>
           )}
         </>
