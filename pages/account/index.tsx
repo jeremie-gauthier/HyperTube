@@ -8,7 +8,11 @@ import useUser from "@/hooks/useUser";
 import { langs } from "@/locales/i18n";
 import { useRouter } from "next/router";
 import useForm from "@/hooks/useForm";
-import resolveUsername from "@/lib/resolvers/checkers/username";
+import {
+  checkUsername,
+  checkLastname,
+  checkFirstname,
+} from "@/lib/resolvers/checkers";
 import SwitchableInput from "@/components/SwitchableInput";
 import React from "react";
 import fetcher from "@/lib/fetcher";
@@ -124,9 +128,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   );
 };
 
-type UsernameFormType = {
-  username: string;
-};
+type UsernameFormType = Pick<User, "username">;
 
 const UsernameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
@@ -136,7 +138,7 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
     mutation(values);
   }
 
-  const methods = useForm<UsernameFormType>(onSubmit, resolveUsername, user);
+  const methods = useForm<UsernameFormType>(onSubmit, checkUsername, user);
 
   return (
     <Dropdown.Element>
@@ -158,15 +160,17 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
   );
 };
 
+type LastnameFormType = Pick<User, "lastname">;
+
 const LastnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
   const { user, mutation } = useUser(-42, { initialData });
 
-  function onSubmit(values: UsernameFormType) {
+  function onSubmit(values: LastnameFormType) {
     mutation(values);
   }
 
-  const methods = useForm<UsernameFormType>(onSubmit, resolveUsername, user);
+  const methods = useForm<LastnameFormType>(onSubmit, checkLastname, user);
 
   return (
     <Dropdown.Element>
@@ -188,15 +192,17 @@ const LastnameForm = ({ initialData }: SWRConfigProps) => {
   );
 };
 
+type FirstnameFormType = Pick<User, "firstname">;
+
 const FirstnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
   const { user, mutation } = useUser(-42, { initialData });
 
-  function onSubmit(values: UsernameFormType) {
+  function onSubmit(values: FirstnameFormType) {
     mutation(values);
   }
 
-  const methods = useForm<UsernameFormType>(onSubmit, resolveUsername, user);
+  const methods = useForm<FirstnameFormType>(onSubmit, checkFirstname, user);
 
   return (
     <Dropdown.Element>
