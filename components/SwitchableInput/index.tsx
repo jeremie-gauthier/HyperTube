@@ -48,11 +48,17 @@ function Input({
   className = "",
 }: InputProps) {
   const { isEditable } = React.useContext(SwitchableInputContext);
+  const ref = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (isEditable) ref.current?.focus();
+  }, [isEditable]);
 
   return (
     <div className={className}>
       {isEditable ? (
         <FormInput
+          ref={ref}
           name={name}
           placeholder={placeholder}
           value={values[name]}
