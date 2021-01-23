@@ -2,7 +2,7 @@
 
 .container {
   @apply flex flex-col pt-3 border-t;
-  @apply md:flex-row md:items-baseline;
+  @apply md:flex-row md:items-start;
 }
 
 .header {
