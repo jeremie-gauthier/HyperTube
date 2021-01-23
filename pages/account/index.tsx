@@ -16,6 +16,7 @@ import {
 import SwitchableInput from "@/components/SwitchableInput";
 import React from "react";
 import fetcher from "@/lib/fetcher";
+import CountryFlag from "@/components/CountryFlag";
 import { User } from "@/types/user";
 import styles from "./account.module.scss";
 
@@ -109,6 +110,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
   const { user } = useUser(-42, { initialData });
   const { asPath } = useRouter();
+  const [isEditing, setIsEditing] = React.useState(false);
 
   return (
     <section id="preferences">
@@ -118,10 +120,41 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
         className={styles.dropdown}
       >
         <Dropdown.Element>
-          <div>{t(langs[user.language])}</div>
-          <button type="button">
-            {t("pages.account.preferences.edit_default_language")}
-          </button>
+          {isEditing ? (
+            <>
+              <select className={styles.selectLanguages}>
+                {Object.entries(langs).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {t(value)}
+                  </option>
+                ))}
+              </select>
+
+              <div className="flex space-x-4">
+                <button type="button" onClick={() => setIsEditing(false)}>
+                  {t("common.buttons.cancel")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditing(false);
+                  }}
+                >
+                  {t("common.buttons.submit")}
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={styles.languages}>
+                <CountryFlag lang={user.language} />
+                <p>{t(langs[user.language])}</p>
+              </div>
+              <button type="button" onClick={() => setIsEditing(true)}>
+                {t("pages.account.preferences.edit_default_language")}
+              </button>
+            </>
+          )}
         </Dropdown.Element>
       </Dropdown>
     </section>

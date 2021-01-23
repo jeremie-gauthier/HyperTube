@@ -36,3 +36,15 @@
 .toggle {
   @apply flex flex-row items-center space-x-4;
 }
+
+.languages {
+  @apply flex flex-row items-center space-x-2;
+
+  svg {
+    @apply h-6 w-6 rounded;
+  }
+}
+
+.selectLanguages {
+  @apply bg-grey-dark cursor-pointer;
+}
