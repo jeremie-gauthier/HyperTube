@@ -55,8 +55,16 @@ export default function useForm<V>(
   };
 
   React.useEffect(() => {
+    const launchCallback = async () => {
+      try {
+        await callback(values);
+      } catch (error) {
+        console.error(error.info);
+      }
+    };
+
     if (isSubmitting && Object.keys(errors).length === 0) {
-      callback(values);
+      launchCallback();
     }
   }, [callback, isSubmitting, errors, values]);
 
@@ -67,5 +75,11 @@ export default function useForm<V>(
     setIsSubmitting(false);
   };
 
-  return { values, errors, handleChange, handleSubmit, handleCancel };
+  return {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    handleCancel,
+  };
 }
