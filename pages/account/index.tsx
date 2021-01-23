@@ -18,6 +18,7 @@ import React from "react";
 import fetcher from "@/lib/fetcher";
 import CountryFlag from "@/components/CountryFlag";
 import { User } from "@/types/user";
+import { mutate } from "swr";
 import styles from "./account.module.scss";
 
 type ServerSideProps = {
@@ -165,10 +166,24 @@ type UsernameFormType = Pick<User, "username">;
 
 const UsernameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user, mutation } = useUser(-42, { initialData });
+  const { user } = useUser(-42, { initialData });
 
-  function onSubmit(values: UsernameFormType) {
-    mutation(values);
+  async function onSubmit(values: UsernameFormType) {
+    try {
+      mutate(
+        `/api/users/${-42}`,
+        async () => {
+          const newUser = await fetcher(`/api/users/${-42}`, {
+            method: "PATCH",
+            body: JSON.stringify({ username: values.username }),
+          });
+          return newUser;
+        },
+        false,
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const methods = useForm<UsernameFormType>(onSubmit, checkUsername, user);
@@ -197,10 +212,24 @@ type LastnameFormType = Pick<User, "lastname">;
 
 const LastnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user, mutation } = useUser(-42, { initialData });
+  const { user } = useUser(-42, { initialData });
 
-  function onSubmit(values: LastnameFormType) {
-    mutation(values);
+  async function onSubmit(values: LastnameFormType) {
+    try {
+      mutate(
+        `/api/users/${-42}`,
+        async () => {
+          const newUser = await fetcher(`/api/users/${-42}`, {
+            method: "PATCH",
+            body: JSON.stringify({ lastname: values.lastname }),
+          });
+          return newUser;
+        },
+        false,
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const methods = useForm<LastnameFormType>(onSubmit, checkLastname, user);
@@ -229,10 +258,24 @@ type FirstnameFormType = Pick<User, "firstname">;
 
 const FirstnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user, mutation } = useUser(-42, { initialData });
+  const { user } = useUser(-42, { initialData });
 
-  function onSubmit(values: FirstnameFormType) {
-    mutation(values);
+  async function onSubmit(values: FirstnameFormType) {
+    try {
+      mutate(
+        `/api/users/${-42}`,
+        async () => {
+          const newUser = await fetcher(`/api/users/${-42}`, {
+            method: "PATCH",
+            body: JSON.stringify({ firstname: values.firstname }),
+          });
+          return newUser;
+        },
+        false,
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const methods = useForm<FirstnameFormType>(onSubmit, checkFirstname, user);
