@@ -4,7 +4,7 @@ import useHover from "@react-hook/hover";
 import useDispatch from "@/hooks/useDispatch";
 import { useTranslation } from "react-i18next";
 import { setLang } from "@/state/users/actions";
-import { langs, TLangs } from "@/locales/i18n";
+import { langs, Languages } from "@/locales/i18n";
 import useOnClickOutside from "use-onclickoutside";
 import { FlexCol } from "@/components/Flex";
 import JAFlag from "../../public/icons/japan.svg";
@@ -103,7 +103,7 @@ const LangOptions = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
-  const changeLanguage = (lang: TLangs) => {
+  const changeLanguage = (lang: Languages) => {
     i18n.changeLanguage(lang);
     dispatch(setLang(lang));
   };
@@ -114,7 +114,7 @@ const LangOptions = () => {
         <button
           key={langKey}
           type="button"
-          onClick={() => changeLanguage(langKey as TLangs)}
+          onClick={() => changeLanguage(langKey as Languages)}
         >
           <CountryFlag lang={langKey} width={15} height={15} />
           <span>{t(langValue)}</span>

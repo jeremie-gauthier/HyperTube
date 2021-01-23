@@ -59,7 +59,7 @@ const LANGUAGES = {
   },
 } as const;
 
-export type TLangs = "en" | "fr" | "es" | "ja";
+export type Languages = "en" | "es" | "fr" | "ja";
 
 export const langs = {
   en: "common.lang.english",
