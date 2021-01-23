@@ -19,6 +19,7 @@ import fetcher from "@/lib/fetcher";
 import CountryFlag from "@/components/CountryFlag";
 import { User } from "@/types/user";
 import { mutate } from "swr";
+import pick from "@ramda/pick";
 import styles from "./account.module.scss";
 
 type ServerSideProps = {
@@ -169,24 +170,24 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
   const { user } = useUser(-42, { initialData });
 
   async function onSubmit(values: UsernameFormType) {
-    try {
-      mutate(
-        `/api/users/${-42}`,
-        async () => {
-          const newUser = await fetcher(`/api/users/${-42}`, {
-            method: "PATCH",
-            body: JSON.stringify({ username: values.username }),
-          });
-          return newUser;
-        },
-        false,
-      );
-    } catch (error) {
-      console.error(error);
-    }
+    mutate(
+      `/api/users/${-42}`,
+      async () => {
+        const newUser = await fetcher(`/api/users/${-42}`, {
+          method: "PATCH",
+          body: JSON.stringify(values),
+        });
+        return newUser;
+      },
+      false,
+    );
   }
 
-  const methods = useForm<UsernameFormType>(onSubmit, checkUsername, user);
+  const methods = useForm<UsernameFormType>(
+    onSubmit,
+    checkUsername,
+    pick(["username"], user),
+  );
 
   return (
     <Dropdown.Element>
@@ -215,24 +216,30 @@ const LastnameForm = ({ initialData }: SWRConfigProps) => {
   const { user } = useUser(-42, { initialData });
 
   async function onSubmit(values: LastnameFormType) {
-    try {
-      mutate(
-        `/api/users/${-42}`,
-        async () => {
+    await mutate(
+      `/api/users/${-42}`,
+      async () => {
+        try {
           const newUser = await fetcher(`/api/users/${-42}`, {
             method: "PATCH",
-            body: JSON.stringify({ lastname: values.lastname }),
+            body: JSON.stringify(values),
           });
           return newUser;
-        },
-        false,
-      );
-    } catch (error) {
-      console.error(error);
-    }
+        } catch (error) {
+          // Call toast error here
+          console.error("FRONT ERROR1", error.info, user);
+          return user;
+        }
+      },
+      false,
+    );
   }
 
-  const methods = useForm<LastnameFormType>(onSubmit, checkLastname, user);
+  const methods = useForm<LastnameFormType>(
+    onSubmit,
+    checkLastname,
+    pick(["lastname"], user),
+  );
 
   return (
     <Dropdown.Element>
@@ -261,24 +268,24 @@ const FirstnameForm = ({ initialData }: SWRConfigProps) => {
   const { user } = useUser(-42, { initialData });
 
   async function onSubmit(values: FirstnameFormType) {
-    try {
-      mutate(
-        `/api/users/${-42}`,
-        async () => {
-          const newUser = await fetcher(`/api/users/${-42}`, {
-            method: "PATCH",
-            body: JSON.stringify({ firstname: values.firstname }),
-          });
-          return newUser;
-        },
-        false,
-      );
-    } catch (error) {
-      console.error(error);
-    }
+    mutate(
+      `/api/users/${-42}`,
+      async () => {
+        const newUser = await fetcher(`/api/users/${-42}`, {
+          method: "PATCH",
+          body: JSON.stringify(values),
+        });
+        return newUser;
+      },
+      false,
+    );
   }
 
-  const methods = useForm<FirstnameFormType>(onSubmit, checkFirstname, user);
+  const methods = useForm<FirstnameFormType>(
+    onSubmit,
+    checkFirstname,
+    pick(["firstname"], user),
+  );
 
   return (
     <Dropdown.Element>
