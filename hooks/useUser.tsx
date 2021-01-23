@@ -5,7 +5,7 @@ import { User } from "@/types/user";
 type UserSWR = {
   user: User;
   isLoading: boolean;
-  isError: boolean;
+  isError: string;
   mutate: (
     data?: Partial<User>,
     shouldRevalidate?: boolean | undefined,
