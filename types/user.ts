@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
-import { TLangs } from "@/locales/i18n";
+import { Languages } from "@/locales/i18n";
 
-export type User = Document & {
+export type User = {
   id: string;
   username: string;
   firstname: string;
@@ -9,8 +9,10 @@ export type User = Document & {
   email: string;
   password: string;
   picture: number;
-  language: TLangs;
+  language: Languages;
 };
+
+export type MongoUser = Document & User;
 
 export type UserForm = User & {
   cpassword: string;
