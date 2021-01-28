@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import ScrollBar from "react-perfect-scrollbar";
 import useUser from "@/hooks/useUser";
-import { langs } from "@/locales/i18n";
+import { langs, Languages } from "@/locales/i18n";
 import { useRouter } from "next/router";
 import useForm from "@/hooks/useForm";
 import {
@@ -113,6 +113,26 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   const { user } = useUser(-42, { initialData });
   const { asPath } = useRouter();
   const [isEditing, setIsEditing] = React.useState(false);
+  const [language, setLanguage] = React.useState(user.language);
+
+  const handleChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
+    setLanguage(evt.target.value as Languages);
+  };
+
+  const handleSubmit = async () => {
+    mutate(
+      `/api/users/${-42}`,
+      async () => {
+        const newUser = await fetcher(`/api/users/${-42}`, {
+          method: "PATCH",
+          body: JSON.stringify({ language }),
+        });
+        return newUser;
+      },
+      false,
+    );
+    setIsEditing(false);
+  };
 
   return (
     <section id="preferences">
@@ -124,7 +144,11 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
         <Dropdown.Element>
           {isEditing ? (
             <>
-              <select className={styles.selectLanguages}>
+              <select
+                className={styles.selectLanguages}
+                onChange={handleChange}
+                value={language}
+              >
                 {Object.entries(langs).map(([key, value]) => (
                   <option key={key} value={key}>
                     {t(value)}
@@ -136,12 +160,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
                 <button type="button" onClick={() => setIsEditing(false)}>
                   {t("common.buttons.cancel")}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsEditing(false);
-                  }}
-                >
+                <button type="button" onClick={handleSubmit}>
                   {t("common.buttons.submit")}
                 </button>
               </div>
