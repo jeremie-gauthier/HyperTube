@@ -56,6 +56,13 @@ const Miniatures = () => {
       false,
     );
   };
+  const randomPicture = (currentId: number) => {
+	const newId = Math.floor((Math.random() * 8) + 1);
+	if (newId == currentId)
+		handleChange((newId % 8) + 1);
+	else
+		handleChange(newId);
+  };
 
   return (
     <FlexRow className={styles.miniatures}>
@@ -76,7 +83,7 @@ const Miniatures = () => {
           ),
       )}
       <div className={styles.miniature}>
-        <div className={styles.randomMiniature} />
+        <div className={styles.randomMiniature} onClick={() => randomPicture(user.picture)} />
       </div>
     </FlexRow>
   );
