@@ -24,7 +24,7 @@ import modelsEN from "./translations/en/models.json";
 import modelsES from "./translations/es/models.json";
 import modelsJA from "./translations/ja/models.json";
 
-const LANGUAGES = {
+const LANGUAGES_RESOURCES = {
   fr: {
     translation: {
       pages: pagesFR,
@@ -59,6 +59,12 @@ const LANGUAGES = {
   },
 } as const;
 
+export enum LANGUAGE {
+  EN = "en",
+  ES = "es",
+  FR = "fr",
+  JA = "ja",
+}
 export type Languages = "en" | "es" | "fr" | "ja";
 
 export const langs = {
@@ -69,7 +75,7 @@ export const langs = {
 } as const;
 
 i18n.use(initReactI18next).init({
-  resources: LANGUAGES,
+  resources: LANGUAGES_RESOURCES,
   lng: "en",
   fallbackLng: "en",
 

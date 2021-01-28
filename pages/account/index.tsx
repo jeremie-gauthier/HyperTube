@@ -109,7 +109,7 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
 };
 
 const PreferenceParams = ({ initialData }: SWRConfigProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user } = useUser(-42, { initialData });
   const { asPath } = useRouter();
   const [isEditing, setIsEditing] = React.useState(false);
@@ -131,6 +131,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
       },
       false,
     );
+    i18n.changeLanguage(language);
     setIsEditing(false);
   };
 

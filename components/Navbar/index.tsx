@@ -13,6 +13,7 @@ import userMock from "@/tests/__mocks__/user"; // MOCK
 import UserIcon from "@/components/UserIcon";
 import CountryFlag from "@/components/CountryFlag";
 import { useRouter } from "next/router";
+import useUser from "@/hooks/useUser";
 import Magnifier from "../../public/icons/magnifier.svg";
 import Cross from "../../public/icons/cross.svg";
 import MenuBurger from "../../public/icons/menu-burger.svg";
@@ -60,7 +61,7 @@ const MobileView = ({ className }: { className: string }) => {
 };
 
 const DropdownMenu = () => {
-  const currentLang = useSelector((state) => state.user.lang) as string;
+  const { user } = useUser(-42);
   const { t } = useTranslation();
 
   return (
@@ -80,7 +81,7 @@ const DropdownMenu = () => {
         className={styles.linkWithIcon}
         activeClassName={styles.activeLink}
       >
-        <CountryFlag lang={currentLang} className={styles.countryFlag} />
+        <CountryFlag lang={user.language} className={styles.countryFlag} />
         <span>{t("common.lang.change_language")}</span>
       </ActiveLink>
       <hr />

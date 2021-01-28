@@ -1,13 +1,11 @@
 import React from "react";
 import combineReducers from "react-combine-reducers";
 import { StoreProviderProps, RootReducer, RootContext } from "./types";
-import userReducer, { initialState as userInitialState } from "./users/reducer";
 import movieReducer, {
   initialState as movieInitialState,
 } from "./movies/reducer";
 
 const [rootReducer, initialState] = combineReducers<RootReducer>({
-  user: [userReducer, userInitialState],
   movie: [movieReducer, movieInitialState],
 });
 

@@ -1,14 +1,12 @@
-import { UserData, UserActions } from "./users/types";
 import { MovieData, MovieActions } from "./movies/types";
 
-export type StoreContextActions = UserActions | MovieActions;
+export type StoreContextActions = MovieActions;
 
 export type StoreProviderProps = {
   children: React.ReactNode;
 };
 
 export type RootState = {
-  user: UserData;
   movie: MovieData;
 };
 

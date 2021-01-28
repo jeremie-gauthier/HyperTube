@@ -1,12 +1,12 @@
 import React from "react";
-import useSelector from "@/hooks/useSelector";
 import useHover from "@react-hook/hover";
-import useDispatch from "@/hooks/useDispatch";
 import { useTranslation } from "react-i18next";
-import { setLang } from "@/state/users/actions";
-import { langs, Languages } from "@/locales/i18n";
+import { mutate } from "swr";
+import { langs, LANGUAGE, Languages } from "@/locales/i18n";
 import useOnClickOutside from "use-onclickoutside";
 import { FlexCol } from "@/components/Flex";
+import useUser from "@/hooks/useUser";
+import fetcher from "@/lib/fetcher";
 import JAFlag from "../../public/icons/japan.svg";
 import ESFlag from "../../public/icons/spain.svg";
 import FRFlag from "../../public/icons/france.svg";
@@ -14,34 +14,35 @@ import UKFlag from "../../public/icons/united-kingdom.svg";
 import styles from "./CountryFlag.module.scss";
 
 type CountryFlagProps = React.SVGProps<SVGSVGElement> & {
-  lang: string;
+  lang: Languages;
 };
 
 export default function CountryFlag({ lang, ...rest }: CountryFlagProps) {
-  const isUK = lang === "en";
-  const isFrance = lang === "fr";
-  const isSpain = lang === "es";
-  const isJapan = lang === "ja";
-
-  if (isUK) return <UKFlag {...rest} />;
-  if (isFrance) return <FRFlag {...rest} />;
-  if (isSpain) return <ESFlag {...rest} />;
-  if (isJapan) return <JAFlag {...rest} />;
-
-  return null;
+  switch (lang) {
+    case LANGUAGE.EN:
+      return <UKFlag {...rest} />;
+    case LANGUAGE.ES:
+      return <ESFlag {...rest} />;
+    case LANGUAGE.FR:
+      return <FRFlag {...rest} />;
+    case LANGUAGE.JA:
+      return <JAFlag {...rest} />;
+    default:
+      return null;
+  }
 }
 
 export function LangSettings() {
-  const currentLang = useSelector((state) => state.user.lang) as string;
+  const { user } = useUser(-42);
 
   return (
     <>
       <LangClickable
-        currentLang={currentLang}
+        currentLang={user.language}
         className={styles.isTouchScreen}
       />
       <LangHoverable
-        currentLang={currentLang}
+        currentLang={user.language}
         className={styles.isNotTouchScreen}
       />
     </>
@@ -49,7 +50,7 @@ export function LangSettings() {
 }
 
 type LangIconProps = {
-  currentLang: string;
+  currentLang: Languages;
   className: string;
 };
 
@@ -100,12 +101,21 @@ const LangHoverable = ({ currentLang, className }: LangIconProps) => {
 };
 
 const LangOptions = () => {
-  const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (lang: Languages) => {
     i18n.changeLanguage(lang);
-    dispatch(setLang(lang));
+    mutate(
+      `/api/users/${-42}`,
+      async () => {
+        const newUser = await fetcher(`/api/users/${-42}`, {
+          method: "PATCH",
+          body: JSON.stringify({ language: lang }),
+        });
+        return newUser;
+      },
+      false,
+    );
   };
 
   return (
@@ -116,7 +126,7 @@ const LangOptions = () => {
           type="button"
           onClick={() => changeLanguage(langKey as Languages)}
         >
-          <CountryFlag lang={langKey} width={15} height={15} />
+          <CountryFlag lang={langKey as Languages} width={15} height={15} />
           <span>{t(langValue)}</span>
         </button>
       ))}
