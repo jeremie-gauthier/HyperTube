@@ -1,0 +1,60 @@
+.container {
+  @apply p-6 bg-grey-dark rounded flex-1 max-w-2xl space-y-8;
+
+  img {
+    @apply rounded;
+  }
+}
+
+.header {
+  @apply justify-between items-center;
+
+  h2 {
+    @apply text-xl font-semibold;
+  }
+
+  svg {
+    @apply h-5 w-5 cursor-pointer;
+  }
+}
+
+.pictures {
+  @apply space-x-4;
+
+  flex: 1;
+}
+
+.miniatures {
+  @apply flex-wrap;
+
+  flex: 2;
+}
+
+.miniature {
+  @apply flex items-center justify-center flex-wrap w-1/4;
+
+  img {
+    @apply cursor-pointer;
+
+    &:hover {
+      filter: contrast(200%);
+    }
+  }
+}
+
+.randomMiniature {
+  @apply bg-black rounded flex justify-center items-center cursor-pointer;
+
+  height: 75px;
+  width: 75px;
+
+  &::before {
+    content: "?";
+
+    @apply text-4xl text-red font-medium;
+  }
+
+  &:hover {
+    filter: contrast(200%);
+  }
+}

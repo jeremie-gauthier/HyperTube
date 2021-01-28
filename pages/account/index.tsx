@@ -20,6 +20,7 @@ import CountryFlag from "@/components/CountryFlag";
 import { User } from "@/types/user";
 import { mutate } from "swr";
 import pick from "@ramda/pick";
+import UserPictureModal from "@/components/Modal/UserPictureModal";
 import styles from "./account.module.scss";
 
 type ServerSideProps = {
@@ -88,6 +89,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
 
 const ProfileParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
+  const [isModalPictureOpen, setIsModalPictureOpen] = React.useState(false);
 
   return (
     <section id="profile">
@@ -99,7 +101,10 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
         <FirstnameForm initialData={initialData} />
         <Dropdown.Element>
           <div>|Profile picture here|</div>
-          <button type="button">
+          {isModalPictureOpen && (
+            <UserPictureModal close={() => setIsModalPictureOpen(false)} />
+          )}
+          <button type="button" onClick={() => setIsModalPictureOpen(true)}>
             {t("pages.account.profile.edit_profile_picture")}
           </button>
         </Dropdown.Element>
