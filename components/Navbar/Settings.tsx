@@ -39,8 +39,8 @@ const UserLinks = () => {
 
   return (
     <FlexCol className={styles.floaterContent}>
-      <Link href="account">{t("components.navbar.account")}</Link>
-      <Link href="logout">{t("components.navbar.logout")}</Link>
+      <Link href="/account">{t("components.navbar.account")}</Link>
+      <Link href="/logout">{t("components.navbar.logout")}</Link>
     </FlexCol>
   );
 };
