@@ -1,5 +1,6 @@
 {
 	"account": {
+		"back_to_account": "アカウントページに戻る",
 		"my_account": "マイアカウント",
 		"preferences": {
 			"edit_default_language": "デフォルト言語を編集する",

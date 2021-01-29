@@ -1,5 +1,6 @@
 {
 	"account": {
+		"back_to_account": "Back to account page",
 		"my_account": "My account",
 		"preferences": {
 			"edit_default_language": "Edit default language",
