@@ -7,6 +7,6 @@ export default {
   lastname: "Dumbledore",
   email: "ADumbledore@poudlard.com",
   password: "@lB|_|5-D0ubl3^DO0R",
-  picture: 1,
+  picture: 2,
   language: "en",
 } as User;

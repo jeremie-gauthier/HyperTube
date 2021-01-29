@@ -1,0 +1,56 @@
+@import "../../styles/theme.scss";
+
+.picture {
+  @apply flex space-x-4;
+
+  flex: 1;
+}
+
+.miniatures {
+  @apply flex-wrap;
+
+  flex: 2;
+}
+
+.miniature {
+  @apply flex items-center justify-center flex-wrap w-1/3 mb-4;
+}
+
+.randomMiniature {
+  @apply bg-black rounded flex justify-center items-center;
+  @apply text-4xl text-red font-medium;
+
+  height: 85px;
+  width: 85px;
+}
+
+.container {
+  @apply p-6 bg-grey-dark rounded flex-1 space-y-8;
+
+  img {
+    @apply rounded;
+  }
+}
+
+.currentMiniature {
+  @apply miniature;
+  border: solid white 2px !important;
+}
+
+.submitButton {
+  @apply rounded flex justify-center items-center;
+  height: 35px;
+  width: 35px;
+}
+
+.cross {
+  @apply bg-red submitButton ml-2;
+}
+
+.check {
+  @apply bg-green-600 submitButton mr-2;
+}
+
+.crossIcon {
+  @apply fill-current text-black;
+}
