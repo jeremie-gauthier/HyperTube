@@ -1,3 +1,5 @@
+@import "../../styles/theme.scss";
+
 .container {
   @apply flex flex-col mx-8 my-4 space-y-8;
   @apply md:mx-32 md:my-8;
@@ -49,8 +51,24 @@
   @apply bg-grey-dark cursor-pointer;
 }
 
-.placePicture {
-  @apply flex justify-center items-center text-center mt-2;
+.desktopPicture {
+  @apply desktopView justify-center items-center text-center mt-2;
+}
+
+.mobilePicture {
+  display: flex !important;
+
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+
+  img {
+    margin: 0 !important;
+    min-width: min-content !important;
+    width: 25px !important;
+    min-height: min-content !important;
+    height: 25px !important;
+  }
 }
 
 .editPicture {

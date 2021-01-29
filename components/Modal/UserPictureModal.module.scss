@@ -44,15 +44,10 @@
 
 .randomMiniature {
   @apply bg-black rounded flex justify-center items-center cursor-pointer;
+  @apply text-4xl text-red font-medium;
 
   height: 75px;
   width: 75px;
-
-  &::before {
-    content: "?";
-
-    @apply text-4xl text-red font-medium;
-  }
 
   &:hover {
     filter: contrast(200%);

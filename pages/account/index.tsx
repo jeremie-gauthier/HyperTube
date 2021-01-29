@@ -101,7 +101,7 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
         title={
           <FlexCol>
             <h2>{t("pages.account.profile.my_profile")}</h2>
-            <div className={styles.placePicture}>
+            <div className={styles.desktopPicture}>
               <div className={styles.editPicture}>
                 <Image
                   src={`/img/avatar/avatar${user.picture}.png`}
@@ -122,6 +122,21 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
       >
         <LastnameForm initialData={initialData} />
         <FirstnameForm initialData={initialData} />
+        <Dropdown.Element className={styles.mobilePicture}>
+          <Image
+            src={`/img/avatar/avatar${user.picture}.png`}
+            alt="Current profile picture"
+            width={25}
+            height={25}
+            quality={100}
+            className={styles.picture}
+            key={user.picture}
+          />
+          <button type="button" onClick={() => setIsModalPictureOpen(true)}>
+            {t("pages.account.profile.edit_profile_picture")}
+          </button>
+        </Dropdown.Element>
+
         {isModalPictureOpen && (
           <UserPictureModal close={() => setIsModalPictureOpen(false)} />
         )}

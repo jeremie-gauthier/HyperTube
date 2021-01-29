@@ -39,6 +39,7 @@ export default function UserPictureModal({ close }: UserPictureModalProps) {
   );
 }
 
+// eslint-disable-next-line max-lines-per-function
 const Miniatures = () => {
   const { user } = useUser(-42);
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
@@ -58,7 +59,7 @@ const Miniatures = () => {
   };
   const randomPicture = (currentId: number) => {
     const newId = Math.floor(Math.random() * 8 + 1);
-    if (newId == currentId) handleChange((newId % 8) + 1);
+    if (newId === currentId) handleChange((newId % 8) + 1);
     else handleChange(newId);
   };
 
@@ -81,10 +82,13 @@ const Miniatures = () => {
           ),
       )}
       <div className={styles.miniature}>
-        <div
+        <button
+          type="submit"
           className={styles.randomMiniature}
           onClick={() => randomPicture(user.picture)}
-        />
+        >
+          ?
+        </button>
       </div>
     </FlexRow>
   );

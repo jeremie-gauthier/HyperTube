@@ -35,8 +35,8 @@ type DropdownElementProps = React.HTMLAttributes<HTMLDivElement> & {
 
 function Element({ children, ...rest }: DropdownElementProps) {
   const style = classnames({
-    [rest.className ?? ""]: true,
     [styles.element]: true,
+    [rest.className ?? ""]: true,
   });
 
   return (
