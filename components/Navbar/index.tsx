@@ -9,7 +9,6 @@ import useSelector from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setSearchInput } from "@/state/movies/actions";
 import classnames from "classnames";
-import userMock from "@/tests/__mocks__/user"; // MOCK
 import UserIcon from "@/components/UserIcon";
 import CountryFlag from "@/components/CountryFlag";
 import { useRouter } from "next/router";
@@ -73,7 +72,7 @@ const DropdownMenu = () => {
         className={styles.linkWithIcon}
         activeClassName={styles.activeLink}
       >
-        <UserIcon user={userMock} />
+        <UserIcon user={user} />
         <span>{t("components.navbar.account")}</span>
       </ActiveLink>
       <ActiveLink
