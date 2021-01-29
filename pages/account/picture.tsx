@@ -4,7 +4,7 @@ import { mutate } from "swr";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import fetcher from "@/lib/fetcher";
 import Image from "next/image";
-import { FlexCol, FlexRow } from "@/components/Flex";
+import { FlexRow } from "@/components/Flex";
 import { User } from "@/types/user";
 import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
@@ -75,7 +75,7 @@ function Picture({ user }: PictureProps) {
           <CheckIcon />
         </div>
         <div className={styles.cross}>
-          <CrossIcon className={styles.crossIcon} />
+          <CrossIcon />
         </div>
       </FlexRow>
     </div>

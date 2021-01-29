@@ -45,14 +45,14 @@
   width: 35px;
 }
 
-.cross {
-  @apply bg-red submitButton ml-2;
-}
-
 .check {
   @apply bg-green-600 submitButton mr-2;
 }
 
-.crossIcon {
-  @apply fill-current text-black;
+.cross {
+  @apply bg-red submitButton ml-2;
+
+  svg path {
+    @apply stroke-current text-black;
+  }
 }
