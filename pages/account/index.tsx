@@ -21,9 +21,9 @@ import { User } from "@/types/user";
 import { mutate } from "swr";
 import pick from "@ramda/pick";
 import UserPictureModal from "@/components/Modal/UserPictureModal";
-import styles from "./account.module.scss";
 import Image from "next/image";
 import { FlexCol } from "@/components/Flex";
+import styles from "./account.module.scss";
 import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
 type ServerSideProps = {
