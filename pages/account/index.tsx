@@ -22,6 +22,9 @@ import { mutate } from "swr";
 import pick from "@ramda/pick";
 import UserPictureModal from "@/components/Modal/UserPictureModal";
 import styles from "./account.module.scss";
+import Image from "next/image";
+import { FlexCol } from "@/components/Flex";
+import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
 type ServerSideProps = {
   user: User;
@@ -89,25 +92,39 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
 
 const ProfileParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
+  const { user } = useUser(-42, { initialData });
   const [isModalPictureOpen, setIsModalPictureOpen] = React.useState(false);
 
   return (
     <section id="profile">
       <Dropdown
-        title={<h2>{t("pages.account.profile.my_profile")}</h2>}
+        title={
+          <FlexCol>
+            <h2>{t("pages.account.profile.my_profile")}</h2>
+            <div className={styles.placePicture}>
+              <div className={styles.editPicture}>
+                <Image
+                  src={`/img/avatar/avatar${user.picture}.png`}
+                  alt="Current profile picture"
+                  width={75}
+                  height={75}
+                  quality={100}
+                  className={styles.picture}
+                  key={user.picture}
+                  onClick={() => setIsModalPictureOpen(true)}
+                />
+                <EditIcon className={styles.editIcon} />
+              </div>
+            </div>
+          </FlexCol>
+        }
         className={styles.dropdown}
       >
         <LastnameForm initialData={initialData} />
         <FirstnameForm initialData={initialData} />
-        <Dropdown.Element>
-          <div>|Profile picture here|</div>
-          {isModalPictureOpen && (
-            <UserPictureModal close={() => setIsModalPictureOpen(false)} />
-          )}
-          <button type="button" onClick={() => setIsModalPictureOpen(true)}>
-            {t("pages.account.profile.edit_profile_picture")}
-          </button>
-        </Dropdown.Element>
+        {isModalPictureOpen && (
+          <UserPictureModal close={() => setIsModalPictureOpen(false)} />
+        )}
       </Dropdown>
     </section>
   );

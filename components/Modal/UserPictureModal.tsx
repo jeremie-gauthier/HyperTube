@@ -57,11 +57,9 @@ const Miniatures = () => {
     );
   };
   const randomPicture = (currentId: number) => {
-	const newId = Math.floor((Math.random() * 8) + 1);
-	if (newId == currentId)
-		handleChange((newId % 8) + 1);
-	else
-		handleChange(newId);
+    const newId = Math.floor(Math.random() * 8 + 1);
+    if (newId == currentId) handleChange((newId % 8) + 1);
+    else handleChange(newId);
   };
 
   return (
@@ -83,7 +81,10 @@ const Miniatures = () => {
           ),
       )}
       <div className={styles.miniature}>
-        <div className={styles.randomMiniature} onClick={() => randomPicture(user.picture)} />
+        <div
+          className={styles.randomMiniature}
+          onClick={() => randomPicture(user.picture)}
+        />
       </div>
     </FlexRow>
   );

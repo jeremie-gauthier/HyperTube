@@ -48,3 +48,29 @@
 .selectLanguages {
   @apply bg-grey-dark cursor-pointer;
 }
+
+.placePicture {
+  @apply flex justify-center items-center text-center mt-2;
+}
+
+.editPicture {
+  @apply relative min-w-max;
+
+  height: 75px;
+}
+
+.picture {
+  @apply rounded cursor-pointer;
+}
+
+.editIcon {
+  @apply absolute top-1 right-1 h-5 w-5 fill-current text-white cursor-pointer hidden;
+}
+
+.editPicture:hover .editIcon {
+  @apply flex;
+}
+
+.editPicture:hover .picture {
+  filter: contrast(50%);
+}
