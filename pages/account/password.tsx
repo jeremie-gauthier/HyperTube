@@ -1,5 +1,4 @@
 import React from "react";
-import fetcher from "@/lib/fetcher";
 import { mutate } from "swr";
 import useForm, { HookForm } from "@/hooks/useForm";
 import { ChangePasswordForm } from "@/lib/types/changePassword";
@@ -10,7 +9,8 @@ import FormInput from "@/components/FormInput";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import { requiredField } from "@/lib/helpers";
 import PasswordTips from "@/components/PasswordTips";
-import styles from "./password.module.scss";
+import Link from "next/link";
+import styles from "./change.module.scss";
 
 const initialState: ChangePasswordForm = {
   oldPassword: "",
@@ -41,6 +41,7 @@ function ChangePassword() {
     <main className={styles.container}>
       <h1 className="title">{t("pages.account.security.edit_password")}</h1>
       <FormChangePassword methods={methods} />
+      <Link href="/account">{t("pages.account.back_to_account")}</Link>
     </main>
   );
 }
@@ -48,13 +49,6 @@ function ChangePassword() {
 ChangePassword.Layout = SiteLayout;
 ChangePassword.Title = "pages.account.my_account";
 export default ChangePassword;
-
-export async function getServerSideProps() {
-  const user = await fetcher(`http://localhost:3000/api/users/${-42}`, {
-    method: "GET",
-  });
-  return { props: { user } };
-}
 
 const FormChangePassword = ({
   methods,
@@ -72,7 +66,7 @@ const FormChangePassword = ({
           name="oldPassword"
           value={values.oldPassword}
           onChange={handleChange}
-          placeholder={t("models.user.old_password")}
+          placeholder={requiredField(t("models.user.old_password"))}
           error={errors.oldPassword}
         />
         <div className="relative">
@@ -93,7 +87,7 @@ const FormChangePassword = ({
           name="cpassword"
           value={values.cpassword}
           onChange={handleChange}
-          placeholder={t("models.user.cpassword")}
+          placeholder={requiredField(t("models.user.cpassword"))}
           error={errors.cpassword}
         />
       </FlexCol>

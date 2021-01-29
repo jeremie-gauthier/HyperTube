@@ -1,14 +1,19 @@
 @import "@/styles/theme.scss";
 
 .container {
-  @apply p-12 flex flex-col flex-1 justify-center items-center;
+  @apply p-12 flex flex-col flex-1 justify-center items-center space-y-2;
 
   h1 {
-    @apply text-center mb-8;
+    @apply text-center mb-6;
   }
 
   button {
-    @apply bg-red rounded w-full py-3 font-extrabold mt-8;
+    @apply bg-red rounded w-full py-3 font-extrabold;
+  }
+
+  a {
+    @apply bg-black w-full py-3 font-extrabold max-w-xs text-center rounded;
+    @apply md:max-w-sm;
   }
 
   form {
@@ -16,7 +21,7 @@
 
     input {
       background-color: #414141;
-      min-width: 18rem;
+      min-width: 20rem;
 
       @media (min-width: 768px) {
         min-width: 24rem;
