@@ -4,9 +4,9 @@ import { mutate } from "swr";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import fetcher from "@/lib/fetcher";
 import Image from "next/image";
-import styles from "./picture.module.scss";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import { User } from "@/types/user";
+import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
 
@@ -14,6 +14,7 @@ type PictureProps = {
   user: User;
 };
 
+// eslint-disable-next-line max-lines-per-function
 function Picture({ user }: PictureProps) {
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
   const [currentId, setCurrentId] = React.useState(user.picture);
@@ -27,12 +28,12 @@ function Picture({ user }: PictureProps) {
   const randomPicture = (currentId: number) => {
     const newId = Math.floor(Math.random() * 8 + 1);
     if (newId === currentId) return (newId % 8) + 1;
-    else return newId;
+    return newId;
   };
 
   return (
     <div className={styles.container}>
-      <FlexRow className={"justify-center"}>
+      <FlexRow className="justify-center">
         <Image
           src={`/img/avatar/avatar${currentId}.png`}
           alt="Current profile picture"
@@ -69,12 +70,12 @@ function Picture({ user }: PictureProps) {
           </button>
         </div>
       </FlexRow>
-      <FlexRow className={"justify-center"}>
+      <FlexRow className="justify-center">
         <div className={styles.check}>
-          <CheckIcon></CheckIcon>
+          <CheckIcon />
         </div>
         <div className={styles.cross}>
-          <CrossIcon className={styles.crossIcon}></CrossIcon>
+          <CrossIcon className={styles.crossIcon} />
         </div>
       </FlexRow>
     </div>

@@ -34,11 +34,13 @@
 
 .currentMiniature {
   @apply miniature;
+
   border: solid white 2px !important;
 }
 
 .submitButton {
   @apply rounded flex justify-center items-center;
+
   height: 35px;
   width: 35px;
 }
