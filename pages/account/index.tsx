@@ -72,7 +72,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
       >
         <Dropdown.Element>
           <div className="font-semibold">{user.email}</div>
-          <Link href="account/change/email">
+          <Link href="account/email">
             {t("pages.account.security.edit_email")}
           </Link>
         </Dropdown.Element>
@@ -81,7 +81,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
 
         <Dropdown.Element>
           <div>{"*".repeat(8)}</div>
-          <Link href="account/change/password">
+          <Link href="account/password">
             {t("pages.account.security.edit_password")}
           </Link>
         </Dropdown.Element>

@@ -1,14 +1,20 @@
 import { FormErrors } from "@/hooks/useForm";
 import { RegisterForm } from "@/lib/types/register";
-import isEmpty from "@ramda/isempty";
-import { checkEmail, checkPassword, checkUsername } from "./checkers";
+import { UserForm } from "@/types/user";
+import {
+  checkEmail,
+  checkPassword,
+  checkUsername,
+  checkCmpPassword,
+} from "./checkers";
+import checkEmptyness from "./checkers/emptyness";
 
 export default function loginResolver(
   values: RegisterForm,
 ): FormErrors<RegisterForm> {
   const checksRegister = [
     checkUsername,
-    checkBothPassword,
+    checkCmpPassword,
     checkPassword,
     checkEmail,
     checkLastname,
@@ -23,27 +29,10 @@ export default function loginResolver(
   return errors;
 }
 
-function checkBothPassword({
-  password,
-  cpassword,
-}: {
-  password: string;
-  cpassword: string;
-}) {
-  return password === cpassword
-    ? {}
-    : {
-        password: "common.forms.diff_pwd",
-        cpassword: "common.forms.diff_pwd",
-      };
+function checkLastname({ lastname }: Pick<UserForm, "lastname">) {
+  return checkEmptyness("lastname", lastname);
 }
 
-function checkLastname({ lastname }: { lastname: string }) {
-  return isEmpty(lastname.trim()) ? { lastname: "common.forms.required" } : {};
-}
-
-function checkFirstname({ firstname }: { firstname: string }) {
-  return isEmpty(firstname.trim())
-    ? { firstname: "common.forms.required" }
-    : {};
+function checkFirstname({ firstname }: Pick<UserForm, "firstname">) {
+  return checkEmptyness("firstname", firstname);
 }
