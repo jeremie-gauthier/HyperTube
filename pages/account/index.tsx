@@ -132,9 +132,9 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
             className={styles.picture}
             key={user.picture}
           />
-          <button type="button" onClick={() => setIsModalPictureOpen(true)}>
+          <Link href="/account/picture">
             {t("pages.account.profile.edit_profile_picture")}
-          </button>
+          </Link>
         </Dropdown.Element>
 
         {isModalPictureOpen && (
