@@ -40,7 +40,6 @@ function Picture({ user }: PictureProps) {
           width={150}
           height={150}
           quality={100}
-          className={styles.picture}
           key={currentId}
         />
       </FlexRow>

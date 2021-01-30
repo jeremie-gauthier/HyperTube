@@ -1,19 +1,11 @@
 @import "../../styles/theme.scss";
 
-.picture {
-  @apply flex space-x-4;
-
-  flex: 1;
-}
-
 .miniatures {
   @apply flex-wrap;
-
-  flex: 2;
 }
 
 .miniature {
-  @apply flex items-center justify-center flex-wrap w-1/3 mb-4;
+  @apply flex items-center justify-center w-1/3 mb-4 cursor-pointer;
 }
 
 .randomMiniature {
@@ -25,7 +17,7 @@
 }
 
 .container {
-  @apply p-6 bg-grey-dark rounded flex-1 space-y-8;
+  @apply p-6 bg-grey-dark rounded space-y-8;
 
   img {
     @apply rounded;
@@ -39,14 +31,14 @@
 }
 
 .submitButton {
-  @apply rounded flex justify-center items-center;
+  @apply rounded flex justify-center items-center cursor-pointer;
 
   height: 35px;
   width: 35px;
 }
 
 .check {
-  @apply bg-green-600 submitButton mr-2;
+  @apply bg-green submitButton mr-2;
 }
 
 .cross {

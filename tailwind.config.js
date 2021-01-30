@@ -12,7 +12,7 @@ module.exports = {
         light: "#939393",
       },
       blue: colors.blue,
-      green: colors.lime,
+      green: { DEFAULT: colors.lime[600] },
       white: "#fff",
       black: "#141414",
     },
