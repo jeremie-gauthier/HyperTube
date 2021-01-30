@@ -6,6 +6,8 @@ import fetcher from "@/lib/fetcher";
 import Image from "next/image";
 import { FlexRow } from "@/components/Flex";
 import { User } from "@/types/user";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
@@ -18,11 +20,22 @@ type PictureProps = {
 function Picture({ user }: PictureProps) {
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
   const [currentId, setCurrentId] = React.useState(user.picture);
+  const router = useRouter();
 
   const handleSubmit = () => {
-    // jergauth will do this part :D
-    // But if you feel confident enough, you must use `mutate` from SWR
-    //  to handle the submit case
+    mutate(
+      `/api/users/${-42}`,
+      async () => {
+        const newUser = await fetcher(`/api/users/${-42}`, {
+          method: "PATCH",
+          body: JSON.stringify({ picture: currentId }),
+        });
+        return newUser;
+      },
+      false,
+    );
+
+    router.push("/account");
   };
 
   const randomPicture = (currentId: number) => {
@@ -69,13 +82,15 @@ function Picture({ user }: PictureProps) {
           </button>
         </div>
       </FlexRow>
-      <FlexRow className="justify-center">
-        <div className={styles.check}>
+      <FlexRow className="justify-center space-x-4">
+        <button className={styles.check} type="submit" onClick={handleSubmit}>
           <CheckIcon />
-        </div>
-        <div className={styles.cross}>
-          <CrossIcon />
-        </div>
+        </button>
+        <Link href="/account">
+          <div className={styles.cross}>
+            <CrossIcon />
+          </div>
+        </Link>
       </FlexRow>
     </div>
   );

@@ -38,11 +38,11 @@
 }
 
 .check {
-  @apply bg-green submitButton mr-2;
+  @apply bg-green submitButton;
 }
 
 .cross {
-  @apply bg-red submitButton ml-2;
+  @apply bg-red submitButton;
 
   svg path {
     @apply stroke-current text-black;
