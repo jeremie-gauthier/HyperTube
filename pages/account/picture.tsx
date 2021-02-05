@@ -8,6 +8,7 @@ import { FlexRow } from "@/components/Flex";
 import { User } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Methods } from "@/types/requests";
 import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
@@ -29,7 +30,7 @@ function Picture({ user }: PictureProps) {
       `/api/users/${-42}`,
       async () => {
         const newUser = await fetcher(`/api/users/${-42}`, {
-          method: "PATCH",
+          method: Methods.PATCH,
           body: JSON.stringify({ picture: currentId }),
         });
         return newUser;
@@ -104,7 +105,7 @@ export default Picture;
 
 export async function getServerSideProps() {
   const user = await fetcher(`http://localhost:3000/api/users/${-42}`, {
-    method: "GET",
+    method: Methods.GET,
   });
   return { props: { user } };
 }

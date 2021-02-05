@@ -9,6 +9,7 @@ import FormInput from "@/components/FormInput";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import { requiredField } from "@/lib/helpers";
 import Link from "next/link";
+import { Methods } from "@/types/requests";
 import styles from "./change.module.scss";
 
 const initialState: ChangeEmailForm = {
@@ -25,7 +26,7 @@ function ChangeEmail() {
     //   `/api/users/${-42}`,
     //   async () => {
     //     const newUser = await fetcher(`/api/users/${-42}`, {
-    //       method: "PATCH",
+    //       method: Methods.PATCH,
     //       body: JSON.stringify(values),
     //     });
     //     return newUser;

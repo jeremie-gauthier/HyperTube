@@ -13,6 +13,7 @@ import {
   checkLastname,
   checkFirstname,
 } from "@/lib/resolvers/checkers";
+import { Methods } from "@/types/requests";
 import SwitchableInput from "@/components/SwitchableInput";
 import React from "react";
 import fetcher from "@/lib/fetcher";
@@ -51,7 +52,7 @@ export default Account;
 
 export async function getServerSideProps() {
   const user = await fetcher(`http://localhost:3000/api/users/${-42}`, {
-    method: "GET",
+    method: Methods.GET,
   });
   return { props: { user } };
 }
@@ -161,7 +162,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
       `/api/users/${-42}`,
       async () => {
         const newUser = await fetcher(`/api/users/${-42}`, {
-          method: "PATCH",
+          method: Methods.PATCH,
           body: JSON.stringify({ language }),
         });
         return newUser;
@@ -231,7 +232,7 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
       `/api/users/${-42}`,
       async () => {
         const newUser = await fetcher(`/api/users/${-42}`, {
-          method: "PATCH",
+          method: Methods.PATCH,
           body: JSON.stringify(values),
         });
         return newUser;
@@ -278,7 +279,7 @@ const LastnameForm = ({ initialData }: SWRConfigProps) => {
       async () => {
         try {
           const newUser = await fetcher(`/api/users/${-42}`, {
-            method: "PATCH",
+            method: Methods.PATCH,
             body: JSON.stringify(values),
           });
           return newUser;
@@ -329,7 +330,7 @@ const FirstnameForm = ({ initialData }: SWRConfigProps) => {
       `/api/users/${-42}`,
       async () => {
         const newUser = await fetcher(`/api/users/${-42}`, {
-          method: "PATCH",
+          method: Methods.PATCH,
           body: JSON.stringify(values),
         });
         return newUser;

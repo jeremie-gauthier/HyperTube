@@ -5,6 +5,7 @@ import useUser from "@/hooks/useUser";
 import { mutate } from "swr";
 import Image from "next/image";
 import fetcher from "@/lib/fetcher";
+import { Methods } from "@/types/requests";
 import { FlexRow } from "../Flex";
 import { ReactComponent as Cross } from "../../public/icons/cross.svg";
 import styles from "./UserPictureModal.module.scss";
@@ -49,7 +50,7 @@ const Miniatures = () => {
       `/api/users/${-42}`,
       async () => {
         const newUser = await fetcher(`/api/users/${-42}`, {
-          method: "PATCH",
+          method: Methods.PATCH,
           body: JSON.stringify({ picture: id }),
         });
         return newUser;

@@ -7,6 +7,7 @@ import useOnClickOutside from "use-onclickoutside";
 import { FlexCol } from "@/components/Flex";
 import useUser from "@/hooks/useUser";
 import fetcher from "@/lib/fetcher";
+import { Methods } from "@/types/requests";
 import JAFlag from "../../public/icons/japan.svg";
 import ESFlag from "../../public/icons/spain.svg";
 import FRFlag from "../../public/icons/france.svg";
@@ -109,7 +110,7 @@ const LangOptions = () => {
       `/api/users/${-42}`,
       async () => {
         const newUser = await fetcher(`/api/users/${-42}`, {
-          method: "PATCH",
+          method: Methods.PATCH,
           body: JSON.stringify({ language: lang }),
         });
         return newUser;

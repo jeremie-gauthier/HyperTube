@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { logRequests } from "@/lib/helpers";
 import mockUser from "@/tests/__mocks__/user";
+import { Methods } from "@/types/requests";
 
 const MOCK: Record<string, unknown> = mockUser;
 
@@ -12,12 +13,12 @@ export default async function userHandler(
 
   try {
     switch (method) {
-      case "GET":
+      case Methods.GET:
         return getUser(req, res);
-      case "PATCH":
+      case Methods.PATCH:
         return patchUser(req, res);
       default:
-        res.setHeader("Allow", ["GET", "PATCH"]);
+        res.setHeader("Allow", [Methods.GET, Methods.PATCH]);
         return res.status(405).end(`Method ${method} Not Allowed`);
     }
   } catch (error) {
