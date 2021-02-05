@@ -2,6 +2,13 @@
 
 .miniatures {
   @apply flex-wrap;
+
+  * {
+    @apply outline-none;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
 }
 
 .miniature {
