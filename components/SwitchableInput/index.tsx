@@ -6,6 +6,7 @@ import isEmpty from "@ramda/isempty";
 import pipe from "@ramda/pipe";
 import { useTranslation } from "react-i18next";
 import FormInput from "@/components/FormInput";
+import useEvent from "@/hooks/useEvent";
 
 type ComponentContext = {
   isEditable: boolean;
@@ -84,41 +85,12 @@ type ToggleDefaultProps = {
 };
 
 function Toggle({ label, isLoading, methods, className = "" }: ToggleProps) {
-  const { t } = useTranslation();
   const { isEditable, toggle } = React.useContext(SwitchableInputContext);
-  const [hasSubmit, setHasSubmit] = React.useState(false);
-
-  const onCancel = pipe(toggle, methods.handleCancel);
-
-  const onSubmit = (evt: React.FormEvent) => {
-    methods.handleSubmit(evt as React.FormEvent<HTMLFormElement>);
-    setHasSubmit(true);
-  };
-
-  React.useEffect(() => {
-    if (hasSubmit) {
-      if (isEmpty(methods.errors)) {
-        toggle();
-      }
-      setHasSubmit(false);
-    }
-  }, [hasSubmit]);
 
   return (
     <div className={className}>
       {isEditable ? (
-        <>
-          <button type="button" onClick={onCancel} disabled={isLoading}>
-            {t("common.buttons.cancel")}
-          </button>
-          {isLoading ? (
-            <Spinner className="text-blue-500" />
-          ) : (
-            <button type="submit" onClick={onSubmit}>
-              {t("common.buttons.submit")}
-            </button>
-          )}
-        </>
+        <FormButtons isLoading={isLoading} methods={methods} />
       ) : (
         <button type="button" onClick={toggle}>
           {label}
@@ -131,3 +103,44 @@ function Toggle({ label, isLoading, methods, className = "" }: ToggleProps) {
 SwitchableInput.Toggle = Toggle;
 SwitchableInput.Input = Input;
 export default SwitchableInput;
+
+type FormButtonsProps = {
+  isLoading: boolean;
+  methods: HookForm<Record<string, string | (string & readonly string[])>>;
+};
+
+const FormButtons = ({ isLoading, methods }: FormButtonsProps) => {
+  const { t } = useTranslation();
+  const { isEditable, toggle } = React.useContext(SwitchableInputContext);
+  const [hasSubmit, setHasSubmit] = React.useState(false);
+
+  React.useEffect(() => {
+    if (hasSubmit) {
+      if (isEmpty(methods.errors)) {
+        toggle();
+      }
+      setHasSubmit(false);
+    }
+  }, [hasSubmit]);
+  const onSubmit = (evt: React.FormEvent) => {
+    methods.handleSubmit(evt as React.FormEvent<HTMLFormElement>);
+    setHasSubmit(true);
+  };
+  const onCancel = pipe(toggle, methods.handleCancel);
+  useEvent(["Escape"], () => (isEditable ? onCancel() : null));
+
+  return (
+    <>
+      <button type="button" onClick={onCancel} disabled={isLoading}>
+        {t("common.buttons.cancel")}
+      </button>
+      {isLoading ? (
+        <Spinner className="text-blue-500" />
+      ) : (
+        <button type="submit" onClick={onSubmit}>
+          {t("common.buttons.submit")}
+        </button>
+      )}
+    </>
+  );
+};
