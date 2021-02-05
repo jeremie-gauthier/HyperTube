@@ -12,13 +12,15 @@ import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
 
+const NB_PICTURES = 8;
+
 type PictureProps = {
   user: User;
 };
 
 // eslint-disable-next-line max-lines-per-function
 function Picture({ user }: PictureProps) {
-  const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
+  const images = Array.from({ length: NB_PICTURES }, (_, idx) => idx + 1);
   const [currentId, setCurrentId] = React.useState(user.picture);
   const router = useRouter();
 
@@ -39,9 +41,8 @@ function Picture({ user }: PictureProps) {
   };
 
   const randomPicture = (currentId: number) => {
-    const newId = Math.floor(Math.random() * 8 + 1);
-    if (newId === currentId) return (newId % 8) + 1;
-    return newId;
+    const newId = Math.floor(Math.random() * NB_PICTURES + 1);
+    return newId === currentId ? (newId + 1) % NB_PICTURES : newId;
   };
 
   return (
