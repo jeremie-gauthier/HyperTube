@@ -93,12 +93,14 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
 
 const ProfileParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
+  const { asPath } = useRouter();
   const { user } = useUser(-42, { initialData });
   const [isModalPictureOpen, setIsModalPictureOpen] = React.useState(false);
 
   return (
     <section id="profile">
       <Dropdown
+        initialState={asPath.includes("#profile")}
         title={
           <FlexCol>
             <h2>{t("pages.account.profile.my_profile")}</h2>

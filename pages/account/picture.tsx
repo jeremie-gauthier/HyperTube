@@ -33,7 +33,7 @@ function Picture({ user }: PictureProps) {
       false,
     );
 
-    router.push("/account");
+    router.push("/account#profile");
   };
 
   return (
@@ -128,7 +128,7 @@ const FormButtons = ({ onSubmit }: { onSubmit: () => void }) => (
     <button className={styles.check} type="submit" onClick={onSubmit}>
       <CheckIcon />
     </button>
-    <Link href="/account">
+    <Link href="/account#profile">
       <div className={styles.cross}>
         <CrossIcon />
       </div>
