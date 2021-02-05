@@ -1,5 +1,4 @@
 import React from "react";
-import useUser from "@/hooks/useUser";
 import { mutate } from "swr";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import fetcher from "@/lib/fetcher";
@@ -13,15 +12,11 @@ import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
 
-const NB_PICTURES = 8;
-
 type PictureProps = {
   user: User;
 };
 
-// eslint-disable-next-line max-lines-per-function
 function Picture({ user }: PictureProps) {
-  const images = Array.from({ length: NB_PICTURES }, (_, idx) => idx + 1);
   const [currentId, setCurrentId] = React.useState(user.picture);
   const router = useRouter();
 
@@ -41,11 +36,6 @@ function Picture({ user }: PictureProps) {
     router.push("/account");
   };
 
-  const randomPicture = (currentId: number) => {
-    const newId = Math.floor(Math.random() * NB_PICTURES + 1);
-    return newId === currentId ? (newId + 1) % NB_PICTURES : newId;
-  };
-
   return (
     <div className={styles.container}>
       <FlexRow className="justify-center">
@@ -58,42 +48,11 @@ function Picture({ user }: PictureProps) {
           key={currentId}
         />
       </FlexRow>
-      <FlexRow className={styles.miniatures}>
-        {images.map((id) => (
-          <div key={id} className={styles.miniature}>
-            <Image
-              src={`/img/avatar/avatar${id}.png`}
-              alt="Another profile picture"
-              width={85}
-              height={85}
-              quality={100}
-              className={
-                currentId === id ? styles.currentMiniature : styles.miniature
-              }
-              onClick={() => setCurrentId(id)}
-            />
-          </div>
-        ))}
-        <div className={styles.miniature}>
-          <button
-            type="submit"
-            className={styles.randomMiniature}
-            onClick={() => setCurrentId(randomPicture(currentId))}
-          >
-            ?
-          </button>
-        </div>
-      </FlexRow>
-      <FlexRow className="justify-center space-x-4">
-        <button className={styles.check} type="submit" onClick={handleSubmit}>
-          <CheckIcon />
-        </button>
-        <Link href="/account">
-          <div className={styles.cross}>
-            <CrossIcon />
-          </div>
-        </Link>
-      </FlexRow>
+      <ImageList
+        currentId={currentId}
+        onClick={(id: number) => setCurrentId(id)}
+      />
+      <FormButtons onSubmit={handleSubmit} />
     </div>
   );
 }
@@ -109,3 +68,70 @@ export async function getServerSideProps() {
   });
   return { props: { user } };
 }
+
+const NB_PICTURES = 8;
+
+type PictureListProps = {
+  currentId: number;
+  onClick: (id: number) => void;
+};
+
+const ImageList = ({ currentId, onClick }: PictureListProps) => {
+  const images = Array.from({ length: NB_PICTURES }, (_, idx) => idx + 1);
+
+  return (
+    <FlexRow className={styles.miniatures}>
+      {images.map((id) => (
+        <div key={id} className={styles.miniature}>
+          <Image
+            src={`/img/avatar/avatar${id}.png`}
+            alt="Another profile picture"
+            width={85}
+            height={85}
+            quality={100}
+            className={
+              currentId === id ? styles.currentMiniature : styles.miniature
+            }
+            onClick={() => onClick(id)}
+          />
+        </div>
+      ))}
+      <RandomPicture
+        currentId={currentId}
+        onClick={(id: number) => onClick(id)}
+      />
+    </FlexRow>
+  );
+};
+
+const RandomPicture = ({ currentId, onClick }: PictureListProps) => {
+  const randomPicture = (currentId: number) => {
+    const newId = Math.floor(Math.random() * NB_PICTURES + 1);
+    return newId === currentId ? (newId + 1) % NB_PICTURES : newId;
+  };
+
+  return (
+    <div className={styles.miniature}>
+      <button
+        type="submit"
+        className={styles.randomMiniature}
+        onClick={() => onClick(randomPicture(currentId))}
+      >
+        ?
+      </button>
+    </div>
+  );
+};
+
+const FormButtons = ({ onSubmit }: { onSubmit: () => void }) => (
+  <FlexRow className="justify-center space-x-4">
+    <button className={styles.check} type="submit" onClick={onSubmit}>
+      <CheckIcon />
+    </button>
+    <Link href="/account">
+      <div className={styles.cross}>
+        <CrossIcon />
+      </div>
+    </Link>
+  </FlexRow>
+);
