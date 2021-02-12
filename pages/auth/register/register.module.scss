@@ -11,6 +11,10 @@
   @apply w-full bg-grey-dark bg-opacity-90 rounded border border-grey-light p-2 text-sm;
   @apply md:top-0;
 
+  @media (min-width: 768px) {
+    left: 104%;
+  }
+
   li {
     @apply list-disc ml-3;
   }

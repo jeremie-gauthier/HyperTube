@@ -8,10 +8,11 @@ import { RootState } from "@/state/types";
 import useSelector from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setSearchInput } from "@/state/movies/actions";
-import classNames from "classnames";
-import userMock from "@/tests/__mocks__/user"; // MOCK
+import classnames from "classnames";
 import UserIcon from "@/components/UserIcon";
 import CountryFlag from "@/components/CountryFlag";
+import { useRouter } from "next/router";
+import useUser from "@/hooks/useUser";
 import Magnifier from "../../public/icons/magnifier.svg";
 import Cross from "../../public/icons/cross.svg";
 import MenuBurger from "../../public/icons/menu-burger.svg";
@@ -30,7 +31,9 @@ export default function Navbar() {
 }
 
 const MobileView = ({ className }: { className: string }) => {
+  const { asPath } = useRouter();
   const [open, setOpen] = React.useState(false);
+  React.useEffect(() => setOpen(false), [asPath]);
 
   return (
     <div className={className}>
@@ -51,37 +54,33 @@ const MobileView = ({ className }: { className: string }) => {
         )}
       </FlexRow>
 
-      {open && <DropdownMenu close={() => setOpen(false)} />}
+      {open && <DropdownMenu />}
     </div>
   );
 };
 
-type DropdownMenuProps = {
-  close: () => void;
-};
-
-const DropdownMenu = ({ close }: DropdownMenuProps) => {
-  const currentLang = useSelector((state) => state.user.lang) as string;
+const DropdownMenu = () => {
+  const { user } = useUser(-42);
   const { t } = useTranslation();
 
   return (
     <FlexCol className={styles.dropdownMenu}>
-      <NavLinks activeClassName={styles.activeLink} onClick={close} />
+      <NavLinks activeClassName={styles.activeLink} />
       <hr />
       <ActiveLink
         href="/account"
         className={styles.linkWithIcon}
         activeClassName={styles.activeLink}
       >
-        <UserIcon user={userMock} />
+        <UserIcon user={user} />
         <span>{t("components.navbar.account")}</span>
       </ActiveLink>
       <ActiveLink
-        href="/account#languages"
+        href="/account#preferences"
         className={styles.linkWithIcon}
         activeClassName={styles.activeLink}
       >
-        <CountryFlag lang={currentLang} className={styles.countryFlag} />
+        <CountryFlag lang={user.language} className={styles.countryFlag} />
         <span>{t("common.lang.change_language")}</span>
       </ActiveLink>
       <hr />
@@ -140,7 +139,7 @@ const SearchInput = () => {
   const dispatch = useDispatch();
   const isVisible = searchInput.length > 0;
   const [showInput, setShowInput] = React.useState(isVisible);
-  const cancelSearch = classNames({
+  const cancelSearch = classnames({
     "cursor-pointer h-4 w-4": true,
     invisible: !isVisible,
   });

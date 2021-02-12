@@ -4,6 +4,7 @@
 		"email": "Email",
 		"firstname": "Nombre de pila",
 		"lastname": "Apellido",
+		"old_password": "Contraseña actual",
 		"password": "Contraseña",
 		"username": "Nombre de usuario"
 	}

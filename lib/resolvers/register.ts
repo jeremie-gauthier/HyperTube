@@ -1,13 +1,20 @@
 import { FormErrors } from "@/hooks/useForm";
-import { TRegisterForm } from "@/lib/types/register";
-import { checkEmail, checkPassword, checkUsername } from "./checkers";
+import { RegisterForm } from "@/lib/types/register";
+import { UserForm } from "@/types/user";
+import {
+  checkEmail,
+  checkPassword,
+  checkUsername,
+  checkCmpPassword,
+} from "./checkers";
+import checkEmptyness from "./checkers/emptyness";
 
 export default function loginResolver(
-  values: TRegisterForm,
-): FormErrors<TRegisterForm> {
+  values: RegisterForm,
+): FormErrors<RegisterForm> {
   const checksRegister = [
     checkUsername,
-    checkBothPassword,
+    checkCmpPassword,
     checkPassword,
     checkEmail,
     checkLastname,
@@ -17,34 +24,15 @@ export default function loginResolver(
   const errors = checksRegister.reduce(
     (err, fn) => ({ ...err, ...fn(values) }),
     {},
-  ) as FormErrors<TRegisterForm>;
+  ) as FormErrors<RegisterForm>;
 
   return errors;
 }
 
-function checkBothPassword({
-  password,
-  cpassword,
-}: {
-  password: string;
-  cpassword: string;
-}) {
-  return password === cpassword
-    ? {}
-    : {
-        password: "common.forms.diff_pwd",
-        cpassword: "common.forms.diff_pwd",
-      };
+function checkLastname({ lastname }: Pick<UserForm, "lastname">) {
+  return checkEmptyness("lastname", lastname);
 }
 
-function checkLastname({ lastname }: { lastname: string }) {
-  return lastname.trim().length === 0
-    ? { lastname: "common.forms.required" }
-    : {};
-}
-
-function checkFirstname({ firstname }: { firstname: string }) {
-  return firstname.trim().length === 0
-    ? { firstname: "common.forms.required" }
-    : {};
+function checkFirstname({ firstname }: Pick<UserForm, "firstname">) {
+  return checkEmptyness("firstname", firstname);
 }

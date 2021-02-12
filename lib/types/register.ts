@@ -1,8 +1,11 @@
-export type TRegisterForm = {
-  username: string;
-  password: string;
-  cpassword: string;
-  email: string;
-  lastname: string;
-  firstname: string;
-};
+import { UserForm } from "@/types/user";
+
+type RegisterFormFields =
+  | "username"
+  | "firstname"
+  | "lastname"
+  | "email"
+  | "password"
+  | "cpassword";
+
+export type RegisterForm = Pick<UserForm, RegisterFormFields>;

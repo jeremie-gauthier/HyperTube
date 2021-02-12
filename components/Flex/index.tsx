@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Flex.module.scss";
 
-type FlexProps = {
+type FlexProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode;
 } & Partial<DefaultProps>;
 

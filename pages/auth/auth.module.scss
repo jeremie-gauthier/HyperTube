@@ -9,11 +9,6 @@
   @media (min-width: 768px) {
     min-width: 36rem;
   }
-
-  h1 {
-    @apply font-bold text-3xl;
-    @apply md:text-4xl;
-  }
 }
 
 .authForm {

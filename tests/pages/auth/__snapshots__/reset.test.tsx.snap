@@ -11,7 +11,9 @@ Object {
         <div
           class="scrollbar-container scrollContainer ps"
         >
-          <h1>
+          <h1
+            class="title"
+          >
             pages.auth.reset.forgotten_password
           </h1>
           <form
@@ -94,7 +96,9 @@ Object {
       <div
         class="scrollbar-container scrollContainer ps"
       >
-        <h1>
+        <h1
+          class="title"
+        >
           pages.auth.reset.forgotten_password
         </h1>
         <form

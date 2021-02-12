@@ -4,6 +4,7 @@
 		"email": "Eメール",
 		"firstname": "ファーストネーム",
 		"lastname": "苗字",
+		"old_password": "現在のパスワード",
 		"password": "パスワード",
 		"username": "ユーザー名"
 	}

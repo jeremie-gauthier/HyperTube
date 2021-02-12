@@ -1,5 +1,5 @@
-export type TLoginForm = {
-  username: string;
-  password: string;
-  remember: boolean;
-};
+import { UserForm } from "@/types/user";
+
+type LoginFormFields = "username" | "password" | "remember";
+
+export type LoginForm = Pick<UserForm, LoginFormFields>;

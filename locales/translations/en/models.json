@@ -4,6 +4,7 @@
 		"email": "Email",
 		"firstname": "Firstname",
 		"lastname": "Lastname",
+		"old_password": "Current password",
 		"password": "Password",
 		"username": "Username"
 	}

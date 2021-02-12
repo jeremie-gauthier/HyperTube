@@ -1,0 +1,94 @@
+@import "../../styles/theme.scss";
+
+.container {
+  @apply flex flex-col mx-8 my-4 space-y-8;
+  @apply md:mx-32 md:my-8;
+
+  a:last-child,
+  button:last-child {
+    @apply text-blue-500 flex text-right;
+
+    &:hover,
+    &:focus {
+      @apply text-blue-600;
+    }
+  }
+}
+
+.scrollContainer {
+  @apply pb-8 space-y-4;
+}
+
+.dropdown {
+  @apply space-y-4;
+  @apply md:space-y-2;
+}
+
+.dropdown > div {
+  @apply flex;
+  @apply md:items-center md:h-12;
+}
+
+.switchableInput {
+  input {
+    background-color: #414141;
+  }
+}
+
+.toggle {
+  @apply flex flex-row items-center space-x-4;
+}
+
+.languages {
+  @apply flex flex-row items-center space-x-2;
+
+  svg {
+    @apply h-6 w-6 rounded;
+  }
+}
+
+.selectLanguages {
+  @apply bg-grey-dark cursor-pointer;
+}
+
+.desktopPicture {
+  @apply desktopView justify-center items-center text-center mt-2;
+}
+
+.mobilePicture {
+  display: flex !important;
+
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+
+  img {
+    margin: 0 !important;
+    min-width: min-content !important;
+    width: 25px !important;
+    min-height: min-content !important;
+    height: 25px !important;
+  }
+}
+
+.editPicture {
+  @apply relative min-w-max;
+
+  height: 75px;
+}
+
+.picture {
+  @apply rounded cursor-pointer;
+}
+
+.editIcon {
+  @apply absolute top-1 right-1 h-5 w-5 fill-current text-white cursor-pointer hidden;
+}
+
+.editPicture:hover .editIcon {
+  @apply flex;
+}
+
+.editPicture:hover .picture {
+  filter: contrast(50%);
+}

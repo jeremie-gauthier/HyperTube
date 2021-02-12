@@ -23,29 +23,42 @@
 }
 
 .isTouchScreen {
-  @apply hidden;
+  display: none !important;
 
   @media (hover: none) {
-    @apply flex;
+    display: flex !important;
   }
 }
 
 .isNotTouchScreen {
-  @apply hidden;
+  display: none !important;
 
   @media (hover: hover) {
-    @apply flex;
+    display: flex !important;
   }
 }
 
 .mobileView {
-  @apply flex md:hidden;
+  display: flex !important;
+
+  @media (min-width: 768px) {
+    display: none !important;
+  }
 }
 
 .desktopView {
-  @apply hidden md:flex;
+  display: none !important;
+
+  @media (min-width: 768px) {
+    display: flex !important;
+  }
 }
 
 .ps__rail-y {
   opacity: 0.6;
+}
+
+.title {
+  @apply font-bold text-3xl;
+  @apply md:text-4xl;
 }

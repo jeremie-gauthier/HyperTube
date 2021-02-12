@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React from "react";
 
 type FormCallback<V> = (values: V) => void;
@@ -11,13 +12,14 @@ export type HookForm<V> = {
   errors: FormErrors<V>;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (evt: React.FormEvent<HTMLFormElement>) => void;
+  handleCancel: () => void;
 };
 
 export default function useForm<V>(
   callback: FormCallback<V>,
   resolver: FormResolver<V>,
   initialValues: V,
-): HookForm<V> {
+) {
   const [values, setValues] = React.useState<V>(initialValues);
   const [errors, setErrors] = React.useState<FormErrors<V>>({});
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
@@ -53,10 +55,31 @@ export default function useForm<V>(
   };
 
   React.useEffect(() => {
+    const launchCallback = async () => {
+      try {
+        await callback(values);
+      } catch (error) {
+        console.error(error.info);
+      }
+    };
+
     if (isSubmitting && Object.keys(errors).length === 0) {
-      callback(values);
+      launchCallback();
     }
   }, [callback, isSubmitting, errors, values]);
 
-  return { values, errors, handleChange, handleSubmit };
+  const handleCancel = () => {
+    setValues(initialValues);
+    setErrors({});
+    setHasSubmittingOnce(false);
+    setIsSubmitting(false);
+  };
+
+  return {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    handleCancel,
+  };
 }

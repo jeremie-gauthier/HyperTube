@@ -1,7 +1,7 @@
 .frame {
-  @apply items-center justify-center rounded h-8 w-8 cursor-pointer bg-red;
+  @apply items-center justify-center rounded h-8 w-8 cursor-pointer;
 
-  span {
-    @apply font-bold text-sm;
+  img {
+    @apply rounded;
   }
 }

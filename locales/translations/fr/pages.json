@@ -1,4 +1,24 @@
 {
+	"account": {
+		"back_to_account": "Retour à la page du compte",
+		"my_account": "Mon compte",
+		"preferences": {
+			"edit_default_language": "Modifier la langue par défaut",
+			"preferences": "Préférences"
+		},
+		"profile": {
+			"edit_firstname": "Modifier le prénom",
+			"edit_lastname": "Modifier le nom",
+			"edit_profile_picture": "Modifier la photo de profil",
+			"my_profile": "Mon profil"
+		},
+		"security": {
+			"edit_email": "Modifier l'adresse e-mail du compte",
+			"edit_password": "Modifier le mot de passe",
+			"edit_username": "Modifier le nom d'utilisateur",
+			"security": "Sécurité"
+		}
+	},
 	"auth": {
 		"authentication": "Authentification",
 		"login": {

@@ -1,6 +1,9 @@
 declare module "*.scss";
 declare module "*.svg";
 declare module "*.jpg";
+declare module "@ramda/isempty";
+declare module "@ramda/pipe";
+declare module "@ramda/pick";
 
 type NextImageOpts = {
   deviceSizes: number[];
@@ -13,30 +16,6 @@ type NextImageOpts = {
 declare let process: {
   env: {
     __NEXT_IMAGE_OPTS: NextImageOpts;
+    NODE_ENV: string;
   };
 };
-
-// Extending the next & next/app types
-declare module "next" {
-  type NextLayoutComponentType<
-    P = Record<string, unknown>
-  > = NextComponentType<P> & {
-    Layout?: (page: React.ReactNode) => JSX.Element;
-    Title?: string;
-  };
-
-  type NextLayoutPage<P = Record<string, unknown>, IP = P> = NextComponentType<
-    NextPageContext,
-    IP,
-    P
-  > & {
-    Layout?: (page: React.ReactNode) => JSX.Element;
-    Title?: string;
-  };
-}
-
-declare module "next/app" {
-  type AppLayoutProps = AppProps & {
-    Component: NextLayoutComponentType;
-  };
-}

@@ -1,5 +1,6 @@
 {
 	"buttons": {
+		"cancel": "Cancel",
 		"submit": "Submit"
 	},
 	"forms": {

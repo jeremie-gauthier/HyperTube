@@ -1,4 +1,24 @@
 {
+	"account": {
+		"back_to_account": "アカウントページに戻る",
+		"my_account": "マイアカウント",
+		"preferences": {
+			"edit_default_language": "デフォルト言語を編集する",
+			"preferences": "設定"
+		},
+		"profile": {
+			"edit_firstname": "名を編集する",
+			"edit_lastname": "姓を編集する",
+			"edit_profile_picture": "プロフィール写真の編集",
+			"my_profile": "私のプロフィール"
+		},
+		"security": {
+			"edit_email": "アカウントのメールを編集する",
+			"edit_password": "パスワードを編集",
+			"edit_username": "ユーザー名を編集する",
+			"security": "セキュリティ"
+		}
+	},
 	"auth": {
 		"authentication": "認証",
 		"login": {

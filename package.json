@@ -12,8 +12,11 @@
     "clean": "docker-compose stop mongo"
   },
   "dependencies": {
-    "@types/mongodb": "^3.5.33",
+    "@ramda/isempty": "^0.26.1",
+    "@ramda/pick": "^0.26.1",
+    "@ramda/pipe": "^0.26.1",
     "@react-hook/hover": "^4.0.0",
+    "@types/mongodb": "^3.5.33",
     "@types/react-combine-reducers": "^1.0.0",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
@@ -25,10 +28,11 @@
     "postcss-preset-env": "^6.7.0",
     "react": "17.0.1",
     "react-combine-reducers": "^1.0.4",
-    "react-dom": "17.0.1",
+    "react-dom": "^17.0.1",
     "react-i18next": "^11.8.4",
     "react-perfect-scrollbar": "^1.5.8",
     "sass": "^1.30.0",
+    "swr": "^0.4.0",
     "tailwindcss": "^2.0.2",
     "use-onclickoutside": "^0.3.1"
   },
@@ -42,6 +46,7 @@
     "@types/mongoose": "^5.10.3",
     "@types/node": "^14.14.14",
     "@types/react": "^16.14.2",
+    "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "babel-jest": "^26.6.3",

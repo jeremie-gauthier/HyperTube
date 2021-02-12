@@ -2,10 +2,10 @@ import React from "react";
 import { FlexRow, FlexCol } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import userMock from "@/tests/__mocks__/user"; // MOCK
 import useHover from "@react-hook/hover";
 import { LangSettings } from "@/components/CountryFlag";
 import UserIcon from "@/components/UserIcon";
+import useUser from "@/hooks/useUser";
 import styles from "./Navbar.module.scss";
 
 export default function Settings() {
@@ -20,10 +20,11 @@ export default function Settings() {
 const UserSettings = () => {
   const hoverableNode = React.useRef(null);
   const isHovering = useHover(hoverableNode);
+  const { user } = useUser(-42);
 
   return (
     <FlexCol ref={hoverableNode} className="relative">
-      <UserIcon user={userMock} />
+      <UserIcon user={user} />
 
       {isHovering && (
         <div className={styles.floater}>
@@ -39,8 +40,8 @@ const UserLinks = () => {
 
   return (
     <FlexCol className={styles.floaterContent}>
-      <Link href="account">{t("components.navbar.account")}</Link>
-      <Link href="logout">{t("components.navbar.logout")}</Link>
+      <Link href="/account">{t("components.navbar.account")}</Link>
+      <Link href="/logout">{t("components.navbar.logout")}</Link>
     </FlexCol>
   );
 };
