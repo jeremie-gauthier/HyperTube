@@ -1,21 +1,24 @@
 import useSWR, { ConfigInterface } from "swr";
 import fetcher from "@/lib/fetcher";
-import { User } from "@/types/user";
 import { BaseSWR } from "@/types/requests";
 
-type UserSWR = BaseSWR<User> & {
-  user: User;
+type CommentsSWR = BaseSWR<Comment[]> & {
+  comments: Comment[];
 };
 
-export default function useUser(id: number, config?: ConfigInterface): UserSWR {
+export default function useComments(
+  id: number,
+  config?: ConfigInterface,
+): CommentsSWR {
   const { data, error, isValidating, ...rest } = useSWR(
-    `/api/users/${id}`,
+    `/api/users/${id}/comments`,
     fetcher,
     config,
   );
 
+  console.log("COMMENT ERROR", error);
   return {
-    user: data ?? ({} as User),
+    comments: data ?? ([] as Comment[]),
     isLoading: isValidating,
     isError: error,
     ...rest,

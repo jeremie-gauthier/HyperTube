@@ -37,6 +37,10 @@
   border: solid white 2px !important;
 }
 
+.formButtons {
+  @apply justify-center space-x-4;
+}
+
 .submitButton {
   @apply rounded flex justify-center items-center cursor-pointer;
 

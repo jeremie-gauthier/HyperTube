@@ -19,22 +19,24 @@ import React from "react";
 import fetcher from "@/lib/fetcher";
 import CountryFlag from "@/components/CountryFlag";
 import { User } from "@/types/user";
-import { mutate } from "swr";
 import pick from "@ramda/pick";
 import UserPictureModal from "@/components/Modal/UserPictureModal";
 import Image from "next/image";
 import { FlexCol } from "@/components/Flex";
+import { toastError } from "@/components/Toast";
 import styles from "./account.module.scss";
 import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
 type ServerSideProps = {
-  user: User;
+  user: User | null;
 };
 
 function Account({ user }: ServerSideProps) {
   const { t } = useTranslation();
 
-  return (
+  return user === null ? (
+    <div>ERROR PAGE GOES HERE</div>
+  ) : (
     <main className={styles.container}>
       <h1 className="title">{t("pages.account.my_account")}</h1>
       <ScrollBar className={styles.scrollContainer}>
@@ -51,10 +53,15 @@ Account.Title = "pages.account.my_account";
 export default Account;
 
 export async function getServerSideProps() {
-  const user = await fetcher(`http://localhost:3000/api/users/${-42}`, {
-    method: Methods.GET,
-  });
-  return { props: { user } };
+  const api = process.env.HYPERTUBE_API_URL;
+  try {
+    const user = await fetcher(`${api}/users/${-42}`, {
+      method: Methods.GET,
+    });
+    return { props: { user } };
+  } catch (error) {
+    return { props: { user: null } };
+  }
 }
 
 type SWRConfigProps = {
@@ -106,16 +113,18 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
             <h2>{t("pages.account.profile.my_profile")}</h2>
             <div className={styles.desktopPicture}>
               <div className={styles.editPicture}>
-                <Image
-                  src={`/img/avatar/avatar${user.picture}.png`}
-                  alt="Current profile picture"
-                  width={75}
-                  height={75}
-                  quality={100}
-                  className={styles.picture}
-                  key={user.picture}
-                  onClick={() => setIsModalPictureOpen(true)}
-                />
+                {user.picture && (
+                  <Image
+                    src={`/img/avatar/avatar${user.picture}.png`}
+                    alt="Current profile picture"
+                    width={75}
+                    height={75}
+                    quality={100}
+                    className={styles.picture}
+                    key={user.picture}
+                    onClick={() => setIsModalPictureOpen(true)}
+                  />
+                )}
                 <EditIcon className={styles.editIcon} />
               </div>
             </div>
@@ -150,7 +159,7 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
 
 const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   const { t, i18n } = useTranslation();
-  const { user } = useUser(-42, { initialData });
+  const { user, mutate } = useUser(-42, { initialData });
   const { asPath } = useRouter();
   const [isEditing, setIsEditing] = React.useState(false);
   const [language, setLanguage] = React.useState(user.language);
@@ -159,18 +168,19 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
     setLanguage(evt.target.value as Languages);
   };
 
-  const handleSubmit = async () => {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
+  const handleSubmit = () => {
+    mutate(async (currentUser) => {
+      try {
         const newUser = await fetcher(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify({ language }),
         });
         return newUser;
-      },
-      false,
-    );
+      } catch (error) {
+        toastError(error.info.message);
+        return currentUser;
+      }
+    }, false);
     i18n.changeLanguage(language);
     setIsEditing(false);
   };
@@ -227,21 +237,23 @@ type UsernameFormType = Pick<User, "username">;
 
 const UsernameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user } = useUser(-42, { initialData });
+  const { user, mutate } = useUser(-42, { initialData });
 
-  async function onSubmit(values: UsernameFormType) {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
+  const onSubmit = async (values: UsernameFormType) => {
+    const newUser = await mutate(async (currentUser) => {
+      try {
         const newUser = await fetcher(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify(values),
         });
         return newUser;
-      },
-      false,
-    );
-  }
+      } catch (error) {
+        toastError(error.info.message);
+        return currentUser;
+      }
+    }, false);
+    return { username: newUser?.username ?? user.username };
+  };
 
   const methods = useForm<UsernameFormType>(
     onSubmit,
@@ -273,27 +285,23 @@ type LastnameFormType = Pick<User, "lastname">;
 
 const LastnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user } = useUser(-42, { initialData });
+  const { user, mutate } = useUser(-42, { initialData });
 
-  async function onSubmit(values: LastnameFormType) {
-    await mutate(
-      `/api/users/${-42}`,
-      async () => {
-        try {
-          const newUser = await fetcher(`/api/users/${-42}`, {
-            method: Methods.PATCH,
-            body: JSON.stringify(values),
-          });
-          return newUser;
-        } catch (error) {
-          // Call toast error here
-          console.error("FRONT ERROR1", error.info, user);
-          return user;
-        }
-      },
-      false,
-    );
-  }
+  const onSubmit = async (values: LastnameFormType) => {
+    const newUser = await mutate(async (currentUser) => {
+      try {
+        const newUser = await fetcher(`/api/users/${-42}`, {
+          method: Methods.PATCH,
+          body: JSON.stringify(values),
+        });
+        return newUser;
+      } catch (error) {
+        toastError(error.info.message);
+        return currentUser;
+      }
+    }, false);
+    return { lastname: newUser?.lastname ?? user.lastname };
+  };
 
   const methods = useForm<LastnameFormType>(
     onSubmit,
@@ -325,21 +333,23 @@ type FirstnameFormType = Pick<User, "firstname">;
 
 const FirstnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user } = useUser(-42, { initialData });
+  const { user, mutate } = useUser(-42, { initialData });
 
-  async function onSubmit(values: FirstnameFormType) {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
+  const onSubmit = async (values: FirstnameFormType) => {
+    const newUser = await mutate(async (currentUser) => {
+      try {
         const newUser = await fetcher(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify(values),
         });
         return newUser;
-      },
-      false,
-    );
-  }
+      } catch (error) {
+        toastError(error.info.message);
+        return currentUser;
+      }
+    }, false);
+    return { firstname: newUser?.firstname ?? user.firstname };
+  };
 
   const methods = useForm<FirstnameFormType>(
     onSubmit,

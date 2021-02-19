@@ -2,13 +2,13 @@ import React from "react";
 import Modal from "@/components/Modal";
 import { useTranslation } from "react-i18next";
 import useUser from "@/hooks/useUser";
-import { mutate } from "swr";
 import Image from "next/image";
 import fetcher from "@/lib/fetcher";
 import { Methods } from "@/types/requests";
 import { FlexRow } from "../Flex";
 import { ReactComponent as Cross } from "../../public/icons/cross.svg";
 import styles from "./UserPictureModal.module.scss";
+import { toastError } from "../Toast";
 
 type UserPictureModalProps = {
   close: () => void;
@@ -42,22 +42,24 @@ export default function UserPictureModal({ close }: UserPictureModalProps) {
 
 // eslint-disable-next-line max-lines-per-function
 const Miniatures = () => {
-  const { user } = useUser(-42);
+  const { user, mutate } = useUser(-42);
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
 
   const handleChange = (id: number) => {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
+    mutate(async (currentUser) => {
+      try {
         const newUser = await fetcher(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify({ picture: id }),
         });
         return newUser;
-      },
-      false,
-    );
+      } catch (error) {
+        toastError(error.info.message);
+        return currentUser;
+      }
+    });
   };
+
   const randomPicture = (currentId: number) => {
     const newId = Math.floor(Math.random() * 8 + 1);
     if (newId === currentId) handleChange((newId % 8) + 1);

@@ -18,12 +18,11 @@ export default async function fetcher(input: RequestInfo, init?: RequestInit) {
   if (!res.ok) {
     const errInfo = await res.json();
     const errStatus = res.status;
-    const error = new FetchError(
+    throw new FetchError(
       "An error occured while fetching the data.",
       errInfo,
       errStatus,
     );
-    throw error;
   }
 
   return res.json();

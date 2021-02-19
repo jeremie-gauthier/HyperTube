@@ -1,5 +1,4 @@
 import React from "react";
-import { mutate } from "swr";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import fetcher from "@/lib/fetcher";
 import Image from "next/image";
@@ -8,32 +7,43 @@ import { User } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Methods } from "@/types/requests";
+import useUser from "@/hooks/useUser";
+import { toastError } from "@/components/Toast";
+import Spinner from "@/components/Spinner";
 import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
 
 type PictureProps = {
-  user: User;
+  initialData: User | null;
 };
 
-function Picture({ user }: PictureProps) {
+function Picture({ initialData }: PictureProps) {
+  const { user, isLoading, mutate } = useUser(-42, {
+    initialData,
+  });
   const [currentId, setCurrentId] = React.useState(user.picture);
   const router = useRouter();
 
-  const handleSubmit = () => {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
+  const handleSubmit = async () => {
+    let hasError = false;
+    await mutate(async (currentUser) => {
+      try {
         const newUser = await fetcher(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify({ picture: currentId }),
         });
         return newUser;
-      },
-      false,
-    );
+      } catch (error) {
+        hasError = true;
+        toastError(error.info.message);
+        return currentUser;
+      }
+    });
 
-    router.push("/account#profile");
+    if (!hasError) {
+      router.push("/account#profile");
+    }
   };
 
   return (
@@ -52,7 +62,7 @@ function Picture({ user }: PictureProps) {
         currentId={currentId}
         onClick={(id: number) => setCurrentId(id)}
       />
-      <FormButtons onSubmit={handleSubmit} />
+      <FormButtons onSubmit={handleSubmit} isLoading={isLoading} />
     </div>
   );
 }
@@ -63,10 +73,15 @@ Picture.Title = "pages.account.my_account";
 export default Picture;
 
 export async function getServerSideProps() {
-  const user = await fetcher(`http://localhost:3000/api/users/${-42}`, {
-    method: Methods.GET,
-  });
-  return { props: { user } };
+  const api = process.env.HYPERTUBE_API_URL;
+  try {
+    const initialData = await fetcher(`${api}/users/${-42}`, {
+      method: Methods.GET,
+    });
+    return { props: { initialData } };
+  } catch {
+    return { props: { initialData: null } };
+  }
 }
 
 const NB_PICTURES = 8;
@@ -123,15 +138,27 @@ const RandomPicture = ({ currentId, onClick }: PictureListProps) => {
   );
 };
 
-const FormButtons = ({ onSubmit }: { onSubmit: () => void }) => (
-  <FlexRow className="justify-center space-x-4">
-    <button className={styles.check} type="submit" onClick={onSubmit}>
-      <CheckIcon />
-    </button>
-    <Link href="/account#profile">
-      <div className={styles.cross}>
-        <CrossIcon />
-      </div>
-    </Link>
+const FormButtons = ({
+  onSubmit,
+  isLoading,
+}: {
+  onSubmit: () => void;
+  isLoading: boolean;
+}) => (
+  <FlexRow className={styles.formButtons}>
+    {isLoading ? (
+      <Spinner />
+    ) : (
+      <>
+        <button className={styles.check} type="submit" onClick={onSubmit}>
+          <CheckIcon />
+        </button>
+        <Link href="/account#profile">
+          <div className={styles.cross}>
+            <CrossIcon />
+          </div>
+        </Link>
+      </>
+    )}
   </FlexRow>
 );

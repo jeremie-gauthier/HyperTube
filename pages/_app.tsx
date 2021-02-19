@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useTranslation } from "react-i18next";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import { NextComponentType } from "next";
+import { ToastContainer } from "@/components/Toast";
 
 type AppLayoutProps = AppProps & {
   Component: NextComponentType & {
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: AppLayoutProps) {
       </Head>
 
       <Layout>
+        <ToastContainer limit={1} autoClose={2500} />
         <Component {...pageProps} />
       </Layout>
     </StoreProvider>

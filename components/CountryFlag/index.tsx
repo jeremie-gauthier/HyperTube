@@ -8,11 +8,13 @@ import { FlexCol } from "@/components/Flex";
 import useUser from "@/hooks/useUser";
 import fetcher from "@/lib/fetcher";
 import { Methods } from "@/types/requests";
+import { User } from "@/types/user";
 import JAFlag from "../../public/icons/japan.svg";
 import ESFlag from "../../public/icons/spain.svg";
 import FRFlag from "../../public/icons/france.svg";
 import UKFlag from "../../public/icons/united-kingdom.svg";
 import styles from "./CountryFlag.module.scss";
+import { toastError } from "../Toast";
 
 type CountryFlagProps = React.SVGProps<SVGSVGElement> & {
   lang: Languages;
@@ -108,12 +110,17 @@ const LangOptions = () => {
     i18n.changeLanguage(lang);
     mutate(
       `/api/users/${-42}`,
-      async () => {
-        const newUser = await fetcher(`/api/users/${-42}`, {
-          method: Methods.PATCH,
-          body: JSON.stringify({ language: lang }),
-        });
-        return newUser;
+      async (currentUser: User) => {
+        try {
+          const newUser = await fetcher(`/api/users/${-42}`, {
+            method: Methods.PATCH,
+            body: JSON.stringify({ language: lang }),
+          });
+          return newUser;
+        } catch (error) {
+          toastError(error.info.message);
+          return currentUser;
+        }
       },
       false,
     );

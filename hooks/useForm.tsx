@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import React from "react";
 
-type FormCallback<V> = (values: V) => void;
+type FormCallback<V> = (values: V) => Promise<V>;
 type FormResolver<V> = (values: V) => FormErrors<V>;
 export type FormErrors<V> = {
   [P in keyof V]?: string;
@@ -56,11 +56,10 @@ export default function useForm<V>(
 
   React.useEffect(() => {
     const launchCallback = async () => {
-      try {
-        await callback(values);
-      } catch (error) {
-        console.error(error.info);
-      }
+      const newValues = await callback(values);
+      setIsSubmitting(false);
+      // re-set values in case of rollback (e.g.: API error out of range 2XX)
+      setValues(newValues);
     };
 
     if (isSubmitting && Object.keys(errors).length === 0) {
