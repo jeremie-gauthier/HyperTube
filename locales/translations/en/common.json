@@ -3,6 +3,9 @@
 		"cancel": "Cancel",
 		"submit": "Submit"
 	},
+	"errors": {
+		"error_occured": "An error occured"
+	},
 	"forms": {
 		"diff_pwd": "Passwords must be the same",
 		"email_format": "Invalid email format",
