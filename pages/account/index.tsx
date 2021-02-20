@@ -177,7 +177,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
         });
         return newUser;
       } catch (error) {
-        toastError(error.info.message);
+        toastError(error.info?.message);
         return currentUser;
       }
     }, false);
@@ -248,7 +248,7 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
         });
         return newUser;
       } catch (error) {
-        toastError(error.info.message);
+        toastError(error.info?.message);
         return currentUser;
       }
     }, false);
@@ -296,7 +296,7 @@ const LastnameForm = ({ initialData }: SWRConfigProps) => {
         });
         return newUser;
       } catch (error) {
-        toastError(error.info.message);
+        toastError(error.info?.message);
         return currentUser;
       }
     }, false);
@@ -344,7 +344,7 @@ const FirstnameForm = ({ initialData }: SWRConfigProps) => {
         });
         return newUser;
       } catch (error) {
-        toastError(error.info.message);
+        toastError(error.info?.message);
         return currentUser;
       }
     }, false);

@@ -36,7 +36,7 @@ function Picture({ initialData }: PictureProps) {
         return newUser;
       } catch (error) {
         hasError = true;
-        toastError(error.info.message);
+        toastError(error.info?.message);
         return currentUser;
       }
     });

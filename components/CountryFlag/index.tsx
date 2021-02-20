@@ -118,7 +118,7 @@ const LangOptions = () => {
           });
           return newUser;
         } catch (error) {
-          toastError(error.info.message);
+          toastError(error.info?.message);
           return currentUser;
         }
       },
