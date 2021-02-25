@@ -1,3 +1,33 @@
+.container {
+  @apply mt-8 px-8;
+}
+
 .scrollContainer {
   @apply pb-8 space-y-4;
+}
+
+.header {
+  @apply items-center space-x-4;
+
+  img {
+    @apply rounded;
+  }
+
+  h1 {
+    @apply font-semibold text-2xl;
+
+    margin-left: 2rem !important;
+  }
+
+  svg {
+    @apply h-8 w-8 rounded;
+  }
+}
+
+.dropdown {
+  @apply px-4;
+}
+
+.names {
+  @apply flex flex-row space-x-8;
 }

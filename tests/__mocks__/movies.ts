@@ -14,7 +14,7 @@ export default [
   },
   {
     id: "2",
-    title: "Die hard with a vengeance",
+    title: "Die hard with a vengeance the retour 2 and again",
     synopsis: `Motherfucker with a deathwish`,
   },
   {

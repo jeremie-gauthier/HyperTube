@@ -2,14 +2,19 @@ import SiteLayout from "@/components/Layouts/SiteLayout";
 import fetcher from "@/lib/fetcher";
 import { Methods } from "@/types/requests";
 import { User } from "@/types/user";
-import { Comment } from "@/types/comment";
+import { Comment as CommentType } from "@/types/comment";
 import { GetServerSideProps } from "next";
 import ScrollBar from "react-perfect-scrollbar";
 import styles from "./user.module.scss";
+import { FlexRow } from "@/components/Flex";
+import CountryFlag from "@/components/CountryFlag";
+import Image from "next/image";
+import Dropdown from "@/components/Dropdown";
+import Comment from "@/components/Comment";
 
 type UserProfileProps = {
   user: User | null;
-  comments: Comment[];
+  comments: CommentType[];
 };
 
 function UserProfile({ user, comments }: UserProfileProps) {
@@ -18,11 +23,11 @@ function UserProfile({ user, comments }: UserProfileProps) {
   return user === null ? (
     <div>ERROR ON PAGE</div>
   ) : (
-    <main>
+    <main className={styles.container}>
       <ScrollBar className={styles.scrollContainer}>
-        <Header />
-        <Informations />
-        <Activity />
+        <Header user={user} />
+        <Informations user={user} />
+        <Activity comments={comments} />
       </ScrollBar>
     </main>
   );
@@ -49,11 +54,41 @@ UserProfile.Layout = SiteLayout;
 export default UserProfile;
 
 const Header = ({ user: { username, picture, language } }: { user: User }) => (
-  <div />
+  <FlexRow className={styles.header}>
+    <Image
+      src={`/img/avatar/avatar${picture}.png`}
+      alt="Current profile picture"
+      width={75}
+      height={75}
+      quality={100}
+    />
+    <h1>{username}</h1>
+    <CountryFlag lang={language} />
+  </FlexRow>
 );
 
 const Informations = ({ user: { firstname, lastname } }: { user: User }) => (
-  <div />
+  <Dropdown
+    initialState={true}
+    title={"INFOS(à traduire)"}
+    className={styles.dropdown}
+  >
+    <Dropdown.Element className={styles.names}>
+      <p>{firstname}</p>
+      <p>{lastname}</p>
+    </Dropdown.Element>
+  </Dropdown>
 );
 
-const Activity = ({ comments }: { comments: Comment[] }) => <div />;
+const Activity = ({ comments }: { comments: CommentType[] }) => (
+  <Dropdown
+    initialState={true}
+    title={"ACTIVITES (à traduire)"}
+    className={styles.dropdown}
+  >
+    <p>Derniers commentaires (à traduire)</p>
+    {comments.map((comment) => (
+      <Comment key={comment.id} comment={comment} />
+    ))}
+  </Dropdown>
+);
