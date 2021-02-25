@@ -4,6 +4,8 @@ import { Methods } from "@/types/requests";
 import { User } from "@/types/user";
 import { Comment } from "@/types/comment";
 import { GetServerSideProps } from "next";
+import ScrollBar from "react-perfect-scrollbar";
+import styles from "./user.module.scss";
 
 type UserProfileProps = {
   user: User | null;
@@ -13,7 +15,17 @@ type UserProfileProps = {
 function UserProfile({ user, comments }: UserProfileProps) {
   console.log(user, comments);
 
-  return user === null ? <div>ERROR ON PAGE</div> : <div>{user.username}</div>;
+  return user === null ? (
+    <div>ERROR ON PAGE</div>
+  ) : (
+    <main>
+      <ScrollBar className={styles.scrollContainer}>
+        <Header />
+        <Informations />
+        <Activity />
+      </ScrollBar>
+    </main>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -35,3 +47,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 UserProfile.Layout = SiteLayout;
 export default UserProfile;
+
+const Header = ({ user: { username, picture, language } }: { user: User }) => (
+  <div />
+);
+
+const Informations = ({ user: { firstname, lastname } }: { user: User }) => (
+  <div />
+);
+
+const Activity = ({ comments }: { comments: Comment[] }) => <div />;
