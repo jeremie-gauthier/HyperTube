@@ -48,5 +48,10 @@
 			"forgotten_password": "パスワードを忘れました",
 			"pwd_forgotten_question": "パスワードをお忘れですか ？"
 		}
+	},
+	"user": {
+		"activites": "アクティビティ",
+		"informations": "情報",
+		"last_comments": "最後のコメント"
 	}
 }

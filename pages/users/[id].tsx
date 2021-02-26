@@ -5,12 +5,13 @@ import { User } from "@/types/user";
 import { Comment as CommentType } from "@/types/comment";
 import { GetServerSideProps } from "next";
 import ScrollBar from "react-perfect-scrollbar";
-import styles from "./user.module.scss";
 import { FlexRow } from "@/components/Flex";
 import CountryFlag from "@/components/CountryFlag";
 import Image from "next/image";
 import Dropdown from "@/components/Dropdown";
 import Comment from "@/components/Comment";
+import { useTranslation } from "react-i18next";
+import styles from "./user.module.scss";
 
 type UserProfileProps = {
   user: User | null;
@@ -67,28 +68,36 @@ const Header = ({ user: { username, picture, language } }: { user: User }) => (
   </FlexRow>
 );
 
-const Informations = ({ user: { firstname, lastname } }: { user: User }) => (
-  <Dropdown
-    initialState={true}
-    title={"INFOS(à traduire)"}
-    className={styles.dropdown}
-  >
-    <Dropdown.Element className={styles.names}>
-      <p>{firstname}</p>
-      <p>{lastname}</p>
-    </Dropdown.Element>
-  </Dropdown>
-);
+const Informations = ({ user: { firstname, lastname } }: { user: User }) => {
+  const { t } = useTranslation();
 
-const Activity = ({ comments }: { comments: CommentType[] }) => (
-  <Dropdown
-    initialState={true}
-    title={"ACTIVITES (à traduire)"}
-    className={styles.dropdown}
-  >
-    <p>Derniers commentaires (à traduire)</p>
-    {comments.map((comment) => (
-      <Comment key={comment.id} comment={comment} />
-    ))}
-  </Dropdown>
-);
+  return (
+    <Dropdown
+      initialState
+      title={t("pages.user.informations").toUpperCase()}
+      className={styles.dropdown}
+    >
+      <Dropdown.Element className={styles.names}>
+        <p>{firstname}</p>
+        <p>{lastname}</p>
+      </Dropdown.Element>
+    </Dropdown>
+  );
+};
+
+const Activity = ({ comments }: { comments: CommentType[] }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Dropdown
+      initialState
+      title={t("pages.user.activites").toUpperCase()}
+      className={styles.dropdown}
+    >
+      <p>{t("pages.user.last_comments")}</p>
+      {comments.map((comment) => (
+        <Comment key={comment.id} comment={comment} />
+      ))}
+    </Dropdown>
+  );
+};

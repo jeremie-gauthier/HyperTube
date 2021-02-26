@@ -48,5 +48,10 @@
 			"forgotten_password": "Forgotten password",
 			"pwd_forgotten_question": "Forgot your password ?"
 		}
+	},
+	"user": {
+		"activites": "Activity",
+		"informations": "Information",
+		"last_comments": "Last comments"
 	}
 }
