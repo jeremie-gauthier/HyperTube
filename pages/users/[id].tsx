@@ -71,7 +71,7 @@ const Informations = ({ user: { firstname, lastname } }: { user: User }) => {
   return (
     <Dropdown
       initialState
-      title={t("pages.user.informations").toUpperCase()}
+      title={<h2>{t("pages.user.informations").toUpperCase()}</h2>}
       className={styles.dropdown}
     >
       <Dropdown.Element className={styles.names}>
@@ -88,7 +88,7 @@ const Activity = ({ comments }: { comments: CommentType[] }) => {
   return (
     <Dropdown
       initialState
-      title={t("pages.user.activites").toUpperCase()}
+      title={<h2>{t("pages.user.activites").toUpperCase()}</h2>}
       className={styles.dropdown}
     >
       <p>{t("pages.user.last_comments")}</p>
