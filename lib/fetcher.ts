@@ -1,3 +1,5 @@
+import i18n from "@/locales/i18n";
+
 class FetchError extends Error {
   info: Record<string, string>;
 
@@ -19,7 +21,7 @@ export default async function fetcher(input: RequestInfo, init?: RequestInit) {
     const errInfo = await res.json();
     const errStatus = res.status;
     throw new FetchError(
-      "An error occured while fetching the data.",
+      i18n.t("common.errors.error_occured"),
       errInfo,
       errStatus,
     );
