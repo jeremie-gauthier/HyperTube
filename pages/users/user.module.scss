@@ -1,10 +1,10 @@
 .container {
-  @apply mt-8 px-8;
-  @apply md:flex md:justify-center md:mx-auto md:max-w-5xl;
-}
+  @apply flex-col flex-1 space-y-4 mt-8 px-8;
+  @apply md:flex md:justify-center md:mx-auto md:max-w-5xl md:space-y-8;
 
-.scrollContainer {
-  @apply pb-8 space-y-4;
+  h2 {
+    @apply uppercase;
+  }
 }
 
 .header {

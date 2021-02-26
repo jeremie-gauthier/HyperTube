@@ -3,7 +3,6 @@ import Dropdown from "@/components/Dropdown";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import ScrollBar from "react-perfect-scrollbar";
 import useUser from "@/hooks/useUser";
 import { langs, Languages } from "@/locales/i18n";
 import { useRouter } from "next/router";
@@ -24,6 +23,7 @@ import UserPictureModal from "@/components/Modal/UserPictureModal";
 import Image from "next/image";
 import { FlexCol } from "@/components/Flex";
 import { toastError } from "@/components/Toast";
+import ScrollBar from "react-perfect-scrollbar";
 import styles from "./account.module.scss";
 import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
@@ -37,14 +37,14 @@ function Account({ user }: ServerSideProps) {
   return user === null ? (
     <div>ERROR PAGE GOES HERE</div>
   ) : (
-    <main className={styles.container}>
-      <h1 className="title">{t("pages.account.my_account")}</h1>
-      <ScrollBar className={styles.scrollContainer}>
+    <ScrollBar>
+      <main className={styles.container}>
+        <h1 className="title">{t("pages.account.my_account")}</h1>
         <SecurityParams initialData={user} />
         <ProfileParams initialData={user} />
         <PreferenceParams initialData={user} />
-      </ScrollBar>
-    </main>
+      </main>
+    </ScrollBar>
   );
 }
 

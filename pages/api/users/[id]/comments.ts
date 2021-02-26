@@ -27,12 +27,13 @@ export default async function userHandler(
 
 function getUserComments(req: NextApiRequest, res: NextApiResponse) {
   const {
-    query: { id },
+    query: { id, range },
   } = req;
 
   logRequests(req);
-  const userComments = MOCK.filter(
-    (comment) => comment.userId.toString() === id,
-  );
+  const [start, end] = (range as string).split(":").map((v) => parseInt(v, 10));
+  const userComments = MOCK.filter((comment) => comment.userId === id)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(start, end);
   return res.status(200).json(userComments);
 }

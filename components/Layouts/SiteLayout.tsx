@@ -6,7 +6,7 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="h-screen" data-testid="layout-div">
+    <div className="body" data-testid="layout-div">
       <Navbar />
       {children}
     </div>
