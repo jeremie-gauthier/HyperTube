@@ -1,5 +1,6 @@
 .container {
   @apply mt-8 px-8;
+  @apply md:flex md:justify-center md:mx-auto md:max-w-5xl;
 }
 
 .scrollContainer {
