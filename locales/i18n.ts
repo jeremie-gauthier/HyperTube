@@ -78,6 +78,7 @@ i18n.use(initReactI18next).init({
   resources: LANGUAGES_RESOURCES,
   lng: "en",
   fallbackLng: "en",
+  supportedLngs: ["en", "es", "fr", "ja"],
 
   interpolation: {
     escapeValue: false,
