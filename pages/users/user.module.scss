@@ -27,6 +27,10 @@
 
 .dropdown {
   @apply px-4;
+
+  @media (min-width: 768px) {
+    min-width: 380px;
+  }
 }
 
 .names {
