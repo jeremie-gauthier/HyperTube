@@ -4,7 +4,7 @@
 		"submit": "Submit"
 	},
 	"errors": {
-		"error_occured": "An error occured"
+		"error_occured": "An error occurred"
 	},
 	"forms": {
 		"diff_pwd": "Passwords must be the same",
