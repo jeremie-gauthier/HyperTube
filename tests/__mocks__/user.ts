@@ -34,7 +34,7 @@ export default [
   {
     id: "2",
     username: "Ray Holt",
-    firstname: "Raymnd",
+    firstname: "Raymond",
     lastname: "Holt",
     email: "RHolt@brooklyn.com",
     password: "R@yMond-H0|T",
