@@ -16,7 +16,6 @@ export default function useComments(
     config,
   );
 
-  console.log("COMMENT ERROR", error);
   return {
     comments: data ?? ([] as Comment[]),
     isLoading: isValidating,

@@ -34,7 +34,5 @@ function getUserComments(req: NextApiRequest, res: NextApiResponse) {
   const userComments = MOCK.filter(
     (comment) => comment.userId.toString() === id,
   );
-  console.log(userComments);
-  // return res.status(404).json({ message: "Resource not found" });
   return res.status(200).json(userComments);
 }

@@ -19,8 +19,6 @@ type UserProfileProps = {
 };
 
 function UserProfile({ user, comments }: UserProfileProps) {
-  console.log(user, comments);
-
   return user === null ? (
     <div>ERROR ON PAGE</div>
   ) : (
