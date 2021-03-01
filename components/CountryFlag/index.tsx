@@ -5,7 +5,7 @@ import { mutate } from "swr";
 import { langs, LANGUAGE, Languages } from "@/locales/i18n";
 import useOnClickOutside from "use-onclickoutside";
 import { FlexCol } from "@/components/Flex";
-import useUser from "@/hooks/useUser";
+import useFetch from "@/hooks/api/useFetch";
 import fetcher from "@/lib/fetcher";
 import { Methods } from "@/types/requests";
 import { User } from "@/types/user";
@@ -36,16 +36,16 @@ export default function CountryFlag({ lang, ...rest }: CountryFlagProps) {
 }
 
 export function LangSettings() {
-  const { user } = useUser(-42);
+  const { data: user } = useFetch<User>(`/api/users/${-42}`);
 
   return (
     <>
       <LangClickable
-        currentLang={user.language}
+        currentLang={user?.language ?? "en"}
         className={styles.isTouchScreen}
       />
       <LangHoverable
-        currentLang={user.language}
+        currentLang={user?.language ?? "en"}
         className={styles.isNotTouchScreen}
       />
     </>

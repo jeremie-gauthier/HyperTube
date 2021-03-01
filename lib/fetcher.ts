@@ -14,7 +14,10 @@ class FetchError extends Error {
   }
 }
 
-export default async function fetcher(input: RequestInfo, init?: RequestInit) {
+export default async function fetcher<Data>(
+  input: RequestInfo,
+  init?: RequestInit,
+): Promise<Data> {
   const res = await fetch(input, init);
 
   if (!res.ok) {

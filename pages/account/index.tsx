@@ -3,7 +3,7 @@ import Dropdown from "@/components/Dropdown";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import useUser from "@/hooks/useUser";
+import useFetch from "@/hooks/api/useFetch";
 import { langs, Languages } from "@/locales/i18n";
 import { useRouter } from "next/router";
 import useForm from "@/hooks/useForm";
@@ -70,7 +70,7 @@ type SWRConfigProps = {
 
 const SecurityParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user } = useUser(-42, { initialData });
+  const { data: user } = useFetch<User>(`/api/users/${-42}`, { initialData });
 
   return (
     <section id="security">
@@ -79,7 +79,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
         className={styles.dropdown}
       >
         <Dropdown.Element>
-          <div className="font-semibold">{user.email}</div>
+          <div className="font-semibold">{user?.email}</div>
           <Link href="account/email">
             {t("pages.account.security.edit_email")}
           </Link>
@@ -101,7 +101,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
 const ProfileParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
   const { asPath } = useRouter();
-  const { user } = useUser(-42, { initialData });
+  const { data: user } = useFetch<User>(`/api/users/${-42}`, { initialData });
   const [isModalPictureOpen, setIsModalPictureOpen] = React.useState(false);
 
   return (
@@ -113,7 +113,7 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
             <h2>{t("pages.account.profile.my_profile")}</h2>
             <div className={styles.desktopPicture}>
               <div className={styles.editPicture}>
-                {user.picture && (
+                {user?.picture && (
                   <Image
                     src={`/img/avatar/avatar${user.picture}.png`}
                     alt="Current profile picture"
@@ -136,13 +136,13 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
         <FirstnameForm initialData={initialData} />
         <Dropdown.Element className={styles.mobilePicture}>
           <Image
-            src={`/img/avatar/avatar${user.picture}.png`}
+            src={`/img/avatar/avatar${user?.picture}.png`}
             alt="Current profile picture"
             width={25}
             height={25}
             quality={100}
             className={styles.picture}
-            key={user.picture}
+            key={user?.picture}
           />
           <Link href="/account/picture">
             {t("pages.account.profile.edit_profile_picture")}
@@ -159,10 +159,12 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
 
 const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   const { t, i18n } = useTranslation();
-  const { user, mutate } = useUser(-42, { initialData });
+  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`, {
+    initialData,
+  });
   const { asPath } = useRouter();
   const [isEditing, setIsEditing] = React.useState(false);
-  const [language, setLanguage] = React.useState(user.language);
+  const [language, setLanguage] = React.useState(user?.language ?? "en");
 
   const handleChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(evt.target.value as Languages);
@@ -171,7 +173,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   const handleSubmit = () => {
     mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify({ language }),
         });
@@ -219,8 +221,8 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
           ) : (
             <>
               <div className={styles.languages}>
-                <CountryFlag lang={user.language} />
-                <p>{t(langs[user.language])}</p>
+                <CountryFlag lang={user?.language ?? "en"} />
+                <p>{t(langs[user?.language ?? "en"])}</p>
               </div>
               <button type="button" onClick={() => setIsEditing(true)}>
                 {t("pages.account.preferences.edit_default_language")}
@@ -237,12 +239,14 @@ type UsernameFormType = Pick<User, "username">;
 
 const UsernameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user, mutate } = useUser(-42, { initialData });
+  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`, {
+    initialData,
+  });
 
   const onSubmit = async (values: UsernameFormType) => {
     const newUser = await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify(values),
         });
@@ -252,7 +256,7 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
         return currentUser;
       }
     }, false);
-    return { username: newUser?.username ?? user.username };
+    return { username: newUser?.username ?? user?.username ?? "" };
   };
 
   const methods = useForm<UsernameFormType>(
@@ -285,12 +289,14 @@ type LastnameFormType = Pick<User, "lastname">;
 
 const LastnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user, mutate } = useUser(-42, { initialData });
+  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`, {
+    initialData,
+  });
 
   const onSubmit = async (values: LastnameFormType) => {
     const newUser = await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify(values),
         });
@@ -300,7 +306,7 @@ const LastnameForm = ({ initialData }: SWRConfigProps) => {
         return currentUser;
       }
     }, false);
-    return { lastname: newUser?.lastname ?? user.lastname };
+    return { lastname: newUser?.lastname ?? user?.lastname ?? "" };
   };
 
   const methods = useForm<LastnameFormType>(
@@ -333,12 +339,14 @@ type FirstnameFormType = Pick<User, "firstname">;
 
 const FirstnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { user, mutate } = useUser(-42, { initialData });
+  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`, {
+    initialData,
+  });
 
   const onSubmit = async (values: FirstnameFormType) => {
     const newUser = await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify(values),
         });
@@ -348,7 +356,7 @@ const FirstnameForm = ({ initialData }: SWRConfigProps) => {
         return currentUser;
       }
     }, false);
-    return { firstname: newUser?.firstname ?? user.firstname };
+    return { firstname: newUser?.firstname ?? user?.firstname ?? "" };
   };
 
   const methods = useForm<FirstnameFormType>(

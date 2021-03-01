@@ -7,7 +7,7 @@ import { User } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Methods } from "@/types/requests";
-import useUser from "@/hooks/useUser";
+import useFetch from "@/hooks/api/useFetch";
 import { toastError } from "@/components/Toast";
 import Spinner from "@/components/Spinner";
 import styles from "./picture.module.scss";
@@ -18,18 +18,22 @@ type PictureProps = {
   initialData: User | null;
 };
 
+// eslint-disable-next-line max-lines-per-function
 function Picture({ initialData }: PictureProps) {
-  const { user, isLoading, mutate } = useUser(-42, {
-    initialData,
-  });
-  const [currentId, setCurrentId] = React.useState(user.picture);
+  const { data: user, isValidating, mutate } = useFetch<User>(
+    `/api/users/${-42}`,
+    {
+      initialData,
+    },
+  );
+  const [currentId, setCurrentId] = React.useState(user?.picture ?? 1);
   const router = useRouter();
 
   const handleSubmit = async () => {
     let hasError = false;
     await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify({ picture: currentId }),
         });
@@ -62,7 +66,7 @@ function Picture({ initialData }: PictureProps) {
         currentId={currentId}
         onClick={(id: number) => setCurrentId(id)}
       />
-      <FormButtons onSubmit={handleSubmit} isLoading={isLoading} />
+      <FormButtons onSubmit={handleSubmit} isLoading={isValidating} />
     </div>
   );
 }

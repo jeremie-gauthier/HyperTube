@@ -11,50 +11,36 @@ import Image from "next/image";
 import Dropdown from "@/components/Dropdown";
 import Comment from "@/components/Comment";
 import { useTranslation } from "react-i18next";
-import { useSWRInfinite } from "swr";
 import ScrollBar from "react-perfect-scrollbar";
+import useComments from "@/hooks/api/useComments";
+import Spinner from "@/components/Spinner";
 import styles from "./user.module.scss";
 
 type UserProfileProps = {
   user: User | null;
-  comments: CommentType[];
+  commentsInitial: CommentType[];
 };
 
 const FETCH_CHUNK_SIZE = 4;
-function UserProfile({ user, comments }: UserProfileProps) {
-  const { data, error, setSize, size } = useSWRInfinite(
-    (index) =>
-      `/api/users/${user?.id}/comments?range=${index * FETCH_CHUNK_SIZE}:${
-        (index + 1) * FETCH_CHUNK_SIZE
-      }`,
-    fetcher,
+function UserProfile({ user, commentsInitial }: UserProfileProps) {
+  const { comments, isLoadingMoreComments, loadMoreComments } = useComments(
+    FETCH_CHUNK_SIZE,
     {
-      initialData: [comments],
+      initialData: [commentsInitial],
     },
   );
-  const isLoadingInitialData = !data && !error;
-  const isLoadingMore =
-    isLoadingInitialData ||
-    (size > 0 && data && typeof data[size - 1] === "undefined");
-  const isEmpty = data?.[0]?.length === 0;
-  const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < FETCH_CHUNK_SIZE);
 
   return user === null ? (
     <div>ERROR ON PAGE</div>
   ) : (
-    <ScrollBar
-      onYReachEnd={() => {
-        if (!(isLoadingMore || isReachingEnd)) {
-          console.log("YOUHOU");
-          setSize((size) => size + 1);
-        }
-      }}
-    >
+    <ScrollBar onYReachEnd={loadMoreComments}>
       <main className={styles.container}>
         <Header user={user} />
         <Informations user={user} />
-        <Activity comments={data?.flat() ?? []} />
+        <Activity
+          comments={comments}
+          isLoadingMoreComments={isLoadingMoreComments}
+        />
       </main>
     </ScrollBar>
   );
@@ -66,13 +52,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const init = { method: Methods.GET };
-    const [user, comments] = await Promise.all([
+    const [user, commentsInitial] = await Promise.all([
       fetcher(`${api}/users/${id}`, init),
       fetcher(`${api}/users/${id}/comments?range=0:${FETCH_CHUNK_SIZE}`, init),
     ]);
-    return { props: { user, comments } };
+    return { props: { user, commentsInitial } };
   } catch (error) {
-    return { props: { user: null, comments: [] } };
+    return { props: { user: null, commentsInitial: [] } };
   }
 };
 
@@ -110,7 +96,12 @@ const Informations = ({ user: { firstname, lastname } }: { user: User }) => {
   );
 };
 
-const Activity = ({ comments }: { comments: CommentType[] }) => {
+type ActivityProps = {
+  comments: CommentType[];
+  isLoadingMoreComments: boolean;
+};
+
+const Activity = ({ comments, isLoadingMoreComments }: ActivityProps) => {
   const { t } = useTranslation();
 
   return (
@@ -122,6 +113,7 @@ const Activity = ({ comments }: { comments: CommentType[] }) => {
       {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
+      {isLoadingMoreComments && <Spinner className="mt-4 self-center" />}
     </Dropdown>
   );
 };

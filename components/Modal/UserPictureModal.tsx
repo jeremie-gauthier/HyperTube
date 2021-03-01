@@ -1,10 +1,11 @@
 import React from "react";
 import Modal from "@/components/Modal";
 import { useTranslation } from "react-i18next";
-import useUser from "@/hooks/useUser";
+import useFetch from "@/hooks/api/useFetch";
 import Image from "next/image";
 import fetcher from "@/lib/fetcher";
 import { Methods } from "@/types/requests";
+import { User } from "@/types/user";
 import { FlexRow } from "../Flex";
 import { ReactComponent as Cross } from "../../public/icons/cross.svg";
 import styles from "./UserPictureModal.module.scss";
@@ -16,7 +17,7 @@ type UserPictureModalProps = {
 
 export default function UserPictureModal({ close }: UserPictureModalProps) {
   const { t } = useTranslation();
-  const { user } = useUser(-42);
+  const { data: user } = useFetch<User>(`/api/users/${-42}`);
 
   return (
     <Modal close={close} className={styles.container}>
@@ -26,14 +27,16 @@ export default function UserPictureModal({ close }: UserPictureModalProps) {
       </FlexRow>
 
       <FlexRow className={styles.pictures}>
-        <Image
-          src={`/img/avatar/avatar${user.picture}.png`}
-          alt="Current profile picture"
-          width={200}
-          height={200}
-          quality={100}
-          key={user.picture}
-        />
+        {user && (
+          <Image
+            src={`/img/avatar/avatar${user.picture}.png`}
+            alt="Current profile picture"
+            width={200}
+            height={200}
+            quality={100}
+            key={user.picture}
+          />
+        )}
         <Miniatures />
       </FlexRow>
     </Modal>
@@ -42,13 +45,13 @@ export default function UserPictureModal({ close }: UserPictureModalProps) {
 
 // eslint-disable-next-line max-lines-per-function
 const Miniatures = () => {
-  const { user, mutate } = useUser(-42);
+  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`);
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
 
   const handleChange = (id: number) => {
     mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(`/api/users/${-42}`, {
           method: Methods.PATCH,
           body: JSON.stringify({ picture: id }),
         });
@@ -66,7 +69,7 @@ const Miniatures = () => {
     else handleChange(newId);
   };
 
-  return (
+  return user ? (
     <FlexRow className={styles.miniatures}>
       {images.map(
         (id) =>
@@ -94,5 +97,5 @@ const Miniatures = () => {
         </button>
       </div>
     </FlexRow>
-  );
+  ) : null;
 };
