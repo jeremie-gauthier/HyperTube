@@ -36,16 +36,22 @@ export default function CountryFlag({ lang, ...rest }: CountryFlagProps) {
 }
 
 export function LangSettings() {
+  const { i18n } = useTranslation();
   const { data: user } = useUser("-42");
+
+  React.useEffect(() => {
+    i18n.changeLanguage(user?.language ?? LANGUAGE.EN);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.language]);
 
   return (
     <>
       <LangClickable
-        currentLang={user?.language ?? "en"}
+        currentLang={user?.language ?? LANGUAGE.EN}
         className={styles.isTouchScreen}
       />
       <LangHoverable
-        currentLang={user?.language ?? "en"}
+        currentLang={user?.language ?? LANGUAGE.EN}
         className={styles.isNotTouchScreen}
       />
     </>

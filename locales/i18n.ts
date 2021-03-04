@@ -68,17 +68,17 @@ export enum LANGUAGE {
 export type Languages = "en" | "es" | "fr" | "ja";
 
 export const langs = {
-  en: "common.lang.english",
-  fr: "common.lang.french",
-  es: "common.lang.spanish",
-  ja: "common.lang.japanese",
+  [LANGUAGE.EN]: "common.lang.english",
+  [LANGUAGE.ES]: "common.lang.spanish",
+  [LANGUAGE.FR]: "common.lang.french",
+  [LANGUAGE.JA]: "common.lang.japanese",
 } as const;
 
 i18n.use(initReactI18next).init({
   resources: LANGUAGES_RESOURCES,
-  lng: "en",
-  fallbackLng: "en",
-  supportedLngs: ["en", "es", "fr", "ja"],
+  lng: LANGUAGE.EN,
+  fallbackLng: LANGUAGE.EN,
+  supportedLngs: Object.keys(langs),
 
   interpolation: {
     escapeValue: false,

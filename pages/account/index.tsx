@@ -17,13 +17,11 @@ import React from "react";
 import fetcher from "@/lib/fetcher";
 import CountryFlag from "@/components/CountryFlag";
 import { User } from "@/types/user";
-import pick from "@ramda/pick";
 import UserPictureModal from "@/components/Modal/UserPictureModal";
 import Image from "next/image";
 import { FlexCol } from "@/components/Flex";
-import { toastError } from "@/components/Toast";
 import ScrollBar from "react-perfect-scrollbar";
-import useUser, { usersRoute } from "@/hooks/api/useUser";
+import useUser, { usePatchUser, usersRoute } from "@/hooks/api/useUser";
 import styles from "./account.module.scss";
 import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
@@ -32,19 +30,10 @@ type ServerSideProps = {
 };
 
 function Account({ user }: ServerSideProps) {
-  const { t } = useTranslation();
-
   return user === null ? (
     <div>ERROR PAGE GOES HERE</div>
   ) : (
-    <ScrollBar>
-      <main className={styles.container}>
-        <h1 className="title">{t("pages.account.my_account")}</h1>
-        <SecurityParams initialData={user} />
-        <ProfileParams initialData={user} />
-        <PreferenceParams initialData={user} />
-      </main>
-    </ScrollBar>
+    <AccountContent initialData={user} />
   );
 }
 
@@ -64,13 +53,30 @@ export async function getServerSideProps() {
   }
 }
 
-type SWRConfigProps = {
-  initialData: User;
+const AccountContent = ({ initialData }: { initialData: User }) => {
+  const { t } = useTranslation();
+  const { data } = useUser(initialData.id, { initialData });
+  const patchUser = usePatchUser(initialData.id);
+
+  return (
+    <ScrollBar>
+      <main className={styles.container}>
+        <h1 className="title">{t("pages.account.my_account")}</h1>
+        <SecurityParams user={data ?? initialData} patchUser={patchUser} />
+        <ProfileParams user={data ?? initialData} patchUser={patchUser} />
+        <PreferenceParams user={data ?? initialData} patchUser={patchUser} />
+      </main>
+    </ScrollBar>
+  );
 };
 
-const SecurityParams = ({ initialData }: SWRConfigProps) => {
+type UserForm = {
+  user: User;
+  patchUser: (newValues: Partial<User>) => Promise<User | undefined>;
+};
+
+const SecurityParams = ({ user, patchUser }: UserForm) => {
   const { t } = useTranslation();
-  const { data: user } = useUser("-42", { initialData });
 
   return (
     <section id="security">
@@ -79,13 +85,13 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
         className={styles.dropdown}
       >
         <Dropdown.Element>
-          <div className="font-semibold">{user?.email}</div>
+          <div className="font-semibold">{user.email}</div>
           <Link href="account/email">
             {t("pages.account.security.edit_email")}
           </Link>
         </Dropdown.Element>
 
-        <UsernameForm initialData={initialData} />
+        <UsernameForm username={user.username} patchUser={patchUser} />
 
         <Dropdown.Element>
           <div>{"*".repeat(8)}</div>
@@ -98,10 +104,9 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
   );
 };
 
-const ProfileParams = ({ initialData }: SWRConfigProps) => {
+const ProfileParams = ({ user, patchUser }: UserForm) => {
   const { t } = useTranslation();
   const { asPath } = useRouter();
-  const { data: user } = useUser("-42", { initialData });
   const [isModalPictureOpen, setIsModalPictureOpen] = React.useState(false);
 
   return (
@@ -113,18 +118,16 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
             <h2>{t("pages.account.profile.my_profile")}</h2>
             <div className={styles.desktopPicture}>
               <div className={styles.editPicture}>
-                {user?.picture && (
-                  <Image
-                    src={`/img/avatar/avatar${user.picture}.png`}
-                    alt="Current profile picture"
-                    width={75}
-                    height={75}
-                    quality={100}
-                    className={styles.picture}
-                    key={user.picture}
-                    onClick={() => setIsModalPictureOpen(true)}
-                  />
-                )}
+                <Image
+                  src={`/img/avatar/avatar${user.picture}.png`}
+                  alt="Current profile picture"
+                  width={75}
+                  height={75}
+                  quality={100}
+                  className={styles.picture}
+                  key={user.picture}
+                  onClick={() => setIsModalPictureOpen(true)}
+                />
                 <EditIcon className={styles.editIcon} />
               </div>
             </div>
@@ -132,11 +135,11 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
         }
         className={styles.dropdown}
       >
-        <LastnameForm initialData={initialData} />
-        <FirstnameForm initialData={initialData} />
+        <LastnameForm lastname={user.lastname} patchUser={patchUser} />
+        <FirstnameForm firstname={user.firstname} patchUser={patchUser} />
         <Dropdown.Element className={styles.mobilePicture}>
           <Image
-            src={`/img/avatar/avatar${user?.picture}.png`}
+            src={`/img/avatar/avatar${user.picture}.png`}
             alt="Current profile picture"
             width={25}
             height={25}
@@ -157,31 +160,18 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
   );
 };
 
-const PreferenceParams = ({ initialData }: SWRConfigProps) => {
-  const { t, i18n } = useTranslation();
-  const { data: user, mutate } = useUser("-42", { initialData });
+const PreferenceParams = ({ user, patchUser }: UserForm) => {
+  const { t } = useTranslation();
   const { asPath } = useRouter();
   const [isEditing, setIsEditing] = React.useState(false);
-  const [language, setLanguage] = React.useState(user?.language ?? "en");
+  const [language, setLanguage] = React.useState(user.language);
 
   const handleChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(evt.target.value as Languages);
   };
 
-  const handleSubmit = () => {
-    mutate(async (currentUser) => {
-      try {
-        const newUser = await fetcher<User>(usersRoute("-42"), {
-          method: Methods.PATCH,
-          body: JSON.stringify({ language }),
-        });
-        return newUser;
-      } catch (error) {
-        toastError(error.info?.message);
-        return currentUser;
-      }
-    }, false);
-    i18n.changeLanguage(language);
+  const handleSubmit = async () => {
+    patchUser({ language });
     setIsEditing(false);
   };
 
@@ -219,8 +209,8 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
           ) : (
             <>
               <div className={styles.languages}>
-                <CountryFlag lang={user?.language ?? "en"} />
-                <p>{t(langs[user?.language ?? "en"])}</p>
+                <CountryFlag lang={user.language} />
+                <p>{t(langs[user.language])}</p>
               </div>
               <button type="button" onClick={() => setIsEditing(true)}>
                 {t("pages.account.preferences.edit_default_language")}
@@ -234,32 +224,19 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
 };
 
 type UsernameFormType = Pick<User, "username">;
+type UsernameFormProps = UsernameFormType & Pick<UserForm, "patchUser">;
 
-const UsernameForm = ({ initialData }: SWRConfigProps) => {
+const UsernameForm = ({ username, patchUser }: UsernameFormProps) => {
   const { t } = useTranslation();
-  const { data: user, mutate } = useUser("-42", { initialData });
 
   const onSubmit = async (values: UsernameFormType) => {
-    const newUser = await mutate(async (currentUser) => {
-      try {
-        const newUser = await fetcher<User>(usersRoute("-42"), {
-          method: Methods.PATCH,
-          body: JSON.stringify(values),
-        });
-        return newUser;
-      } catch (error) {
-        toastError(error.info?.message);
-        return currentUser;
-      }
-    }, false);
-    return { username: newUser?.username ?? user?.username ?? "" };
+    const newUser = await patchUser(values);
+    return { username: newUser?.username ?? username };
   };
 
-  const methods = useForm<UsernameFormType>(
-    onSubmit,
-    checkUsername,
-    pick(["username"], user),
-  );
+  const methods = useForm<UsernameFormType>(onSubmit, checkUsername, {
+    username,
+  });
 
   return (
     <Dropdown.Element>
@@ -282,32 +259,19 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
 };
 
 type LastnameFormType = Pick<User, "lastname">;
+type LastnameFormProps = LastnameFormType & Pick<UserForm, "patchUser">;
 
-const LastnameForm = ({ initialData }: SWRConfigProps) => {
+const LastnameForm = ({ lastname, patchUser }: LastnameFormProps) => {
   const { t } = useTranslation();
-  const { data: user, mutate } = useUser("-42", { initialData });
 
   const onSubmit = async (values: LastnameFormType) => {
-    const newUser = await mutate(async (currentUser) => {
-      try {
-        const newUser = await fetcher<User>(usersRoute("-42"), {
-          method: Methods.PATCH,
-          body: JSON.stringify(values),
-        });
-        return newUser;
-      } catch (error) {
-        toastError(error.info?.message);
-        return currentUser;
-      }
-    }, false);
-    return { lastname: newUser?.lastname ?? user?.lastname ?? "" };
+    const newUser = await patchUser(values);
+    return { lastname: newUser?.lastname ?? lastname };
   };
 
-  const methods = useForm<LastnameFormType>(
-    onSubmit,
-    checkLastname,
-    pick(["lastname"], user),
-  );
+  const methods = useForm<LastnameFormType>(onSubmit, checkLastname, {
+    lastname,
+  });
 
   return (
     <Dropdown.Element>
@@ -330,32 +294,19 @@ const LastnameForm = ({ initialData }: SWRConfigProps) => {
 };
 
 type FirstnameFormType = Pick<User, "firstname">;
+type FirstnameFormProps = FirstnameFormType & Pick<UserForm, "patchUser">;
 
-const FirstnameForm = ({ initialData }: SWRConfigProps) => {
+const FirstnameForm = ({ firstname, patchUser }: FirstnameFormProps) => {
   const { t } = useTranslation();
-  const { data: user, mutate } = useUser("-42", { initialData });
 
   const onSubmit = async (values: FirstnameFormType) => {
-    const newUser = await mutate(async (currentUser) => {
-      try {
-        const newUser = await fetcher<User>(usersRoute("-42"), {
-          method: Methods.PATCH,
-          body: JSON.stringify(values),
-        });
-        return newUser;
-      } catch (error) {
-        toastError(error.info?.message);
-        return currentUser;
-      }
-    }, false);
-    return { firstname: newUser?.firstname ?? user?.firstname ?? "" };
+    const newUser = await patchUser(values);
+    return { firstname: newUser?.firstname ?? firstname };
   };
 
-  const methods = useForm<FirstnameFormType>(
-    onSubmit,
-    checkFirstname,
-    pick(["firstname"], user),
-  );
+  const methods = useForm<FirstnameFormType>(onSubmit, checkFirstname, {
+    firstname,
+  });
 
   return (
     <Dropdown.Element>

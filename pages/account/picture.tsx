@@ -15,11 +15,21 @@ import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
 
 type PictureProps = {
-  initialData: User | null;
+  user: User | null;
 };
 
-function Picture({ initialData }: PictureProps) {
-  const { data: user, isValidating, mutate } = useUser("-42", { initialData });
+function Picture({ user }: PictureProps) {
+  return user === null ? (
+    <div>ERROR PAGE GOES HERE</div>
+  ) : (
+    <PictureContent initialData={user} />
+  );
+}
+
+function PictureContent({ initialData }: { initialData: User }) {
+  const { data: user, isValidating, mutate } = useUser(initialData.id, {
+    initialData,
+  });
 
   const [currentId, setCurrentId] = React.useState(user?.picture ?? 1);
   const router = useRouter();
@@ -28,7 +38,7 @@ function Picture({ initialData }: PictureProps) {
     let hasError = false;
     await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher<User>(usersRoute("-42"), {
+        const newUser = await fetcher<User>(usersRoute(initialData.id), {
           method: Methods.PATCH,
           body: JSON.stringify({ picture: currentId }),
         });
