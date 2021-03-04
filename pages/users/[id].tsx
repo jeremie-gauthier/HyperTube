@@ -54,8 +54,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const init = { method: Methods.GET };
     const [user, commentsInitial] = await Promise.all([
-      fetcher(`${api}${usersRoute(id as string)}`, init),
-      fetcher(`${api}/users/${id}/comments?range=0:${FETCH_CHUNK_SIZE}`, init),
+      fetcher<User>(`${api}${usersRoute(id as string)}`, init),
+      fetcher<Comment>(
+        `${api}/users/${id}/comments?range=0:${FETCH_CHUNK_SIZE}`,
+        init,
+      ),
     ]);
     return { props: { user, commentsInitial } };
   } catch (error) {
