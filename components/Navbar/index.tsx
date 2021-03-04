@@ -12,13 +12,12 @@ import classnames from "classnames";
 import UserIcon from "@/components/UserIcon";
 import CountryFlag from "@/components/CountryFlag";
 import { useRouter } from "next/router";
-import useFetch from "@/hooks/api/useFetch";
+import useUser from "@/hooks/api/useUser";
 import Magnifier from "../../public/icons/magnifier.svg";
 import Cross from "../../public/icons/cross.svg";
 import MenuBurger from "../../public/icons/menu-burger.svg";
 import styles from "./Navbar.module.scss";
 import Settings from "./Settings";
-import { User } from "@/types/user";
 
 export default function Navbar() {
   return (
@@ -61,7 +60,7 @@ const MobileView = ({ className }: { className: string }) => {
 };
 
 const DropdownMenu = () => {
-  const { data: user } = useFetch<User>(`/api/users/${-42}`);
+  const { data: user } = useUser("-42");
   const { t } = useTranslation();
 
   return (

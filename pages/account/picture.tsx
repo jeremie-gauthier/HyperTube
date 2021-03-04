@@ -7,9 +7,9 @@ import { User } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Methods } from "@/types/requests";
-import useFetch from "@/hooks/api/useFetch";
 import { toastError } from "@/components/Toast";
 import Spinner from "@/components/Spinner";
+import useUser, { usersRoute } from "@/hooks/api/useUser";
 import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
@@ -18,14 +18,9 @@ type PictureProps = {
   initialData: User | null;
 };
 
-// eslint-disable-next-line max-lines-per-function
 function Picture({ initialData }: PictureProps) {
-  const { data: user, isValidating, mutate } = useFetch<User>(
-    `/api/users/${-42}`,
-    {
-      initialData,
-    },
-  );
+  const { data: user, isValidating, mutate } = useUser("-42", { initialData });
+
   const [currentId, setCurrentId] = React.useState(user?.picture ?? 1);
   const router = useRouter();
 
@@ -33,7 +28,7 @@ function Picture({ initialData }: PictureProps) {
     let hasError = false;
     await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher<User>(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(usersRoute("-42"), {
           method: Methods.PATCH,
           body: JSON.stringify({ picture: currentId }),
         });
@@ -79,7 +74,7 @@ export default Picture;
 export async function getServerSideProps() {
   const api = process.env.HYPERTUBE_API_URL;
   try {
-    const initialData = await fetcher(`${api}/users/${-42}`, {
+    const initialData = await fetcher(`${api}${usersRoute("-42")}`, {
       method: Methods.GET,
     });
     return { props: { initialData } };

@@ -1,11 +1,11 @@
 import React from "react";
 import Modal from "@/components/Modal";
 import { useTranslation } from "react-i18next";
-import useFetch from "@/hooks/api/useFetch";
 import Image from "next/image";
 import fetcher from "@/lib/fetcher";
 import { Methods } from "@/types/requests";
 import { User } from "@/types/user";
+import useUser, { usersRoute } from "@/hooks/api/useUser";
 import { FlexRow } from "../Flex";
 import { ReactComponent as Cross } from "../../public/icons/cross.svg";
 import styles from "./UserPictureModal.module.scss";
@@ -17,7 +17,7 @@ type UserPictureModalProps = {
 
 export default function UserPictureModal({ close }: UserPictureModalProps) {
   const { t } = useTranslation();
-  const { data: user } = useFetch<User>(`/api/users/${-42}`);
+  const { data: user } = useUser("-42");
 
   return (
     <Modal close={close} className={styles.container}>
@@ -45,13 +45,13 @@ export default function UserPictureModal({ close }: UserPictureModalProps) {
 
 // eslint-disable-next-line max-lines-per-function
 const Miniatures = () => {
-  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`);
+  const { data: user, mutate } = useUser("-42");
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
 
   const handleChange = (id: number) => {
     mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher<User>(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(usersRoute("-42"), {
           method: Methods.PATCH,
           body: JSON.stringify({ picture: id }),
         });

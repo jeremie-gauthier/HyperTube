@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import ScrollBar from "react-perfect-scrollbar";
 import useComments from "@/hooks/api/useComments";
 import Spinner from "@/components/Spinner";
+import { usersRoute } from "@/hooks/api/useUser";
 import styles from "./user.module.scss";
 
 type UserProfileProps = {
@@ -53,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const init = { method: Methods.GET };
     const [user, commentsInitial] = await Promise.all([
-      fetcher(`${api}/users/${id}`, init),
+      fetcher(`${api}${usersRoute(id as string)}`, init),
       fetcher(`${api}/users/${id}/comments?range=0:${FETCH_CHUNK_SIZE}`, init),
     ]);
     return { props: { user, commentsInitial } };

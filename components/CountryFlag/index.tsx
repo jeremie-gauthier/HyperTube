@@ -5,10 +5,10 @@ import { mutate } from "swr";
 import { langs, LANGUAGE, Languages } from "@/locales/i18n";
 import useOnClickOutside from "use-onclickoutside";
 import { FlexCol } from "@/components/Flex";
-import useFetch from "@/hooks/api/useFetch";
 import fetcher from "@/lib/fetcher";
 import { Methods } from "@/types/requests";
 import { User } from "@/types/user";
+import useUser, { usersRoute } from "@/hooks/api/useUser";
 import JAFlag from "../../public/icons/japan.svg";
 import ESFlag from "../../public/icons/spain.svg";
 import FRFlag from "../../public/icons/france.svg";
@@ -36,7 +36,7 @@ export default function CountryFlag({ lang, ...rest }: CountryFlagProps) {
 }
 
 export function LangSettings() {
-  const { data: user } = useFetch<User>(`/api/users/${-42}`);
+  const { data: user } = useUser("-42");
 
   return (
     <>
@@ -109,10 +109,10 @@ const LangOptions = () => {
   const changeLanguage = (lang: Languages) => {
     i18n.changeLanguage(lang);
     mutate(
-      `/api/users/${-42}`,
+      usersRoute("-42"),
       async (currentUser: User) => {
         try {
-          const newUser = await fetcher(`/api/users/${-42}`, {
+          const newUser = await fetcher(usersRoute("-42"), {
             method: Methods.PATCH,
             body: JSON.stringify({ language: lang }),
           });

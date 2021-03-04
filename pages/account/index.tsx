@@ -3,7 +3,6 @@ import Dropdown from "@/components/Dropdown";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import useFetch from "@/hooks/api/useFetch";
 import { langs, Languages } from "@/locales/i18n";
 import { useRouter } from "next/router";
 import useForm from "@/hooks/useForm";
@@ -24,6 +23,7 @@ import Image from "next/image";
 import { FlexCol } from "@/components/Flex";
 import { toastError } from "@/components/Toast";
 import ScrollBar from "react-perfect-scrollbar";
+import useUser, { usersRoute } from "@/hooks/api/useUser";
 import styles from "./account.module.scss";
 import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
@@ -55,11 +55,12 @@ export default Account;
 export async function getServerSideProps() {
   const api = process.env.HYPERTUBE_API_URL;
   try {
-    const user = await fetcher(`${api}/users/${-42}`, {
+    const user = await fetcher(`${api}${usersRoute("-42")}`, {
       method: Methods.GET,
     });
     return { props: { user } };
   } catch (error) {
+    console.log(error);
     return { props: { user: null } };
   }
 }
@@ -70,7 +71,7 @@ type SWRConfigProps = {
 
 const SecurityParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { data: user } = useFetch<User>(`/api/users/${-42}`, { initialData });
+  const { data: user } = useUser("-42", { initialData });
 
   return (
     <section id="security">
@@ -101,7 +102,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
 const ProfileParams = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
   const { asPath } = useRouter();
-  const { data: user } = useFetch<User>(`/api/users/${-42}`, { initialData });
+  const { data: user } = useUser("-42", { initialData });
   const [isModalPictureOpen, setIsModalPictureOpen] = React.useState(false);
 
   return (
@@ -159,9 +160,7 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
 
 const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   const { t, i18n } = useTranslation();
-  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`, {
-    initialData,
-  });
+  const { data: user, mutate } = useUser("-42", { initialData });
   const { asPath } = useRouter();
   const [isEditing, setIsEditing] = React.useState(false);
   const [language, setLanguage] = React.useState(user?.language ?? "en");
@@ -173,7 +172,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   const handleSubmit = () => {
     mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher<User>(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(usersRoute("-42"), {
           method: Methods.PATCH,
           body: JSON.stringify({ language }),
         });
@@ -239,14 +238,12 @@ type UsernameFormType = Pick<User, "username">;
 
 const UsernameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`, {
-    initialData,
-  });
+  const { data: user, mutate } = useUser("-42", { initialData });
 
   const onSubmit = async (values: UsernameFormType) => {
     const newUser = await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher<User>(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(usersRoute("-42"), {
           method: Methods.PATCH,
           body: JSON.stringify(values),
         });
@@ -289,14 +286,12 @@ type LastnameFormType = Pick<User, "lastname">;
 
 const LastnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`, {
-    initialData,
-  });
+  const { data: user, mutate } = useUser("-42", { initialData });
 
   const onSubmit = async (values: LastnameFormType) => {
     const newUser = await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher<User>(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(usersRoute("-42"), {
           method: Methods.PATCH,
           body: JSON.stringify(values),
         });
@@ -339,14 +334,12 @@ type FirstnameFormType = Pick<User, "firstname">;
 
 const FirstnameForm = ({ initialData }: SWRConfigProps) => {
   const { t } = useTranslation();
-  const { data: user, mutate } = useFetch<User>(`/api/users/${-42}`, {
-    initialData,
-  });
+  const { data: user, mutate } = useUser("-42", { initialData });
 
   const onSubmit = async (values: FirstnameFormType) => {
     const newUser = await mutate(async (currentUser) => {
       try {
-        const newUser = await fetcher<User>(`/api/users/${-42}`, {
+        const newUser = await fetcher<User>(usersRoute("-42"), {
           method: Methods.PATCH,
           body: JSON.stringify(values),
         });

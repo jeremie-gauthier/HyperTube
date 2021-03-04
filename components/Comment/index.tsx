@@ -2,9 +2,8 @@ import { Comment as CommentType } from "@/types/comment";
 import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 import { Movie } from "@/types/movie";
-import useFetch from "@/hooks/api/useFetch";
 import { useTranslation } from "react-i18next";
-import { User } from "@/types/user";
+import useUser from "@/hooks/api/useUser";
 import { FlexRow } from "../Flex";
 import styles from "./Comment.module.scss";
 
@@ -18,9 +17,7 @@ export default function Comment({ comment }: CommentProps) {
     `/api/movies/${comment.movieId}`,
     fetcher,
   );
-  const { data: user } = useFetch<User>(
-    `/api/users/${parseInt(comment.userId, 10)}`,
-  );
+  const { data: user } = useUser(comment.userId);
 
   return movie && user ? (
     <div className={styles.container}>
