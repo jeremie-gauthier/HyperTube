@@ -2,22 +2,22 @@ import React from "react";
 import Modal from "@/components/Modal";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import fetcher from "@/lib/fetcher";
-import { Methods } from "@/types/requests";
 import { User } from "@/types/user";
-import useUser, { usersRoute } from "@/hooks/api/useUser";
+import { usePatchUser } from "@/hooks/api/useUser";
 import { FlexRow } from "../Flex";
 import { ReactComponent as Cross } from "../../public/icons/cross.svg";
 import styles from "./UserPictureModal.module.scss";
-import { toastError } from "../Toast";
 
 type UserPictureModalProps = {
+  user: User;
   close: () => void;
 };
 
-export default function UserPictureModal({ close }: UserPictureModalProps) {
+export default function UserPictureModal({
+  user,
+  close,
+}: UserPictureModalProps) {
   const { t } = useTranslation();
-  const { data: user } = useUser("-42");
 
   return (
     <Modal close={close} className={styles.container}>
@@ -27,41 +27,25 @@ export default function UserPictureModal({ close }: UserPictureModalProps) {
       </FlexRow>
 
       <FlexRow className={styles.pictures}>
-        {user && (
-          <Image
-            src={`/img/avatar/avatar${user.picture}.png`}
-            alt="Current profile picture"
-            width={200}
-            height={200}
-            quality={100}
-            key={user.picture}
-          />
-        )}
-        <Miniatures />
+        <Image
+          src={`/img/avatar/avatar${user.picture}.png`}
+          alt="Current profile picture"
+          width={200}
+          height={200}
+          quality={100}
+          key={user.picture}
+        />
+        <Miniatures user={user} />
       </FlexRow>
     </Modal>
   );
 }
 
-// eslint-disable-next-line max-lines-per-function
-const Miniatures = () => {
-  const { data: user, mutate } = useUser("-42");
+const Miniatures = ({ user }: { user: User }) => {
+  const patchUser = usePatchUser(user.id);
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
 
-  const handleChange = (id: number) => {
-    mutate(async (currentUser) => {
-      try {
-        const newUser = await fetcher<User>(usersRoute("-42"), {
-          method: Methods.PATCH,
-          body: JSON.stringify({ picture: id }),
-        });
-        return newUser;
-      } catch (error) {
-        toastError(error.info?.message);
-        return currentUser;
-      }
-    });
-  };
+  const handleChange = (id: number) => patchUser({ picture: id });
 
   const randomPicture = (currentId: number) => {
     const newId = Math.floor(Math.random() * 8 + 1);

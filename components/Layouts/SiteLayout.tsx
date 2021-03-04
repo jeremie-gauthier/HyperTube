@@ -6,7 +6,7 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="body" data-testid="layout-div">
+    <div data-testid="layout-div">
       <Navbar />
       {children}
     </div>

@@ -148,7 +148,7 @@ const ProfileParams = ({ user, patchUser }: UserForm) => {
             height={25}
             quality={100}
             className={styles.picture}
-            key={user?.picture}
+            key={user.picture}
           />
           <Link href="/account/picture">
             {t("pages.account.profile.edit_profile_picture")}
@@ -156,7 +156,10 @@ const ProfileParams = ({ user, patchUser }: UserForm) => {
         </Dropdown.Element>
 
         {isModalPictureOpen && (
-          <UserPictureModal close={() => setIsModalPictureOpen(false)} />
+          <UserPictureModal
+            user={user}
+            close={() => setIsModalPictureOpen(false)}
+          />
         )}
       </Dropdown>
     </section>

@@ -1,6 +1,6 @@
+import useEvent from "@/hooks/useEvent";
 import React from "react";
 import ReactDOM from "react-dom";
-import useOnClickOutside from "use-onclickoutside";
 import styles from "./Modal.module.scss";
 
 type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -9,8 +9,8 @@ type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 export default function Modal({ children, close, ...rest }: ModalProps) {
-  const ref = React.useRef(null);
-  useOnClickOutside(ref, close);
+  const ref = React.useRef<HTMLDivElement>(null);
+  useEvent(["Escape"], close);
 
   return (
     <Portal className={styles.portal}>

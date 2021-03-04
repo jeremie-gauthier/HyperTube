@@ -7,9 +7,7 @@ import { User } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Methods } from "@/types/requests";
-import { toastError } from "@/components/Toast";
-import Spinner from "@/components/Spinner";
-import useUser, { usersRoute } from "@/hooks/api/useUser";
+import useUser, { usePatchUser, usersRoute } from "@/hooks/api/useUser";
 import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
@@ -26,38 +24,38 @@ function Picture({ user }: PictureProps) {
   );
 }
 
-function PictureContent({ initialData }: { initialData: User }) {
-  const { data: user, isValidating, mutate } = useUser(initialData.id, {
-    initialData,
-  });
+Picture.Layout = SiteLayout;
+Picture.Title = "pages.account.my_account";
 
-  const [currentId, setCurrentId] = React.useState(user?.picture ?? 1);
+export default Picture;
+
+export async function getServerSideProps() {
+  const api = process.env.HYPERTUBE_API_URL;
+  try {
+    const user = await fetcher<User>(`${api}${usersRoute("-42")}`, {
+      method: Methods.GET,
+    });
+    return { props: { user } };
+  } catch {
+    return { props: { user: null } };
+  }
+}
+
+function PictureContent({ initialData }: { initialData: User }) {
+  const { data: user, isValidating } = useUser(initialData.id, { initialData });
+  const patcher = usePatchUser(initialData.id);
+
+  const [currentId, setCurrentId] = React.useState(initialData.picture);
   const router = useRouter();
 
   const handleSubmit = async () => {
-    let hasError = false;
-    await mutate(async (currentUser) => {
-      try {
-        const newUser = await fetcher<User>(usersRoute(initialData.id), {
-          method: Methods.PATCH,
-          body: JSON.stringify({ picture: currentId }),
-        });
-        return newUser;
-      } catch (error) {
-        hasError = true;
-        toastError(error.info?.message);
-        return currentUser;
-      }
-    });
-
-    if (!hasError) {
-      router.push("/account#profile");
-    }
+    patcher({ picture: currentId });
+    router.push("/account#profile");
   };
 
   return (
     <div className={styles.container}>
-      <FlexRow className="justify-center">
+      <FlexRow className="relative justify-center">
         <Image
           src={`/img/avatar/avatar${currentId}.png`}
           alt="Current profile picture"
@@ -71,26 +69,14 @@ function PictureContent({ initialData }: { initialData: User }) {
         currentId={currentId}
         onClick={(id: number) => setCurrentId(id)}
       />
-      <FormButtons onSubmit={handleSubmit} isLoading={isValidating} />
+      <FormButtons
+        onSubmit={handleSubmit}
+        canSubmit={
+          !isValidating && currentId !== (user?.picture ?? initialData.picture)
+        }
+      />
     </div>
   );
-}
-
-Picture.Layout = SiteLayout;
-Picture.Title = "pages.account.my_account";
-
-export default Picture;
-
-export async function getServerSideProps() {
-  const api = process.env.HYPERTUBE_API_URL;
-  try {
-    const initialData = await fetcher(`${api}${usersRoute("-42")}`, {
-      method: Methods.GET,
-    });
-    return { props: { initialData } };
-  } catch {
-    return { props: { initialData: null } };
-  }
 }
 
 const NB_PICTURES = 8;
@@ -149,25 +135,24 @@ const RandomPicture = ({ currentId, onClick }: PictureListProps) => {
 
 const FormButtons = ({
   onSubmit,
-  isLoading,
+  canSubmit,
 }: {
   onSubmit: () => void;
-  isLoading: boolean;
+  canSubmit: boolean;
 }) => (
   <FlexRow className={styles.formButtons}>
-    {isLoading ? (
-      <Spinner />
-    ) : (
-      <>
-        <button className={styles.check} type="submit" onClick={onSubmit}>
-          <CheckIcon />
-        </button>
-        <Link href="/account#profile">
-          <div className={styles.cross}>
-            <CrossIcon />
-          </div>
-        </Link>
-      </>
-    )}
+    <button
+      className={styles.check}
+      type="submit"
+      onClick={onSubmit}
+      disabled={!canSubmit}
+    >
+      <CheckIcon />
+    </button>
+    <Link href="/account#profile">
+      <div className={styles.cross}>
+        <CrossIcon />
+      </div>
+    </Link>
   </FlexRow>
 );

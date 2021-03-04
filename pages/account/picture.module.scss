@@ -50,6 +50,10 @@
 
 .check {
   @apply bg-green submitButton;
+
+  &:disabled {
+    @apply cursor-default bg-opacity-50;
+  }
 }
 
 .cross {

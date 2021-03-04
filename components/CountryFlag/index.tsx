@@ -1,20 +1,15 @@
 import React from "react";
 import useHover from "@react-hook/hover";
 import { useTranslation } from "react-i18next";
-import { mutate } from "swr";
 import { langs, LANGUAGE, Languages } from "@/locales/i18n";
 import useOnClickOutside from "use-onclickoutside";
 import { FlexCol } from "@/components/Flex";
-import fetcher from "@/lib/fetcher";
-import { Methods } from "@/types/requests";
-import { User } from "@/types/user";
-import useUser, { usersRoute } from "@/hooks/api/useUser";
+import useUser, { usePatchUser } from "@/hooks/api/useUser";
 import JAFlag from "../../public/icons/japan.svg";
 import ESFlag from "../../public/icons/spain.svg";
 import FRFlag from "../../public/icons/france.svg";
 import UKFlag from "../../public/icons/united-kingdom.svg";
 import styles from "./CountryFlag.module.scss";
-import { toastError } from "../Toast";
 
 type CountryFlagProps = React.SVGProps<SVGSVGElement> & {
   lang: Languages;
@@ -81,7 +76,7 @@ const LangClickable = ({ currentLang, className }: LangIconProps) => {
 
       {isOpen && (
         <div className={styles.floaterMobile}>
-          <LangOptions />
+          <LangOptions currentLang={currentLang} />
         </div>
       )}
     </div>
@@ -102,34 +97,21 @@ const LangHoverable = ({ currentLang, className }: LangIconProps) => {
 
       {isHovering && (
         <div className={styles.floaterDesktop}>
-          <LangOptions />
+          <LangOptions currentLang={currentLang} />
         </div>
       )}
     </div>
   );
 };
 
-const LangOptions = () => {
-  const { t, i18n } = useTranslation();
+const LangOptions = ({ currentLang }: { currentLang: Languages }) => {
+  const { t } = useTranslation();
+  const patchUser = usePatchUser("-42");
 
   const changeLanguage = (lang: Languages) => {
-    i18n.changeLanguage(lang);
-    mutate(
-      usersRoute("-42"),
-      async (currentUser: User) => {
-        try {
-          const newUser = await fetcher(usersRoute("-42"), {
-            method: Methods.PATCH,
-            body: JSON.stringify({ language: lang }),
-          });
-          return newUser;
-        } catch (error) {
-          toastError(error.info?.message);
-          return currentUser;
-        }
-      },
-      false,
-    );
+    if (lang !== currentLang) {
+      patchUser({ language: lang });
+    }
   };
 
   return (
