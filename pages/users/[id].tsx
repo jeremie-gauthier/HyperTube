@@ -12,7 +12,7 @@ import Dropdown from "@/components/Dropdown";
 import Comment from "@/components/Comment";
 import { useTranslation } from "react-i18next";
 import ScrollBar from "react-perfect-scrollbar";
-import useComments from "@/hooks/api/useComments";
+import useComments, { commentsRoute } from "@/hooks/api/useComments";
 import Spinner from "@/components/Spinner";
 import { usersRoute } from "@/hooks/api/useUser";
 import styles from "./user.module.scss";
@@ -55,8 +55,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const init = { method: Methods.GET };
     const [user, commentsInitial] = await Promise.all([
       fetcher<User>(`${api}${usersRoute(id as string)}`, init),
-      fetcher<Comment>(
-        `${api}/users/${id}/comments?range=0:${FETCH_CHUNK_SIZE}`,
+      fetcher<Comment[]>(
+        `${api}${usersRoute(id as string)}${commentsRoute({
+          start: 0,
+          end: FETCH_CHUNK_SIZE,
+        })}`,
         init,
       ),
     ]);

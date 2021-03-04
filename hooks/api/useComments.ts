@@ -2,6 +2,15 @@ import { ConfigInterface, responseInterface, useSWRInfinite } from "swr";
 import fetcher from "@/lib/fetcher";
 import { useRouter } from "next/router";
 import { Comment } from "@/types/comment";
+import { usersRoute } from "./useUser";
+
+export type CommentsRange = {
+  start: number;
+  end: number;
+};
+
+export const commentsRoute = ({ start, end }: CommentsRange) =>
+  `/comments?range=${start}:${end}`;
 
 type CommentsSWR = Pick<responseInterface<Comment[], Error>, "error"> & {
   comments: Comment[];
@@ -21,7 +30,10 @@ export default function useComments(
     (index) => {
       const start = index * chunkSize;
       const end = start + chunkSize;
-      return `/api/users/${id}/comments?range=${start}:${end}`;
+      return `${usersRoute(id as string)}${commentsRoute({
+        start,
+        end,
+      })}`;
     },
     fetcher,
     config,
