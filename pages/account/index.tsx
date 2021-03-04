@@ -116,7 +116,11 @@ const ProfileParams = ({ user, patchUser }: UserForm) => {
         title={
           <FlexCol>
             <h2>{t("pages.account.profile.my_profile")}</h2>
-            <div className={styles.desktopPicture}>
+            <button
+              type="button"
+              className={styles.desktopPicture}
+              onClick={() => setIsModalPictureOpen(true)}
+            >
               <div className={styles.editPicture}>
                 <Image
                   src={`/img/avatar/avatar${user.picture}.png`}
@@ -126,11 +130,10 @@ const ProfileParams = ({ user, patchUser }: UserForm) => {
                   quality={100}
                   className={styles.picture}
                   key={user.picture}
-                  onClick={() => setIsModalPictureOpen(true)}
                 />
                 <EditIcon className={styles.editIcon} />
               </div>
-            </div>
+            </button>
           </FlexCol>
         }
         className={styles.dropdown}
