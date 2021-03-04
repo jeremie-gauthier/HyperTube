@@ -27,7 +27,7 @@ export default async function userHandler(
   }
 }
 
-const findUser = (id: string | string[]) => MOCK.find((user) => user.id === id);
+const findUser = (id: string) => MOCK.find((user) => user.id === id);
 
 function getUser(req: NextApiRequest, res: NextApiResponse) {
   const {
@@ -35,7 +35,7 @@ function getUser(req: NextApiRequest, res: NextApiResponse) {
   } = req;
 
   logRequests(req);
-  const user = findUser(id);
+  const user = findUser(id as string);
   if (user) {
     return res.status(200).json(user);
   }
@@ -49,7 +49,7 @@ function patchUser(req: NextApiRequest, res: NextApiResponse) {
   } = req;
 
   logRequests(req);
-  const user = findUser(id);
+  const user = findUser(id as string);
   if (user) {
     Object.entries(JSON.parse(body)).forEach(([k, v]) => {
       // ts error but this will change when MongoDB will be set up

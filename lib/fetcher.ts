@@ -15,10 +15,10 @@ class FetchError extends Error {
 }
 
 export default async function fetcher<Data>(
-  input: RequestInfo,
+  url: RequestInfo,
   init?: RequestInit,
 ): Promise<Data> {
-  const res = await fetch(input, init);
+  const res = await fetch(url, init);
 
   if (!res.ok) {
     const errInfo = await res.json();

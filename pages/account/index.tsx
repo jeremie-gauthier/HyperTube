@@ -55,12 +55,11 @@ export default Account;
 export async function getServerSideProps() {
   const api = process.env.HYPERTUBE_API_URL;
   try {
-    const user = await fetcher(`${api}${usersRoute("-42")}`, {
+    const user = await fetcher<User>(`${api}${usersRoute("-42")}`, {
       method: Methods.GET,
     });
     return { props: { user } };
   } catch (error) {
-    console.log(error);
     return { props: { user: null } };
   }
 }

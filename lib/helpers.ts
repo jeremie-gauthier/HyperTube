@@ -9,3 +9,5 @@ export function logRequests(req: NextApiRequest) {
     console.debug(`[${req.method}] ${req.url}`);
   }
 }
+
+export const apiRoute = (url: string) => `/api${url}`;
