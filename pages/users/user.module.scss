@@ -34,5 +34,13 @@
 }
 
 .names {
-  @apply flex flex-row space-x-8;
+  @apply flex flex-row justify-start space-x-8;
+
+  .firstname {
+    @apply capitalize;
+  }
+
+  .lastname {
+    @apply uppercase;
+  }
 }

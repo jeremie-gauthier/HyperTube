@@ -96,8 +96,8 @@ const Informations = ({ user: { firstname, lastname } }: { user: User }) => {
       className={styles.dropdown}
     >
       <Dropdown.Element className={styles.names}>
-        <p>{firstname}</p>
-        <p>{lastname}</p>
+        <p className={styles.firstname}>{firstname}</p>
+        <p className={styles.lastname}>{lastname}</p>
       </Dropdown.Element>
     </Dropdown>
   );
