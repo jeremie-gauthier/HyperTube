@@ -1,7 +1,7 @@
 import { ConfigInterface, responseInterface, useSWRInfinite } from "swr";
 import fetcher from "@/lib/fetcher";
 import { useRouter } from "next/router";
-import { Comment } from "@/types/comment";
+import { Comment, UserCommentsOnMovies } from "@/types/comment";
 import { usersRoute } from "./useUser";
 
 export type CommentsRange = {
@@ -13,7 +13,7 @@ export const commentsRoute = ({ start, end }: CommentsRange) =>
   `/comments?range=${start}:${end}`;
 
 type CommentsSWR = Pick<responseInterface<Comment[], Error>, "error"> & {
-  comments: Comment[];
+  comments: UserCommentsOnMovies[];
   isLoadingMoreComments: boolean;
   loadMoreComments: () => void;
 };
@@ -26,7 +26,7 @@ export default function useComments(
     query: { id },
   } = useRouter();
 
-  const { data, error, setSize, size } = useSWRInfinite<Comment[]>(
+  const { data, error, setSize, size } = useSWRInfinite<UserCommentsOnMovies[]>(
     (index) => {
       const start = index * chunkSize;
       const end = start + chunkSize;
@@ -58,7 +58,7 @@ export default function useComments(
   };
 
   return {
-    comments: (data?.flat() as Comment[]) ?? [],
+    comments: (data?.flat() as UserCommentsOnMovies[]) ?? [],
     isLoadingMoreComments,
     error,
     loadMoreComments,

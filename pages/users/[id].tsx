@@ -3,7 +3,7 @@ import SiteLayout from "@/components/Layouts/SiteLayout";
 import fetcher from "@/lib/fetcher";
 import { Methods } from "@/types/requests";
 import { User } from "@/types/user";
-import { Comment as CommentType } from "@/types/comment";
+import { UserCommentsOnMovies } from "@/types/comment";
 import { GetServerSideProps } from "next";
 import { FlexRow } from "@/components/Flex";
 import CountryFlag from "@/components/CountryFlag";
@@ -19,15 +19,15 @@ import styles from "./user.module.scss";
 
 type UserProfileProps = {
   user: User | null;
-  commentsInitial: CommentType[];
+  userCommentsOnMovie: UserCommentsOnMovies[];
 };
 
 const FETCH_CHUNK_SIZE = 4;
-function UserProfile({ user, commentsInitial }: UserProfileProps) {
+function UserProfile({ user, userCommentsOnMovie }: UserProfileProps) {
   const { comments, isLoadingMoreComments, loadMoreComments } = useComments(
     FETCH_CHUNK_SIZE,
     {
-      initialData: [commentsInitial],
+      initialData: [userCommentsOnMovie],
     },
   );
 
@@ -39,7 +39,7 @@ function UserProfile({ user, commentsInitial }: UserProfileProps) {
         <Header user={user} />
         <Informations user={user} />
         <Activity
-          comments={comments}
+          userCommentOnMovie={comments}
           isLoadingMoreComments={isLoadingMoreComments}
         />
       </main>
@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const init = { method: Methods.GET };
-    const [user, commentsInitial] = await Promise.all([
+    const [user, userCommentsOnMovie] = await Promise.all([
       fetcher<User>(`${api}${usersRoute(id as string)}`, init),
       fetcher<Comment[]>(
         `${api}${usersRoute(id as string)}${commentsRoute({
@@ -63,9 +63,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         init,
       ),
     ]);
-    return { props: { user, commentsInitial } };
+    return { props: { user, userCommentsOnMovie } };
   } catch (error) {
-    return { props: { user: null, commentsInitial: [] } };
+    return { props: { user: null, userCommentsOnMovie: [] } };
   }
 };
 
@@ -104,11 +104,14 @@ const Informations = ({ user: { firstname, lastname } }: { user: User }) => {
 };
 
 type ActivityProps = {
-  comments: CommentType[];
+  userCommentOnMovie: UserCommentsOnMovies[];
   isLoadingMoreComments: boolean;
 };
 
-const Activity = ({ comments, isLoadingMoreComments }: ActivityProps) => {
+const Activity = ({
+  userCommentOnMovie,
+  isLoadingMoreComments,
+}: ActivityProps) => {
   const { t } = useTranslation();
 
   return (
@@ -117,8 +120,8 @@ const Activity = ({ comments, isLoadingMoreComments }: ActivityProps) => {
       title={<h2>{t("pages.user.activites")}</h2>}
       className={`${styles.dropdown} pb-8`}
     >
-      {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+      {userCommentOnMovie.map((comment) => (
+        <Comment key={comment.comment.id} userCommentOnMovie={comment} />
       ))}
       {isLoadingMoreComments && <Spinner className="mt-4 self-center" />}
     </Dropdown>

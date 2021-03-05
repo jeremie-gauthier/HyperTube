@@ -31,7 +31,7 @@ function getMovie(req: NextApiRequest, res: NextApiResponse) {
   } = req;
 
   logRequests(req);
-  const movie = MOCK.find((movie) => movie.id.toString() === id);
+  const movie = MOCK.find((movie) => movie.id === id);
   if (!movie) {
     return res.status(404).json({ message: "Resource not found" });
   }

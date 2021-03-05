@@ -1,4 +1,6 @@
 import { Document } from "mongoose";
+import { Movie } from "./movie";
+import { User } from "./user";
 
 export type Comment = {
   id: string;
@@ -9,3 +11,9 @@ export type Comment = {
 };
 
 export type MongoComment = Document & Comment;
+
+export type UserCommentsOnMovies = {
+  user: User;
+  comment: Comment;
+  movie: Movie;
+};
