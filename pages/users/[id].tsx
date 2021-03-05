@@ -34,7 +34,7 @@ function UserProfile({ user, commentsInitial }: UserProfileProps) {
   return user === null ? (
     <div>ERROR ON PAGE</div>
   ) : (
-    <ScrollBar onYReachEnd={loadMoreComments}>
+    <ScrollBar style={{ touchAction: "none" }} onYReachEnd={loadMoreComments}>
       <main className={styles.container}>
         <Header user={user} />
         <Informations user={user} />
