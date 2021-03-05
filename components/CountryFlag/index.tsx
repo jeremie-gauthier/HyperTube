@@ -1,13 +1,10 @@
 import React from "react";
 import useHover from "@react-hook/hover";
 import { useTranslation } from "react-i18next";
-import { mutate } from "swr";
 import { langs, LANGUAGE, Languages } from "@/locales/i18n";
 import useOnClickOutside from "use-onclickoutside";
 import { FlexCol } from "@/components/Flex";
-import useUser from "@/hooks/useUser";
-import fetcher from "@/lib/fetcher";
-import { Methods } from "@/types/requests";
+import useUser, { usePatchUser } from "@/hooks/api/useUser";
 import JAFlag from "../../public/icons/japan.svg";
 import ESFlag from "../../public/icons/spain.svg";
 import FRFlag from "../../public/icons/france.svg";
@@ -34,16 +31,22 @@ export default function CountryFlag({ lang, ...rest }: CountryFlagProps) {
 }
 
 export function LangSettings() {
-  const { user } = useUser(-42);
+  const { i18n } = useTranslation();
+  const { data: user } = useUser("-42");
+
+  React.useEffect(() => {
+    i18n.changeLanguage(user?.language ?? LANGUAGE.EN);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.language]);
 
   return (
     <>
       <LangClickable
-        currentLang={user.language}
+        currentLang={user?.language ?? LANGUAGE.EN}
         className={styles.isTouchScreen}
       />
       <LangHoverable
-        currentLang={user.language}
+        currentLang={user?.language ?? LANGUAGE.EN}
         className={styles.isNotTouchScreen}
       />
     </>
@@ -73,7 +76,7 @@ const LangClickable = ({ currentLang, className }: LangIconProps) => {
 
       {isOpen && (
         <div className={styles.floaterMobile}>
-          <LangOptions />
+          <LangOptions currentLang={currentLang} />
         </div>
       )}
     </div>
@@ -94,29 +97,21 @@ const LangHoverable = ({ currentLang, className }: LangIconProps) => {
 
       {isHovering && (
         <div className={styles.floaterDesktop}>
-          <LangOptions />
+          <LangOptions currentLang={currentLang} />
         </div>
       )}
     </div>
   );
 };
 
-const LangOptions = () => {
-  const { t, i18n } = useTranslation();
+const LangOptions = ({ currentLang }: { currentLang: Languages }) => {
+  const { t } = useTranslation();
+  const patchUser = usePatchUser("-42");
 
   const changeLanguage = (lang: Languages) => {
-    i18n.changeLanguage(lang);
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
-        const newUser = await fetcher(`/api/users/${-42}`, {
-          method: Methods.PATCH,
-          body: JSON.stringify({ language: lang }),
-        });
-        return newUser;
-      },
-      false,
-    );
+    if (lang !== currentLang) {
+      patchUser({ language: lang });
+    }
   };
 
   return (

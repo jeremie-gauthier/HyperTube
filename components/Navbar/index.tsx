@@ -12,7 +12,7 @@ import classnames from "classnames";
 import UserIcon from "@/components/UserIcon";
 import CountryFlag from "@/components/CountryFlag";
 import { useRouter } from "next/router";
-import useUser from "@/hooks/useUser";
+import useUser from "@/hooks/api/useUser";
 import Magnifier from "../../public/icons/magnifier.svg";
 import Cross from "../../public/icons/cross.svg";
 import MenuBurger from "../../public/icons/menu-burger.svg";
@@ -60,7 +60,7 @@ const MobileView = ({ className }: { className: string }) => {
 };
 
 const DropdownMenu = () => {
-  const { user } = useUser(-42);
+  const { data: user } = useUser("-42");
   const { t } = useTranslation();
 
   return (
@@ -72,7 +72,7 @@ const DropdownMenu = () => {
         className={styles.linkWithIcon}
         activeClassName={styles.activeLink}
       >
-        <UserIcon user={user} />
+        {user && <UserIcon user={user} />}
         <span>{t("components.navbar.account")}</span>
       </ActiveLink>
       <ActiveLink
@@ -80,7 +80,10 @@ const DropdownMenu = () => {
         className={styles.linkWithIcon}
         activeClassName={styles.activeLink}
       >
-        <CountryFlag lang={user.language} className={styles.countryFlag} />
+        <CountryFlag
+          lang={user?.language ?? "en"}
+          className={styles.countryFlag}
+        />
         <span>{t("common.lang.change_language")}</span>
       </ActiveLink>
       <hr />

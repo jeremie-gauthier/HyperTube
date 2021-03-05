@@ -1,0 +1,19 @@
+@import "@/styles/theme.scss";
+
+.container {
+  @apply space-y-2 border border-grey-light rounded p-2;
+
+  p {
+    @apply text-sm;
+
+    color: #ccc;
+  }
+}
+
+.header {
+  @apply justify-between space-x-2;
+
+  h3 {
+    @apply font-bold;
+  }
+}

@@ -1,5 +1,4 @@
 import React from "react";
-import { mutate } from "swr";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import fetcher from "@/lib/fetcher";
 import Image from "next/image";
@@ -8,37 +7,55 @@ import { User } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Methods } from "@/types/requests";
+import useUser, { usePatchUser, usersRoute } from "@/hooks/api/useUser";
 import styles from "./picture.module.scss";
 import { ReactComponent as CrossIcon } from "../../public/icons/cross.svg";
 import { ReactComponent as CheckIcon } from "../../public/icons/check.svg";
 
 type PictureProps = {
-  user: User;
+  user: User | null;
 };
 
 function Picture({ user }: PictureProps) {
-  const [currentId, setCurrentId] = React.useState(user.picture);
+  return user === null ? (
+    <div>ERROR PAGE GOES HERE</div>
+  ) : (
+    <PictureContent initialData={user} />
+  );
+}
+
+Picture.Layout = SiteLayout;
+Picture.Title = "pages.account.my_account";
+
+export default Picture;
+
+export async function getServerSideProps() {
+  const api = process.env.HYPERTUBE_API_URL;
+  try {
+    const user = await fetcher<User>(`${api}${usersRoute("-42")}`, {
+      method: Methods.GET,
+    });
+    return { props: { user } };
+  } catch {
+    return { props: { user: null } };
+  }
+}
+
+function PictureContent({ initialData }: { initialData: User }) {
+  const { data: user, isValidating } = useUser(initialData.id, { initialData });
+  const patcher = usePatchUser(initialData.id);
+
+  const [currentId, setCurrentId] = React.useState(initialData.picture);
   const router = useRouter();
 
-  const handleSubmit = () => {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
-        const newUser = await fetcher(`/api/users/${-42}`, {
-          method: Methods.PATCH,
-          body: JSON.stringify({ picture: currentId }),
-        });
-        return newUser;
-      },
-      false,
-    );
-
+  const handleSubmit = async () => {
+    patcher({ picture: currentId });
     router.push("/account#profile");
   };
 
   return (
     <div className={styles.container}>
-      <FlexRow className="justify-center">
+      <FlexRow className="relative justify-center">
         <Image
           src={`/img/avatar/avatar${currentId}.png`}
           alt="Current profile picture"
@@ -52,21 +69,14 @@ function Picture({ user }: PictureProps) {
         currentId={currentId}
         onClick={(id: number) => setCurrentId(id)}
       />
-      <FormButtons onSubmit={handleSubmit} />
+      <FormButtons
+        onSubmit={handleSubmit}
+        canSubmit={
+          !isValidating && currentId !== (user?.picture ?? initialData.picture)
+        }
+      />
     </div>
   );
-}
-
-Picture.Layout = SiteLayout;
-Picture.Title = "pages.account.my_account";
-
-export default Picture;
-
-export async function getServerSideProps() {
-  const user = await fetcher(`http://localhost:3000/api/users/${-42}`, {
-    method: Methods.GET,
-  });
-  return { props: { user } };
 }
 
 const NB_PICTURES = 8;
@@ -123,9 +133,20 @@ const RandomPicture = ({ currentId, onClick }: PictureListProps) => {
   );
 };
 
-const FormButtons = ({ onSubmit }: { onSubmit: () => void }) => (
-  <FlexRow className="justify-center space-x-4">
-    <button className={styles.check} type="submit" onClick={onSubmit}>
+const FormButtons = ({
+  onSubmit,
+  canSubmit,
+}: {
+  onSubmit: () => void;
+  canSubmit: boolean;
+}) => (
+  <FlexRow className={styles.formButtons}>
+    <button
+      className={styles.check}
+      type="submit"
+      onClick={onSubmit}
+      disabled={!canSubmit}
+    >
       <CheckIcon />
     </button>
     <Link href="/account#profile">

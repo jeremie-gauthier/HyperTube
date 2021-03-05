@@ -48,5 +48,10 @@
 			"forgotten_password": "Contraseña olvidada",
 			"pwd_forgotten_question": "Olvidaste tu contraseña ?"
 		}
+	},
+	"user": {
+		"activites": "Actividad",
+		"informations": "Informaciones",
+		"last_comments": "Últimos comentarios"
 	}
 }

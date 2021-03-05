@@ -6,6 +6,7 @@ import Document, {
   DocumentContext,
   DocumentInitialProps,
 } from "next/document";
+import i18n from "@/locales/i18n";
 
 class MyDocument extends Document {
   static async getInitialProps(
@@ -17,8 +18,14 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang={i18n.language}>
         <Head>
+          <meta httpEquiv="content-language" content="en,es,fr,ja" />
+          <meta
+            name="description"
+            content={`School project that aims to recreate\
+              a Netflix-like platform`}
+          />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             // eslint-disable-next-line
@@ -31,7 +38,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="body bg-grey-dark">
+        <body className="body">
           <Main />
           <NextScript />
         </body>

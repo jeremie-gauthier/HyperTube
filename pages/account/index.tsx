@@ -3,8 +3,6 @@ import Dropdown from "@/components/Dropdown";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import ScrollBar from "react-perfect-scrollbar";
-import useUser from "@/hooks/useUser";
 import { langs, Languages } from "@/locales/i18n";
 import { useRouter } from "next/router";
 import useForm from "@/hooks/useForm";
@@ -19,30 +17,23 @@ import React from "react";
 import fetcher from "@/lib/fetcher";
 import CountryFlag from "@/components/CountryFlag";
 import { User } from "@/types/user";
-import { mutate } from "swr";
-import pick from "@ramda/pick";
 import UserPictureModal from "@/components/Modal/UserPictureModal";
 import Image from "next/image";
 import { FlexCol } from "@/components/Flex";
+import ScrollBar from "react-perfect-scrollbar";
+import useUser, { usePatchUser, usersRoute } from "@/hooks/api/useUser";
 import styles from "./account.module.scss";
 import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
 type ServerSideProps = {
-  user: User;
+  user: User | null;
 };
 
 function Account({ user }: ServerSideProps) {
-  const { t } = useTranslation();
-
-  return (
-    <main className={styles.container}>
-      <h1 className="title">{t("pages.account.my_account")}</h1>
-      <ScrollBar className={styles.scrollContainer}>
-        <SecurityParams initialData={user} />
-        <ProfileParams initialData={user} />
-        <PreferenceParams initialData={user} />
-      </ScrollBar>
-    </main>
+  return user === null ? (
+    <div>ERROR PAGE GOES HERE</div>
+  ) : (
+    <AccountContent initialData={user} />
   );
 }
 
@@ -51,19 +42,41 @@ Account.Title = "pages.account.my_account";
 export default Account;
 
 export async function getServerSideProps() {
-  const user = await fetcher(`http://localhost:3000/api/users/${-42}`, {
-    method: Methods.GET,
-  });
-  return { props: { user } };
+  const api = process.env.HYPERTUBE_API_URL;
+  try {
+    const user = await fetcher<User>(`${api}${usersRoute("-42")}`, {
+      method: Methods.GET,
+    });
+    return { props: { user } };
+  } catch (error) {
+    return { props: { user: null } };
+  }
 }
 
-type SWRConfigProps = {
-  initialData: User;
+const AccountContent = ({ initialData }: { initialData: User }) => {
+  const { t } = useTranslation();
+  const { data } = useUser(initialData.id, { initialData });
+  const patchUser = usePatchUser(initialData.id);
+
+  return (
+    <ScrollBar>
+      <main className={styles.container}>
+        <h1 className="title">{t("pages.account.my_account")}</h1>
+        <SecurityParams user={data ?? initialData} patchUser={patchUser} />
+        <ProfileParams user={data ?? initialData} patchUser={patchUser} />
+        <PreferenceParams user={data ?? initialData} patchUser={patchUser} />
+      </main>
+    </ScrollBar>
+  );
 };
 
-const SecurityParams = ({ initialData }: SWRConfigProps) => {
+type UserForm = {
+  user: User;
+  patchUser: (newValues: Partial<User>) => Promise<User | undefined>;
+};
+
+const SecurityParams = ({ user, patchUser }: UserForm) => {
   const { t } = useTranslation();
-  const { user } = useUser(-42, { initialData });
 
   return (
     <section id="security">
@@ -78,7 +91,7 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
           </Link>
         </Dropdown.Element>
 
-        <UsernameForm initialData={initialData} />
+        <UsernameForm username={user.username} patchUser={patchUser} />
 
         <Dropdown.Element>
           <div>{"*".repeat(8)}</div>
@@ -91,10 +104,9 @@ const SecurityParams = ({ initialData }: SWRConfigProps) => {
   );
 };
 
-const ProfileParams = ({ initialData }: SWRConfigProps) => {
+const ProfileParams = ({ user, patchUser }: UserForm) => {
   const { t } = useTranslation();
   const { asPath } = useRouter();
-  const { user } = useUser(-42, { initialData });
   const [isModalPictureOpen, setIsModalPictureOpen] = React.useState(false);
 
   return (
@@ -104,7 +116,13 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
         title={
           <FlexCol>
             <h2>{t("pages.account.profile.my_profile")}</h2>
-            <div className={styles.desktopPicture}>
+            <div
+              role="button"
+              tabIndex={0}
+              className={styles.desktopPicture}
+              onClick={() => setIsModalPictureOpen(true)}
+              onKeyPress={() => setIsModalPictureOpen(true)}
+            >
               <div className={styles.editPicture}>
                 <Image
                   src={`/img/avatar/avatar${user.picture}.png`}
@@ -114,7 +132,6 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
                   quality={100}
                   className={styles.picture}
                   key={user.picture}
-                  onClick={() => setIsModalPictureOpen(true)}
                 />
                 <EditIcon className={styles.editIcon} />
               </div>
@@ -123,8 +140,8 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
         }
         className={styles.dropdown}
       >
-        <LastnameForm initialData={initialData} />
-        <FirstnameForm initialData={initialData} />
+        <LastnameForm lastname={user.lastname} patchUser={patchUser} />
+        <FirstnameForm firstname={user.firstname} patchUser={patchUser} />
         <Dropdown.Element className={styles.mobilePicture}>
           <Image
             src={`/img/avatar/avatar${user.picture}.png`}
@@ -141,16 +158,18 @@ const ProfileParams = ({ initialData }: SWRConfigProps) => {
         </Dropdown.Element>
 
         {isModalPictureOpen && (
-          <UserPictureModal close={() => setIsModalPictureOpen(false)} />
+          <UserPictureModal
+            user={user}
+            close={() => setIsModalPictureOpen(false)}
+          />
         )}
       </Dropdown>
     </section>
   );
 };
 
-const PreferenceParams = ({ initialData }: SWRConfigProps) => {
-  const { t, i18n } = useTranslation();
-  const { user } = useUser(-42, { initialData });
+const PreferenceParams = ({ user, patchUser }: UserForm) => {
+  const { t } = useTranslation();
   const { asPath } = useRouter();
   const [isEditing, setIsEditing] = React.useState(false);
   const [language, setLanguage] = React.useState(user.language);
@@ -160,18 +179,7 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
   };
 
   const handleSubmit = async () => {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
-        const newUser = await fetcher(`/api/users/${-42}`, {
-          method: Methods.PATCH,
-          body: JSON.stringify({ language }),
-        });
-        return newUser;
-      },
-      false,
-    );
-    i18n.changeLanguage(language);
+    patchUser({ language });
     setIsEditing(false);
   };
 
@@ -224,30 +232,19 @@ const PreferenceParams = ({ initialData }: SWRConfigProps) => {
 };
 
 type UsernameFormType = Pick<User, "username">;
+type UsernameFormProps = UsernameFormType & Pick<UserForm, "patchUser">;
 
-const UsernameForm = ({ initialData }: SWRConfigProps) => {
+const UsernameForm = ({ username, patchUser }: UsernameFormProps) => {
   const { t } = useTranslation();
-  const { user } = useUser(-42, { initialData });
 
-  async function onSubmit(values: UsernameFormType) {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
-        const newUser = await fetcher(`/api/users/${-42}`, {
-          method: Methods.PATCH,
-          body: JSON.stringify(values),
-        });
-        return newUser;
-      },
-      false,
-    );
-  }
+  const onSubmit = async (values: UsernameFormType) => {
+    const newUser = await patchUser(values);
+    return { username: newUser?.username ?? username };
+  };
 
-  const methods = useForm<UsernameFormType>(
-    onSubmit,
-    checkUsername,
-    pick(["username"], user),
-  );
+  const methods = useForm<UsernameFormType>(onSubmit, checkUsername, {
+    username,
+  });
 
   return (
     <Dropdown.Element>
@@ -270,36 +267,19 @@ const UsernameForm = ({ initialData }: SWRConfigProps) => {
 };
 
 type LastnameFormType = Pick<User, "lastname">;
+type LastnameFormProps = LastnameFormType & Pick<UserForm, "patchUser">;
 
-const LastnameForm = ({ initialData }: SWRConfigProps) => {
+const LastnameForm = ({ lastname, patchUser }: LastnameFormProps) => {
   const { t } = useTranslation();
-  const { user } = useUser(-42, { initialData });
 
-  async function onSubmit(values: LastnameFormType) {
-    await mutate(
-      `/api/users/${-42}`,
-      async () => {
-        try {
-          const newUser = await fetcher(`/api/users/${-42}`, {
-            method: Methods.PATCH,
-            body: JSON.stringify(values),
-          });
-          return newUser;
-        } catch (error) {
-          // Call toast error here
-          console.error("FRONT ERROR1", error.info, user);
-          return user;
-        }
-      },
-      false,
-    );
-  }
+  const onSubmit = async (values: LastnameFormType) => {
+    const newUser = await patchUser(values);
+    return { lastname: newUser?.lastname ?? lastname };
+  };
 
-  const methods = useForm<LastnameFormType>(
-    onSubmit,
-    checkLastname,
-    pick(["lastname"], user),
-  );
+  const methods = useForm<LastnameFormType>(onSubmit, checkLastname, {
+    lastname,
+  });
 
   return (
     <Dropdown.Element>
@@ -322,30 +302,19 @@ const LastnameForm = ({ initialData }: SWRConfigProps) => {
 };
 
 type FirstnameFormType = Pick<User, "firstname">;
+type FirstnameFormProps = FirstnameFormType & Pick<UserForm, "patchUser">;
 
-const FirstnameForm = ({ initialData }: SWRConfigProps) => {
+const FirstnameForm = ({ firstname, patchUser }: FirstnameFormProps) => {
   const { t } = useTranslation();
-  const { user } = useUser(-42, { initialData });
 
-  async function onSubmit(values: FirstnameFormType) {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
-        const newUser = await fetcher(`/api/users/${-42}`, {
-          method: Methods.PATCH,
-          body: JSON.stringify(values),
-        });
-        return newUser;
-      },
-      false,
-    );
-  }
+  const onSubmit = async (values: FirstnameFormType) => {
+    const newUser = await patchUser(values);
+    return { firstname: newUser?.firstname ?? firstname };
+  };
 
-  const methods = useForm<FirstnameFormType>(
-    onSubmit,
-    checkFirstname,
-    pick(["firstname"], user),
-  );
+  const methods = useForm<FirstnameFormType>(onSubmit, checkFirstname, {
+    firstname,
+  });
 
   return (
     <Dropdown.Element>

@@ -74,6 +74,36 @@
                         </children>
                     </folder_node>
                     <folder_node>
+                        <name>errors</name>
+                        <children>
+                            <concept_node>
+                                <name>error_occured</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description></description>
+                                <comment></comment>
+                                <default_text></default_text>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>es-ES</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>fr-FR</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>ja-JP</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
+                    <folder_node>
                         <name>forms</name>
                         <children>
                             <concept_node>
@@ -314,6 +344,36 @@
             <file_node>
                 <name>components</name>
                 <children>
+                    <folder_node>
+                        <name>comment</name>
+                        <children>
+                            <concept_node>
+                                <name>wrote</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description></description>
+                                <comment></comment>
+                                <default_text></default_text>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>es-ES</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>fr-FR</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>ja-JP</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
                     <folder_node>
                         <name>navbar</name>
                         <children>
@@ -1479,6 +1539,86 @@
                                     </concept_node>
                                 </children>
                             </folder_node>
+                        </children>
+                    </folder_node>
+                    <folder_node>
+                        <name>user</name>
+                        <children>
+                            <concept_node>
+                                <name>activites</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description></description>
+                                <comment></comment>
+                                <default_text></default_text>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>es-ES</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>fr-FR</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>ja-JP</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                            <concept_node>
+                                <name>informations</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description></description>
+                                <comment></comment>
+                                <default_text></default_text>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>es-ES</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>fr-FR</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>ja-JP</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                            <concept_node>
+                                <name>last_comments</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description></description>
+                                <comment></comment>
+                                <default_text></default_text>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>es-ES</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>fr-FR</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>ja-JP</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
                         </children>
                     </folder_node>
                 </children>

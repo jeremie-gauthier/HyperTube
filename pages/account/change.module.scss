@@ -1,7 +1,7 @@
 @import "@/styles/theme.scss";
 
 .container {
-  @apply p-12 flex flex-col flex-1 justify-center items-center space-y-2;
+  @apply p-12 flex flex-col flex-1 items-center space-y-2;
 
   h1 {
     @apply text-center mb-6;

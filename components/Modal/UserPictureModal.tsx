@@ -1,22 +1,23 @@
 import React from "react";
 import Modal from "@/components/Modal";
 import { useTranslation } from "react-i18next";
-import useUser from "@/hooks/useUser";
-import { mutate } from "swr";
 import Image from "next/image";
-import fetcher from "@/lib/fetcher";
-import { Methods } from "@/types/requests";
+import { User } from "@/types/user";
+import { usePatchUser } from "@/hooks/api/useUser";
 import { FlexRow } from "../Flex";
 import { ReactComponent as Cross } from "../../public/icons/cross.svg";
 import styles from "./UserPictureModal.module.scss";
 
 type UserPictureModalProps = {
+  user: User;
   close: () => void;
 };
 
-export default function UserPictureModal({ close }: UserPictureModalProps) {
+export default function UserPictureModal({
+  user,
+  close,
+}: UserPictureModalProps) {
   const { t } = useTranslation();
-  const { user } = useUser(-42);
 
   return (
     <Modal close={close} className={styles.container}>
@@ -34,37 +35,25 @@ export default function UserPictureModal({ close }: UserPictureModalProps) {
           quality={100}
           key={user.picture}
         />
-        <Miniatures />
+        <Miniatures user={user} />
       </FlexRow>
     </Modal>
   );
 }
 
-// eslint-disable-next-line max-lines-per-function
-const Miniatures = () => {
-  const { user } = useUser(-42);
+const Miniatures = ({ user }: { user: User }) => {
+  const patchUser = usePatchUser(user.id);
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
 
-  const handleChange = (id: number) => {
-    mutate(
-      `/api/users/${-42}`,
-      async () => {
-        const newUser = await fetcher(`/api/users/${-42}`, {
-          method: Methods.PATCH,
-          body: JSON.stringify({ picture: id }),
-        });
-        return newUser;
-      },
-      false,
-    );
-  };
+  const handleChange = (id: number) => patchUser({ picture: id });
+
   const randomPicture = (currentId: number) => {
     const newId = Math.floor(Math.random() * 8 + 1);
     if (newId === currentId) handleChange((newId % 8) + 1);
     else handleChange(newId);
   };
 
-  return (
+  return user ? (
     <FlexRow className={styles.miniatures}>
       {images.map(
         (id) =>
@@ -92,5 +81,5 @@ const Miniatures = () => {
         </button>
       </div>
     </FlexRow>
-  );
+  ) : null;
 };

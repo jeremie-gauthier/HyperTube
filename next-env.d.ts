@@ -17,5 +17,6 @@ declare let process: {
   env: {
     __NEXT_IMAGE_OPTS: NextImageOpts;
     NODE_ENV: string;
+    HYPERTUBE_API_URL: string;
   };
 };

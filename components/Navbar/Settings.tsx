@@ -5,7 +5,7 @@ import Link from "next/link";
 import useHover from "@react-hook/hover";
 import { LangSettings } from "@/components/CountryFlag";
 import UserIcon from "@/components/UserIcon";
-import useUser from "@/hooks/useUser";
+import useUser from "@/hooks/api/useUser";
 import styles from "./Navbar.module.scss";
 
 export default function Settings() {
@@ -20,11 +20,11 @@ export default function Settings() {
 const UserSettings = () => {
   const hoverableNode = React.useRef(null);
   const isHovering = useHover(hoverableNode);
-  const { user } = useUser(-42);
+  const { data: user } = useUser("-42");
 
   return (
     <FlexCol ref={hoverableNode} className="relative">
-      <UserIcon user={user} />
+      {user && <UserIcon user={user} />}
 
       {isHovering && (
         <div className={styles.floater}>

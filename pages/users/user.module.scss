@@ -1,0 +1,46 @@
+.container {
+  @apply flex-col flex-1 space-y-4 mt-8 px-8;
+  @apply md:flex md:justify-center md:mx-auto md:max-w-5xl md:space-y-8;
+
+  h2 {
+    @apply uppercase;
+  }
+}
+
+.header {
+  @apply items-center space-x-4;
+
+  img {
+    @apply rounded;
+  }
+
+  h1 {
+    @apply font-semibold text-2xl;
+
+    margin-left: 2rem !important;
+  }
+
+  svg {
+    @apply h-8 w-8 rounded;
+  }
+}
+
+.dropdown {
+  @apply px-4;
+
+  @media (min-width: 768px) {
+    min-width: 380px;
+  }
+}
+
+.names {
+  @apply flex flex-row justify-start space-x-8;
+
+  .firstname {
+    @apply capitalize;
+  }
+
+  .lastname {
+    @apply uppercase;
+  }
+}
