@@ -116,10 +116,12 @@ const ProfileParams = ({ user, patchUser }: UserForm) => {
         title={
           <FlexCol>
             <h2>{t("pages.account.profile.my_profile")}</h2>
-            <button
-              type="button"
+            <div
+              role="button"
+              tabIndex={0}
               className={styles.desktopPicture}
               onClick={() => setIsModalPictureOpen(true)}
+              onKeyPress={() => setIsModalPictureOpen(true)}
             >
               <div className={styles.editPicture}>
                 <Image
@@ -133,7 +135,7 @@ const ProfileParams = ({ user, patchUser }: UserForm) => {
                 />
                 <EditIcon className={styles.editIcon} />
               </div>
-            </button>
+            </div>
           </FlexCol>
         }
         className={styles.dropdown}
