@@ -9,14 +9,11 @@ type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 export default function Modal({ children, close, ...rest }: ModalProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
   useEvent(["Escape"], close);
 
   return (
     <Portal className={styles.portal}>
-      <div {...rest} ref={ref}>
-        {children}
-      </div>
+      <div {...rest}>{children}</div>
     </Portal>
   );
 }
