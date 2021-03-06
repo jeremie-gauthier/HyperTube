@@ -1,6 +1,13 @@
 import SiteLayout from "@/components/Layouts/SiteLayout";
+import { moviesRoute } from "@/hooks/api/useMovie";
+import fetcher from "@/lib/fetcher";
+import { API } from "@/types/requests";
 
-function Home() {
+type HomeProps = {
+  movies: any[];
+};
+
+function Home({ movies }: HomeProps) {
   return (
     <div>
       <main>
@@ -14,3 +21,19 @@ function Home() {
 
 Home.Layout = SiteLayout;
 export default Home;
+
+export async function getServerSideProps() {
+  const api = process.env.HYPERTUBE_API_URL;
+
+  console.log(
+    `${api}${moviesRoute()}?source=${API.YTS}&search=${"black pearl"}`,
+  );
+  try {
+    const movies = await fetcher<any[]>(
+      `${api}${moviesRoute()}?source=${API.ARCHIVE_ORG}&search=${"Dracula"}`,
+    );
+    return { props: { movies } };
+  } catch (error) {
+    return { props: { movies: null } };
+  }
+}

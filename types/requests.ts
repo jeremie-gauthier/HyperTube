@@ -13,3 +13,8 @@ export type BaseSWR<Data> = Pick<
   isLoading: boolean;
   isError: string;
 };
+
+export enum API {
+  ARCHIVE_ORG = "https://archive.org/advancedsearch.php",
+  YTS = "https://yts.mx/api/v2/movie_details.json",
+}
