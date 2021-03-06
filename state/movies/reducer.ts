@@ -3,9 +3,6 @@ import { MovieActions, MovieData } from "./types";
 import { SET_SEARCH_INPUT } from "./actions";
 
 export const initialState: MovieData = {
-  id: 0,
-  name: "",
-  synopsis: "",
   searchInput: "",
 };
 

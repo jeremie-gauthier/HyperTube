@@ -1,8 +1,6 @@
-import { TMovie } from "@/data/models/Movie";
-
 export type MovieActions = ActionSetSearchInput;
 
-export type MovieData = TMovie & {
+export type MovieData = {
   searchInput: string;
 };
 

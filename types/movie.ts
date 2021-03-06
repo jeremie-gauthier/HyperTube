@@ -16,3 +16,7 @@ export type Movie = {
 };
 
 export type MongoMovie = Document & Movie;
+
+export type MoviesFromAPI = {
+  movies: Movie[];
+};
