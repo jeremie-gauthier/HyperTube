@@ -20,5 +20,6 @@ declare let process: {
     HYPERTUBE_API_URL: string;
     YTS_USERNAME: string;
     YTS_PASSWORD: string;
+    OMDB_API_KEY: string;
   };
 };

@@ -6,6 +6,7 @@ import { API } from "@/types/requests";
 import useExternalAPI from "@/hooks/api/useExternalAPI";
 import useDebounce from "@/hooks/useDebounce";
 import { Movie, MoviesFromAPI } from "@/types/movie";
+import { FlexRow } from "@/components/Flex";
 
 type HomeProps = {
   movies: Movie[];
@@ -19,6 +20,10 @@ function Home({ movies }: HomeProps) {
     source: API.ARCHIVE_ORG,
     search: debouncedSearch,
   });
+  const { data: moviesOmdb } = useExternalAPI({
+    source: API.OMDB,
+    search: debouncedSearch,
+  });
   // console.log(moviesArchiveOrg?.movies.length, moviesArchiveOrg?.movies);
 
   return (
@@ -27,11 +32,27 @@ function Home({ movies }: HomeProps) {
         <h1>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-        <ol className="mt-8 space-y-2">
-          {(moviesArchiveOrg?.movies ?? []).map((movie: Movie) => (
-            <li key={movie.title}>{movie.title}</li>
-          ))}
-        </ol>
+        <FlexRow>
+          {/* ARCHIVE ORG */}
+          <ol className="mt-8 space-y-2">
+            {(moviesArchiveOrg?.movies ?? []).map((movie: Movie) => (
+              <li key={movie.title}>
+                <h2 className="font-bold">{movie.title}</h2>
+                <p className="italic">{movie.date}</p>
+              </li>
+            ))}
+          </ol>
+
+          {/* OMDB */}
+          <ol className="mt-8 space-y-2">
+            {(moviesOmdb?.movies ?? []).map((movie: Movie) => (
+              <li key={movie.title}>
+                <h2 className="font-bold">{movie.title}</h2>
+                <p className="italic">{movie.date}</p>
+              </li>
+            ))}
+          </ol>
+        </FlexRow>
       </main>
     </div>
   );

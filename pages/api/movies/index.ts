@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { logRequests } from "@/lib/helpers";
 import { API, Methods } from "@/types/requests";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
+import OMDB from "@/lib/external-api/OMDB";
 
 export default async function movieHandler(
   req: NextApiRequest,
@@ -43,14 +44,26 @@ async function getMovies(req: NextApiRequest, res: NextApiResponse) {
   } = req;
 
   logRequests(req);
+  if ((search as string).trim().length === 0) {
+    return [];
+  }
+
   switch (source) {
+    case API.ARCHIVE_ORG:
+      const ArchiveOrg = new ArchiveOrgAPI();
+      const moviesArchiveOrg = await ArchiveOrg.get(search as string);
+      return res.status(200).json({ movies: moviesArchiveOrg });
+    case API.OMDB:
+      const Omdb = new OMDB();
+      const moviesOmdb = await Omdb.get(search as string);
+      const moviesOmbFormat = moviesOmdb.map((movie: any) => ({
+        title: movie.Title,
+        date: movie.Year,
+      }));
+      return res.status(200).json({ movies: moviesOmbFormat });
     case API.YTS:
       const moviesYTS = null;
       return res.status(200).json({ movies: moviesYTS });
-    case API.ARCHIVE_ORG:
-      const externalAPI = new ArchiveOrgAPI();
-      const moviesArchiveOrg = await externalAPI.get(search as string);
-      return res.status(200).json({ movies: moviesArchiveOrg });
     default:
       // list of registered movies
       return res.status(200).json({ movies: [] });
