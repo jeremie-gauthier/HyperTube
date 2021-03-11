@@ -1,0 +1,59 @@
+@import "@/styles/theme.scss";
+
+.container {
+  @apply h-48 w-80 space-y-2 bg-black rounded pb-2;
+
+  h2 {
+    @apply text-center font-extrabold text-lg align-text-top;
+  }
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 80%;
+  }
+}
+
+.hoverContainer {
+  @apply h-96 w-96 space-y-2 bg-black rounded absolute;
+  h2 {
+    @apply text-center font-extrabold text-lg;
+  }
+  p {
+    @apply text-sm m-4;
+  }
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 50%;
+  }
+  button {
+    @apply ml-4 h-9 w-9 rounded-full border border-grey-light;
+  }
+
+  .playButton {
+    @apply bg-grey-light;
+    svg {
+      @apply ml-3;
+    }
+  }
+
+  .commentButton {
+    svg {
+      @apply ml-2;
+    }
+  }
+
+  .addButton {
+    svg {
+      @apply ml-2;
+    }
+  }
+
+  .movieButton {
+    @apply ml-40;
+    svg {
+      @apply ml-2;
+    }
+  }
+}
