@@ -5,7 +5,10 @@ enum MouseEvt {
   LEAVE = "mouseleave",
 }
 
-export default function useHover() {
+export default function useHover<RefELement extends HTMLElement>(): [
+  (node: RefELement | null) => void,
+  boolean,
+] {
   const [value, setValue] = React.useState(false);
 
   // Wrap in useCallback so we can use in dependencies below
@@ -14,14 +17,14 @@ export default function useHover() {
 
   // Keep track of the last node passed to callbackRef
   // so we can remove its event listeners.
-  const ref = React.useRef<HTMLElement | null>(null);
+  const ref = React.useRef<RefELement | null>(null);
 
   // Use a callback ref instead of useEffect so that event listeners
   // get changed in the case that the returned ref gets added to
   // a different element later. With useEffect, changes to ref.current
   // wouldn't cause a rerender and thus the effect would run again.
   const callbackRef = React.useCallback(
-    (node) => {
+    (node: RefELement | null) => {
       if (ref.current) {
         ref.current.removeEventListener(MouseEvt.ENTER, handleMouseOver);
         ref.current.removeEventListener(MouseEvt.LEAVE, handleMouseOut);

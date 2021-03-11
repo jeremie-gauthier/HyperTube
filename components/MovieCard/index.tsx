@@ -13,7 +13,7 @@ type MovieProps = {
 export default function MovieCard({
   movie: { title, runtime, date, category, picture },
 }: MovieProps) {
-  const [hoverRef, isHovered] = useHover();
+  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   return (
     <div
       className={isHovered ? styles.hoverContainer : styles.container}
