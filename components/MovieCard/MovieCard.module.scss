@@ -7,35 +7,49 @@
 
   h2 {
     @apply text-center font-bold text-lg;
+    @apply w-4/5 m-auto whitespace-nowrap overflow-hidden overflow-ellipsis;
 
     transition: all 0.2s ease-in-out;
   }
 
   img {
-    @apply h-4/5 w-full object-fill;
+    @apply h-4/5 w-full object-cover;
 
     transition: all 0.2s ease-in-out;
   }
 }
 
 .container:hover {
-  @apply h-72 pb-4;
+  @apply pb-4;
 
-  transform: scale(1.25);
+  transform: scale(1.5);
+
+  h2 {
+    @apply text-base;
+    @apply w-full whitespace-nowrap overflow-hidden overflow-ellipsis;
+  }
 
   img {
-    @apply h-3/5;
+    @apply h-1/2;
+  }
+
+  svg {
+    @apply fill-current h-3 w-3 cursor-pointer;
   }
 }
 
 .detailsContainer {
-  @apply px-4 pt-1 space-y-1;
+  @apply px-4 space-y-2;
 }
 
 .commands {
-  @apply justify-between;
+  @apply justify-between py-1;
 }
 
 .details {
-  @apply justify-between text-sm;
+  @apply justify-between text-xs;
+}
+
+.truncate {
+  @apply w-1/2 whitespace-nowrap overflow-hidden overflow-ellipsis;
 }

@@ -63,7 +63,7 @@ const MovieDetails = ({
       <p>{year}</p>
     </FlexRow>
     <FlexRow className={styles.details}>
-      <p>{category}</p>
+      <p className={styles.truncate}>{category}</p>
       <p>{nbDownloads}</p>
     </FlexRow>
   </FlexCol>
