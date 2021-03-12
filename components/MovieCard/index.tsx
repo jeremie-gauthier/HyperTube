@@ -44,20 +44,9 @@ const MovieDetails = ({
 }: MovieDetailsProps) => (
   <FlexCol className={styles.detailsContainer}>
     <FlexRow className={styles.commands}>
-      <FlexRow className="space-x-5">
-        <PlayIcon
-          className="fill-current bg-white"
-          role="button"
-          onClick={() => console.log("Play")}
-        />
-        <CommentIcon />
-        <AddIcon />
-      </FlexRow>
-
-      <FlexRow>
-        <MovieIcon />
-      </FlexRow>
+      <CommandBtns />
     </FlexRow>
+
     <FlexRow className={styles.details}>
       <p>{runtime}</p>
       <p>{year}</p>
@@ -67,4 +56,42 @@ const MovieDetails = ({
       <p>{nbDownloads}</p>
     </FlexRow>
   </FlexCol>
+);
+
+const CommandBtns = () => (
+  <>
+    <FlexRow className="space-x-5">
+      <PlayBtn />
+      <CommentBtn />
+      <AddBtn />
+    </FlexRow>
+
+    <FlexRow>
+      <MovieBtn />
+    </FlexRow>
+  </>
+);
+
+const PlayBtn = () => (
+  <div className={styles.fullCircle}>
+    <PlayIcon role="button" onClick={() => console.log("Play")} />
+  </div>
+);
+
+const CommentBtn = () => (
+  <div className={styles.borderCircle}>
+    <CommentIcon role="button" onClick={() => console.log("Comment")} />
+  </div>
+);
+
+const AddBtn = () => (
+  <div className={styles.borderCircle}>
+    <AddIcon role="button" onClick={() => console.log("Comment")} />
+  </div>
+);
+
+const MovieBtn = () => (
+  <div className={styles.borderCircle}>
+    <MovieIcon role="button" onClick={() => console.log("Comment")} />
+  </div>
 );
