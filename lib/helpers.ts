@@ -11,3 +11,15 @@ export function logRequests(req: NextApiRequest) {
 }
 
 export const apiRoute = (url: string) => `/api${url}`;
+
+export async function tryCatch<Data, Failure>(
+  asyncTryFn: () => Promise<Data>,
+  catchFn: (error: Error) => Failure,
+) {
+  try {
+    const response = await asyncTryFn();
+    return response;
+  } catch (error) {
+    return catchFn(error);
+  }
+}

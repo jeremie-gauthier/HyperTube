@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import type { NextApiRequest, NextApiResponse } from "next";
-import { logRequests } from "@/lib/helpers";
+import { logRequests, tryCatch } from "@/lib/helpers";
 import { API, Methods } from "@/types/requests";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import OMDB from "@/lib/external-api/OMDB";
@@ -65,13 +65,19 @@ async function getMovies(req: MovieRequest, res: NextApiResponse) {
 
   // Search a list of movies whose title match `search`
   if (search) {
-    const movies = await fetchMoviesFromExternalAPI(source, search);
+    const movies = await tryCatch(
+      () => fetchMoviesFromExternalAPI(source, search),
+      () => null,
+    );
     return res.status(200).json({ movies });
   }
 
   // Look for more details about an already fetched movie
   if (title && year) {
-    const movieDetails = await fetchMovieDetailsFromOMDB(title, year);
+    const movieDetails = await tryCatch(
+      () => fetchMovieDetailsFromOMDB(title, year),
+      () => null,
+    );
     return res.status(200).json({ movieDetails });
   }
 
