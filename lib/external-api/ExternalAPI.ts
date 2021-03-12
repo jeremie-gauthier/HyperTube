@@ -1,9 +1,9 @@
 import { API } from "@/types/requests";
 
 export default class ExternalAPI {
-  protected _domain: API;
+  protected readonly _domain: API;
 
-  protected _key?: string;
+  protected readonly _key?: string;
 
   constructor(domain: API, key?: string) {
     this._domain = domain;

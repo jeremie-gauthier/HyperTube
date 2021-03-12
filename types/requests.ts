@@ -15,7 +15,12 @@ export type BaseSWR<Data> = Pick<
 };
 
 export enum API {
-  ARCHIVE_ORG = "https://archive.org/advancedsearch.php",
+  ARCHIVE_ORG = "https://archive.org/",
   OMDB = "https://www.omdbapi.com/",
   YTS = "https://yts.mx/api/v2/movie_details.json",
+}
+
+export enum ARCHIVE_ORG {
+  ADVANCED_SEARCH = "advancedsearch.php",
+  METADATA = "metadata",
 }

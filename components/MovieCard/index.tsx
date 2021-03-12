@@ -1,5 +1,10 @@
-import { Movie } from "@/types/movie";
+import {
+  ArchiveOrgMovieStandardized,
+  OMDBMovieStandardized,
+} from "@/types/movie";
 import useHover from "@/hooks/useHover";
+import useExternalAPI from "@/hooks/api/useExternalAPI";
+import { API } from "@/types/requests";
 import styles from "./MovieCard.module.scss";
 import { ReactComponent as PlayIcon } from "../../public/icons/play.svg";
 import { ReactComponent as CommentIcon } from "../../public/icons/comment.svg";
@@ -7,19 +12,26 @@ import { ReactComponent as AddIcon } from "../../public/icons/add.svg";
 import { ReactComponent as MovieIcon } from "../../public/icons/movie.svg";
 
 type MovieProps = {
-  movie: Movie;
+  movie: ArchiveOrgMovieStandardized;
 };
 
 export default function MovieCard({
-  movie: { title, runtime, date, category, picture },
+  movie: { title, year, nbDownloads },
 }: MovieProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
-  return (
+  const { data } = useExternalAPI<{ movieDetails: OMDBMovieStandardized }>({
+    source: API.OMDB,
+    title,
+    year,
+  });
+  const movieDetails = data?.movieDetails;
+
+  return movieDetails ? (
     <div
       className={isHovered ? styles.hoverContainer : styles.container}
       ref={hoverRef}
     >
-      <img src={picture} alt="Movie poster" />
+      <img src={movieDetails.picture} alt="Movie poster" />
       <h2>{title}</h2>
       {isHovered ? (
         <button className={styles.playButton} type="button">
@@ -43,10 +55,10 @@ export default function MovieCard({
       ) : null}
       {isHovered ? (
         <p>
-          {runtime} - {date} <br /> <br />
-          {category}
+          {movieDetails.runtime} - {year} <br /> <br />
+          {movieDetails.category} - {nbDownloads}
         </p>
       ) : null}
     </div>
-  );
+  ) : null;
 }

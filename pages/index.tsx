@@ -1,14 +1,16 @@
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
-import mockMovies from "@/tests/__mocks__/movies";
 import { moviesRoute } from "@/hooks/api/useMovie";
 import useSelector from "@/hooks/useSelector";
 import fetcher from "@/lib/fetcher";
 import { API } from "@/types/requests";
 import useExternalAPI from "@/hooks/api/useExternalAPI";
 import useDebounce from "@/hooks/useDebounce";
-import { Movie, MoviesFromAPI } from "@/types/movie";
-import { FlexRow } from "@/components/Flex";
+import {
+  ArchiveOrgMovieStandardized,
+  Movie,
+  MoviesFromAPI,
+} from "@/types/movie";
 
 type HomeProps = {
   movies: Movie[];
@@ -18,48 +20,23 @@ function Home({ movies }: HomeProps) {
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data: moviesArchiveOrg } = useExternalAPI({
+  const { data } = useExternalAPI<{
+    movies: ArchiveOrgMovieStandardized[];
+  }>({
     source: API.ARCHIVE_ORG,
     search: debouncedSearch,
   });
-  const { data: moviesOmdb } = useExternalAPI({
-    source: API.OMDB,
-    search: debouncedSearch,
-  });
-  // console.log(moviesArchiveOrg?.movies.length, moviesArchiveOrg?.movies);
+  const moviesArchiveOrg = data?.movies;
 
   return (
     <main className="relative">
-      <MovieCard movie={mockMovies[0]} />
-      <MovieCard movie={mockMovies[0]} />
-      <MovieCard movie={mockMovies[0]} />
-      <h1 className="text-black">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
-      <h1>
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
-      <FlexRow>
-        {/* ARCHIVE ORG */}
-        <ol className="mt-8 space-y-2">
-          {(moviesArchiveOrg?.movies ?? []).map((movie: Movie) => (
-            <li key={movie.title}>
-              <h2 className="font-bold">{movie.title}</h2>
-              <p className="italic">{movie.date}</p>
-            </li>
-          ))}
-        </ol>
-
-        {/* OMDB */}
-        <ol className="mt-8 space-y-2">
-          {(moviesOmdb?.movies ?? []).map((movie: Movie) => (
-            <li key={movie.title}>
-              <h2 className="font-bold">{movie.title}</h2>
-              <p className="italic">{movie.date}</p>
-            </li>
-          ))}
-        </ol>
-      </FlexRow>
+      <h1>Movies result will be printed here :)</h1>
+      {(moviesArchiveOrg ?? []).map((movie) => (
+        <MovieCard
+          key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
+          movie={movie}
+        />
+      ))}
     </main>
   );
 }

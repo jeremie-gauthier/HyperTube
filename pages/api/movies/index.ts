@@ -4,9 +4,19 @@ import { logRequests } from "@/lib/helpers";
 import { API, Methods } from "@/types/requests";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import OMDB from "@/lib/external-api/OMDB";
+import { OmdbMovieFound } from "@/types/movie";
+
+type MovieRequest = NextApiRequest & {
+  query: {
+    source: string;
+    search?: string;
+    title?: string;
+    year?: string;
+  };
+};
 
 export default async function movieHandler(
-  req: NextApiRequest,
+  req: MovieRequest,
   res: NextApiResponse,
 ) {
   const { method } = req;
@@ -25,47 +35,45 @@ export default async function movieHandler(
   }
 }
 
-// const loginToYTS = async () => {
-//   const { YTS_USERNAME, YTS_PASSWORD } = process.env;
-//   const loginBody = {
-//     username: YTS_USERNAME,
-//     password: YTS_PASSWORD,
-//   };
-//   const API_KEY = await fetcher("https://yts.mx/api/v2/user_get_key.json", {
-//     method: Methods.POST,
-//     body: JSON.stringify(loginBody),
-//   });
-//   return API_KEY;
-// };
-
-async function getMovies(req: NextApiRequest, res: NextApiResponse) {
-  const {
-    query: { source, search },
-  } = req;
-
-  logRequests(req);
-  if ((search as string).trim().length === 0) {
-    return [];
-  }
-
+async function fetchMoviesFromExternalAPI(source: string, search: string) {
   switch (source) {
     case API.ARCHIVE_ORG:
       const ArchiveOrg = new ArchiveOrgAPI();
-      const moviesArchiveOrg = await ArchiveOrg.get(search as string);
-      return res.status(200).json({ movies: moviesArchiveOrg });
-    case API.OMDB:
-      const Omdb = new OMDB();
-      const moviesOmdb = await Omdb.get(search as string);
-      const moviesOmbFormat = moviesOmdb.map((movie: any) => ({
-        title: movie.Title,
-        date: movie.Year,
-      }));
-      return res.status(200).json({ movies: moviesOmbFormat });
-    case API.YTS:
-      const moviesYTS = null;
-      return res.status(200).json({ movies: moviesYTS });
+      const moviesArchiveOrg = await ArchiveOrg.get(search);
+      return moviesArchiveOrg.map((movie) => ArchiveOrgAPI.standardize(movie));
     default:
       // list of registered movies
-      return res.status(200).json({ movies: [] });
+      return [];
   }
+}
+
+async function fetchMovieDetailsFromOMDB(title: string, year: string) {
+  const omdbAPI = new OMDB();
+  const response = await omdbAPI.getByTitleAndYear(title, year);
+  if (OmdbMovieFound(response)) {
+    return OMDB.standardize(response);
+  }
+  return null;
+}
+
+async function getMovies(req: MovieRequest, res: NextApiResponse) {
+  const {
+    query: { source, search, title, year },
+  } = req;
+
+  logRequests(req);
+
+  // Search a list of movies whose title match `search`
+  if (search) {
+    const movies = await fetchMoviesFromExternalAPI(source, search);
+    return res.status(200).json({ movies });
+  }
+
+  // Look for more details about an already fetched movie
+  if (title && year) {
+    const movieDetails = await fetchMovieDetailsFromOMDB(title, year);
+    return res.status(200).json({ movieDetails });
+  }
+
+  return res.status(500).json({ message: "Bad request" });
 }
