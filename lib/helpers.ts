@@ -23,3 +23,12 @@ export async function tryCatch<Data, Failure>(
     return catchFn(error);
   }
 }
+
+const revStr = (str: string) => str.split("").reverse().join("");
+
+export const humanReadableNumber = (number: number) => {
+  const numberStr = number.toString();
+  const revNb = revStr(numberStr);
+  const readable = revNb.match(/\d{1,3}/g);
+  return readable ? revStr(readable.join(" ")) : number;
+};

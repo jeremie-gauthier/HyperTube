@@ -5,11 +5,13 @@ import {
 import useHover from "@/hooks/useHover";
 import useExternalAPI from "@/hooks/api/useExternalAPI";
 import { API } from "@/types/requests";
+import { humanReadableNumber } from "@/lib/helpers";
 import styles from "./MovieCard.module.scss";
 import { ReactComponent as PlayIcon } from "../../public/icons/play.svg";
 import { ReactComponent as CommentIcon } from "../../public/icons/comment.svg";
 import { ReactComponent as AddIcon } from "../../public/icons/add.svg";
 import { ReactComponent as MovieIcon } from "../../public/icons/movie.svg";
+import { ReactComponent as EyeIcon } from "../../public/icons/eye.svg";
 import { FlexCol, FlexRow } from "../Flex";
 
 type MovieProps = {
@@ -53,7 +55,10 @@ const MovieDetails = ({
     </FlexRow>
     <FlexRow className={styles.details}>
       <p className={styles.truncate}>{category}</p>
-      <p>{nbDownloads}</p>
+      <FlexRow className="items-center space-x-1">
+        <p>{humanReadableNumber(nbDownloads)}</p>
+        <EyeIcon className="h-3 w-3" />
+      </FlexRow>
     </FlexRow>
   </FlexCol>
 );
