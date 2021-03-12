@@ -28,7 +28,8 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       fl[]=description&\
       fl[]=identifier&\
       fl[]=runtime&\
-      rows=10&\
+      sort[]=downloads desc&\
+      rows=50&\
       page=1&\
       output=json`;
     const { response } = await fetcher<ArchiveOrgResponse>(url);
@@ -42,6 +43,27 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     return response;
   }
 
+  // Movie titles are not always good formatted on archive.org
+  static movieParser(title: string, year?: string) {
+    // Any words followed by an open bracket
+    const titleRgx = /^[\w\s]+(?=\()/;
+    const parsedTitle = title.match(titleRgx);
+    if (!parsedTitle) {
+      return { title, year };
+    }
+
+    if (!year) {
+      // Any sequence of four digits surrounded by brackets and possible chars
+      const yearRgx = /(?<=[(\W*])\d{4}(?=[\W*)])/;
+      const parsedYear = title.match(yearRgx);
+      if (parsedYear) {
+        return { title: parsedTitle[0], year: parsedYear[0] };
+      }
+    }
+
+    return { title: parsedTitle[0], year };
+  }
+
   static standardize(movieFromExternalAPI: ArchiveOrgMovie) {
     const {
       title,
@@ -53,8 +75,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     } = movieFromExternalAPI;
 
     return {
-      title,
-      year,
+      ...ArchiveOrgAPI.movieParser(title, year),
       synopsis: description,
       nbDownloads: downloads,
       archiveOrgIdentifier: identifier,
