@@ -1,3 +1,4 @@
+import { OMDB_NULL_VALUE } from "@/types/movie";
 import { NextApiRequest } from "next";
 
 export function requiredField(str: string): string {
@@ -32,3 +33,6 @@ export const humanReadableNumber = (number: number) => {
   const readable = revNb.match(/\d{1,3}/g);
   return readable ? revStr(readable.join(" ")) : number;
 };
+
+export const omdbValueOrDefault = (value: string, defaultValue?: string) =>
+  value === OMDB_NULL_VALUE ? defaultValue ?? "" : value;

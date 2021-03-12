@@ -51,7 +51,7 @@ export type ArchiveOrgMetadata = {
 
 export type ArchiveOrgMovieStandardized = Pick<
   Movie,
-  "title" | "year" | "synopsis" | "nbDownloads"
+  "title" | "year" | "synopsis" | "nbDownloads" | "runtime"
 >;
 
 enum Bool {
@@ -72,6 +72,8 @@ export type OMDBError = {
   Response: "False";
   Error: string;
 };
+
+export const OMDB_NULL_VALUE = "N/A";
 
 // some fields from OMDB can be "N/A"
 export type OMDBMovie = {

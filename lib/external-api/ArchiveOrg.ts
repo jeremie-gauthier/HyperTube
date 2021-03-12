@@ -64,6 +64,44 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     return { title: parsedTitle[0], year };
   }
 
+  static runtimeParser(runtime?: string) {
+    if (!runtime) {
+      return { runtime };
+    }
+
+    // Formatted like `MM min.`
+    if (runtime.includes("min.")) {
+      return { runtime: runtime.slice(0, -1) };
+    }
+
+    // Formatted like `HH:MM:SS`
+    if (runtime.includes(":")) {
+      const splitted = runtime.split(":");
+
+      switch (splitted.length) {
+        case 3:
+          return {
+            runtime: `${
+              parseInt(splitted[0], 10) * 60 +
+              parseInt(splitted[1], 10) +
+              (splitted[2] === "00" ? 0 : 1)
+            } min`,
+          };
+        case 2:
+          return {
+            runtime: `${
+              parseInt(splitted[1], 10) + (splitted[2] === "00" ? 0 : 1)
+            } min`,
+          };
+        case 1:
+          return { runtime: `1 min` };
+        default:
+          return { runtime: undefined };
+      }
+    }
+    return { runtime: undefined };
+  }
+
   static standardize(movieFromExternalAPI: ArchiveOrgMovie) {
     const {
       title,
@@ -76,10 +114,10 @@ export default class ArchiveOrgAPI extends ExternalAPI {
 
     return {
       ...ArchiveOrgAPI.movieParser(title, year),
+      ...ArchiveOrgAPI.runtimeParser(runtime),
       synopsis: description,
       nbDownloads: downloads,
       archiveOrgIdentifier: identifier,
-      runtime,
     };
   }
 }

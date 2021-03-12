@@ -5,7 +5,7 @@ import {
 import useHover from "@/hooks/useHover";
 import useExternalAPI from "@/hooks/api/useExternalAPI";
 import { API } from "@/types/requests";
-import { humanReadableNumber } from "@/lib/helpers";
+import { humanReadableNumber, omdbValueOrDefault } from "@/lib/helpers";
 import styles from "./MovieCard.module.scss";
 import { ReactComponent as PlayIcon } from "../../public/icons/play.svg";
 import { ReactComponent as CommentIcon } from "../../public/icons/comment.svg";
@@ -29,7 +29,13 @@ export default function MovieCard({ movie }: MovieProps) {
 
   return movieDetails ? (
     <div className={styles.container} ref={hoverRef}>
-      <img src={movieDetails.picture} alt="Movie poster" />
+      <img
+        src={omdbValueOrDefault(
+          movieDetails.picture,
+          "/img/poster-default.jpg",
+        )}
+        alt="Movie poster"
+      />
       <h2>{movie.title}</h2>
       {isHovered && <MovieDetails movie={movie} movieDetails={movieDetails} />}
     </div>
@@ -41,8 +47,8 @@ type MovieDetailsProps = MovieProps & {
 };
 
 const MovieDetails = ({
-  movie: { year, nbDownloads },
-  movieDetails: { runtime, category },
+  movie: { runtime, year, nbDownloads },
+  movieDetails,
 }: MovieDetailsProps) => (
   <FlexCol className={styles.detailsContainer}>
     <FlexRow className={styles.commands}>
@@ -50,11 +56,13 @@ const MovieDetails = ({
     </FlexRow>
 
     <FlexRow className={styles.details}>
-      <p>{runtime}</p>
+      <p>{runtime ?? omdbValueOrDefault(movieDetails.runtime, "No runtime")}</p>
       <p>{year}</p>
     </FlexRow>
     <FlexRow className={styles.details}>
-      <p className={styles.truncate}>{category}</p>
+      <p className={styles.truncate}>
+        {omdbValueOrDefault(movieDetails.category, "No category")}
+      </p>
       <FlexRow className="items-center space-x-1">
         <p>{humanReadableNumber(nbDownloads)}</p>
         <EyeIcon className="h-3 w-3" />
