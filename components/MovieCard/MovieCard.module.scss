@@ -1,59 +1,41 @@
 @import "@/styles/theme.scss";
 
 .container {
-  @apply h-48 w-80 space-y-2 bg-black rounded pb-2;
+  @apply h-56 w-1/5 space-y-2 bg-black rounded m-2 pb-2 overflow-hidden;
+
+  transition: all 0.2s ease-in-out;
 
   h2 {
-    @apply text-center font-extrabold text-lg align-text-top;
+    @apply text-center font-bold text-lg;
+
+    transition: all 0.2s ease-in-out;
   }
 
   img {
-    object-fit: cover;
-    width: 100%;
-    height: 80%;
+    @apply h-4/5 w-full object-fill;
+
+    transition: all 0.2s ease-in-out;
   }
 }
 
-.hoverContainer {
-  @apply h-96 w-96 space-y-2 bg-black rounded absolute;
-  h2 {
-    @apply text-center font-extrabold text-lg;
-  }
-  p {
-    @apply text-sm m-4;
-  }
+.container:hover {
+  @apply h-72 pb-4;
+
+  transform: scale(1.25);
+
   img {
-    object-fit: cover;
-    width: 100%;
-    height: 50%;
+    @apply h-3/5;
   }
-  button {
-    @apply ml-4 h-9 w-9 rounded-full border border-grey-light;
-  }
+}
 
-  .playButton {
-    @apply bg-grey-light;
-    svg {
-      @apply ml-3;
-    }
-  }
+.detailsContainer {
+  @apply px-4 pt-1 space-y-1;
+}
 
-  .commentButton {
-    svg {
-      @apply ml-2;
-    }
-  }
+.commands {
+  @apply justify-between;
+}
 
-  .addButton {
-    svg {
-      @apply ml-2;
-    }
-  }
-
-  .movieButton {
-    @apply ml-40;
-    svg {
-      @apply ml-2;
-    }
-  }
+.details {
+  @apply justify-between text-sm;
 }

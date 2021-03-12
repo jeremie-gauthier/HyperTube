@@ -11,6 +11,9 @@ import {
   Movie,
   MoviesFromAPI,
 } from "@/types/movie";
+import ScrollBar from "react-perfect-scrollbar";
+import { FlexRow } from "@/components/Flex";
+import styles from "./index.module.scss";
 
 type HomeProps = {
   movies: Movie[];
@@ -29,15 +32,19 @@ function Home({ movies }: HomeProps) {
   const moviesArchiveOrg = data?.movies;
 
   return (
-    <main className="relative">
-      <h1>Movies result will be printed here :)</h1>
-      {(moviesArchiveOrg ?? []).map((movie) => (
-        <MovieCard
-          key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
-          movie={movie}
-        />
-      ))}
-    </main>
+    <ScrollBar>
+      <main className={styles.container}>
+        <h1>Movies result will be printed here :)</h1>
+        <FlexRow className={styles.mosaicMovies}>
+          {(moviesArchiveOrg ?? []).map((movie) => (
+            <MovieCard
+              key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
+              movie={movie}
+            />
+          ))}
+        </FlexRow>
+      </main>
+    </ScrollBar>
   );
 }
 
