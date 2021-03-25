@@ -9,6 +9,7 @@ import { OmdbMovieFound } from "@/types/movie";
 type MovieRequest = NextApiRequest & {
   query: {
     source: string;
+    page?: number;
     search?: string;
     category?: string | null;
     title?: string;
@@ -38,13 +39,14 @@ export default async function movieHandler(
 
 async function fetchMoviesFromExternalAPI(
   source: string,
+  page: number,
   search?: string,
   category?: string | null,
 ) {
   switch (source) {
     case API.ARCHIVE_ORG:
       const ArchiveOrg = new ArchiveOrgAPI();
-      const moviesArchiveOrg = await ArchiveOrg.get(search, category);
+      const moviesArchiveOrg = await ArchiveOrg.get(page, search, category);
       return moviesArchiveOrg.map((movie) => ArchiveOrgAPI.standardize(movie));
     default:
       // list of registered movies
@@ -63,16 +65,16 @@ async function fetchMovieDetailsFromOMDB(title: string, year: string) {
 
 async function getMovies(req: MovieRequest, res: NextApiResponse) {
   const {
-    query: { source, search, category, title, year },
+    query: { source, search, category, page, title, year },
   } = req;
 
   logRequests(req);
 
   // Search a list of movies whose title match `search`
   // Or are part of the `category` category
-  if (search || category) {
+  if (page && (search || category)) {
     const movies = await tryCatch(
-      () => fetchMoviesFromExternalAPI(source, search, category),
+      () => fetchMoviesFromExternalAPI(source, page, search, category),
       () => null,
     );
     return res.status(200).json({ movies });

@@ -5,6 +5,7 @@ import { moviesRoute } from "./useMovie";
 
 type APIQueryParams = {
   source: API;
+  page?: number;
   search?: string;
   category?: string | null;
   title?: string;
@@ -13,13 +14,14 @@ type APIQueryParams = {
 
 class QueryParams {
   static format(queryParams: APIQueryParams) {
-    const { search, category, source, title, year } = queryParams;
+    const { search, category, page, source, title, year } = queryParams;
     const queryString = [
       `source=${source}`,
       search && `search=${search}`,
       category && `category=${category}`,
       title && `title=${title}`,
       year && `year=${year}`,
+      page && `page=${page}`,
     ];
     return queryString.filter((v) => v).join("&");
   }

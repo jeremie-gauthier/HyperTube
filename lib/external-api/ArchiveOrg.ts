@@ -19,7 +19,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     this._metadata = ARCHIVE_ORG.METADATA;
   }
 
-  async get(search?: string, category?: string | null) {
+  async get(page: number, search?: string, category?: string | null) {
     const url = `${this._domain}${this._advancedSearch}?\
       q=collection:feature_films AND mediatype:movies AND title:${
         search ?? ""
@@ -32,7 +32,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       fl[]=runtime&\
       sort[]=downloads desc&\
       rows=50&\
-      page=1&\
+      page=${page}&\
       output=json`;
     const { response } = await fetcher<ArchiveOrgResponse>(url);
     return response.docs;
