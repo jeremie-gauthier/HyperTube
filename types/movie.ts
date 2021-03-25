@@ -13,6 +13,21 @@ export enum MovieCategory {
   WESTERN = "western",
 }
 
+// Corresponds to MovieCategory with the right formatting
+// so that we can use it in queries
+export const allMovieCategories = {
+  [MovieCategory.COMEDY]: "Comedy",
+  [MovieCategory.CRIME]: "Crime",
+  [MovieCategory.DRAMA]: "Drama",
+  [MovieCategory.FANTASY]: "Fantasy",
+  [MovieCategory.FILM_NOIR]: "Film Noir",
+  [MovieCategory.HORROR]: "Horror",
+  [MovieCategory.MUSICAL]: "Musical",
+  [MovieCategory.ROMANCE]: "Romance",
+  [MovieCategory.SCI_FI]: "Sci-Fi",
+  [MovieCategory.WESTERN]: "Western",
+} as const;
+
 // from both archive.org and OMDB
 export type Movie = {
   id: string;
