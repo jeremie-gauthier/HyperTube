@@ -1,7 +1,8 @@
 @import "@/styles/theme.scss";
 
 .container {
-  @apply h-56 w-1/5 space-y-2 bg-black rounded m-2 pb-2 overflow-hidden;
+  @apply h-56 w-1/2 space-y-2 bg-black rounded m-2 pb-2 overflow-hidden;
+  @apply sm:w-1/3 lg:w-1/4 xl:w-1/5;
 
   transition: all 0.33s ease-in-out;
 
