@@ -1,0 +1,15 @@
+.default {
+  @apply border rounded-full items-center justify-center px-2 py-1 cursor-pointer font-bold;
+}
+
+.active {
+  @apply bg-red bg-opacity-5 border-red text-red;
+}
+
+.inactive {
+  @apply bg-black bg-opacity-10 border-grey-light text-grey-light;
+
+  &:hover {
+    @apply active duration-500;
+  }
+}
