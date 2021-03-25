@@ -1,5 +1,18 @@
 import { Document } from "mongoose";
 
+export enum MovieCategory {
+  COMEDY = "comedy",
+  CRIME = "crime",
+  DRAMA = "drama",
+  FANTASY = "fantasy",
+  FILM_NOIR = "film_noir",
+  HORROR = "horror",
+  MUSICAL = "musical",
+  ROMANCE = "romance",
+  SCI_FI = "sci_fi",
+  WESTERN = "western",
+}
+
 // from both archive.org and OMDB
 export type Movie = {
   id: string;
