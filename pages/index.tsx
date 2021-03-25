@@ -27,6 +27,7 @@ type HomeProps = {
 
 function Home({ movies }: HomeProps) {
   const search = useSelector((state) => state.movie.searchInput);
+  const selectedCategory = useSelector((state) => state.movie.selectedCategory);
   const debouncedSearch = useDebounce(search, 500);
 
   const { data } = useExternalAPI<{
@@ -34,13 +35,14 @@ function Home({ movies }: HomeProps) {
   }>({
     source: API.ARCHIVE_ORG,
     search: debouncedSearch,
+    category: selectedCategory,
   });
   const moviesArchiveOrg = data?.movies;
 
   return (
     <ScrollBar>
       <main className={styles.container}>
-        <MovieCategories />
+        <MovieCategories selectedCategory={selectedCategory} />
         <h1>Movies result will be printed here :)</h1>
         <FlexRow className={styles.mosaicMovies}>
           {(moviesArchiveOrg ?? []).map((movie) => (
@@ -62,19 +64,23 @@ export async function getServerSideProps() {
   const api = process.env.HYPERTUBE_API_URL;
 
   try {
-    const { movies } = await fetcher<MoviesFromAPI>(
-      `${api}${moviesRoute()}?source=${API.ARCHIVE_ORG}&search=${"Dracula"}`,
-    );
+    // const { movies } = await fetcher<MoviesFromAPI>(
+    //   `${api}${moviesRoute()}?source=${API.ARCHIVE_ORG}&search=${"Dracula"}`,
+    // );
+    const { movies } = { movies: [] } as MoviesFromAPI;
     return { props: { movies } };
   } catch (error) {
     return { props: { movies: null } };
   }
 }
 
-const MovieCategories = () => {
+const MovieCategories = ({
+  selectedCategory,
+}: {
+  selectedCategory: string | null;
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const selectedCategory = useSelector((state) => state.movie.selectedCategory);
   const MovieCategoriesList = Object.values(MovieCategory).map((category) => ({
     text: t(`models.movie.category.${category}`),
     label: allMovieCategories[category],

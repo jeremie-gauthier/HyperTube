@@ -10,6 +10,7 @@ type MovieRequest = NextApiRequest & {
   query: {
     source: string;
     search?: string;
+    category?: string | null;
     title?: string;
     year?: string;
   };
@@ -35,11 +36,15 @@ export default async function movieHandler(
   }
 }
 
-async function fetchMoviesFromExternalAPI(source: string, search: string) {
+async function fetchMoviesFromExternalAPI(
+  source: string,
+  search?: string,
+  category?: string | null,
+) {
   switch (source) {
     case API.ARCHIVE_ORG:
       const ArchiveOrg = new ArchiveOrgAPI();
-      const moviesArchiveOrg = await ArchiveOrg.get(search);
+      const moviesArchiveOrg = await ArchiveOrg.get(search, category);
       return moviesArchiveOrg.map((movie) => ArchiveOrgAPI.standardize(movie));
     default:
       // list of registered movies
@@ -58,15 +63,16 @@ async function fetchMovieDetailsFromOMDB(title: string, year: string) {
 
 async function getMovies(req: MovieRequest, res: NextApiResponse) {
   const {
-    query: { source, search, title, year },
+    query: { source, search, category, title, year },
   } = req;
 
   logRequests(req);
 
   // Search a list of movies whose title match `search`
-  if (search) {
+  // Or are part of the `category` category
+  if (search || category) {
     const movies = await tryCatch(
-      () => fetchMoviesFromExternalAPI(source, search),
+      () => fetchMoviesFromExternalAPI(source, search, category),
       () => null,
     );
     return res.status(200).json({ movies });

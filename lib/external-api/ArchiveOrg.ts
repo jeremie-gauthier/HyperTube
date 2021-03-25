@@ -19,9 +19,11 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     this._metadata = ARCHIVE_ORG.METADATA;
   }
 
-  async get(search: string) {
+  async get(search?: string, category?: string | null) {
     const url = `${this._domain}${this._advancedSearch}?\
-      q=collection:feature_films AND mediatype:movies AND title:${search}&\
+      q=collection:feature_films AND mediatype:movies AND title:${
+        search ?? ""
+      } AND subject:${category ?? "*"}&\
       fl[]=title&\
       fl[]=year&\
       fl[]=downloads&\
