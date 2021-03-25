@@ -5,3 +5,11 @@
 .mosaicMovies {
   @apply flex-wrap flex justify-center;
 }
+
+.labelsList {
+  @apply space-y-2 space-x-2 flex-wrap;
+
+  :first-child {
+    @apply mt-2 ml-2;
+  }
+}

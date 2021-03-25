@@ -7,12 +7,18 @@ import { API } from "@/types/requests";
 import useExternalAPI from "@/hooks/api/useExternalAPI";
 import useDebounce from "@/hooks/useDebounce";
 import {
+  allMovieCategories,
   ArchiveOrgMovieStandardized,
   Movie,
+  MovieCategory,
   MoviesFromAPI,
 } from "@/types/movie";
 import ScrollBar from "react-perfect-scrollbar";
 import { FlexRow } from "@/components/Flex";
+import Label from "@/components/Label";
+import { useTranslation } from "react-i18next";
+import { setSelectedCategory } from "@/state/movies/actions";
+import useDispatch from "@/hooks/useDispatch";
 import styles from "./index.module.scss";
 
 type HomeProps = {
@@ -34,6 +40,7 @@ function Home({ movies }: HomeProps) {
   return (
     <ScrollBar>
       <main className={styles.container}>
+        <MovieCategories />
         <h1>Movies result will be printed here :)</h1>
         <FlexRow className={styles.mosaicMovies}>
           {(moviesArchiveOrg ?? []).map((movie) => (
@@ -63,3 +70,31 @@ export async function getServerSideProps() {
     return { props: { movies: null } };
   }
 }
+
+const MovieCategories = () => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const selectedCategory = useSelector((state) => state.movie.selectedCategory);
+  const MovieCategoriesList = Object.values(MovieCategory).map((category) => ({
+    text: t(`models.movie.category.${category}`),
+    label: allMovieCategories[category],
+    isActive: selectedCategory === allMovieCategories[category],
+  }));
+
+  const handleSelectCategory = (category: string) =>
+    dispatch(
+      setSelectedCategory(category === selectedCategory ? null : category),
+    );
+
+  return (
+    <FlexRow className={styles.labelsList}>
+      {MovieCategoriesList.map((category) => (
+        <Label
+          {...category}
+          key={category.text}
+          onClick={() => handleSelectCategory(category.label)}
+        />
+      ))}
+    </FlexRow>
+  );
+};
