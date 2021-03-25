@@ -36,6 +36,7 @@ function Home({ movies }: HomeProps) {
     source: API.ARCHIVE_ORG,
     search: debouncedSearch,
     category: selectedCategory,
+    page: 1,
   });
   const moviesArchiveOrg = data?.movies;
 
