@@ -1,4 +1,18 @@
 {
+	"movie": {
+		"category": {
+			"comedy": "コメディ",
+			"crime": "犯罪",
+			"drama": "ドラマ",
+			"fantasy": "ファンタジー",
+			"film_noir": "フィルムノワール",
+			"horror": "ホラー",
+			"musical": "ミュージカル",
+			"romance": "ロマンス",
+			"sci_fi": "SF",
+			"western": "ウエスタン"
+		}
+	},
 	"user": {
 		"cpassword": "パスワード確認",
 		"email": "Eメール",

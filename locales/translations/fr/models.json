@@ -1,4 +1,18 @@
 {
+	"movie": {
+		"category": {
+			"comedy": "Comédie",
+			"crime": "Crime",
+			"drama": "Drame",
+			"fantasy": "Fantastique",
+			"film_noir": "Film noir",
+			"horror": "Horreur",
+			"musical": "Musical",
+			"romance": "Romance",
+			"sci_fi": "Sci-Fi",
+			"western": "Western"
+		}
+	},
 	"user": {
 		"cpassword": "Confirmation du mot de passe",
 		"email": "Adresse mail",
