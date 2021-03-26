@@ -5,6 +5,7 @@ import {
 } from "@/types/movie";
 import { API, ARCHIVE_ORG } from "@/types/requests";
 import fetcher from "../fetcher";
+import { tryCatchSync } from "../helpers";
 import ExternalAPI from "./ExternalAPI";
 
 export default class ArchiveOrgAPI extends ExternalAPI {
@@ -49,9 +50,12 @@ export default class ArchiveOrgAPI extends ExternalAPI {
   static movieParser(title: string, year?: string) {
     // Any words followed by an open bracket
     const titleRgx = /^[\w\s]+(?=\()/;
-    const parsedTitle = title.match(titleRgx);
+    const parsedTitle = tryCatchSync(
+      () => title.match(titleRgx),
+      () => null,
+    );
     if (!parsedTitle) {
-      return { title, year };
+      return { title, year: year ?? null };
     }
 
     if (!year) {
@@ -63,12 +67,12 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       }
     }
 
-    return { title: parsedTitle[0], year };
+    return { title: parsedTitle[0], year: null };
   }
 
   static runtimeParser(runtime?: string) {
     if (!runtime) {
-      return { runtime };
+      return { runtime: null };
     }
 
     // Formatted like `MM min.`
@@ -98,10 +102,10 @@ export default class ArchiveOrgAPI extends ExternalAPI {
         case 1:
           return { runtime: `1 min` };
         default:
-          return { runtime: undefined };
+          return { runtime: null };
       }
     }
-    return { runtime: undefined };
+    return { runtime: null };
   }
 
   static standardize(movieFromExternalAPI: ArchiveOrgMovie) {
@@ -117,9 +121,9 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     return {
       ...ArchiveOrgAPI.movieParser(title, year),
       ...ArchiveOrgAPI.runtimeParser(runtime),
-      synopsis: description,
-      nbDownloads: downloads,
-      archiveOrgIdentifier: identifier,
+      synopsis: description ?? null,
+      nbDownloads: downloads ?? null,
+      archiveOrgIdentifier: identifier ?? null,
     };
   }
 }
