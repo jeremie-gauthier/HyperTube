@@ -1,5 +1,5 @@
 import React from "react";
-import { mutate } from "swr";
+// import { mutate } from "swr";
 import useForm, { HookForm } from "@/hooks/useForm";
 import { ChangePasswordForm } from "@/lib/types/changePassword";
 import resolver from "@/lib/resolvers/changePassword";
@@ -10,7 +10,7 @@ import SiteLayout from "@/components/Layouts/SiteLayout";
 import { requiredField } from "@/lib/helpers";
 import PasswordTips from "@/components/PasswordTips";
 import Link from "next/link";
-import { Methods } from "@/types/requests";
+// import { Methods } from "@/types/requests";
 import styles from "./change.module.scss";
 
 const initialState: ChangePasswordForm = {
@@ -23,7 +23,7 @@ function ChangePassword() {
   const { t } = useTranslation();
   const submit = (values: ChangePasswordForm) => {
     console.log(values);
-
+    return new Promise<ChangePasswordForm>(() => values);
     // mutate(
     //   `/api/users/${-42}`,
     //   async () => {
