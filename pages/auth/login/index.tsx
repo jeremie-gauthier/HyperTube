@@ -23,6 +23,7 @@ function Login() {
   const { t } = useTranslation();
   const submit = (values: LoginForm) => {
     console.log(values);
+    return new Promise<LoginForm>((resolve) => resolve(values));
   };
 
   const methods = useForm<LoginForm>(submit, resolver, initialState);

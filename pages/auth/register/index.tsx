@@ -44,6 +44,7 @@ const FormRegister = () => {
   const { t } = useTranslation();
   const submit = (values: RegisterForm) => {
     console.log(values);
+    return new Promise<RegisterForm>(() => values);
   };
 
   const { values, errors, handleChange, handleSubmit } = useForm<RegisterForm>(

@@ -38,6 +38,7 @@ const FormReset = () => {
   const { t } = useTranslation();
   const submit = (values: ResetForm) => {
     console.log(values);
+    return new Promise<ResetForm>(() => values);
   };
 
   const { values, errors, handleChange, handleSubmit } = useForm<ResetForm>(
