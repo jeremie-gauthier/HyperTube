@@ -25,6 +25,18 @@ export async function tryCatch<Data, Failure>(
   }
 }
 
+export function tryCatchSync<Data, Failure>(
+  tryFn: () => Data,
+  catchFn: (error: Error) => Failure,
+) {
+  try {
+    const response = tryFn();
+    return response;
+  } catch (error) {
+    return catchFn(error);
+  }
+}
+
 const revStr = (str: string) => str.split("").reverse().join("");
 
 export const humanReadableNumber = (number: number) => {
