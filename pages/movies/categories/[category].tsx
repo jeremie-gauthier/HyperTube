@@ -39,7 +39,7 @@ function Home({ movies, selectedCategory }: HomeProps) {
       source: API.ARCHIVE_ORG,
       search: debouncedSearch,
       category: selectedCategory,
-      page: 2,
+      page: 1,
     },
     { initialData: { movies } },
   );
