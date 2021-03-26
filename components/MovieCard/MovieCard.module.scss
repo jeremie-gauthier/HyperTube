@@ -13,8 +13,12 @@
     transition: all 0.33s ease-in-out;
   }
 
-  img {
-    @apply h-4/5 w-full object-cover;
+  .poster {
+    @apply relative h-4/5 w-full;
+
+    img {
+      @apply object-cover;
+    }
 
     transition: all 0.33s ease-in-out;
   }
@@ -22,6 +26,7 @@
 
 .container:hover {
   @apply pb-4;
+  @apply z-10;
 
   transform: scale(1.5);
 
@@ -30,7 +35,7 @@
     @apply w-full whitespace-nowrap overflow-hidden overflow-ellipsis;
   }
 
-  img {
+  .poster {
     @apply h-1/2;
   }
 }

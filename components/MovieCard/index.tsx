@@ -7,6 +7,7 @@ import useHover from "@/hooks/useHover";
 // import useExternalAPI from "@/hooks/api/useExternalAPI";
 // import { API } from "@/types/requests";
 import { humanReadableNumber, omdbValueOrDefault } from "@/lib/helpers";
+import Image from "next/image";
 import styles from "./MovieCard.module.scss";
 import { ReactComponent as PlayIcon } from "../../public/icons/play.svg";
 import { ReactComponent as CommentIcon } from "../../public/icons/comment.svg";
@@ -30,10 +31,13 @@ export default function MovieCard({ movie }: MovieProps) {
 
   return (
     <div className={styles.container} ref={hoverRef}>
-      <img
-        src={omdbValueOrDefault(movie.picture, "/img/poster-default.jpg")}
-        alt="Movie poster"
-      />
+      <div className={styles.poster}>
+        <Image
+          layout="fill"
+          src={omdbValueOrDefault(movie.picture, "/img/poster-default.jpg")}
+          alt="Movie poster"
+        />
+      </div>
       <h2>{movie.title}</h2>
       {isHovered && <MovieDetails movie={movie} />}
     </div>
