@@ -38,6 +38,14 @@ export default function useExternalAPI<MovieFormExternalAPI>(
 
   return useFetch<MovieFormExternalAPI>(
     canFetch ? `${moviesRoute()}?${QueryParams.format(queryParams)}` : null,
-    config,
+    {
+      ...config,
+      revalidateOnFocus: false,
+      revalidateOnMount: false,
+      revalidateOnReconnect: false,
+      refreshWhenOffline: false,
+      refreshWhenHidden: false,
+      refreshInterval: 0,
+    },
   );
 }
