@@ -26,7 +26,7 @@ export default class OMDBAPI extends ExternalAPI {
     return fetcher<OMBDResponse>(url);
   }
 
-  async getByTitleAndYear(title: string, year: string) {
+  async getByTitleAndYear(title: string, year: string | null) {
     const url = `${this.baseURL}&t=${title}&y=${year}&${OMDBAPI.OPTIONS}`;
     return fetcher<OMBDResponse>(url);
   }
@@ -61,4 +61,3 @@ export default class OMDBAPI extends ExternalAPI {
     };
   }
 }
-// https://www.omdbapi.com/?apiKey=1c8059d2&s=Jekyll&y=1920&type=movie&r=json

@@ -46,5 +46,7 @@ export const humanReadableNumber = (number: number) => {
   return readable ? revStr(readable.join(" ")) : number;
 };
 
-export const omdbValueOrDefault = (value: string, defaultValue?: string) =>
-  value === OMDB_NULL_VALUE ? defaultValue ?? "" : value;
+export const omdbValueOrDefault = (
+  value?: string | null,
+  defaultValue?: string,
+) => (value === OMDB_NULL_VALUE || !value ? defaultValue ?? "" : value);

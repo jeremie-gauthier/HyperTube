@@ -1,10 +1,11 @@
 import {
-  ArchiveOrgMovieStandardized,
-  OMDBMovieStandardized,
+  // ArchiveOrgMovieStandardized,
+  Movie,
+  // OMDBMovieStandardized,
 } from "@/types/movie";
 import useHover from "@/hooks/useHover";
-import useExternalAPI from "@/hooks/api/useExternalAPI";
-import { API } from "@/types/requests";
+// import useExternalAPI from "@/hooks/api/useExternalAPI";
+// import { API } from "@/types/requests";
 import { humanReadableNumber, omdbValueOrDefault } from "@/lib/helpers";
 import styles from "./MovieCard.module.scss";
 import { ReactComponent as PlayIcon } from "../../public/icons/play.svg";
@@ -15,53 +16,45 @@ import { ReactComponent as EyeIcon } from "../../public/icons/eye.svg";
 import { FlexCol, FlexRow } from "../Flex";
 
 type MovieProps = {
-  movie: ArchiveOrgMovieStandardized;
+  movie: Movie;
 };
 
 export default function MovieCard({ movie }: MovieProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
-  const { data } = useExternalAPI<{ movieDetails: OMDBMovieStandardized }>({
-    source: API.OMDB,
-    title: movie.title,
-    year: movie.year,
-  });
-  const movieDetails = data?.movieDetails;
+  // const { data } = useExternalAPI<{ movieDetails: OMDBMovieStandardized }>({
+  //   source: API.OMDB,
+  //   title: movie.title,
+  //   year: movie.year,
+  // });
+  // const movieDetails = data?.movieDetails;
 
-  return movieDetails ? (
+  return (
     <div className={styles.container} ref={hoverRef}>
       <img
-        src={omdbValueOrDefault(
-          movieDetails.picture,
-          "/img/poster-default.jpg",
-        )}
+        src={omdbValueOrDefault(movie.picture, "/img/poster-default.jpg")}
         alt="Movie poster"
       />
       <h2>{movie.title}</h2>
-      {isHovered && <MovieDetails movie={movie} movieDetails={movieDetails} />}
+      {isHovered && <MovieDetails movie={movie} />}
     </div>
-  ) : null;
+  );
 }
 
-type MovieDetailsProps = MovieProps & {
-  movieDetails: OMDBMovieStandardized;
-};
-
 const MovieDetails = ({
-  movie: { runtime, year, nbDownloads },
-  movieDetails,
-}: MovieDetailsProps) => (
+  movie: { runtime, year, nbDownloads, category },
+}: MovieProps) => (
   <FlexCol className={styles.detailsContainer}>
     <FlexRow className={styles.commands}>
       <CommandBtns />
     </FlexRow>
 
     <FlexRow className={styles.details}>
-      <p>{runtime ?? omdbValueOrDefault(movieDetails.runtime, "No runtime")}</p>
+      <p>{runtime}</p>
       <p>{year}</p>
     </FlexRow>
     <FlexRow className={styles.details}>
       <p className={styles.truncate}>
-        {omdbValueOrDefault(movieDetails.category, "No category")}
+        {omdbValueOrDefault(category, "No category")}
       </p>
       <FlexRow className="items-center space-x-1">
         <p>{humanReadableNumber(nbDownloads)}</p>

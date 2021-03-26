@@ -45,14 +45,14 @@ function Home({ movies }: HomeProps) {
       <main className={styles.container}>
         <MovieCategories selectedCategory={selectedCategory} />
         <h1>Movies result will be printed here :)</h1>
-        <FlexRow className={styles.mosaicMovies}>
+        {/* <FlexRow className={styles.mosaicMovies}>
           {(moviesArchiveOrg ?? []).map((movie) => (
             <MovieCard
               key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
               movie={movie}
             />
           ))}
-        </FlexRow>
+        </FlexRow> */}
       </main>
     </ScrollBar>
   );
