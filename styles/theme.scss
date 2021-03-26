@@ -42,7 +42,7 @@
 .mobileView {
   display: flex !important;
 
-  @media (min-width: 768px) {
+  @media (min-width: theme("screens.md")) {
     display: none !important;
   }
 }
@@ -50,7 +50,7 @@
 .desktopView {
   display: none !important;
 
-  @media (min-width: 768px) {
+  @media (min-width: theme("screens.md")) {
     display: flex !important;
   }
 }

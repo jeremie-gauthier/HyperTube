@@ -23,7 +23,7 @@
       background-color: #414141;
       min-width: 20rem;
 
-      @media (min-width: 768px) {
+      @media (min-width: theme("screens.md")) {
         min-width: 24rem;
       }
     }
@@ -34,7 +34,7 @@
   @apply px-8 pb-8 overflow-visible;
   @apply md:relative md:py-14 md:px-16 md:text-sm;
 
-  @media (min-width: 768px) {
+  @media (min-width: theme("screens.md")) {
     min-width: 36rem;
   }
 }

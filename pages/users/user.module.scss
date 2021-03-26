@@ -28,7 +28,7 @@
 .dropdown {
   @apply px-4;
 
-  @media (min-width: 768px) {
+  @media (min-width: theme("screens.md")) {
     min-width: 380px;
   }
 }
