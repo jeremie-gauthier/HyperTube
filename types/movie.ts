@@ -1,5 +1,7 @@
 import { Document } from "mongoose";
 
+export const POSTER_DEFAULT = "/img/poster-default.jpg";
+
 export enum MovieCategory {
   COMEDY = "comedy",
   CRIME = "crime",

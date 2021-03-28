@@ -1,13 +1,8 @@
-import {
-  // ArchiveOrgMovieStandardized,
-  Movie,
-  // OMDBMovieStandardized,
-} from "@/types/movie";
+import { Movie, POSTER_DEFAULT } from "@/types/movie";
 import useHover from "@/hooks/useHover";
-// import useExternalAPI from "@/hooks/api/useExternalAPI";
-// import { API } from "@/types/requests";
 import { humanReadableNumber, omdbValueOrDefault } from "@/lib/helpers";
 import Image from "next/image";
+import React from "react";
 import styles from "./MovieCard.module.scss";
 import { ReactComponent as PlayIcon } from "../../public/icons/play.svg";
 import { ReactComponent as CommentIcon } from "../../public/icons/comment.svg";
@@ -22,19 +17,13 @@ type MovieProps = {
 
 export default function MovieCard({ movie }: MovieProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
-  // const { data } = useExternalAPI<{ movieDetails: OMDBMovieStandardized }>({
-  //   source: API.OMDB,
-  //   title: movie.title,
-  //   year: movie.year,
-  // });
-  // const movieDetails = data?.movieDetails;
 
   return (
     <div className={styles.container} ref={hoverRef}>
       <div className={styles.poster}>
         <Image
           layout="fill"
-          src={omdbValueOrDefault(movie.picture, "/img/poster-default.jpg")}
+          src={omdbValueOrDefault(movie.picture, POSTER_DEFAULT)}
           alt="Movie poster"
         />
       </div>
