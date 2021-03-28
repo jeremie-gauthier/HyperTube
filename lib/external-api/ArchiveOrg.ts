@@ -2,11 +2,13 @@ import {
   ArchiveOrgMetadata,
   ArchiveOrgMovie,
   ArchiveOrgResponse,
+  OmdbMovieFound,
 } from "@/types/movie";
 import { API, ARCHIVE_ORG } from "@/types/requests";
 import fetcher from "../fetcher";
-import { tryCatchSync } from "../helpers";
+import { omdbValueOrDefault, tryCatchSync } from "../helpers";
 import ExternalAPI from "./ExternalAPI";
+import OMDB from "./OMDB";
 
 export default class ArchiveOrgAPI extends ExternalAPI {
   private _advancedSearch: string;
@@ -37,6 +39,50 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       output=json`;
     const { response } = await fetcher<ArchiveOrgResponse>(url);
     return response.docs;
+  }
+
+  async getWithDetails(
+    page: number,
+    search?: string,
+    category?: string | null,
+  ) {
+    const movies = await this.get(page, search, category);
+    const moviesStandardized = movies.map((movie) =>
+      ArchiveOrgAPI.standardize(movie),
+    );
+    const omdbAPI = new OMDB();
+    const moviesWithOmdbDetails = await Promise.all(
+      moviesStandardized.map(async (movie) => {
+        try {
+          const movieDetails = await omdbAPI.getByTitleAndYear(
+            movie.title,
+            movie.year,
+          );
+          if (OmdbMovieFound(movieDetails)) {
+            const movieDetailsStandardized = OMDB.standardize(movieDetails);
+            return {
+              ...movie,
+              ...movieDetailsStandardized,
+              runtime:
+                movie.runtime ??
+                omdbValueOrDefault(
+                  movieDetailsStandardized?.runtime,
+                  "No runtime",
+                ),
+              year: "Unknown",
+            };
+          }
+          return {
+            ...movie,
+            year: movie.year ?? "Unknown",
+            runtime: movie.runtime ?? "No runtime",
+          };
+        } catch (error) {
+          return movie;
+        }
+      }),
+    );
+    return moviesWithOmdbDetails;
   }
 
   // CALL THIS ON THE MOVIE PAGE TO GET TORRENT FILE

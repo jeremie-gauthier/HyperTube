@@ -32,18 +32,18 @@ export const allMovieCategories = {
 export type Movie = {
   id: string;
   title: string;
-  synopsis: string;
+  synopsis: string | null;
   rating: string;
-  year: string;
+  year: string | null;
   picture: string;
   category: string;
-  runtime: string;
+  runtime: string | null;
   director: string;
   actors: string;
   language: string;
   production: string;
   nbDownloads: number;
-  archiveOrgIdentifier?: string;
+  archiveOrgIdentifier: string | null;
 };
 
 export type MongoMovie = Document & Movie;

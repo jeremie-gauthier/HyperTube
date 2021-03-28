@@ -51,9 +51,10 @@ function Home({ movies, selectedCategory }: HomeProps) {
         <MovieCategories selectedCategory={selectedCategory} />
         <h1>Movies result will be printed here :)</h1>
         <FlexRow className={styles.mosaicMovies}>
-          {(moviesArchiveOrg ?? []).map((movie) => (
+          {(moviesArchiveOrg ?? []).map((movie, idx) => (
             <MovieCard
-              key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
+              // eslint-disable-next-line react/no-array-index-key
+              key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
               movie={movie}
             />
           ))}
@@ -69,7 +70,6 @@ export default Home;
 export async function getStaticPaths() {
   const categories = Object.values(MovieCategory).map((categ) => categ);
   const paths = categories.map((category) => ({ params: { category } }));
-
   return { paths, fallback: false };
 }
 
@@ -80,49 +80,18 @@ export async function getStaticProps({
 }) {
   try {
     const ArchiveOrg = new ArchiveOrgAPI();
-    const moviesFromAPI = await ArchiveOrg.get(
+    const movies = await ArchiveOrg.getWithDetails(
       1,
       "*",
       allMovieCategories[category],
     );
-    const movies = moviesFromAPI.map((movie) =>
-      ArchiveOrgAPI.standardize(movie),
-    );
-    // for all of them, fetch the OMDB data
-    const omdbAPI = new OMDB();
-    const moviesWithOmdbDetails = await Promise.all(
-      movies.map(async (movie) => {
-        try {
-          const movieDetails = await omdbAPI.getByTitleAndYear(
-            movie.title,
-            movie.year,
-          );
-          if (OmdbMovieFound(movieDetails)) {
-            const movieDetailsStandardized = OMDB.standardize(movieDetails);
-            return {
-              ...movie,
-              ...movieDetailsStandardized,
-              runtime:
-                movie.runtime ??
-                omdbValueOrDefault(
-                  movieDetailsStandardized?.runtime,
-                  "No runtime",
-                ),
-            };
-          }
-          return movie;
-        } catch (error) {
-          return movie;
-        }
-      }),
-    );
     console.log(`[${category}] OK =)`);
     return {
-      props: { movies: moviesWithOmdbDetails, selectedCategory: category },
+      props: { movies, selectedCategory: category },
     };
   } catch (error) {
     console.log(`[${category}] NOT OK =( => ${error}`);
-    return { props: { movies: null, selectedCategory: category } };
+    return { props: { movies: [], selectedCategory: category } };
   }
 }
 
