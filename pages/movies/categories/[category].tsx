@@ -3,24 +3,14 @@ import MovieCard from "@/components/MovieCard";
 import useSelector from "@/hooks/useSelector";
 import useExternalAPI from "@/hooks/api/useExternalAPI";
 import useDebounce from "@/hooks/useDebounce";
-import {
-  allMovieCategories,
-  // ArchiveOrgMovieStandardized,
-  Movie,
-  MovieCategory,
-  OmdbMovieFound,
-} from "@/types/movie";
+import { allMovieCategories, Movie, MovieCategory } from "@/types/movie";
 import ScrollBar from "react-perfect-scrollbar";
 import { FlexRow } from "@/components/Flex";
 import Label from "@/components/Label";
 import { useTranslation } from "react-i18next";
-// import { setSelectedCategory } from "@/state/movies/actions";
-// import useDispatch from "@/hooks/useDispatch";
 import Link from "next/link";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import { API } from "@/types/requests";
-import OMDB from "@/lib/external-api/OMDB";
-import { omdbValueOrDefault } from "@/lib/helpers";
 import styles from "../movies.module.scss";
 
 type HomeProps = {
@@ -101,19 +91,21 @@ const MovieCategories = ({
   selectedCategory: string | null;
 }) => {
   const { t } = useTranslation();
-  const MovieCategoriesList = Object.values(MovieCategory).map((category) => ({
-    name: category,
-    isActive: selectedCategory === allMovieCategories[category],
-    label: allMovieCategories[category],
-    text: t(`models.movie.category.${category}`),
-  }));
+  const MovieCategoriesList = Object.values(MovieCategory);
 
   return (
     <FlexRow className={styles.labelsList}>
-      {MovieCategoriesList.map((category) => (
-        <Link key={category.text} href={`/movies/categories/${category.name}`}>
-          <a href={`/movies/categories/${category.name}`}>
-            <Label {...category} />
+      {MovieCategoriesList.map((category, idx) => (
+        <Link
+          // eslint-disable-next-line react/no-array-index-key
+          key={`${category}-${idx}`}
+          href={`/movies/categories/${category}`}
+        >
+          <a href={`/movies/categories/${category}`}>
+            <Label
+              text={t(`models.movie.category.${category}`)}
+              isActive={category === selectedCategory}
+            />
           </a>
         </Link>
       ))}
