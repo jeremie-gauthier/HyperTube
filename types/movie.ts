@@ -71,17 +71,35 @@ export type ArchiveOrgMovie = {
   runtime: string;
 };
 
+type ArchiveOrgMetadataFiles = {
+  name: string;
+  source: string;
+  format: string;
+  md5: string;
+  mtime: string;
+  size: string;
+  crc32: string;
+  sha1: string;
+};
+
 // in order to find the torrent file
 // you concatenate (d1 OR d2) AND dir
 export type ArchiveOrgMetadata = {
+  created: number;
   d1: string;
   d2: string;
   dir: string;
+  files: ArchiveOrgMetadataFiles[];
 };
 
 export type ArchiveOrgMovieStandardized = Pick<
   Movie,
-  "title" | "year" | "synopsis" | "nbDownloads" | "runtime"
+  | "title"
+  | "year"
+  | "synopsis"
+  | "nbDownloads"
+  | "runtime"
+  | "archiveOrgIdentifier"
 >;
 
 enum Bool {
