@@ -16,8 +16,9 @@
   .poster {
     @apply relative h-4/5 w-full;
 
-    img {
-      @apply object-cover;
+    img,
+    object {
+      @apply object-cover w-full h-full;
     }
 
     transition: all 0.33s ease-in-out;

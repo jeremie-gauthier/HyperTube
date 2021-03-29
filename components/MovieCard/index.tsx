@@ -11,6 +11,9 @@ import { ReactComponent as MovieIcon } from "../../public/icons/movie.svg";
 import { ReactComponent as EyeIcon } from "../../public/icons/eye.svg";
 import { FlexCol, FlexRow } from "../Flex";
 
+const pictureFromArchiveOrg = (pictureDomain: string) =>
+  pictureDomain.match(/ia\d*.us.archive.org/) !== null;
+
 type MovieProps = {
   movie: Movie;
 };
@@ -21,11 +24,17 @@ export default function MovieCard({ movie }: MovieProps) {
   return (
     <div className={styles.container} ref={hoverRef}>
       <div className={styles.poster}>
-        <Image
-          layout="fill"
-          src={omdbValueOrDefault(movie.picture, POSTER_DEFAULT)}
-          alt="Movie poster"
-        />
+        {pictureFromArchiveOrg(movie.picture) ? (
+          <object data={movie.picture}>
+            <img src={POSTER_DEFAULT} alt="Movie poster" />
+          </object>
+        ) : (
+          <Image
+            layout="fill"
+            src={omdbValueOrDefault(movie.picture, POSTER_DEFAULT)}
+            alt="Movie poster"
+          />
+        )}
       </div>
       <h2>{movie.title}</h2>
       {isHovered && <MovieDetails movie={movie} />}
