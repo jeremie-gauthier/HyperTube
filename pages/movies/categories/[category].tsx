@@ -1,7 +1,6 @@
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
 import useSelector from "@/hooks/useSelector";
-import useExternalAPI from "@/hooks/api/useExternalAPI";
 import useDebounce from "@/hooks/useDebounce";
 import { allMovieCategories, Movie, MovieCategory } from "@/types/movie";
 import ScrollBar from "react-perfect-scrollbar";
@@ -10,7 +9,8 @@ import Label from "@/components/Label";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
-import { API } from "@/types/requests";
+import React from "react";
+import isEmpty from "@ramda/isempty";
 import styles from "../movies.module.scss";
 
 type HomeProps = {
@@ -18,22 +18,28 @@ type HomeProps = {
   selectedCategory: MovieCategory;
 };
 
+const PAGE_RANGE = 50;
 function Home({ movies, selectedCategory }: HomeProps) {
+  const [page, setPage] = React.useState(1);
+  const moviesPagination = movies.slice(0, page * PAGE_RANGE);
   const search = useSelector((state) => state.movie.searchInput);
-  const debouncedSearch = useDebounce(search, 500);
+  const debouncedSearch = useDebounce(search, 250);
 
-  const { data } = useExternalAPI<{
-    movies: Movie[]; // ArchiveOrgMovieStandardized[];
-  }>(
-    {
-      source: API.ARCHIVE_ORG,
-      search: debouncedSearch,
-      category: selectedCategory,
-      page: 1,
-    },
-    { initialData: { movies } },
-  );
-  const moviesArchiveOrg = data?.movies;
+  const [moviesFiltered, setMoviesFiltered] = React.useState(movies);
+  const showMoviesFiltered = !isEmpty(debouncedSearch);
+
+  React.useEffect(() => {
+    if (showMoviesFiltered) {
+      setMoviesFiltered(
+        movies.filter(
+          (movie) =>
+            movie.title.match(new RegExp(debouncedSearch, "i")) ||
+            movie.synopsis?.match(debouncedSearch),
+        ),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch, page]);
 
   return (
     <ScrollBar>
@@ -41,14 +47,23 @@ function Home({ movies, selectedCategory }: HomeProps) {
         <MovieCategories selectedCategory={selectedCategory} />
         <h1>Movies result will be printed here :)</h1>
         <FlexRow className={styles.mosaicMovies}>
-          {(moviesArchiveOrg ?? []).map((movie, idx) => (
-            <MovieCard
-              // eslint-disable-next-line react/no-array-index-key
-              key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
-              movie={movie}
-            />
-          ))}
+          {(showMoviesFiltered ? moviesFiltered : moviesPagination).map(
+            (movie, idx) => (
+              <MovieCard
+                // eslint-disable-next-line react/no-array-index-key
+                key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
+                movie={movie}
+              />
+            ),
+          )}
         </FlexRow>
+        <button
+          type="button"
+          className="p-2 bg-red"
+          onClick={() => setPage((page) => page + 1)}
+        >
+          LOAD MORE
+        </button>
       </main>
     </ScrollBar>
   );
@@ -70,12 +85,10 @@ export async function getStaticProps({
 }) {
   try {
     const ArchiveOrg = new ArchiveOrgAPI();
-    const movies = await ArchiveOrg.getWithDetails(
-      1,
-      "*",
+    const movies = await ArchiveOrg.getAllCompileTime(
       allMovieCategories[category],
     );
-    console.log(`[${category}] OK =)`);
+    console.log(`[${category}] OK =) ${movies.length}`);
     return {
       props: { movies, selectedCategory: category },
     };

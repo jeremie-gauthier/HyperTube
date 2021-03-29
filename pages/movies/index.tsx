@@ -28,15 +28,14 @@ function Home({ movies }: HomeProps) {
   const debouncedSearch = useDebounce(search, 500);
 
   const { data } = useExternalAPI<{
-    movies: ArchiveOrgMovieStandardized[];
+    movies: Movie[];
   }>(
     {
       source: API.ARCHIVE_ORG,
       search: debouncedSearch,
       category: selectedCategory,
-      page: 1,
     },
-    { initialData: { movies } },
+    // { initialData: { movies } },
   );
   const moviesArchiveOrg = data?.movies;
 
@@ -45,14 +44,14 @@ function Home({ movies }: HomeProps) {
       <main className={styles.container}>
         <MovieCategories selectedCategory={selectedCategory} />
         <h1>Movies result will be printed here :)</h1>
-        {/* <FlexRow className={styles.mosaicMovies}>
+        <FlexRow className={styles.mosaicMovies}>
           {(moviesArchiveOrg ?? []).map((movie) => (
             <MovieCard
               key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
               movie={movie}
             />
           ))}
-        </FlexRow> */}
+        </FlexRow>
       </main>
     </ScrollBar>
   );

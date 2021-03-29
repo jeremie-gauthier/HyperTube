@@ -39,15 +39,17 @@ export default async function movieHandler(
 
 async function fetchMoviesFromExternalAPI(
   source: string,
-  page: number,
   search?: string,
   category?: string | null,
 ) {
   switch (source) {
     case API.ARCHIVE_ORG:
       const ArchiveOrg = new ArchiveOrgAPI();
-      const moviesArchiveOrg = await ArchiveOrg.get(page, search, category);
-      return moviesArchiveOrg.map((movie) => ArchiveOrgAPI.standardize(movie));
+      const moviesArchiveOrg = await ArchiveOrg.getWithDetails(
+        search,
+        category,
+      );
+      return moviesArchiveOrg;
     default:
       // list of registered movies
       return [];
@@ -65,16 +67,16 @@ async function fetchMovieDetailsFromOMDB(title: string, year: string) {
 
 async function getMovies(req: MovieRequest, res: NextApiResponse) {
   const {
-    query: { source, search, category, page, title, year },
+    query: { source, search, category, title, year },
   } = req;
 
   logRequests(req);
 
   // Search a list of movies whose title match `search`
   // Or are part of the `category` category
-  if (page && (search || category)) {
+  if (search || category) {
     const movies = await tryCatch(
-      () => fetchMoviesFromExternalAPI(source, page, search, category),
+      () => fetchMoviesFromExternalAPI(source, search, category),
       () => null,
     );
     return res.status(200).json({ movies });

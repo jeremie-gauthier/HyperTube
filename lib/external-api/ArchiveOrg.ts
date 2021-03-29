@@ -1,7 +1,9 @@
 import {
   ArchiveOrgMetadata,
   ArchiveOrgMovie,
+  ArchiveOrgMovieStandardized,
   ArchiveOrgResponse,
+  Movie,
   OmdbMovieFound,
 } from "@/types/movie";
 import { API, ARCHIVE_ORG } from "@/types/requests";
@@ -22,7 +24,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     this._metadata = ARCHIVE_ORG.METADATA;
   }
 
-  async get(page: number, search?: string, category?: string | null) {
+  async get(search?: string, category?: string | null) {
     const url = `${this._domain}${this._advancedSearch}?\
       q=collection:feature_films AND mediatype:movies AND title:${
         search ?? ""
@@ -34,25 +36,15 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       fl[]=identifier&\
       fl[]=runtime&\
       sort[]=downloads desc&\
-      rows=50&\
-      page=${page}&\
       output=json`;
     const { response } = await fetcher<ArchiveOrgResponse>(url);
     return response.docs;
   }
 
-  async getWithDetails(
-    page: number,
-    search?: string,
-    category?: string | null,
-  ) {
-    const movies = await this.get(page, search, category);
-    const moviesStandardized = movies.map((movie) =>
-      ArchiveOrgAPI.standardize(movie),
-    );
+  private static async _getDetails(movies: ArchiveOrgMovieStandardized[]) {
     const omdbAPI = new OMDB();
     const moviesWithOmdbDetails = await Promise.all(
-      moviesStandardized.map(async (movie) => {
+      movies.map(async (movie) => {
         try {
           const movieDetails = await omdbAPI.getByTitleAndYear(
             movie.title,
@@ -70,19 +62,93 @@ export default class ArchiveOrgAPI extends ExternalAPI {
                   "No runtime",
                 ),
               year: "Unknown",
-            };
+            } as Movie;
           }
           return {
             ...movie,
             year: movie.year ?? "Unknown",
             runtime: movie.runtime ?? "No runtime",
-          };
+          } as Movie;
         } catch (error) {
-          return movie;
+          return movie as Movie;
         }
       }),
     );
     return moviesWithOmdbDetails;
+  }
+
+  async getWithDetails(search?: string, category?: string | null) {
+    const movies = await this.get(search, category);
+    const moviesStandardized = movies.map((movie) =>
+      ArchiveOrgAPI.standardize(movie),
+    );
+    const moviesWithOmdbDetails = await ArchiveOrgAPI._getDetails(
+      moviesStandardized,
+    );
+    return moviesWithOmdbDetails;
+  }
+
+  private async _poke(category: string) {
+    const url = `${this._domain}${this._advancedSearch}?\
+    q=collection:feature_films AND mediatype:movies AND subject:${category}&\
+    rows=1&\
+    page=1&\
+    output=json`;
+    const { response } = await fetcher<ArchiveOrgResponse>(url);
+    return response.numFound;
+  }
+
+  private async _detailsCompletion(movies: Movie[], category: string) {
+    return Promise.all(
+      movies.map(async (movie) => {
+        // no picture from OMDB but have an ArchiveOrg id
+        let pictureFromMetaData = null;
+        if (!movie.picture && movie.archiveOrgIdentifier) {
+          const metadata = await this.getMetaData(movie.archiveOrgIdentifier);
+          const lookupDir = metadata.d1.concat(metadata.dir);
+          pictureFromMetaData = `http://${lookupDir}/__ia_thumb.jpg`;
+        }
+        return {
+          ...movie,
+          category: movie.category ?? category,
+          picture: movie.picture ?? pictureFromMetaData,
+        };
+      }),
+    );
+  }
+
+  async getAllCompileTime(category: string) {
+    const nbMovies = await this._poke(category);
+    const url = `${this._domain}${this._advancedSearch}?\
+    q=collection:feature_films AND mediatype:movies AND subject:${category}&\
+    fl[]=title&\
+    fl[]=year&\
+    fl[]=downloads&\
+    fl[]=description&\
+    fl[]=identifier&\
+    fl[]=runtime&\
+    sort[]=downloads desc&\
+    rows=${nbMovies}&\
+    page=1&\
+    output=json`;
+    const {
+      response: { docs },
+    } = await fetcher<ArchiveOrgResponse>(url);
+    const movies = docs.map((movie) => ArchiveOrgAPI.standardize(movie));
+    const dedupeMovies = movies
+      .filter((movie, idx) =>
+        movies.findIndex((m) => m.title.match(new RegExp(movie.title, "i"))) ===
+        idx
+          ? movie
+          : null,
+      )
+      .filter((movie) => movie !== null);
+    const moviesWithOmdbDetails = await ArchiveOrgAPI._getDetails(dedupeMovies);
+    const moviesWithMaxLevelOfDetails = await this._detailsCompletion(
+      moviesWithOmdbDetails,
+      category,
+    );
+    return moviesWithMaxLevelOfDetails;
   }
 
   // CALL THIS ON THE MOVIE PAGE TO GET TORRENT FILE
@@ -116,7 +182,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     return { title: parsedTitle[0], year: null };
   }
 
-  static runtimeParser(runtime?: string) {
+  static runtimeParser(runtime?: string): { runtime: string | null } {
     if (!runtime) {
       return { runtime: null };
     }
