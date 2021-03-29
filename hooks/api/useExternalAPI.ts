@@ -1,11 +1,11 @@
 import { ConfigInterface } from "swr";
 import { API } from "@/types/requests";
+import isEmpty from "@ramda/isempty";
 import useFetch from "./useFetch";
 import { moviesRoute } from "./useMovie";
 
 type APIQueryParams = {
   source: API;
-  page?: number;
   search?: string;
   category?: string | null;
   title?: string;
@@ -14,14 +14,13 @@ type APIQueryParams = {
 
 class QueryParams {
   static format(queryParams: APIQueryParams) {
-    const { search, category, page, source, title, year } = queryParams;
+    const { search, category, source, title, year } = queryParams;
     const queryString = [
       `source=${source}`,
       search && `search=${search}`,
       category && `category=${category}`,
       title && `title=${title}`,
       year && `year=${year}`,
-      page && `page=${page}`,
     ];
     return queryString.filter((v) => v).join("&");
   }
@@ -32,20 +31,12 @@ export default function useExternalAPI<MovieFormExternalAPI>(
   config?: ConfigInterface,
 ) {
   const canFetch =
-    queryParams.search ||
+    !isEmpty(queryParams.search) ||
     queryParams.category ||
     (queryParams.title && queryParams.year);
 
   return useFetch<MovieFormExternalAPI>(
     canFetch ? `${moviesRoute()}?${QueryParams.format(queryParams)}` : null,
-    {
-      ...config,
-      revalidateOnFocus: false,
-      revalidateOnMount: false,
-      revalidateOnReconnect: false,
-      refreshWhenOffline: false,
-      refreshWhenHidden: false,
-      refreshInterval: 0,
-    },
+    config,
   );
 }
