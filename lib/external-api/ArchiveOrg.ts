@@ -5,10 +5,16 @@ import {
   ArchiveOrgResponse,
   Movie,
   OmdbMovieFound,
+  POSTER_DEFAULT,
 } from "@/types/movie";
 import { API, ARCHIVE_ORG } from "@/types/requests";
 import fetcher from "../fetcher";
-import { omdbValueOrDefault, tryCatchSync } from "../helpers";
+import {
+  omdbValueOrDefault,
+  promiseRetry,
+  promiseTimeout,
+  tryCatchSync,
+} from "../helpers";
 import ExternalAPI from "./ExternalAPI";
 import OMDB from "./OMDB";
 
@@ -46,9 +52,9 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     const moviesWithOmdbDetails = await Promise.all(
       movies.map(async (movie) => {
         try {
-          const movieDetails = await omdbAPI.getByTitleAndYear(
-            movie.title,
-            movie.year,
+          const movieDetails = await promiseTimeout(
+            () => omdbAPI.getByTitleAndYear(movie.title, movie.year),
+            2000,
           );
           if (OmdbMovieFound(movieDetails)) {
             const movieDetailsStandardized = OMDB.standardize(movieDetails);
@@ -57,16 +63,13 @@ export default class ArchiveOrgAPI extends ExternalAPI {
               ...movieDetailsStandardized,
               runtime:
                 movie.runtime ??
-                omdbValueOrDefault(
-                  movieDetailsStandardized?.runtime,
-                  "No runtime",
-                ),
-              year: "Unknown",
+                omdbValueOrDefault(movieDetailsStandardized?.runtime),
+              year: "",
             } as Movie;
           }
           return {
             ...movie,
-            year: movie.year ?? "Unknown",
+            year: movie.year ?? "",
             runtime: movie.runtime ?? "No runtime",
           } as Movie;
         } catch (error) {
@@ -99,14 +102,27 @@ export default class ArchiveOrgAPI extends ExternalAPI {
   }
 
   private async _detailsCompletion(movies: Movie[], category: string) {
+    const RETRIES = 5;
+    const DELAY_RETRY = 2000;
+
     return Promise.all(
       movies.map(async (movie) => {
         // no picture from OMDB but have an ArchiveOrg id
-        let pictureFromMetaData = null;
+        let pictureFromMetaData = POSTER_DEFAULT;
         if (!movie.picture && movie.archiveOrgIdentifier) {
-          const metadata = await this.getMetaData(movie.archiveOrgIdentifier);
-          const lookupDir = metadata.d1.concat(metadata.dir);
-          pictureFromMetaData = `http://${lookupDir}/__ia_thumb.jpg`;
+          const metadata = await promiseRetry(
+            () => this.getMetaData(movie.archiveOrgIdentifier as string),
+            RETRIES,
+            DELAY_RETRY,
+          );
+          if (metadata) {
+            const iaDir =
+              metadata.d1?.concat(metadata.dir) ??
+              metadata.d2?.concat(metadata.dir);
+            pictureFromMetaData = iaDir
+              ? `http://${iaDir}/__ia_thumb.jpg`
+              : POSTER_DEFAULT;
+          }
         }
         return {
           ...movie,
@@ -117,8 +133,11 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     );
   }
 
+  // eslint-disable-next-line max-statements
   async getAllCompileTime(category: string) {
+    console.log(`[${category}]: is poking ArchiveOrg`);
     const nbMovies = await this._poke(category);
+    console.log(`[${category}]: has ${nbMovies} items`);
     const url = `${this._domain}${this._advancedSearch}?\
     q=collection:feature_films AND mediatype:movies AND subject:${category}&\
     fl[]=title&\
@@ -131,23 +150,30 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     rows=${nbMovies}&\
     page=1&\
     output=json`;
+    console.log(`[${category}]: is fetching all items`);
     const {
       response: { docs },
     } = await fetcher<ArchiveOrgResponse>(url);
+    console.log(`[${category}]: standardize all items`);
     const movies = docs.map((movie) => ArchiveOrgAPI.standardize(movie));
+    console.log(`[${category}]: dedupe duplicate items`);
     const dedupeMovies = movies
       .filter((movie, idx) =>
-        movies.findIndex((m) => m.title.match(new RegExp(movie.title, "i"))) ===
-        idx
+        movies.findIndex((m) =>
+          m.title?.toString().match(new RegExp(movie.title, "i")),
+        ) === idx
           ? movie
           : null,
       )
       .filter((movie) => movie !== null);
+    console.log(`[${category}]: get details from OMDB`);
     const moviesWithOmdbDetails = await ArchiveOrgAPI._getDetails(dedupeMovies);
+    console.log(`[${category}]: complete missing OMDB details`);
     const moviesWithMaxLevelOfDetails = await this._detailsCompletion(
       moviesWithOmdbDetails,
       category,
     );
+    console.log(`[${category}]: DONE`);
     return moviesWithMaxLevelOfDetails;
   }
 
@@ -173,7 +199,10 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     if (!year) {
       // Any sequence of four digits surrounded by brackets and possible chars
       const yearRgx = /(?<=[(\W*])\d{4}(?=[\W*)])/;
-      const parsedYear = title.match(yearRgx);
+      const parsedYear = tryCatchSync(
+        () => title.match(yearRgx),
+        () => null,
+      );
       if (parsedYear) {
         return { title: parsedTitle[0], year: parsedYear[0] };
       }
