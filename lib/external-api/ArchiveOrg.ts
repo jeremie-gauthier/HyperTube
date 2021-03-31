@@ -119,7 +119,8 @@ export default class ArchiveOrgAPI extends ExternalAPI {
             const iaDir =
               metadata.d1?.concat(metadata.dir) ??
               metadata.d2?.concat(metadata.dir);
-            pictureFromMetaData = iaDir
+            const res = await fetch(`http://${iaDir}/__ia_thumb.jpg`);
+            pictureFromMetaData = res.ok
               ? `http://${iaDir}/__ia_thumb.jpg`
               : POSTER_DEFAULT;
           }
