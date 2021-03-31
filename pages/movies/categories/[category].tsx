@@ -22,6 +22,10 @@ const PAGE_RANGE = 50;
 function Home({ movies, selectedCategory }: HomeProps) {
   const [page, setPage] = React.useState(1);
   const moviesPagination = movies.slice(0, page * PAGE_RANGE);
+  React.useEffect(() => {
+    setPage(1);
+  }, [selectedCategory]);
+
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 250);
 
