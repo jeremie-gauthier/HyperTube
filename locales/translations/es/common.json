@@ -1,6 +1,7 @@
 {
 	"buttons": {
 		"cancel": "Cancelar",
+		"load_more": "Ver más",
 		"submit": "Enviar"
 	},
 	"errors": {

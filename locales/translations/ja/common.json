@@ -1,6 +1,7 @@
 {
 	"buttons": {
 		"cancel": "キャンセル",
+		"load_more": "もっと読み込む",
 		"submit": "提出する"
 	},
 	"errors": {

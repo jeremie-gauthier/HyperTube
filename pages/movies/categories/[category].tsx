@@ -1,3 +1,5 @@
+/* eslint-disable max-lines-per-function */
+/* eslint-disable max-statements */
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
 import useSelector from "@/hooks/useSelector";
@@ -20,6 +22,7 @@ type HomeProps = {
 
 const PAGE_RANGE = 50;
 function Home({ movies, selectedCategory }: HomeProps) {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(1);
   const moviesPagination = movies.slice(0, page * PAGE_RANGE);
   React.useEffect(() => {
@@ -28,10 +31,6 @@ function Home({ movies, selectedCategory }: HomeProps) {
 
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 250);
-
-  const [moviesFiltered, setMoviesFiltered] = React.useState(movies);
-  const showMoviesFiltered = !isEmpty(debouncedSearch);
-
   React.useEffect(() => {
     if (showMoviesFiltered) {
       setMoviesFiltered(
@@ -45,29 +44,36 @@ function Home({ movies, selectedCategory }: HomeProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch, page]);
 
+  const [moviesFiltered, setMoviesFiltered] = React.useState(movies);
+  const showMoviesFiltered = !isEmpty(debouncedSearch);
+  const moviesToShow = showMoviesFiltered ? moviesFiltered : moviesPagination;
+  const hasMoviesNotLoaded = moviesPagination.length < movies.length;
+
   return (
     <ScrollBar>
       <main className={styles.container}>
         <MovieCategories selectedCategory={selectedCategory} />
         <h1>Movies result will be printed here :)</h1>
         <FlexRow className={styles.mosaicMovies}>
-          {(showMoviesFiltered ? moviesFiltered : moviesPagination).map(
-            (movie, idx) => (
-              <MovieCard
-                // eslint-disable-next-line react/no-array-index-key
-                key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
-                movie={movie}
-              />
-            ),
-          )}
+          {moviesToShow.map((movie, idx) => (
+            <MovieCard
+              // eslint-disable-next-line react/no-array-index-key
+              key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
+              movie={movie}
+            />
+          ))}
         </FlexRow>
-        <button
-          type="button"
-          className="p-2 bg-red"
-          onClick={() => setPage((page) => page + 1)}
-        >
-          LOAD MORE
-        </button>
+        {hasMoviesNotLoaded && (
+          <FlexRow className="justify-center">
+            <button
+              type="button"
+              className={styles.loadMore}
+              onClick={() => setPage((page) => page + 1)}
+            >
+              {t("common.buttons.load_more")}
+            </button>
+          </FlexRow>
+        )}
       </main>
     </ScrollBar>
   );

@@ -3,7 +3,7 @@
 }
 
 .mosaicMovies {
-  @apply flex-wrap flex justify-center;
+  @apply flex-wrap flex justify-center mb-1;
 }
 
 .labelsList {
@@ -12,4 +12,8 @@
   :first-child {
     @apply mt-2 ml-2;
   }
+}
+
+.loadMore {
+  @apply p-3 text-lg font-semibold bg-red rounded;
 }
