@@ -12,6 +12,14 @@
   :first-child {
     @apply mt-2 ml-2;
   }
+
+  *:focus {
+    @apply outline-none;
+
+    div {
+      @apply text-red border-red;
+    }
+  }
 }
 
 .loadMore {
