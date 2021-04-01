@@ -140,7 +140,11 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     const nbMovies = await this._poke(category);
     console.log(`[${category}]: has ${nbMovies} items`);
     const url = `${this._domain}${this._advancedSearch}?\
-    q=collection:feature_films AND mediatype:movies AND subject:${category}&\
+    q=\
+      collection:feature_films AND\
+      mediatype:movies AND\
+      subject:${category} AND\
+      downloads:[10000 TO 3000000]&\
     fl[]=title&\
     fl[]=year&\
     fl[]=downloads&\
