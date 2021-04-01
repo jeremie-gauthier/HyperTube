@@ -8,10 +8,14 @@ import styles from "./Label.module.scss";
 export default function MovieCategories({
   selectedCategory,
 }: {
-  selectedCategory: string | null;
+  selectedCategory: MovieCategory | null;
 }) {
   const { t } = useTranslation();
   const MovieCategoriesList = Object.values(MovieCategory);
+  const isCurrentCategory = (category: MovieCategory) =>
+    category === selectedCategory;
+  const getLink = (category: MovieCategory) =>
+    isCurrentCategory(category) ? `/movies` : `/movies/categories/${category}`;
 
   return (
     <FlexRow className={styles.labelsList}>
@@ -19,12 +23,12 @@ export default function MovieCategories({
         <Link
           // eslint-disable-next-line react/no-array-index-key
           key={`${category}-${idx}`}
-          href={`/movies/categories/${category}`}
+          href={getLink(category)}
         >
-          <a href={`/movies/categories/${category}`}>
+          <a href={getLink(category)}>
             <Label
               text={t(`models.movie.category.${category}`)}
-              isActive={category === selectedCategory}
+              isActive={isCurrentCategory(category)}
             />
           </a>
         </Link>
