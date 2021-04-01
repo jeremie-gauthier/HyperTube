@@ -2,6 +2,10 @@
   @apply mx-8 mt-4 mb-16 space-y-8;
 }
 
+.feedbackResults {
+  @apply text-center text-xl;
+}
+
 .mosaicMovies {
   @apply flex-wrap flex justify-center mb-1;
 }

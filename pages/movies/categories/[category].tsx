@@ -1,9 +1,5 @@
-/* eslint-disable max-lines-per-function */
-/* eslint-disable max-statements */
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
-import useSelector from "@/hooks/useSelector";
-import useDebounce from "@/hooks/useDebounce";
 import { allMovieCategories, Movie, MovieCategory } from "@/types/movie";
 import ScrollBar from "react-perfect-scrollbar";
 import { FlexRow } from "@/components/Flex";
@@ -12,6 +8,8 @@ import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import React from "react";
 import isEmpty from "@ramda/isempty";
 import MovieCategories from "@/components/Label/MovieCategories";
+import useMovieSearch from "@/hooks/useMovieFilter";
+import useMoviePagination from "@/hooks/useMoviePagination";
 import styles from "../movies.module.scss";
 
 type HomeProps = {
@@ -19,63 +17,37 @@ type HomeProps = {
   selectedCategory: MovieCategory;
 };
 
-const PAGE_RANGE = 50;
 function Home({ movies, selectedCategory }: HomeProps) {
   const { t } = useTranslation();
-  const [page, setPage] = React.useState(1);
-  const moviesPagination = movies.slice(0, page * PAGE_RANGE);
-  React.useEffect(() => {
-    setPage(1);
-  }, [selectedCategory]);
-
-  const search = useSelector((state) => state.movie.searchInput);
-  const debouncedSearch = useDebounce(search, 250);
-  React.useEffect(() => {
-    if (showMoviesFiltered) {
-      setMoviesFiltered(
-        movies.filter(
-          (movie) =>
-            movie.title.match(new RegExp(debouncedSearch, "i")) ||
-            movie.synopsis?.match(debouncedSearch),
-        ),
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearch, page]);
-
-  const [moviesFiltered, setMoviesFiltered] = React.useState(movies);
-  const showMoviesFiltered = !isEmpty(debouncedSearch);
+  const { moviesPagination, incrementPagination } = useMoviePagination(
+    movies,
+    selectedCategory,
+  );
+  const { moviesFiltered, showMoviesFiltered } = useMovieSearch(movies);
   const moviesToShow = showMoviesFiltered ? moviesFiltered : moviesPagination;
-  const hasMoviesNotLoaded = moviesPagination.length < movies.length;
+  const hasMoviesNotLoaded =
+    !showMoviesFiltered && moviesPagination.length < movies.length;
 
   return (
     <ScrollBar>
       <main className={styles.container}>
         <MovieCategories selectedCategory={selectedCategory} />
-        <FlexRow className={styles.mosaicMovies}>
-          {isEmpty(moviesToShow) ? (
-            <p>No movie found</p>
-          ) : (
-            moviesToShow.map((movie, idx) => (
-              <MovieCard
-                // eslint-disable-next-line react/no-array-index-key
-                key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
-                movie={movie}
-              />
-            ))
-          )}
-        </FlexRow>
-        {hasMoviesNotLoaded && (
-          <FlexRow className="justify-center">
-            <button
-              type="button"
-              className={styles.loadMore}
-              onClick={() => setPage((page) => page + 1)}
-            >
-              {t("common.buttons.load_more")}
-            </button>
-          </FlexRow>
-        )}
+        <MoviesResults
+          text={
+            isEmpty(moviesToShow)
+              ? t("pages.movies.empty_set")
+              : t("pages.movies.result", {
+                  count: showMoviesFiltered
+                    ? moviesFiltered.length
+                    : movies.length,
+                })
+          }
+        />
+        <MoviesList movies={moviesToShow} />
+        <LoadMoreButton
+          isVisible={hasMoviesNotLoaded}
+          onClick={incrementPagination}
+        />
       </main>
     </ScrollBar>
   );
@@ -109,3 +81,36 @@ export async function getStaticProps({
     return { props: { movies: [], selectedCategory: category } };
   }
 }
+
+const MoviesResults = ({ text }: { text: string }) => (
+  <p className={styles.feedbackResults}>{text}</p>
+);
+
+const MoviesList = ({ movies }: { movies: Movie[] }) => (
+  <FlexRow className={styles.mosaicMovies}>
+    {movies.map((movie, idx) => (
+      <MovieCard
+        // eslint-disable-next-line react/no-array-index-key
+        key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
+        movie={movie}
+      />
+    ))}
+  </FlexRow>
+);
+
+type LoadMoreButtonProps = {
+  isVisible: boolean;
+  onClick: () => void;
+};
+
+const LoadMoreButton = ({ isVisible, onClick }: LoadMoreButtonProps) => {
+  const { t } = useTranslation();
+
+  return isVisible ? (
+    <FlexRow className="justify-center">
+      <button type="button" className={styles.loadMore} onClick={onClick}>
+        {t("common.buttons.load_more")}
+      </button>
+    </FlexRow>
+  ) : null;
+};
