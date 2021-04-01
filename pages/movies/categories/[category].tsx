@@ -7,12 +7,11 @@ import useDebounce from "@/hooks/useDebounce";
 import { allMovieCategories, Movie, MovieCategory } from "@/types/movie";
 import ScrollBar from "react-perfect-scrollbar";
 import { FlexRow } from "@/components/Flex";
-import Label from "@/components/Label";
 import { useTranslation } from "react-i18next";
-import Link from "next/link";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import React from "react";
 import isEmpty from "@ramda/isempty";
+import MovieCategories from "@/components/Label/MovieCategories";
 import styles from "../movies.module.scss";
 
 type HomeProps = {
@@ -53,15 +52,18 @@ function Home({ movies, selectedCategory }: HomeProps) {
     <ScrollBar>
       <main className={styles.container}>
         <MovieCategories selectedCategory={selectedCategory} />
-        <h1>Movies result will be printed here :)</h1>
         <FlexRow className={styles.mosaicMovies}>
-          {moviesToShow.map((movie, idx) => (
-            <MovieCard
-              // eslint-disable-next-line react/no-array-index-key
-              key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
-              movie={movie}
-            />
-          ))}
+          {isEmpty(moviesToShow) ? (
+            <p>No movie found</p>
+          ) : (
+            moviesToShow.map((movie, idx) => (
+              <MovieCard
+                // eslint-disable-next-line react/no-array-index-key
+                key={`${movie.title}-${movie.year}-${movie.nbDownloads}-${idx}`}
+                movie={movie}
+              />
+            ))
+          )}
         </FlexRow>
         {hasMoviesNotLoaded && (
           <FlexRow className="justify-center">
@@ -98,40 +100,12 @@ export async function getStaticProps({
     const movies = await ArchiveOrg.getAllCompileTime(
       allMovieCategories[category],
     );
-    console.log(`[${category}] OK =) ${movies.length}`);
+    console.log(`[${category}] OK ${movies.length}`);
     return {
       props: { movies, selectedCategory: category },
     };
   } catch (error) {
-    console.log(`[${category}] NOT OK =( => ${error}`);
+    console.log(`[${category}] NOT OK => ${error}`);
     return { props: { movies: [], selectedCategory: category } };
   }
 }
-
-const MovieCategories = ({
-  selectedCategory,
-}: {
-  selectedCategory: string | null;
-}) => {
-  const { t } = useTranslation();
-  const MovieCategoriesList = Object.values(MovieCategory);
-
-  return (
-    <FlexRow className={styles.labelsList}>
-      {MovieCategoriesList.map((category, idx) => (
-        <Link
-          // eslint-disable-next-line react/no-array-index-key
-          key={`${category}-${idx}`}
-          href={`/movies/categories/${category}`}
-        >
-          <a href={`/movies/categories/${category}`}>
-            <Label
-              text={t(`models.movie.category.${category}`)}
-              isActive={category === selectedCategory}
-            />
-          </a>
-        </Link>
-      ))}
-    </FlexRow>
-  );
-};

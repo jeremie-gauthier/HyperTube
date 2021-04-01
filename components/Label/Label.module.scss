@@ -13,3 +13,19 @@
     @apply active duration-500;
   }
 }
+
+.labelsList {
+  @apply space-y-2 space-x-2 flex-wrap justify-center;
+
+  :first-child {
+    @apply mt-2 ml-2;
+  }
+
+  *:focus {
+    @apply outline-none;
+
+    div {
+      @apply text-red text-opacity-75 border-red border-opacity-75;
+    }
+  }
+}

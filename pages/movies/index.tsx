@@ -1,21 +1,13 @@
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
-import useSelector from "@/hooks/useSelector";
-import { API } from "@/types/requests";
-import useExternalAPI from "@/hooks/api/useExternalAPI";
-import useDebounce from "@/hooks/useDebounce";
-import {
-  allMovieCategories,
-  ArchiveOrgMovieStandardized,
-  Movie,
-  MovieCategory,
-  MoviesFromAPI,
-} from "@/types/movie";
+// import useSelector from "@/hooks/useSelector";
+// import { API } from "@/types/requests";
+// import useExternalAPI from "@/hooks/api/useExternalAPI";
+// import useDebounce from "@/hooks/useDebounce";
+import { Movie, MoviesFromAPI } from "@/types/movie";
 import ScrollBar from "react-perfect-scrollbar";
 import { FlexRow } from "@/components/Flex";
-import Label from "@/components/Label";
-import { useTranslation } from "react-i18next";
-import Link from "next/link";
+import MovieCategories from "@/components/Label/MovieCategories";
 import styles from "./movies.module.scss";
 
 type HomeProps = {
@@ -23,29 +15,16 @@ type HomeProps = {
 };
 
 function Home({ movies }: HomeProps) {
-  const search = useSelector((state) => state.movie.searchInput);
-  const selectedCategory = useSelector((state) => state.movie.selectedCategory);
-  const debouncedSearch = useDebounce(search, 500);
-
-  const { data } = useExternalAPI<{
-    movies: Movie[];
-  }>(
-    {
-      source: API.ARCHIVE_ORG,
-      search: debouncedSearch,
-      category: selectedCategory,
-    },
-    // { initialData: { movies } },
-  );
-  const moviesArchiveOrg = data?.movies;
+  // const search = useSelector((state) => state.movie.searchInput);
+  // const debouncedSearch = useDebounce(search, 500);
 
   return (
     <ScrollBar>
       <main className={styles.container}>
-        <MovieCategories selectedCategory={selectedCategory} />
+        <MovieCategories selectedCategory={null} />
         <h1>Movies result will be printed here :)</h1>
         <FlexRow className={styles.mosaicMovies}>
-          {(moviesArchiveOrg ?? []).map((movie) => (
+          {(movies ?? []).map((movie) => (
             <MovieCard
               key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
               movie={movie}
@@ -73,27 +52,3 @@ export async function getServerSideProps() {
     return { props: { movies: null } };
   }
 }
-
-const MovieCategories = ({
-  selectedCategory,
-}: {
-  selectedCategory: string | null;
-}) => {
-  const { t } = useTranslation();
-  const MovieCategoriesList = Object.values(MovieCategory).map((category) => ({
-    name: category,
-    isActive: selectedCategory === allMovieCategories[category],
-    label: allMovieCategories[category],
-    text: t(`models.movie.category.${category}`),
-  }));
-
-  return (
-    <FlexRow className={styles.labelsList}>
-      {MovieCategoriesList.map((category) => (
-        <Link key={category.text} href={`/movies/categories/${category.name}`}>
-          <Label {...category} />
-        </Link>
-      ))}
-    </FlexRow>
-  );
-};
