@@ -49,6 +49,11 @@
 			"pwd_forgotten_question": "パスワードをお忘れですか ？"
 		}
 	},
+	"movies": {
+		"empty_set": "映画が見つかりません",
+		"result": "{{count}} 結果が見つかりました",
+		"result_plural": "{{count}} 件の結果が見つかりました"
+	},
 	"user": {
 		"activites": "アクティビティ",
 		"informations": "情報",

@@ -49,6 +49,11 @@
 			"pwd_forgotten_question": "Mot de passe oublié ?"
 		}
 	},
+	"movies": {
+		"empty_set": "Aucun film trouvé",
+		"result": "{{count}} résultat trouvé",
+		"result_plural": "{{count}} résultats trouvés"
+	},
 	"user": {
 		"activites": "Activité",
 		"informations": "Informations",

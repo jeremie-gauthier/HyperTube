@@ -49,6 +49,11 @@
 			"pwd_forgotten_question": "Olvidaste tu contraseña ?"
 		}
 	},
+	"movies": {
+		"empty_set": "No se encontraron películas",
+		"result": "{{count}} resultado encontrado",
+		"result_plural": "{{count}} resultados encontrados"
+	},
 	"user": {
 		"activites": "Actividad",
 		"informations": "Informaciones",
