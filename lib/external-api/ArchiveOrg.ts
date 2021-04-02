@@ -4,6 +4,7 @@ import {
   ArchiveOrgMovieStandardized,
   ArchiveOrgResponse,
   Movie,
+  MovieCategory,
   OmdbMovieFound,
   POSTER_DEFAULT,
 } from "@/types/movie";
@@ -134,6 +135,73 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     );
   }
 
+  async getAllMoviesIdentifierFromCategory(category: string) {
+    console.log(`[${category}]: is poking ArchiveOrg`);
+    const nbMovies = await this._poke(category);
+    console.log(`[${category}]: has ${nbMovies} items`);
+    const url = `${this._domain}${this._advancedSearch}?\
+    q=\
+      collection:feature_films AND\
+      mediatype:movies AND\
+      subject:${category} AND\
+      downloads:[10000 TO 3000000]&\
+    fl[]=identifier&\
+    rows=${nbMovies}&\
+    page=1&\
+    output=json`;
+    console.log(`[${category}]: is fetching all items`);
+    const {
+      response: { docs },
+    } = await fetcher<ArchiveOrgResponse>(url);
+    console.log(`[${category}]: standardize all items`);
+    const identifiers = docs.map((doc) => doc.identifier);
+    return identifiers;
+  }
+
+  async getMoviesDetails(docs: ArchiveOrgMovie[], category: string) {
+    console.log(`[${category}]: standardize all items`);
+    const movies = docs.map((movie) => ArchiveOrgAPI.standardize(movie));
+    console.log(`[${category}]: dedupe duplicate items`);
+    const dedupeMovies = movies
+      .filter((movie, idx) =>
+        movies.findIndex((m) =>
+          m.title?.toString().match(new RegExp(movie.title, "i")),
+        ) === idx
+          ? movie
+          : null,
+      )
+      .filter((movie) => movie !== null);
+    console.log(`[${category}]: get details from OMDB`);
+    const moviesWithOmdbDetails = await ArchiveOrgAPI._getDetails(dedupeMovies);
+    console.log(`[${category}]: complete missing OMDB details`);
+    const moviesWithMaxLevelOfDetails = await this._detailsCompletion(
+      moviesWithOmdbDetails,
+      category,
+    );
+    console.log(`[${category}]: DONE`);
+    return moviesWithMaxLevelOfDetails;
+  }
+
+  async getAllFromId(id: string) {
+    const url = `${this._domain}${this._advancedSearch}?\
+    q=\
+      collection:feature_films AND\
+      mediatype:movies AND\
+      identifier:${id}&\
+    fl[]=title&\
+    fl[]=year&\
+    fl[]=downloads&\
+    fl[]=description&\
+    fl[]=identifier&\
+    fl[]=runtime&\
+    output=json`;
+    const {
+      response: { docs },
+    } = await fetcher<ArchiveOrgResponse>(url);
+    const moviesDetails = await this.getMoviesDetails(docs, "");
+    return moviesDetails[0];
+  }
+
   // eslint-disable-next-line max-statements
   async getAllCompileTime(category: string) {
     console.log(`[${category}]: is poking ArchiveOrg`);
@@ -159,27 +227,8 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     const {
       response: { docs },
     } = await fetcher<ArchiveOrgResponse>(url);
-    console.log(`[${category}]: standardize all items`);
-    const movies = docs.map((movie) => ArchiveOrgAPI.standardize(movie));
-    console.log(`[${category}]: dedupe duplicate items`);
-    const dedupeMovies = movies
-      .filter((movie, idx) =>
-        movies.findIndex((m) =>
-          m.title?.toString().match(new RegExp(movie.title, "i")),
-        ) === idx
-          ? movie
-          : null,
-      )
-      .filter((movie) => movie !== null);
-    console.log(`[${category}]: get details from OMDB`);
-    const moviesWithOmdbDetails = await ArchiveOrgAPI._getDetails(dedupeMovies);
-    console.log(`[${category}]: complete missing OMDB details`);
-    const moviesWithMaxLevelOfDetails = await this._detailsCompletion(
-      moviesWithOmdbDetails,
-      category,
-    );
-    console.log(`[${category}]: DONE`);
-    return moviesWithMaxLevelOfDetails;
+    const moviesDetails = await this.getMoviesDetails(docs, category);
+    return moviesDetails;
   }
 
   // CALL THIS ON THE MOVIE PAGE TO GET TORRENT FILE
