@@ -15,8 +15,7 @@ Details.Layout = SiteLayout;
 export default Details;
 
 export async function getStaticPaths() {
-  // const categories = Object.values(MovieCategory).map((categ) => categ);
-  const categories = [MovieCategory.CRIME];
+  const categories = Object.values(MovieCategory).map((categ) => categ);
 
   const ArchiveOrg = new ArchiveOrgAPI();
   const identifiers = (

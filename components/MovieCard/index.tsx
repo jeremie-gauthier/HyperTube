@@ -3,6 +3,7 @@ import useHover from "@/hooks/useHover";
 import { humanReadableNumber, omdbValueOrDefault } from "@/lib/helpers";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 import styles from "./MovieCard.module.scss";
 import { ReactComponent as PlayIcon } from "../../public/icons/play.svg";
 import { ReactComponent as CommentIcon } from "../../public/icons/comment.svg";
@@ -43,11 +44,11 @@ export default function MovieCard({ movie }: MovieProps) {
 }
 
 const MovieDetails = ({
-  movie: { runtime, year, nbDownloads, category },
+  movie: { runtime, year, nbDownloads, category, archiveOrgIdentifier },
 }: MovieProps) => (
   <FlexCol className={styles.detailsContainer}>
     <FlexRow className={styles.commands}>
-      <CommandBtns />
+      <CommandBtns movieId={archiveOrgIdentifier ?? ""} />
     </FlexRow>
 
     <FlexRow className={styles.details}>
@@ -66,7 +67,7 @@ const MovieDetails = ({
   </FlexCol>
 );
 
-const CommandBtns = () => (
+const CommandBtns = ({ movieId }: { movieId: string }) => (
   <>
     <FlexRow className="space-x-5">
       <PlayBtn />
@@ -75,7 +76,7 @@ const CommandBtns = () => (
     </FlexRow>
 
     <FlexRow>
-      <MovieBtn />
+      <MovieBtn movieId={movieId} />
     </FlexRow>
   </>
 );
@@ -98,8 +99,12 @@ const AddBtn = () => (
   </div>
 );
 
-const MovieBtn = () => (
+const MovieBtn = ({ movieId }: { movieId: string }) => (
   <div className={styles.borderCircle}>
-    <MovieIcon role="button" onClick={() => console.log("Comment")} />
+    <Link href={`/movies/${movieId}/details`}>
+      <a href={`/movies/${movieId}/details`}>
+        <MovieIcon />
+      </a>
+    </Link>
   </div>
 );
