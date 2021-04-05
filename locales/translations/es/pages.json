@@ -52,10 +52,12 @@
 	"movies": {
 		"details": {
 			"actors": "Los actores",
+			"add_comment": "Añadir un comentario",
 			"category": "Género",
 			"comments": "Comentarios",
 			"production": "Producción",
-			"unknown_information": "Información desconocida"
+			"unknown_information": "Información desconocida",
+			"watch": "Mirar esta película"
 		},
 		"empty_set": "No se encontraron películas",
 		"result": "{{count}} resultado encontrado",

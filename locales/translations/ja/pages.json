@@ -52,10 +52,12 @@
 	"movies": {
 		"details": {
 			"actors": "俳優",
+			"add_comment": "コメントを追加",
 			"category": "ジャンル",
 			"comments": "コメント",
 			"production": "製造",
-			"unknown_information": "不明な情報"
+			"unknown_information": "不明な情報",
+			"watch": "この映画を見る"
 		},
 		"empty_set": "映画が見つかりません",
 		"result": "{{count}} 結果が見つかりました",

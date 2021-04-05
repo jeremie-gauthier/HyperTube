@@ -2,15 +2,20 @@ import { MovieComment as UserComment } from "@/components/Comment";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import { moviesRoute } from "@/hooks/api/useMovie";
+import useHover from "@/hooks/useHover";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import fetcher from "@/lib/fetcher";
 import { humanReadableNumber } from "@/lib/helpers";
 import { CommentsForMovie } from "@/types/comment";
 import { Movie } from "@/types/movie";
 import { Methods } from "@/types/requests";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import ScrollBar from "react-perfect-scrollbar";
+// eslint-disable-next-line max-len
+import { ReactComponent as CommentIcon } from "../../../public/icons/comment.svg";
 import { ReactComponent as EyeIcon } from "../../../public/icons/eye.svg";
+import { ReactComponent as PlayIcon } from "../../../public/icons/play.svg";
 import styles from "./details.module.scss";
 
 type DetailsProps = {
@@ -19,8 +24,6 @@ type DetailsProps = {
 };
 
 function Details({ movieDetails, comments }: DetailsProps) {
-  console.log(movieDetails, comments);
-
   return movieDetails ? (
     <ScrollBar>
       <main className={styles.container}>
@@ -38,6 +41,9 @@ function Details({ movieDetails, comments }: DetailsProps) {
           <Category category={movieDetails.category} />
         </FlexCol>
         <MovieComments comments={comments} />
+
+        <ActionPlay movieDetails={movieDetails} />
+        <ActionComment movieDetails={movieDetails} />
       </main>
     </ScrollBar>
   ) : (
@@ -76,6 +82,39 @@ export const getServerSideProps = async ({
 const Title = ({ title }: { title: string }) => (
   <h1 className={styles.title}>{title}</h1>
 );
+
+const ActionPlay = ({ movieDetails }: { movieDetails: Movie }) => {
+  const { t } = useTranslation();
+  const [hoverRef, isHovered] = useHover();
+
+  return (
+    <div className={styles.playMovie}>
+      <Link href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}>
+        <a
+          ref={hoverRef}
+          href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}
+        >
+          <PlayIcon role="button" onClick={() => console.log("Play")} />
+          {isHovered && <p>{t("pages.movies.details.watch")}</p>}
+        </a>
+      </Link>
+    </div>
+  );
+};
+
+const ActionComment = ({ movieDetails }: { movieDetails: Movie }) => {
+  const { t } = useTranslation();
+  const [hoverRef, isHovered] = useHover();
+
+  return (
+    <div className={styles.commentMovie}>
+      <button ref={hoverRef} type="button">
+        <CommentIcon role="button" onClick={() => console.log("Comment")} />
+        {isHovered && <p>{t("pages.movies.details.add_comment")}</p>}
+      </button>
+    </div>
+  );
+};
 
 const Statistics = ({
   year,
