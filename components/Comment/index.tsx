@@ -1,4 +1,6 @@
 import { CommentsForMovie, UserCommentsOnMovies } from "@/types/comment";
+import { User } from "@/types/user";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { FlexRow } from "../Flex";
 import styles from "./Comment.module.scss";
@@ -26,7 +28,7 @@ export const MovieComment = ({
   userComment: CommentsForMovie;
 }) => (
   <div className={styles.container}>
-    <Header title={<Author username={user.username} />} date={comment.date} />
+    <Header title={<AuthorLink user={user} />} date={comment.date} />
     <UserComment comment={comment.comment} />
   </div>
 );
@@ -40,6 +42,14 @@ const Author = ({ username }: { username: string }) => {
     </>
   );
 };
+
+const AuthorLink = ({ user }: { user: User }) => (
+  <Link href={`/users/${user.id}`}>
+    <a href={`/users/${user.id}`}>
+      <Author username={user.username} />
+    </a>
+  </Link>
+);
 
 const Header = ({
   title,
