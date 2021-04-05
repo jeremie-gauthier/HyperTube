@@ -1,4 +1,4 @@
-import { OMBDResponse, OMDBMovie } from "@/types/movie";
+import { OMBDResponse, OMDBMovie, OMDB_NULL_VALUE } from "@/types/movie";
 import { API } from "@/types/requests";
 import fetcher from "../fetcher";
 import ExternalAPI from "./ExternalAPI";
@@ -31,6 +31,9 @@ export default class OMDBAPI extends ExternalAPI {
     return fetcher<OMBDResponse>(url);
   }
 
+  static dataOrNull = (data: string) =>
+    data === OMDB_NULL_VALUE ? null : data;
+
   static standardize(movieFromExternalAPI: OMDBMovie | null) {
     if (movieFromExternalAPI === null) {
       return null;
@@ -49,15 +52,15 @@ export default class OMDBAPI extends ExternalAPI {
     } = movieFromExternalAPI;
 
     return {
-      runtime: Runtime,
-      category: Genre,
-      director: Director,
-      actors: Actors,
-      synopsis: Plot,
-      language: Language,
-      picture: Poster,
-      rating: imdbRating,
-      production: Production,
+      runtime: OMDBAPI.dataOrNull(Runtime),
+      category: OMDBAPI.dataOrNull(Genre),
+      director: OMDBAPI.dataOrNull(Director),
+      actors: OMDBAPI.dataOrNull(Actors),
+      synopsis: OMDBAPI.dataOrNull(Plot),
+      language: OMDBAPI.dataOrNull(Language),
+      picture: OMDBAPI.dataOrNull(Poster),
+      rating: OMDBAPI.dataOrNull(imdbRating),
+      production: OMDBAPI.dataOrNull(Production),
     };
   }
 }
