@@ -53,6 +53,7 @@
 		"details": {
 			"actors": "俳優",
 			"category": "ジャンル",
+			"comments": "コメント",
 			"production": "製造",
 			"unknown_information": "不明な情報"
 		},

@@ -1,9 +1,13 @@
+import UserComment from "@/components/Comment";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import SiteLayout from "@/components/Layouts/SiteLayout";
+import { moviesRoute } from "@/hooks/api/useMovie";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
+import fetcher from "@/lib/fetcher";
 import { humanReadableNumber } from "@/lib/helpers";
-import { allMovieCategories, Movie, MovieCategory } from "@/types/movie";
-import React from "react";
+import { CommentsForMovie } from "@/types/comment";
+import { Movie } from "@/types/movie";
+import { Methods } from "@/types/requests";
 import { useTranslation } from "react-i18next";
 import ScrollBar from "react-perfect-scrollbar";
 import { ReactComponent as EyeIcon } from "../../../public/icons/eye.svg";
@@ -11,9 +15,12 @@ import styles from "./details.module.scss";
 
 type DetailsProps = {
   movieDetails: Movie | null;
+  comments: CommentsForMovie[];
 };
 
-function Details({ movieDetails }: DetailsProps) {
+function Details({ movieDetails, comments }: DetailsProps) {
+  console.log(movieDetails, comments);
+
   return movieDetails ? (
     <ScrollBar>
       <main className={styles.container}>
@@ -30,6 +37,7 @@ function Details({ movieDetails }: DetailsProps) {
           <Actors actors={movieDetails.actors} />
           <Category category={movieDetails.category} />
         </FlexCol>
+        <MovieComments movieDetails={movieDetails} comments={comments} />
       </main>
     </ScrollBar>
   ) : (
@@ -40,40 +48,30 @@ function Details({ movieDetails }: DetailsProps) {
 Details.Layout = SiteLayout;
 export default Details;
 
-export async function getStaticPaths() {
-  const categories = Object.values(MovieCategory).map((categ) => categ);
-
-  const ArchiveOrg = new ArchiveOrgAPI();
-  // will generate a static page for all Movie Id already known from Categories
-  const identifiers = (
-    await Promise.all(
-      categories.map(async (category) => {
-        const identifiers = await ArchiveOrg.getAllMoviesIdentifierFromCategory(
-          allMovieCategories[category],
-        );
-        return identifiers;
-      }),
-    )
-  ).flat();
-  const paths = identifiers.map((id) => ({ params: { id } }));
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({
-  params: { id },
+export const getServerSideProps = async ({
+  params,
 }: {
   params: { id: string };
-}) {
+}) => {
+  const { id } = params;
+  const api = process.env.HYPERTUBE_API_URL;
+
   try {
     const ArchiveOrg = new ArchiveOrgAPI();
-    const movieDetails = await ArchiveOrg.getAllFromId(id);
+    // ADD GET COMMENTS FOR MOVIE
+    const [movieDetails, comments] = await Promise.all([
+      ArchiveOrg.getAllFromId(id),
+      fetcher<CommentsForMovie[]>(`${api}${moviesRoute(id)}/comments`, {
+        method: Methods.GET,
+      }),
+    ]);
     console.log(`[${id}] OK`);
-    return { props: { movieDetails } };
+    return { props: { movieDetails, comments } };
   } catch (error) {
     console.log(`[${id}] NOT OK => ${error}`);
-    return { props: { movieDetails: null } };
+    return { props: { movieDetails: null, comments: [] } };
   }
-}
+};
 
 const Title = ({ title }: { title: string }) => (
   <h1 className={styles.title}>{title}</h1>
@@ -148,3 +146,27 @@ const Category = ({ category }: { category: string | null | undefined }) => (
     information={category}
   />
 );
+
+type MovieCommentsProps = {
+  movieDetails: Movie;
+  comments: CommentsForMovie[];
+};
+
+const MovieComments = ({ movieDetails, comments }: MovieCommentsProps) => {
+  const { t } = useTranslation();
+
+  return (
+    <FlexCol className={styles.comments}>
+      <h2>{t("pages.movies.details.comments")}</h2>
+      {comments.map((comment) => (
+        <UserComment
+          key={comment.comment.id}
+          userCommentOnMovie={{
+            ...comment,
+            movie: movieDetails,
+          }}
+        />
+      ))}
+    </FlexCol>
+  );
+};

@@ -53,6 +53,7 @@
 		"details": {
 			"actors": "Acteurs",
 			"category": "Genre",
+			"comments": "Commentaires",
 			"production": "Production",
 			"unknown_information": "Information inconnue"
 		},
