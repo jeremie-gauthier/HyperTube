@@ -50,6 +50,12 @@
 		}
 	},
 	"movies": {
+		"details": {
+			"actors": "俳優",
+			"category": "ジャンル",
+			"production": "製造",
+			"unknown_information": "不明な情報"
+		},
 		"empty_set": "映画が見つかりません",
 		"result": "{{count}} 結果が見つかりました",
 		"result_plural": "{{count}} 件の結果が見つかりました"

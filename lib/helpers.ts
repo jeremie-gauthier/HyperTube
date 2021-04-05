@@ -1,5 +1,6 @@
 import { OMDB_NULL_VALUE } from "@/types/movie";
 import { NextApiRequest } from "next";
+import isEmpty from "@ramda/isempty";
 
 export function requiredField(str: string): string {
   return `${str}*`;
@@ -49,7 +50,10 @@ export const humanReadableNumber = (number: number) => {
 export const omdbValueOrDefault = (
   value?: string | null,
   defaultValue?: string,
-) => (value === OMDB_NULL_VALUE || !value ? defaultValue ?? "" : value);
+) =>
+  value === OMDB_NULL_VALUE || !value || isEmpty(value)
+    ? defaultValue ?? ""
+    : value;
 
 export const sleep = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));

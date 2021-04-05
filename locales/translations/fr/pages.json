@@ -50,6 +50,12 @@
 		}
 	},
 	"movies": {
+		"details": {
+			"actors": "Acteurs",
+			"category": "Genre",
+			"production": "Production",
+			"unknown_information": "Information inconnue"
+		},
 		"empty_set": "Aucun film trouvé",
 		"result": "{{count}} résultat trouvé",
 		"result_plural": "{{count}} résultats trouvés"

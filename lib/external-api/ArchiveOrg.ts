@@ -4,7 +4,6 @@ import {
   ArchiveOrgMovieStandardized,
   ArchiveOrgResponse,
   Movie,
-  MovieCategory,
   OmdbMovieFound,
   POSTER_DEFAULT,
 } from "@/types/movie";
@@ -65,13 +64,12 @@ export default class ArchiveOrgAPI extends ExternalAPI {
               runtime:
                 movie.runtime ??
                 omdbValueOrDefault(movieDetailsStandardized?.runtime),
-              year: "",
             } as Movie;
           }
           return {
             ...movie,
-            year: movie.year ?? "",
-            runtime: movie.runtime ?? "No runtime",
+            year: movie.year ?? null,
+            runtime: movie.runtime ?? null,
           } as Movie;
         } catch (error) {
           return movie as Movie;
@@ -102,7 +100,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     return response.numFound;
   }
 
-  private async _detailsCompletion(movies: Movie[], category: string) {
+  private async _detailsCompletion(movies: Movie[], category: string | null) {
     const RETRIES = 5;
     const DELAY_RETRY = 2000;
 
@@ -130,7 +128,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
           ...movie,
           category: movie.category ?? category,
           picture: movie.picture ?? pictureFromMetaData,
-        };
+        } as Movie;
       }),
     );
   }
@@ -158,7 +156,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     return identifiers;
   }
 
-  async getMoviesDetails(docs: ArchiveOrgMovie[], category: string) {
+  async getMoviesDetails(docs: ArchiveOrgMovie[], category: string | null) {
     console.log(`[${category}]: standardize all items`);
     const movies = docs.map((movie) => ArchiveOrgAPI.standardize(movie));
     console.log(`[${category}]: dedupe duplicate items`);
@@ -198,7 +196,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     const {
       response: { docs },
     } = await fetcher<ArchiveOrgResponse>(url);
-    const moviesDetails = await this.getMoviesDetails(docs, "");
+    const moviesDetails = await this.getMoviesDetails(docs, null);
     return moviesDetails[0];
   }
 

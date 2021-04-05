@@ -1,0 +1,47 @@
+.container {
+  @apply flex flex-1 flex-col max-w-4xl m-auto mt-8 space-y-8;
+}
+
+.title {
+  @apply flex flex-1 justify-center font-bold text-3xl;
+}
+
+.statistics {
+  @apply justify-between items-center;
+
+  :first-child {
+    @apply space-x-4 items-center;
+
+    :nth-child(2) {
+      @apply border rounded px-2;
+    }
+  }
+
+  :last-child {
+    @apply space-x-2 items-center;
+
+    svg {
+      @apply h-4 w-4;
+    }
+  }
+}
+
+.synopsis {
+  @apply text-xl;
+}
+
+.information {
+  @apply space-x-4;
+
+  h2 {
+    @apply text-xl;
+
+    &::after {
+      content: ":";
+    }
+  }
+
+  p {
+    @apply text-lg;
+  }
+}

@@ -4,7 +4,7 @@ import fetcher from "../fetcher";
 import ExternalAPI from "./ExternalAPI";
 
 export default class OMDBAPI extends ExternalAPI {
-  static OPTIONS = "type=movie&r=json";
+  static OPTIONS = "type=movie&r=json&plot=full";
 
   private baseURL: string;
 
