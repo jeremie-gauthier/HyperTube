@@ -1,4 +1,4 @@
-import UserComment from "@/components/Comment";
+import { MovieComment as UserComment } from "@/components/Comment";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import { moviesRoute } from "@/hooks/api/useMovie";
@@ -37,7 +37,7 @@ function Details({ movieDetails, comments }: DetailsProps) {
           <Actors actors={movieDetails.actors} />
           <Category category={movieDetails.category} />
         </FlexCol>
-        <MovieComments movieDetails={movieDetails} comments={comments} />
+        <MovieComments comments={comments} />
       </main>
     </ScrollBar>
   ) : (
@@ -147,25 +147,14 @@ const Category = ({ category }: { category: string | null | undefined }) => (
   />
 );
 
-type MovieCommentsProps = {
-  movieDetails: Movie;
-  comments: CommentsForMovie[];
-};
-
-const MovieComments = ({ movieDetails, comments }: MovieCommentsProps) => {
+const MovieComments = ({ comments }: { comments: CommentsForMovie[] }) => {
   const { t } = useTranslation();
 
   return (
     <FlexCol className={styles.comments}>
       <h2>{t("pages.movies.details.comments")}</h2>
       {comments.map((comment) => (
-        <UserComment
-          key={comment.comment.id}
-          userCommentOnMovie={{
-            ...comment,
-            movie: movieDetails,
-          }}
-        />
+        <UserComment key={comment.comment.id} userComment={comment} />
       ))}
     </FlexCol>
   );

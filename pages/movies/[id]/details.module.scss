@@ -1,5 +1,6 @@
 .container {
-  @apply flex flex-1 flex-col max-w-4xl m-auto mt-8 space-y-8;
+  @apply flex flex-1 flex-col max-w-4xl m-8 space-y-8;
+  @apply lg:m-auto lg:mt-8;
 }
 
 .title {
