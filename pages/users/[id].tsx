@@ -12,7 +12,7 @@ import Dropdown from "@/components/Dropdown";
 import Comment from "@/components/Comment";
 import { useTranslation } from "react-i18next";
 import ScrollBar from "react-perfect-scrollbar";
-import useComments, { commentsRoute } from "@/hooks/api/useComments";
+import { useUserComments, commentsRoute } from "@/hooks/api/useComments";
 import Spinner from "@/components/Spinner";
 import { usersRoute } from "@/hooks/api/useUser";
 import styles from "./user.module.scss";
@@ -24,7 +24,7 @@ type UserProfileProps = {
 
 const FETCH_CHUNK_SIZE = 4;
 function UserProfile({ user, userCommentsOnMovie }: UserProfileProps) {
-  const { comments, isLoadingMoreComments, loadMoreComments } = useComments(
+  const { comments, isLoadingMoreComments, loadMoreComments } = useUserComments(
     FETCH_CHUNK_SIZE,
     {
       initialData: [userCommentsOnMovie],

@@ -36,11 +36,12 @@ export default async function movieCommentsHandler(
 
 function getCommentsForMovie(req: MovieRequest, res: NextApiResponse) {
   const {
-    query: { id },
+    query: { id, range },
   } = req;
 
   logRequests(req);
-  const comments = MOCK_COMMENTS.filter((comment) => comment.movieId === "0");
+  const [start, end] = (range as string).split(":").map((v) => parseInt(v, 10));
+  const comments = MOCK_COMMENTS.slice(start, end);
   const users = comments.reduce((hm, comment) => {
     if (!hm[comment.userId]) {
       hm[comment.userId] = MOCK_USER.find((user) => user.id === comment.userId);

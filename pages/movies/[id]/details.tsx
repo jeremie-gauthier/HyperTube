@@ -1,6 +1,7 @@
 import { MovieComment as UserComment } from "@/components/Comment";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import SiteLayout from "@/components/Layouts/SiteLayout";
+import { commentsRoute, useMovieComments } from "@/hooks/api/useComments";
 import { moviesRoute } from "@/hooks/api/useMovie";
 import useHover from "@/hooks/useHover";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
@@ -12,6 +13,7 @@ import { Methods } from "@/types/requests";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import ScrollBar from "react-perfect-scrollbar";
+import Spinner from "@/components/Spinner";
 // eslint-disable-next-line max-len
 import { ReactComponent as CommentIcon } from "../../../public/icons/comment.svg";
 import { ReactComponent as EyeIcon } from "../../../public/icons/eye.svg";
@@ -20,12 +22,21 @@ import styles from "./details.module.scss";
 
 type DetailsProps = {
   movieDetails: Movie | null;
-  comments: CommentsForMovie[];
+  movieComments: CommentsForMovie[];
 };
 
-function Details({ movieDetails, comments }: DetailsProps) {
+const FETCH_CHUNK_SIZE = 5;
+function Details({ movieDetails, movieComments }: DetailsProps) {
+  const {
+    comments,
+    isLoadingMoreComments,
+    loadMoreComments,
+  } = useMovieComments(FETCH_CHUNK_SIZE, {
+    initialData: [movieComments],
+  });
+
   return movieDetails ? (
-    <ScrollBar>
+    <ScrollBar style={{ touchAction: "none" }} onYReachEnd={loadMoreComments}>
       <main className={styles.container}>
         <Title title={movieDetails?.title} />
         <Statistics
@@ -40,7 +51,10 @@ function Details({ movieDetails, comments }: DetailsProps) {
           <Actors actors={movieDetails.actors} />
           <Category category={movieDetails.category} />
         </FlexCol>
-        <MovieComments comments={comments} />
+        <MovieComments
+          comments={comments}
+          isLoadingMoreComments={isLoadingMoreComments}
+        />
 
         <ActionPlay movieDetails={movieDetails} />
         <ActionComment movieDetails={movieDetails} />
@@ -65,17 +79,23 @@ export const getServerSideProps = async ({
   try {
     const ArchiveOrg = new ArchiveOrgAPI();
     // ADD GET COMMENTS FOR MOVIE
-    const [movieDetails, comments] = await Promise.all([
+    const [movieDetails, movieComments] = await Promise.all([
       ArchiveOrg.getAllFromId(id),
-      fetcher<CommentsForMovie[]>(`${api}${moviesRoute(id)}/comments`, {
-        method: Methods.GET,
-      }),
+      fetcher<CommentsForMovie[]>(
+        `${api}${moviesRoute(id)}${commentsRoute({
+          start: 0,
+          end: FETCH_CHUNK_SIZE,
+        })}`,
+        {
+          method: Methods.GET,
+        },
+      ),
     ]);
     console.log(`[${id}] OK`);
-    return { props: { movieDetails, comments } };
+    return { props: { movieDetails, movieComments } };
   } catch (error) {
     console.log(`[${id}] NOT OK => ${error}`);
-    return { props: { movieDetails: null, comments: [] } };
+    return { props: { movieDetails: null, movieComments: [] } };
   }
 };
 
@@ -186,7 +206,13 @@ const Category = ({ category }: { category: string | null | undefined }) => (
   />
 );
 
-const MovieComments = ({ comments }: { comments: CommentsForMovie[] }) => {
+const MovieComments = ({
+  comments,
+  isLoadingMoreComments,
+}: {
+  comments: CommentsForMovie[];
+  isLoadingMoreComments: boolean;
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -195,6 +221,7 @@ const MovieComments = ({ comments }: { comments: CommentsForMovie[] }) => {
       {comments.map((comment) => (
         <UserComment key={comment.comment.id} userComment={comment} />
       ))}
+      {isLoadingMoreComments && <Spinner className="mt-4 self-center" />}
     </FlexCol>
   );
 };
