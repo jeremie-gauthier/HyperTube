@@ -2,6 +2,7 @@
 	"buttons": {
 		"cancel": "Annuler",
 		"load_more": "Voir plus",
+		"loading": "Chargement en cours...",
 		"submit": "Envoyer"
 	},
 	"errors": {

@@ -2,6 +2,7 @@
 	"buttons": {
 		"cancel": "Cancelar",
 		"load_more": "Ver más",
+		"loading": "Cargando...",
 		"submit": "Enviar"
 	},
 	"errors": {
