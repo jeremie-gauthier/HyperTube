@@ -4,6 +4,8 @@ import mockComments from "@/tests/__mocks__/comments";
 import mockUser from "@/tests/__mocks__/user";
 import { Methods } from "@/types/requests";
 import { User } from "@/types/user";
+import { shortDateFormat } from "@/lib/date";
+import { Comment } from "@/types/comment";
 
 const MOCK_USER = mockUser;
 const MOCK_COMMENTS = mockComments;
@@ -24,8 +26,10 @@ export default async function movieCommentsHandler(
     switch (method) {
       case Methods.GET:
         return getCommentsForMovie(req, res);
+      case Methods.POST:
+        return postCommentForMovie(req, res);
       default:
-        res.setHeader("Allow", [Methods.GET]);
+        res.setHeader("Allow", [Methods.GET, Methods.POST]);
         return res.status(405).end(`Method ${method} Not Allowed`);
     }
   } catch (error) {
@@ -40,8 +44,12 @@ function getCommentsForMovie(req: MovieRequest, res: NextApiResponse) {
   } = req;
 
   logRequests(req);
+  // fetch movie with id if exists in db
+  // don't forget to send dates to shortDateFormat()
   const [start, end] = (range as string).split(":").map((v) => parseInt(v, 10));
-  const comments = MOCK_COMMENTS.slice(start, end);
+  const comments = MOCK_COMMENTS.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  ).slice(start, end);
   const users = comments.reduce((hm, comment) => {
     if (!hm[comment.userId]) {
       hm[comment.userId] = MOCK_USER.find((user) => user.id === comment.userId);
@@ -57,4 +65,25 @@ function getCommentsForMovie(req: MovieRequest, res: NextApiResponse) {
     return res.status(404).json({ message: "Resource not found" });
   }
   return res.status(200).json(commentsForMovie);
+}
+
+function postCommentForMovie(req: MovieRequest, res: NextApiResponse) {
+  const { comment } = req.body;
+  const { id: movieId } = req.query;
+  const date = new Date();
+
+  // get userId with its auth token and
+  // register the following obj in db:
+  /*
+    { comment, movieId, userId, date: formatDate }
+  */
+
+  const createdComment: Comment = {
+    id: Math.random().toString(),
+    comment,
+    movieId,
+    userId: "-42",
+    date: shortDateFormat(date),
+  };
+  return res.status(201).json(createdComment);
 }
