@@ -1,0 +1,48 @@
+.container {
+  @apply p-6 bg-grey-dark rounded flex-1 max-w-2xl space-y-8 mx-8;
+  @apply md:m-0;
+
+  img {
+    @apply rounded;
+  }
+}
+
+.header {
+  @apply justify-between items-center;
+
+  h2 {
+    @apply text-xl font-semibold;
+  }
+
+  svg {
+    @apply h-5 w-5 cursor-pointer;
+  }
+}
+
+.body {
+  @apply md:w-11/12;
+
+  form {
+    @apply space-y-2;
+  }
+
+  textarea {
+    @apply text-black w-full p-2 text-lg rounded resize-none;
+  }
+}
+
+.buttons {
+  @apply justify-end space-x-4;
+
+  button {
+    @apply px-4 py-2 text-lg font-extrabold rounded;
+  }
+
+  .cancel {
+    @apply bg-grey-light bg-opacity-25;
+  }
+
+  .submit {
+    @apply bg-red;
+  }
+}
