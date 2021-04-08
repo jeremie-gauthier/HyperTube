@@ -2,7 +2,7 @@ import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
 import { Movie } from "@/types/movie";
 import ScrollBar from "react-perfect-scrollbar";
-import { FlexRow } from "@/components/Flex";
+import { FlexCol, FlexRow } from "@/components/Flex";
 import MovieCategories from "@/components/Label/MovieCategories";
 import ArchiveOrg from "@/lib/external-api/ArchiveOrg";
 import useMovieSearch from "@/hooks/useMovieSearch";
@@ -11,6 +11,7 @@ import isEmpty from "@ramda/isempty";
 import MoviesResults from "@/components/MoviesResults";
 import { useTranslation } from "react-i18next";
 import useDebounce from "@/hooks/useDebounce";
+import Spinner from "@/components/Spinner";
 import styles from "./movies.module.scss";
 
 type MoviesProps = {
@@ -18,34 +19,19 @@ type MoviesProps = {
 };
 
 function Movies({ initialData }: MoviesProps) {
-  const { t } = useTranslation();
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 250);
-  const movies = useMovieSearch(initialData);
+  const { movies, isLoading } = useMovieSearch();
 
   return (
     <ScrollBar>
       <main className={styles.container}>
         <MovieCategories selectedCategory={null} />
-        {!isEmpty(debouncedSearch) && (
-          <MoviesResults
-            text={
-              isEmpty(movies)
-                ? t("pages.movies.empty_set")
-                : t("pages.movies.result", {
-                    count: movies.length,
-                  })
-            }
-          />
-        )}
-        <FlexRow className={styles.mosaicMovies}>
-          {movies.map((movie) => (
-            <MovieCard
-              key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
-              movie={movie}
-            />
-          ))}
-        </FlexRow>
+        <MoviesList
+          movies={isEmpty(debouncedSearch) ? initialData : movies}
+          isLoading={isLoading}
+          displayCount={!isEmpty(debouncedSearch)}
+        />
       </main>
     </ScrollBar>
   );
@@ -63,3 +49,46 @@ export async function getServerSideProps() {
     return { props: { initialData: [] } };
   }
 }
+
+type MoviesListProps = {
+  movies: Movie[];
+  isLoading: boolean;
+  displayCount: boolean;
+};
+
+const MoviesList = ({ movies, isLoading, displayCount }: MoviesListProps) => {
+  const { t } = useTranslation();
+
+  if (isLoading) {
+    return (
+      <FlexCol className={styles.loadingMovies}>
+        <p>{t("common.buttons.loading")}</p>
+        <Spinner />
+      </FlexCol>
+    );
+  }
+
+  return (
+    <>
+      {displayCount && (
+        <MoviesResults
+          text={
+            isEmpty(movies)
+              ? t("pages.movies.empty_set")
+              : t("pages.movies.result", {
+                  count: movies.length,
+                })
+          }
+        />
+      )}
+      <FlexRow className={styles.mosaicMovies}>
+        {movies.map((movie) => (
+          <MovieCard
+            key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
+            movie={movie}
+          />
+        ))}
+      </FlexRow>
+    </>
+  );
+};

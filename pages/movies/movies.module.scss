@@ -9,3 +9,11 @@
 .loadMore {
   @apply p-3 text-lg font-semibold bg-red rounded;
 }
+
+.loadingMovies {
+  @apply items-center space-y-2;
+
+  p {
+    @apply text-lg;
+  }
+}

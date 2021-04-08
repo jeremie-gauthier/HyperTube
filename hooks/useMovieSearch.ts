@@ -4,25 +4,19 @@ import useExternalAPI from "./api/useExternalAPI";
 import useDebounce from "./useDebounce";
 import useSelector from "./useSelector";
 
-export default function useMovieSearch(initialData: Movie[]) {
+export default function useMovieSearch() {
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 250);
 
-  const { data: movies } = useExternalAPI<{ movies: Movie[] }>(
-    {
-      source: API.ARCHIVE_ORG,
-      search: debouncedSearch,
-    },
-    {
-      initialData: { movies: initialData },
-      revalidateOnFocus: false,
-      revalidateOnMount: false,
-      revalidateOnReconnect: false,
-      refreshWhenOffline: false,
-      refreshWhenHidden: false,
-      refreshInterval: 0,
-    },
-  );
+  const { data: movies, isValidating } = useExternalAPI<{
+    movies: Movie[];
+  }>({
+    source: API.ARCHIVE_ORG,
+    search: debouncedSearch,
+  });
 
-  return movies?.movies ?? [];
+  return {
+    movies: movies?.movies ?? [],
+    isLoading: isValidating && (movies?.movies ?? []).length === 0,
+  };
 }
