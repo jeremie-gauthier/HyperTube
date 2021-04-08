@@ -1,3 +1,4 @@
+import React from "react";
 import { MovieComment as UserComment } from "@/components/Comment";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import SiteLayout from "@/components/Layouts/SiteLayout";
@@ -7,13 +8,15 @@ import useHover from "@/hooks/useHover";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import fetcher from "@/lib/fetcher";
 import { humanReadableNumber } from "@/lib/helpers";
-import { CommentsForMovie } from "@/types/comment";
+import { CommentsForMovie, UserCommentsOnMovies } from "@/types/comment";
 import { Movie } from "@/types/movie";
 import { Methods } from "@/types/requests";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import ScrollBar from "react-perfect-scrollbar";
 import Spinner from "@/components/Spinner";
+import MovieCommentModal from "@/components/Modal/MovieCommentModal";
+import isEmpty from "@ramda/isempty";
 // eslint-disable-next-line max-len
 import { ReactComponent as CommentIcon } from "../../../public/icons/comment.svg";
 import { ReactComponent as EyeIcon } from "../../../public/icons/eye.svg";
@@ -27,13 +30,17 @@ type DetailsProps = {
 
 const FETCH_CHUNK_SIZE = 5;
 function Details({ movieDetails, movieComments }: DetailsProps) {
+  const [userComments, setUserComments] = React.useState<
+    UserCommentsOnMovies[]
+  >([]);
   const {
-    comments,
+    comments: fetchedComments,
     isLoadingMoreComments,
     loadMoreComments,
   } = useMovieComments(FETCH_CHUNK_SIZE, {
     initialData: [movieComments],
   });
+  const comments = [...userComments, ...fetchedComments];
 
   return movieDetails ? (
     <ScrollBar style={{ touchAction: "none" }} onYReachEnd={loadMoreComments}>
@@ -57,7 +64,12 @@ function Details({ movieDetails, movieComments }: DetailsProps) {
         />
 
         <ActionPlay movieDetails={movieDetails} />
-        <ActionComment movieDetails={movieDetails} />
+        <ActionComment
+          movieDetails={movieDetails}
+          addComment={(comment: UserCommentsOnMovies) =>
+            setUserComments((comments) => [comment, ...comments])
+          }
+        />
       </main>
     </ScrollBar>
   ) : (
@@ -78,7 +90,6 @@ export const getServerSideProps = async ({
 
   try {
     const ArchiveOrg = new ArchiveOrgAPI();
-    // ADD GET COMMENTS FOR MOVIE
     const [movieDetails, movieComments] = await Promise.all([
       ArchiveOrg.getAllFromId(id),
       fetcher<CommentsForMovie[]>(
@@ -122,16 +133,32 @@ const ActionPlay = ({ movieDetails }: { movieDetails: Movie }) => {
   );
 };
 
-const ActionComment = ({ movieDetails }: { movieDetails: Movie }) => {
+const ActionComment = ({
+  movieDetails,
+  addComment,
+}: {
+  movieDetails: Movie;
+  addComment: (comment: UserCommentsOnMovies) => void;
+}) => {
   const { t } = useTranslation();
   const [hoverRef, isHovered] = useHover();
+  const [commentMode, setCommentMode] = React.useState(false);
+  const close = React.useCallback(() => setCommentMode(false), []);
 
   return (
     <div className={styles.commentMovie}>
-      <button ref={hoverRef} type="button">
-        <CommentIcon role="button" onClick={() => console.log("Comment")} />
+      <button ref={hoverRef} type="button" onClick={() => setCommentMode(true)}>
+        <CommentIcon />
         {isHovered && <p>{t("pages.movies.details.add_comment")}</p>}
       </button>
+
+      {commentMode && (
+        <MovieCommentModal
+          movie={movieDetails}
+          close={close}
+          addComment={addComment}
+        />
+      )}
     </div>
   );
 };
@@ -214,13 +241,24 @@ const MovieComments = ({
   isLoadingMoreComments: boolean;
 }) => {
   const { t } = useTranslation();
+  const hasSomeComments = !isEmpty(comments);
 
   return (
     <FlexCol className={styles.comments}>
       <h2>{t("pages.movies.details.comments")}</h2>
-      {comments.map((comment) => (
-        <UserComment key={comment.comment.id} userComment={comment} />
-      ))}
+      {hasSomeComments ? (
+        comments.map((comment, idx) => (
+          <UserComment
+            // eslint-disable-next-line react/no-array-index-key
+            key={`${comment.comment.id}-${idx}`}
+            userComment={comment}
+          />
+        ))
+      ) : (
+        <p className={styles.noComment}>
+          {t("pages.movies.details.no_comment")}
+        </p>
+      )}
       {isLoadingMoreComments && <Spinner className="mt-4 self-center" />}
     </FlexCol>
   );
