@@ -55,7 +55,11 @@
 			"add_comment": "コメントを追加",
 			"category": "ジャンル",
 			"comments": "コメント",
+			"no_comment": "この映画はまだコメントされていません。",
+			"post_comment_successfully": "コメントを送信",
+			"post_empty_comment": "空のコメント",
 			"production": "製造",
+			"type_your_comment": "コメントを入力してください...",
 			"unknown_information": "不明な情報",
 			"watch": "この映画を見る"
 		},

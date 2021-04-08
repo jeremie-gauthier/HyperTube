@@ -55,7 +55,11 @@
 			"add_comment": "Ajouter un commentaire",
 			"category": "Genre",
 			"comments": "Commentaires",
+			"no_comment": "Ce film n'a pas encore été commenté.",
+			"post_comment_successfully": "Commentaire envoyé",
+			"post_empty_comment": "Commentaire vide",
 			"production": "Production",
+			"type_your_comment": "Écrivez votre commentaire...",
 			"unknown_information": "Information inconnue",
 			"watch": "Regarder ce film"
 		},
