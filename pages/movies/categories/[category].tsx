@@ -10,6 +10,7 @@ import isEmpty from "@ramda/isempty";
 import MovieCategories from "@/components/Label/MovieCategories";
 import useMovieSearch from "@/hooks/useMovieFilter";
 import useMoviePagination from "@/hooks/useMoviePagination";
+import MoviesResults from "@/components/MoviesResults";
 import styles from "../movies.module.scss";
 
 type HomeProps = {
@@ -81,10 +82,6 @@ export async function getStaticProps({
     return { props: { movies: [], selectedCategory: category } };
   }
 }
-
-const MoviesResults = ({ text }: { text: string }) => (
-  <p className={styles.feedbackResults}>{text}</p>
-);
 
 const MoviesList = ({ movies }: { movies: Movie[] }) => (
   <FlexRow className={styles.mosaicMovies}>

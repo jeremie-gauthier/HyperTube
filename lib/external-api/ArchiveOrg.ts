@@ -47,6 +47,24 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     return response.docs;
   }
 
+  async getBestMovies() {
+    const url = `${this._domain}${this._advancedSearch}?\
+    q=collection:feature_films AND mediatype:movies&\
+    fl[]=title&\
+    fl[]=year&\
+    fl[]=downloads&\
+    fl[]=description&\
+    fl[]=identifier&\
+    fl[]=runtime&\
+    sort[]=downloads desc&\
+    output=json`;
+    const {
+      response: { docs },
+    } = await fetcher<ArchiveOrgResponse>(url);
+    const moviesDetails = await this.getMoviesDetails(docs, null);
+    return moviesDetails;
+  }
+
   private static async _getDetails(movies: ArchiveOrgMovieStandardized[]) {
     const omdbAPI = new OMDB();
     const moviesWithOmdbDetails = await Promise.all(

@@ -53,7 +53,7 @@
   }
 
   .fullCircle {
-    @apply flex justify-center items-center cursor-pointer bg-white rounded-full h-6 w-6;
+    @apply flex justify-center items-center cursor-pointer bg-white rounded-full h-6 w-6 fill-current text-black;
   }
 
   .borderCircle {
