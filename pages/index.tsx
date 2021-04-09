@@ -1,16 +1,94 @@
 import SiteLayout from "@/components/Layouts/SiteLayout";
+import MovieCard from "@/components/MovieCard";
+import { Movie } from "@/types/movie";
+import ScrollBar from "react-perfect-scrollbar";
+import { FlexCol, FlexRow } from "@/components/Flex";
+import MovieCategories from "@/components/Label/MovieCategories";
+import ArchiveOrg from "@/lib/external-api/ArchiveOrg";
+import useMovieSearch from "@/hooks/useMovieSearch";
+import useSelector from "@/hooks/useSelector";
+import isEmpty from "@ramda/isempty";
+import MoviesResults from "@/components/MoviesResults";
+import { useTranslation } from "react-i18next";
+import useDebounce from "@/hooks/useDebounce";
+import Spinner from "@/components/Spinner";
+import styles from "./movies/movies.module.scss";
 
-function Home() {
+type MoviesProps = {
+  initialData: Movie[];
+};
+
+function Movies({ initialData }: MoviesProps) {
+  const search = useSelector((state) => state.movie.searchInput);
+  const debouncedSearch = useDebounce(search, 250);
+  const { movies, isLoading } = useMovieSearch();
+
   return (
-    <div>
-      <main>
-        <h1 className="text-black">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+    <ScrollBar>
+      <main className={styles.container}>
+        <MovieCategories selectedCategory={null} />
+        <MoviesList
+          movies={isEmpty(debouncedSearch) ? initialData : movies}
+          isLoading={isLoading}
+          displayCount={!isEmpty(debouncedSearch)}
+        />
       </main>
-    </div>
+    </ScrollBar>
   );
 }
 
-Home.Layout = SiteLayout;
-export default Home;
+Movies.Layout = SiteLayout;
+export default Movies;
+
+export async function getServerSideProps() {
+  try {
+    const archiveOrg = new ArchiveOrg();
+    const movies = await archiveOrg.getBestMovies();
+    return { props: { initialData: movies } };
+  } catch (error) {
+    return { props: { initialData: [] } };
+  }
+}
+
+type MoviesListProps = {
+  movies: Movie[];
+  isLoading: boolean;
+  displayCount: boolean;
+};
+
+const MoviesList = ({ movies, isLoading, displayCount }: MoviesListProps) => {
+  const { t } = useTranslation();
+
+  if (isLoading) {
+    return (
+      <FlexCol className={styles.loadingMovies}>
+        <p>{t("common.buttons.loading")}</p>
+        <Spinner />
+      </FlexCol>
+    );
+  }
+
+  return (
+    <>
+      {displayCount && (
+        <MoviesResults
+          text={
+            isEmpty(movies)
+              ? t("pages.movies.empty_set")
+              : t("pages.movies.result", {
+                  count: movies.length,
+                })
+          }
+        />
+      )}
+      <FlexRow className={styles.mosaicMovies}>
+        {movies.map((movie) => (
+          <MovieCard
+            key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
+            movie={movie}
+          />
+        ))}
+      </FlexRow>
+    </>
+  );
+};

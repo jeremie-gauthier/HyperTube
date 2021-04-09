@@ -16,4 +16,8 @@
   h3 {
     @apply font-bold;
   }
+
+  a:hover {
+    @apply text-red;
+  }
 }

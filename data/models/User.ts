@@ -1,9 +1,9 @@
 // Move back to ../data if needed
 
-import mongoose, { Schema } from "mongoose";
-import { User } from "../../types/user";
+import { Schema } from "mongoose";
 
-const UserSchema: Schema = new Schema(
+// eslint-disable-next-line import/prefer-default-export
+export const UserSchema: Schema = new Schema(
   {
     id: {
       type: Number,
@@ -34,6 +34,3 @@ const UserSchema: Schema = new Schema(
   },
   { timestamps: true },
 );
-
-const User = mongoose.model<User>("User", UserSchema);
-export default User;

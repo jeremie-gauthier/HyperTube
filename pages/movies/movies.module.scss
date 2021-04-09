@@ -1,0 +1,19 @@
+.container {
+  @apply mx-8 mt-4 mb-16 space-y-8;
+}
+
+.mosaicMovies {
+  @apply flex-wrap flex justify-center mb-1;
+}
+
+.loadMore {
+  @apply p-3 text-lg font-semibold bg-red rounded;
+}
+
+.loadingMovies {
+  @apply items-center space-y-2;
+
+  p {
+    @apply text-lg;
+  }
+}

@@ -1,0 +1,70 @@
+@import "@/styles/theme.scss";
+
+.container {
+  @apply h-56 w-1/2 space-y-2 bg-black rounded m-2 pb-2 overflow-hidden;
+  @apply sm:w-1/3 lg:w-1/4 xl:w-1/5;
+
+  transition: all 0.15s ease-in-out;
+
+  h2 {
+    @apply text-center font-bold text-lg;
+    @apply w-4/5 m-auto whitespace-nowrap overflow-hidden overflow-ellipsis;
+
+    transition: all 0.15s ease-in-out;
+  }
+
+  .poster {
+    @apply relative h-4/5 w-full;
+
+    img,
+    object {
+      @apply object-cover w-full h-full;
+    }
+
+    transition: all 0.15s ease-in-out;
+  }
+}
+
+.container:hover {
+  @apply pb-4;
+  @apply z-10;
+
+  transform: scale(1.5);
+
+  h2 {
+    @apply text-base;
+    @apply w-full whitespace-nowrap overflow-hidden overflow-ellipsis;
+  }
+
+  .poster {
+    @apply h-1/2;
+  }
+}
+
+.detailsContainer {
+  @apply px-4 space-y-2;
+}
+
+.commands {
+  @apply justify-between;
+
+  svg {
+    @apply fill-current h-3 w-3;
+  }
+
+  .fullCircle {
+    @apply flex justify-center items-center cursor-pointer bg-white rounded-full h-6 w-6 fill-current text-black;
+  }
+
+  .borderCircle {
+    @apply flex justify-center items-center cursor-pointer border rounded-full border-white h-6 w-6;
+  }
+}
+
+.details {
+  @apply justify-between text-xs;
+}
+
+.truncate {
+  @apply w-1/2 whitespace-nowrap overflow-hidden overflow-ellipsis;
+}

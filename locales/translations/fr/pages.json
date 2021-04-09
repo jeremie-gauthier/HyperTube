@@ -49,6 +49,24 @@
 			"pwd_forgotten_question": "Mot de passe oublié ?"
 		}
 	},
+	"movies": {
+		"details": {
+			"actors": "Acteurs",
+			"add_comment": "Ajouter un commentaire",
+			"category": "Genre",
+			"comments": "Commentaires",
+			"no_comment": "Ce film n'a pas encore été commenté.",
+			"post_comment_successfully": "Commentaire envoyé",
+			"post_empty_comment": "Commentaire vide",
+			"production": "Production",
+			"type_your_comment": "Écrivez votre commentaire...",
+			"unknown_information": "Information inconnue",
+			"watch": "Regarder ce film"
+		},
+		"empty_set": "Aucun film trouvé",
+		"result": "{{count}} résultat trouvé",
+		"result_plural": "{{count}} résultats trouvés"
+	},
 	"user": {
 		"activites": "Activité",
 		"informations": "Informations",

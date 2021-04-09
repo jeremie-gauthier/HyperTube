@@ -49,6 +49,24 @@
 			"pwd_forgotten_question": "Forgot your password ?"
 		}
 	},
+	"movies": {
+		"details": {
+			"actors": "Actors",
+			"add_comment": "Add a comment",
+			"category": "Genre",
+			"comments": "Comments",
+			"no_comment": "This movie has not been commented yet.",
+			"post_comment_successfully": "Comment sent",
+			"post_empty_comment": "Empty comment",
+			"production": "Production",
+			"type_your_comment": "Type your comment...",
+			"unknown_information": "Unknown information",
+			"watch": "Watch this movie"
+		},
+		"empty_set": "No movies found",
+		"result": "{{count}} result found",
+		"result_plural": "{{count}} results found"
+	},
 	"user": {
 		"activites": "Activity",
 		"informations": "Information",

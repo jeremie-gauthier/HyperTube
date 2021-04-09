@@ -5,8 +5,14 @@ import { Methods } from "@/types/requests";
 
 const MOCK = mockMovies;
 
+type MovieRequest = NextApiRequest & {
+  query: {
+    id: string;
+  };
+};
+
 export default async function movieHandler(
-  req: NextApiRequest,
+  req: MovieRequest,
   res: NextApiResponse,
 ) {
   const { method } = req;
@@ -25,7 +31,7 @@ export default async function movieHandler(
   }
 }
 
-function getMovie(req: NextApiRequest, res: NextApiResponse) {
+function getMovie(req: MovieRequest, res: NextApiResponse) {
   const {
     query: { id },
   } = req;

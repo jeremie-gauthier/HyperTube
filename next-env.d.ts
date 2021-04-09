@@ -18,5 +18,8 @@ declare let process: {
     __NEXT_IMAGE_OPTS: NextImageOpts;
     NODE_ENV: string;
     HYPERTUBE_API_URL: string;
+    YTS_USERNAME: string;
+    YTS_PASSWORD: string;
+    OMDB_API_KEY: string;
   };
 };

@@ -1,14 +1,20 @@
-import { TMovie } from "@/data/models/Movie";
+export type MovieActions = ActionSetSearchInput | ActionSetSelectedCategory;
 
-export type MovieActions = ActionSetSearchInput;
-
-export type MovieData = TMovie & {
+export type MovieData = {
   searchInput: string;
+  selectedCategory: string | null;
 };
 
 export type ActionSetSearchInput = {
   type: "SET_SEARCH_INPUT";
   payload: {
     searchInput: string;
+  };
+};
+
+export type ActionSetSelectedCategory = {
+  type: "SET_SELECTED_CATEGORY";
+  payload: {
+    selectedCategory: string | null;
   };
 };

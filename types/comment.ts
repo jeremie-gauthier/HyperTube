@@ -17,3 +17,8 @@ export type UserCommentsOnMovies = {
   comment: Comment;
   movie: Movie;
 };
+
+export type CommentsForMovie = {
+  comment: Comment;
+  user: User;
+};

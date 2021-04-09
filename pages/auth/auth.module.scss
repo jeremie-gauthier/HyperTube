@@ -6,7 +6,7 @@
   @apply px-8 pb-8;
   @apply md:relative md:py-14 md:px-16 md:text-sm;
 
-  @media (min-width: 768px) {
+  @media (min-width: theme("screens.md")) {
     min-width: 36rem;
   }
 }

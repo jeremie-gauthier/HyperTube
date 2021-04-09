@@ -1,0 +1,87 @@
+.container {
+  @apply relative flex flex-1 flex-col max-w-4xl m-8 space-y-8;
+  @apply lg:m-auto lg:my-8;
+}
+
+.title {
+  @apply flex flex-1 justify-center font-bold text-3xl;
+}
+
+.actionBtn {
+  a,
+  button {
+    @apply flex flex-row space-x-2 justify-center items-center bg-red p-4 rounded-full;
+
+    svg {
+      @apply fill-current text-white h-6 w-6;
+    }
+
+    p {
+      @apply text-lg font-extrabold;
+    }
+  }
+}
+
+.playMovie {
+  @apply fixed bottom-24 right-4 actionBtn;
+}
+
+.commentMovie {
+  @apply fixed bottom-6 right-4 actionBtn;
+}
+
+.statistics {
+  @apply justify-between items-center;
+
+  :first-child {
+    @apply space-x-4 items-center;
+
+    :nth-child(2) {
+      @apply border rounded px-2;
+    }
+  }
+
+  :last-child {
+    @apply space-x-2 items-center;
+
+    svg {
+      @apply h-4 w-4;
+    }
+  }
+}
+
+.synopsis {
+  @apply text-xl;
+}
+
+.information {
+  @apply space-x-4;
+
+  h2 {
+    @apply text-xl;
+
+    &::after {
+      content: ":";
+    }
+  }
+
+  p {
+    @apply text-lg;
+  }
+}
+
+.comments {
+  @apply space-y-4;
+
+  h2 {
+    @apply text-2xl;
+
+    &::after {
+      content: ":";
+    }
+  }
+
+  .noComment {
+    @apply italic;
+  }
+}

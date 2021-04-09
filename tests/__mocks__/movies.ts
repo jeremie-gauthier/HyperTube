@@ -6,6 +6,16 @@ export default [
     title: "Die Hard",
     synopsis: `A strange bald guy is ruining the Christmas party of\
       some German business men`,
+    rating: "8.2",
+    date: "1988",
+    picture:
+      "https://m.media-amazon.com/images/M/MV5BZjRlNDUxZjAtOGQ4OC00OTNlLTgxNmQtYTBmMDgwZmNmNjkxXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+    category: "Action",
+    runtime: "132 min",
+    director: "John McTiernan",
+    actors: "Bruce Willis, Bonnie Bedelia, Reginald VelJohnson, Paul Gleason",
+    language: "English, German, Italian, Japanese",
+    production: "Silver Pictures, Gordon Company",
   },
   {
     id: "1",

@@ -2,7 +2,7 @@
   @apply h-screen w-screen bg-black;
   @apply md:justify-center md:items-center;
 
-  @media (min-width: 768px) {
+  @media (min-width: theme("screens.md")) {
     background: no-repeat 100% url("/img/landing.jpg");
 
     &::before {
@@ -29,7 +29,7 @@
   @apply overflow-hidden;
   @apply md:z-10 md:rounded;
 
-  @media (min-width: 768px) {
+  @media (min-width: theme("screens.md")) {
     background-color: rgba(0, 0, 0, 0.75);
   }
 }

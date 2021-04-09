@@ -1,5 +1,5 @@
 import React from "react";
-import { mutate } from "swr";
+// import { mutate } from "swr";
 import useForm, { HookForm } from "@/hooks/useForm";
 import { ChangeEmailForm } from "@/lib/types/changeEmail";
 import resolver from "@/lib/resolvers/changeEmail";
@@ -9,7 +9,7 @@ import FormInput from "@/components/FormInput";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import { requiredField } from "@/lib/helpers";
 import Link from "next/link";
-import { Methods } from "@/types/requests";
+// import { Methods } from "@/types/requests";
 import styles from "./change.module.scss";
 
 const initialState: ChangeEmailForm = {
@@ -21,7 +21,7 @@ function ChangeEmail() {
   const { t } = useTranslation();
   const submit = (values: ChangeEmailForm) => {
     console.log(values);
-
+    return new Promise<ChangeEmailForm>(() => values);
     // mutate(
     //   `/api/users/${-42}`,
     //   async () => {
