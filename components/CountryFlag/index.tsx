@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { langs, LANGUAGE, Languages } from "@/locales/i18n";
 import useOnClickOutside from "use-onclickoutside";
 import { FlexCol } from "@/components/Flex";
-import useUser, { usePatchUser } from "@/hooks/api/useUser";
+import { useMe, usePatchMe } from "@/hooks/api/useUser";
 import JAFlag from "../../public/icons/japan.svg";
 import ESFlag from "../../public/icons/spain.svg";
 import FRFlag from "../../public/icons/france.svg";
@@ -32,7 +32,7 @@ export default function CountryFlag({ lang, ...rest }: CountryFlagProps) {
 
 export function LangSettings() {
   const { i18n } = useTranslation();
-  const { data: user } = useUser("-42");
+  const { data: user } = useMe();
 
   React.useEffect(() => {
     i18n.changeLanguage(user?.language ?? LANGUAGE.EN);
@@ -106,11 +106,11 @@ const LangHoverable = ({ currentLang, className }: LangIconProps) => {
 
 const LangOptions = ({ currentLang }: { currentLang: Languages }) => {
   const { t } = useTranslation();
-  const patchUser = usePatchUser("-42");
+  const patchMe = usePatchMe();
 
   const changeLanguage = (lang: Languages) => {
     if (lang !== currentLang) {
-      patchUser({ language: lang });
+      patchMe({ language: lang });
     }
   };
 

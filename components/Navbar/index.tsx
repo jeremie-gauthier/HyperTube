@@ -12,7 +12,7 @@ import classnames from "classnames";
 import UserIcon from "@/components/UserIcon";
 import CountryFlag from "@/components/CountryFlag";
 import { useRouter } from "next/router";
-import useUser from "@/hooks/api/useUser";
+import { useMe } from "@/hooks/api/useUser";
 import Magnifier from "../../public/icons/magnifier.svg";
 import Cross from "../../public/icons/cross.svg";
 import MenuBurger from "../../public/icons/menu-burger.svg";
@@ -60,7 +60,7 @@ const MobileView = ({ className }: { className: string }) => {
 };
 
 const DropdownMenu = () => {
-  const { data: user } = useUser("-42");
+  const { data: user } = useMe();
   const { t } = useTranslation();
 
   return (

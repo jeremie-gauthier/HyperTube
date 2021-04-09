@@ -15,10 +15,8 @@ export default async function userHandler(
     switch (method) {
       case Methods.GET:
         return getUser(req, res);
-      case Methods.PATCH:
-        return patchUser(req, res);
       default:
-        res.setHeader("Allow", [Methods.GET, Methods.PATCH]);
+        res.setHeader("Allow", [Methods.GET]);
         return res.status(405).end(`Method ${method} Not Allowed`);
     }
   } catch (error) {
@@ -37,24 +35,6 @@ function getUser(req: NextApiRequest, res: NextApiResponse) {
   logRequests(req);
   const user = findUser(id as string);
   if (user) {
-    return res.status(200).json(user);
-  }
-  return res.status(404).json({ message: "User not found" });
-}
-
-function patchUser(req: NextApiRequest, res: NextApiResponse) {
-  const {
-    query: { id },
-    body,
-  } = req;
-
-  logRequests(req);
-  const user = findUser(id as string);
-  if (user) {
-    Object.entries(JSON.parse(body)).forEach(([k, v]) => {
-      // ts error but this will change when MongoDB will be set up
-      user[k] = v;
-    });
     return res.status(200).json(user);
   }
   return res.status(404).json({ message: "User not found" });

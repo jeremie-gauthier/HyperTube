@@ -15,8 +15,10 @@ export default async function userHandler(
     switch (method) {
       case Methods.GET:
         return getMe(req, res);
+      case Methods.PATCH:
+        return patchMe(req, res);
       default:
-        res.setHeader("Allow", [Methods.GET]);
+        res.setHeader("Allow", [Methods.GET, Methods.PATCH]);
         return res.status(405).end(`Method ${method} Not Allowed`);
     }
   } catch (error) {
@@ -32,6 +34,22 @@ function getMe(req: NextApiRequest, res: NextApiResponse) {
   logRequests(req);
   const user = findUser("-42");
   if (user) {
+    return res.status(200).json(user);
+  }
+  return res.status(404).json({ message: "User not found" });
+}
+
+function patchMe(req: NextApiRequest, res: NextApiResponse) {
+  const { body } = req;
+
+  // GET the user ID based on its oauth token
+  logRequests(req);
+  const user = findUser("-42");
+  if (user) {
+    Object.entries(JSON.parse(body)).forEach(([k, v]) => {
+      // ts error but this will change when MongoDB will be set up
+      user[k] = v;
+    });
     return res.status(200).json(user);
   }
   return res.status(404).json({ message: "User not found" });

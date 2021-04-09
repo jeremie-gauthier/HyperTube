@@ -13,13 +13,16 @@ export default function useUser(id: string, config?: ConfigInterface) {
   return useFetch<User>(usersRoute(id), config);
 }
 
-export const usePatchUser = (id: string) => {
-  const { data: user, mutate, revalidate } = useUser(id);
+export const useMe = (config?: ConfigInterface) =>
+  useFetch<User>(`${usersRoute()}/me`, config);
+
+export const usePatchMe = () => {
+  const { data: user, mutate, revalidate } = useMe();
 
   return async (newValues: Partial<User>) => {
     try {
       mutate({ ...user, ...newValues } as User);
-      const newUser = await fetcher<User>(usersRoute(id), {
+      const newUser = await fetcher<User>(`${usersRoute()}/me`, {
         method: Methods.PATCH,
         body: JSON.stringify(newValues),
       });
@@ -31,6 +34,3 @@ export const usePatchUser = (id: string) => {
     }
   };
 };
-
-export const useMe = (config?: ConfigInterface) =>
-  useFetch<User>(`${usersRoute()}/me`, config);

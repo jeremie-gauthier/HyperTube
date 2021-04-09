@@ -21,7 +21,7 @@ import UserPictureModal from "@/components/Modal/UserPictureModal";
 import Image from "next/image";
 import { FlexCol } from "@/components/Flex";
 import ScrollBar from "react-perfect-scrollbar";
-import useUser, { usePatchUser, usersRoute } from "@/hooks/api/useUser";
+import useUser, { useMe, usePatchMe, usersRoute } from "@/hooks/api/useUser";
 import styles from "./account.module.scss";
 import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
@@ -44,7 +44,7 @@ export default Account;
 export async function getServerSideProps() {
   const api = process.env.HYPERTUBE_API_URL;
   try {
-    const user = await fetcher<User>(`${api}${usersRoute("-42")}`, {
+    const user = await fetcher<User>(`${api}${usersRoute()}/me`, {
       method: Methods.GET,
     });
     return { props: { user } };
@@ -55,16 +55,16 @@ export async function getServerSideProps() {
 
 const AccountContent = ({ initialData }: { initialData: User }) => {
   const { t } = useTranslation();
-  const { data } = useUser(initialData.id, { initialData });
-  const patchUser = usePatchUser(initialData.id);
+  const { data } = useMe({ initialData });
+  const patchMe = usePatchMe();
 
   return (
     <ScrollBar>
       <main className={styles.container}>
         <h1 className="title">{t("pages.account.my_account")}</h1>
-        <SecurityParams user={data ?? initialData} patchUser={patchUser} />
-        <ProfileParams user={data ?? initialData} patchUser={patchUser} />
-        <PreferenceParams user={data ?? initialData} patchUser={patchUser} />
+        <SecurityParams user={data ?? initialData} patchMe={patchMe} />
+        <ProfileParams user={data ?? initialData} patchMe={patchMe} />
+        <PreferenceParams user={data ?? initialData} patchMe={patchMe} />
       </main>
     </ScrollBar>
   );
@@ -72,10 +72,10 @@ const AccountContent = ({ initialData }: { initialData: User }) => {
 
 type UserForm = {
   user: User;
-  patchUser: (newValues: Partial<User>) => Promise<User | undefined>;
+  patchMe: (newValues: Partial<User>) => Promise<User | undefined>;
 };
 
-const SecurityParams = ({ user, patchUser }: UserForm) => {
+const SecurityParams = ({ user, patchMe }: UserForm) => {
   const { t } = useTranslation();
 
   return (
@@ -91,7 +91,7 @@ const SecurityParams = ({ user, patchUser }: UserForm) => {
           </Link>
         </Dropdown.Element>
 
-        <UsernameForm username={user.username} patchUser={patchUser} />
+        <UsernameForm username={user.username} patchMe={patchMe} />
 
         <Dropdown.Element>
           <div>{"*".repeat(8)}</div>
@@ -104,7 +104,7 @@ const SecurityParams = ({ user, patchUser }: UserForm) => {
   );
 };
 
-const ProfileParams = ({ user, patchUser }: UserForm) => {
+const ProfileParams = ({ user, patchMe }: UserForm) => {
   const { t } = useTranslation();
   const { asPath } = useRouter();
   const [isModalPictureOpen, setIsModalPictureOpen] = React.useState(false);
@@ -140,8 +140,8 @@ const ProfileParams = ({ user, patchUser }: UserForm) => {
         }
         className={styles.dropdown}
       >
-        <LastnameForm lastname={user.lastname} patchUser={patchUser} />
-        <FirstnameForm firstname={user.firstname} patchUser={patchUser} />
+        <LastnameForm lastname={user.lastname} patchMe={patchMe} />
+        <FirstnameForm firstname={user.firstname} patchMe={patchMe} />
         <Dropdown.Element className={styles.mobilePicture}>
           <Image
             src={`/img/avatar/avatar${user.picture}.png`}
@@ -168,19 +168,25 @@ const ProfileParams = ({ user, patchUser }: UserForm) => {
   );
 };
 
-const PreferenceParams = ({ user, patchUser }: UserForm) => {
+const PreferenceParams = ({ user, patchMe }: UserForm) => {
   const { t } = useTranslation();
   const { asPath } = useRouter();
   const [isEditing, setIsEditing] = React.useState(false);
   const [language, setLanguage] = React.useState(user.language);
+  React.useEffect(() => setLanguage(user.language), [user.language]);
 
   const handleChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(evt.target.value as Languages);
   };
 
   const handleSubmit = async () => {
-    patchUser({ language });
+    patchMe({ language });
     setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setLanguage(user.language);
   };
 
   return (
@@ -206,7 +212,7 @@ const PreferenceParams = ({ user, patchUser }: UserForm) => {
               </select>
 
               <div className="flex space-x-4">
-                <button type="button" onClick={() => setIsEditing(false)}>
+                <button type="button" onClick={handleCancel}>
                   {t("common.buttons.cancel")}
                 </button>
                 <button type="button" onClick={handleSubmit}>
@@ -232,13 +238,13 @@ const PreferenceParams = ({ user, patchUser }: UserForm) => {
 };
 
 type UsernameFormType = Pick<User, "username">;
-type UsernameFormProps = UsernameFormType & Pick<UserForm, "patchUser">;
+type UsernameFormProps = UsernameFormType & Pick<UserForm, "patchMe">;
 
-const UsernameForm = ({ username, patchUser }: UsernameFormProps) => {
+const UsernameForm = ({ username, patchMe }: UsernameFormProps) => {
   const { t } = useTranslation();
 
   const onSubmit = async (values: UsernameFormType) => {
-    const newUser = await patchUser(values);
+    const newUser = await patchMe(values);
     return { username: newUser?.username ?? username };
   };
 
@@ -267,13 +273,13 @@ const UsernameForm = ({ username, patchUser }: UsernameFormProps) => {
 };
 
 type LastnameFormType = Pick<User, "lastname">;
-type LastnameFormProps = LastnameFormType & Pick<UserForm, "patchUser">;
+type LastnameFormProps = LastnameFormType & Pick<UserForm, "patchMe">;
 
-const LastnameForm = ({ lastname, patchUser }: LastnameFormProps) => {
+const LastnameForm = ({ lastname, patchMe }: LastnameFormProps) => {
   const { t } = useTranslation();
 
   const onSubmit = async (values: LastnameFormType) => {
-    const newUser = await patchUser(values);
+    const newUser = await patchMe(values);
     return { lastname: newUser?.lastname ?? lastname };
   };
 
@@ -302,13 +308,13 @@ const LastnameForm = ({ lastname, patchUser }: LastnameFormProps) => {
 };
 
 type FirstnameFormType = Pick<User, "firstname">;
-type FirstnameFormProps = FirstnameFormType & Pick<UserForm, "patchUser">;
+type FirstnameFormProps = FirstnameFormType & Pick<UserForm, "patchMe">;
 
-const FirstnameForm = ({ firstname, patchUser }: FirstnameFormProps) => {
+const FirstnameForm = ({ firstname, patchMe }: FirstnameFormProps) => {
   const { t } = useTranslation();
 
   const onSubmit = async (values: FirstnameFormType) => {
-    const newUser = await patchUser(values);
+    const newUser = await patchMe(values);
     return { firstname: newUser?.firstname ?? firstname };
   };
 
