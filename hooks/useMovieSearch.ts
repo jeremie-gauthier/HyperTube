@@ -8,15 +8,32 @@ export default function useMovieSearch() {
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 250);
 
-  const { data: movies, isValidating } = useExternalAPI<{
+  const {
+    data: moviesArchiveOrg,
+    isValidating: archiveLoading,
+  } = useExternalAPI<{
     movies: Movie[];
   }>({
     source: API.ARCHIVE_ORG,
     search: debouncedSearch,
   });
 
-  return {
-    movies: movies?.movies ?? [],
-    isLoading: isValidating && (movies?.movies ?? []).length === 0,
-  };
+  const {
+    data: moviesPublicDomain,
+    isValidating: publicDomainLoading,
+  } = useExternalAPI<{
+    movies: Movie[];
+  }>({
+    source: API.PUBLIC_DOMAIN_TORRENTS,
+    search: debouncedSearch,
+  });
+
+  const movies = [
+    ...(moviesArchiveOrg?.movies ?? []),
+    ...(moviesPublicDomain?.movies ?? []),
+  ];
+  const isLoading =
+    archiveLoading && publicDomainLoading && movies.length === 0;
+
+  return { movies, isLoading };
 }

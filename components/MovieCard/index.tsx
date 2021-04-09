@@ -60,8 +60,12 @@ const MovieDetails = ({
         {omdbValueOrDefault(category, "No category")}
       </p>
       <FlexRow className="items-center space-x-1">
-        <p>{humanReadableNumber(nbDownloads)}</p>
-        <EyeIcon className="h-3 w-3" />
+        {nbDownloads && (
+          <>
+            <p>{humanReadableNumber(nbDownloads)}</p>
+            <EyeIcon className="h-3 w-3" />
+          </>
+        )}
       </FlexRow>
     </FlexRow>
   </FlexCol>

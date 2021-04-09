@@ -2,7 +2,11 @@ module.exports = {
   poweredByHeader: false,
   reactStrictMode: true,
   images: {
-    domains: ["m.media-amazon.com", "ia.media-imdb.com"],
+    domains: [
+      "m.media-amazon.com",
+      "ia.media-imdb.com",
+      "publicdomaintorrents.info",
+    ],
   },
   typescript: {
     // !! WARN !!

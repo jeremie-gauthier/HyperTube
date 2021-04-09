@@ -44,7 +44,8 @@ export type Movie = {
   actors?: string;
   language: string;
   production?: string;
-  nbDownloads: number;
+  nbDownloads?: number;
+  torrent: string | null;
 };
 
 export type MongoMovie = Document & Movie;
@@ -68,6 +69,7 @@ export type ArchiveOrgMovie = {
   downloads: number; // nbDownloads
   identifier: string; // id in archive.org
   runtime: string;
+  torrent: string | null;
 };
 
 type ArchiveOrgMetadataFiles = {

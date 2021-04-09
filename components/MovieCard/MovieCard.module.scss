@@ -66,5 +66,5 @@
 }
 
 .truncate {
-  @apply w-1/2 whitespace-nowrap overflow-hidden overflow-ellipsis;
+  @apply w-1/2 whitespace-nowrap overflow-hidden overflow-ellipsis capitalize;
 }
