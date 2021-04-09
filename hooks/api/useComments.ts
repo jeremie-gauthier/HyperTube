@@ -2,8 +2,9 @@ import { ConfigInterface, responseInterface, useSWRInfinite } from "swr";
 import fetcher from "@/lib/fetcher";
 import { useRouter } from "next/router";
 import { Comment, UserCommentsOnMovies } from "@/types/comment";
-import { usersRoute } from "./useUser";
+import { Methods } from "@/types/requests";
 import { moviesRoute } from "./useMovie";
+import { usersRoute } from "./useUser";
 
 export type CommentsRange = {
   start: number;
@@ -83,3 +84,8 @@ export const useMovieComments = (
   const prefix = moviesRoute(movieId as string);
   return useComments(prefix, chunkSize, config);
 };
+
+export const useDeleteComment = () => async (commentId: string) =>
+  fetcher(`/api/comments/${commentId}`, {
+    method: Methods.DELETE,
+  });

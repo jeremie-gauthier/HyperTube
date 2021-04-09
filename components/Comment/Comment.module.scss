@@ -1,12 +1,26 @@
 @import "@/styles/theme.scss";
 
 .container {
-  @apply space-y-2 border border-grey-light rounded p-2;
+  @apply relative space-y-2 border border-grey-light rounded p-2;
 
   p {
     @apply text-sm;
 
     color: #ccc;
+  }
+
+  .delIcon {
+    @apply hidden;
+  }
+
+  &:hover {
+    .delIcon {
+      @apply flex absolute top-2 right-2 cursor-pointer bg-grey-dark border border-white rounded-full p-2;
+
+      svg {
+        @apply h-4 w-4;
+      }
+    }
   }
 }
 
