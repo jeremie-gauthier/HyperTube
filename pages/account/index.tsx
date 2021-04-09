@@ -21,7 +21,7 @@ import UserPictureModal from "@/components/Modal/UserPictureModal";
 import Image from "next/image";
 import { FlexCol } from "@/components/Flex";
 import ScrollBar from "react-perfect-scrollbar";
-import useUser, { useMe, usePatchMe, usersRoute } from "@/hooks/api/useUser";
+import { useMe, usePatchMe, usersRoute } from "@/hooks/api/useUser";
 import styles from "./account.module.scss";
 import { ReactComponent as EditIcon } from "../../public/icons/editIcon.svg";
 
