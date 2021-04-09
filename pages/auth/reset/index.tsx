@@ -4,7 +4,7 @@ import useForm from "@/hooks/useForm";
 import { ResetForm } from "@/lib/types/reset";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import PerfectScrollbar from "react-perfect-scrollbar";
+import Scrollbar from "@/components/Scrollbar";
 import resolver from "@/lib/resolvers/reset";
 import { LoginLink, SignupLink } from "@/components/Links";
 import styles from "./reset.module.scss";
@@ -18,14 +18,14 @@ function Reset() {
 
   return (
     <main className={styles.container}>
-      <PerfectScrollbar className={styles.scrollContainer}>
+      <Scrollbar className={styles.scrollContainer}>
         <h1 className="title">{t("pages.auth.reset.forgotten_password")}</h1>
         <FormReset />
         <div className={styles.authLinksGroup}>
           <SignupLink />
           <LoginLink />
         </div>
-      </PerfectScrollbar>
+      </Scrollbar>
     </main>
   );
 }

@@ -1,7 +1,7 @@
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
 import { Movie } from "@/types/movie";
-import ScrollBar from "react-perfect-scrollbar";
+import ScrollBar from "@/components/Scrollbar";
 import { FlexCol, FlexRow } from "@/components/Flex";
 import MovieCategories from "@/components/Label/MovieCategories";
 import ArchiveOrg from "@/lib/external-api/ArchiveOrg";

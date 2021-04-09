@@ -11,7 +11,7 @@ import Image from "next/image";
 import Dropdown from "@/components/Dropdown";
 import Comment from "@/components/Comment";
 import { useTranslation } from "react-i18next";
-import ScrollBar from "react-perfect-scrollbar";
+import ScrollBar from "@/components/Scrollbar";
 import { useUserComments, commentsRoute } from "@/hooks/api/useComments";
 import Spinner from "@/components/Spinner";
 import { usersRoute } from "@/hooks/api/useUser";
@@ -34,7 +34,7 @@ function UserProfile({ user, userCommentsOnMovie }: UserProfileProps) {
   return user === null ? (
     <div>ERROR ON PAGE</div>
   ) : (
-    <ScrollBar style={{ touchAction: "none" }} onYReachEnd={loadMoreComments}>
+    <ScrollBar onYReachEnd={loadMoreComments}>
       <main className={styles.container}>
         <Header user={user} />
         <Informations user={user} />

@@ -12,7 +12,7 @@ import { Movie } from "@/types/movie";
 import { Methods } from "@/types/requests";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import ScrollBar from "react-perfect-scrollbar";
+import ScrollBar from "@/components/Scrollbar";
 import Spinner from "@/components/Spinner";
 import MovieCommentModal from "@/components/Modal/MovieCommentModal";
 import isEmpty from "@ramda/isempty";
@@ -42,7 +42,7 @@ function Details({ movieDetails, movieComments }: DetailsProps) {
   const comments = [...userComments, ...fetchedComments];
 
   return movieDetails ? (
-    <ScrollBar style={{ touchAction: "none" }} onYReachEnd={loadMoreComments}>
+    <ScrollBar onYReachEnd={loadMoreComments}>
       <main className={styles.container}>
         <Title title={movieDetails?.title} />
         <Statistics
