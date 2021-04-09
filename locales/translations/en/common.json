@@ -1,6 +1,7 @@
 {
 	"buttons": {
 		"cancel": "Cancel",
+		"confirm": "Confirm",
 		"load_more": "Load more",
 		"loading": "Loading...",
 		"submit": "Submit"
