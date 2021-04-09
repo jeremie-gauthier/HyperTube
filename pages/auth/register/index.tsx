@@ -7,7 +7,7 @@ import { RegisterForm } from "@/lib/types/register";
 import { FlexCol } from "@/components/Flex";
 import resolver from "@/lib/resolvers/register";
 import { requiredField } from "@/lib/helpers";
-import PerfectScrollbar from "react-perfect-scrollbar";
+import Scrollbar from "@/components/Scrollbar";
 import { LoginLink, OAuthLinks } from "@/components/Links";
 import PasswordTips from "@/components/PasswordTips";
 import styles from "./register.module.scss";
@@ -26,12 +26,12 @@ function Register() {
 
   return (
     <main className={styles.container}>
-      <PerfectScrollbar className={styles.scrollContainer}>
+      <Scrollbar className={styles.scrollContainer}>
         <h1 className="title">{t("pages.auth.register.register")}</h1>
         <FormRegister />
         <OAuthLinks />
         <LoginLink />
-      </PerfectScrollbar>
+      </Scrollbar>
     </main>
   );
 }

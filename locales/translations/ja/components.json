@@ -1,5 +1,8 @@
 {
 	"comment": {
+		"confirm_delete": "このコメントの削除を確認しますか？",
+		"delete": "コメントを削除",
+		"delete_success": "コメントが削除されました",
 		"wrote": "書きました"
 	},
 	"navbar": {

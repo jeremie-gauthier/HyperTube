@@ -8,7 +8,7 @@ import resolver from "@/lib/resolvers/login";
 import Checkbox from "@/components/Checkbox";
 import { FlexCol } from "@/components/Flex";
 import Link from "next/link";
-import PerfectScrollbar from "react-perfect-scrollbar";
+import Scrollbar from "@/components/Scrollbar";
 import { OAuthLinks, SignupLink } from "@/components/Links";
 import PasswordTips from "@/components/PasswordTips";
 import styles from "./login.module.scss";
@@ -30,11 +30,11 @@ function Login() {
 
   return (
     <main className={styles.container}>
-      <PerfectScrollbar className={styles.scrollContainer}>
+      <Scrollbar className={styles.scrollContainer}>
         <h1 className="title">{t("pages.auth.login.login")}</h1>
         <FormLogin methods={methods} />
         <Extras errors={methods.errors} />
-      </PerfectScrollbar>
+      </Scrollbar>
     </main>
   );
 }

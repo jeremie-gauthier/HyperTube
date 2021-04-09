@@ -22,12 +22,28 @@
   }
 }
 
+.hoverText {
+  @apply hidden;
+}
+
 .playMovie {
   @apply fixed bottom-24 right-4 actionBtn;
+
+  &:hover {
+    .hoverText {
+      @apply flex;
+    }
+  }
 }
 
 .commentMovie {
   @apply fixed bottom-6 right-4 actionBtn;
+
+  &:hover {
+    .hoverText {
+      @apply flex;
+    }
+  }
 }
 
 .statistics {

@@ -4,6 +4,7 @@ export enum Methods {
   GET = "GET",
   POST = "POST",
   PATCH = "PATCH",
+  DELETE = "DELETE",
 }
 
 export type BaseSWR<Data> = Pick<

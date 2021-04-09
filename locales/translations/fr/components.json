@@ -1,5 +1,8 @@
 {
 	"comment": {
+		"confirm_delete": "Confirmer la suppression de ce commentaire?",
+		"delete": "Supprimer le commentaire",
+		"delete_success": "Votre commentaire a été supprimé",
 		"wrote": "a écrit"
 	},
 	"navbar": {

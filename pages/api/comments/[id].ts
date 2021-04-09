@@ -1,9 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { logRequests } from "@/lib/helpers";
-import mockUser from "@/tests/__mocks__/user";
 import { Methods } from "@/types/requests";
-
-const MOCK = mockUser;
+import mockComment from "@/tests/__mocks__/comments";
 
 export default async function userHandler(
   req: NextApiRequest,
@@ -13,10 +11,10 @@ export default async function userHandler(
 
   try {
     switch (method) {
-      case Methods.GET:
-        return getUser(req, res);
+      case Methods.DELETE:
+        return deleteComment(req, res);
       default:
-        res.setHeader("Allow", [Methods.GET]);
+        res.setHeader("Allow", [Methods.DELETE]);
         return res.status(405).end(`Method ${method} Not Allowed`);
     }
   } catch (error) {
@@ -25,17 +23,16 @@ export default async function userHandler(
   }
 }
 
-const findUser = (id: string) => MOCK.find((user) => user.id === id);
-
-function getUser(req: NextApiRequest, res: NextApiResponse) {
+function deleteComment(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { id },
   } = req;
 
   logRequests(req);
-  const user = findUser(id as string);
-  if (user) {
-    return res.status(200).json(user);
+  const comment = mockComment.find((comment) => comment.id === id);
+  console.log(comment);
+  if (comment) {
+    return res.status(204).json(null);
   }
-  return res.status(404).json({ message: "User not found" });
+  return res.status(404).json({ message: "Comment not found" });
 }

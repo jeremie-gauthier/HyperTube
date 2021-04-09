@@ -8,7 +8,7 @@ import { moviesRoute } from "@/hooks/api/useMovie";
 import { Methods } from "@/types/requests";
 import { UserCommentsOnMovies, Comment } from "@/types/comment";
 import pipe from "@ramda/pipe";
-import useUser from "@/hooks/api/useUser";
+import { useMe } from "@/hooks/api/useUser";
 import { User } from "@/types/user";
 import { FlexCol, FlexRow } from "../Flex";
 import { ReactComponent as Cross } from "../../public/icons/cross.svg";
@@ -29,8 +29,7 @@ export default function MovieCommentModal({
 }: MovieCommentModalProps) {
   const { t } = useTranslation();
   const [comment, setComment] = React.useState("");
-  // create a useMe hook ? To get current user based on oauth token
-  const { data: me } = useUser("-42");
+  const { data: me } = useMe();
 
   const handleSubmitComment = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -61,7 +60,7 @@ export default function MovieCommentModal({
         close,
       )();
     } catch (error) {
-      toastInfo(t("common.errors.error_occured"), toast.POSITION.BOTTOM_RIGHT);
+      toastError(t("common.errors.error_occured"), toast.POSITION.BOTTOM_RIGHT);
     }
   };
 

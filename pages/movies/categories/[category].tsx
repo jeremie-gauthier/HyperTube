@@ -1,7 +1,7 @@
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
 import { allMovieCategories, Movie, MovieCategory } from "@/types/movie";
-import ScrollBar from "react-perfect-scrollbar";
+import ScrollBar from "@/components/Scrollbar";
 import { FlexRow } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
@@ -30,7 +30,9 @@ function Home({ movies, selectedCategory }: HomeProps) {
     !showMoviesFiltered && moviesPagination.length < movies.length;
 
   return (
-    <ScrollBar>
+    <ScrollBar
+      onYReachEnd={() => (hasMoviesNotLoaded ? incrementPagination() : null)}
+    >
       <main className={styles.container}>
         <MovieCategories selectedCategory={selectedCategory} />
         <MoviesResults
@@ -45,10 +47,6 @@ function Home({ movies, selectedCategory }: HomeProps) {
           }
         />
         <MoviesList movies={moviesToShow} />
-        <LoadMoreButton
-          isVisible={hasMoviesNotLoaded}
-          onClick={incrementPagination}
-        />
       </main>
     </ScrollBar>
   );
@@ -94,20 +92,3 @@ const MoviesList = ({ movies }: { movies: Movie[] }) => (
     ))}
   </FlexRow>
 );
-
-type LoadMoreButtonProps = {
-  isVisible: boolean;
-  onClick: () => void;
-};
-
-const LoadMoreButton = ({ isVisible, onClick }: LoadMoreButtonProps) => {
-  const { t } = useTranslation();
-
-  return isVisible ? (
-    <FlexRow className="justify-center">
-      <button type="button" className={styles.loadMore} onClick={onClick}>
-        {t("common.buttons.load_more")}
-      </button>
-    </FlexRow>
-  ) : null;
-};

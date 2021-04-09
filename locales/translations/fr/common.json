@@ -1,6 +1,7 @@
 {
 	"buttons": {
 		"cancel": "Annuler",
+		"confirm": "Confirmer",
 		"load_more": "Voir plus",
 		"loading": "Chargement en cours...",
 		"submit": "Envoyer"

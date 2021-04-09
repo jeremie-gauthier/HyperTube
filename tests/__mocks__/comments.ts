@@ -2,6 +2,13 @@ import { Comment } from "@/types/comment";
 
 export default [
   {
+    id: "-1",
+    userId: "-42",
+    movieId: "0",
+    date: "09/04/2021",
+    comment: "User ME left this comment",
+  },
+  {
     id: "0",
     userId: "0",
     movieId: "0",

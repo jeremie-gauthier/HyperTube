@@ -3,7 +3,7 @@ import Modal from "@/components/Modal";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { User } from "@/types/user";
-import { usePatchUser } from "@/hooks/api/useUser";
+import { usePatchMe } from "@/hooks/api/useUser";
 import { FlexRow } from "../Flex";
 import { ReactComponent as Cross } from "../../public/icons/cross.svg";
 import styles from "./UserPictureModal.module.scss";
@@ -42,10 +42,10 @@ export default function UserPictureModal({
 }
 
 const Miniatures = ({ user }: { user: User }) => {
-  const patchUser = usePatchUser(user.id);
+  const patchMe = usePatchMe();
   const images = Array.from({ length: 8 }, (_, idx) => idx + 1);
 
-  const handleChange = (id: number) => patchUser({ picture: id });
+  const handleChange = (id: number) => patchMe({ picture: id });
 
   const randomPicture = (currentId: number) => {
     const newId = Math.floor(Math.random() * 8 + 1);

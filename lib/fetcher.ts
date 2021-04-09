@@ -29,6 +29,5 @@ export default async function fetcher<Data>(
       errStatus,
     );
   }
-
-  return res.json();
+  return res.status === 204 ? {} : res.json();
 }
