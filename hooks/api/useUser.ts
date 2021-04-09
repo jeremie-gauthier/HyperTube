@@ -31,3 +31,6 @@ export const usePatchUser = (id: string) => {
     }
   };
 };
+
+export const useMe = (config?: ConfigInterface) =>
+  useFetch<User>(`${usersRoute()}/me`, config);
