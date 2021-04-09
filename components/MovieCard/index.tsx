@@ -44,11 +44,11 @@ export default function MovieCard({ movie }: MovieProps) {
 }
 
 const MovieDetails = ({
-  movie: { runtime, year, nbDownloads, category, archiveOrgIdentifier },
+  movie: { runtime, year, nbDownloads, category, id },
 }: MovieProps) => (
   <FlexCol className={styles.detailsContainer}>
     <FlexRow className={styles.commands}>
-      <CommandBtns movieId={archiveOrgIdentifier ?? ""} />
+      <CommandBtns movieId={id} />
     </FlexRow>
 
     <FlexRow className={styles.details}>

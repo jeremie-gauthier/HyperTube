@@ -45,7 +45,6 @@ export type Movie = {
   language: string;
   production?: string;
   nbDownloads: number;
-  archiveOrgIdentifier: string | null;
 };
 
 export type MongoMovie = Document & Movie;
@@ -94,12 +93,7 @@ export type ArchiveOrgMetadata = {
 
 export type ArchiveOrgMovieStandardized = Pick<
   Movie,
-  | "title"
-  | "year"
-  | "synopsis"
-  | "nbDownloads"
-  | "runtime"
-  | "archiveOrgIdentifier"
+  "title" | "year" | "synopsis" | "nbDownloads" | "runtime" | "id"
 >;
 
 enum Bool {

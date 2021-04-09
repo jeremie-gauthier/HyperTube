@@ -118,8 +118,8 @@ const ActionPlay = ({ movieDetails }: { movieDetails: Movie }) => {
 
   return (
     <div className={styles.playMovie}>
-      <Link href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}>
-        <a href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}>
+      <Link href={`/movies/${movieDetails.id}/streaming`}>
+        <a href={`/movies/${movieDetails.id}/streaming`}>
           <PlayIcon role="button" onClick={() => console.log("Play")} />
           <p className={styles.hoverText}>{t("pages.movies.details.watch")}</p>
         </a>

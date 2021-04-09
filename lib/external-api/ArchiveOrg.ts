@@ -126,9 +126,9 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       movies.map(async (movie) => {
         // no picture from OMDB but have an ArchiveOrg id
         let pictureFromMetaData = POSTER_DEFAULT;
-        if (!movie.picture && movie.archiveOrgIdentifier) {
+        if (!movie.picture && movie.id) {
           const metadata = await promiseRetry(
-            () => this.getMetaData(movie.archiveOrgIdentifier as string),
+            () => this.getMetaData(movie.id),
             RETRIES,
             DELAY_RETRY,
           );
@@ -334,7 +334,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       ...ArchiveOrgAPI.runtimeParser(runtime),
       synopsis: description ?? null,
       nbDownloads: downloads ?? null,
-      archiveOrgIdentifier: identifier ?? null,
+      id: identifier,
     };
   }
 }

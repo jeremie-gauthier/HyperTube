@@ -42,7 +42,7 @@ export default function MovieCommentModal({
 
     try {
       const newComment = await fetcher<Comment>(
-        `${moviesRoute(movie.archiveOrgIdentifier)}/comments`,
+        `${moviesRoute(movie.id)}/comments`,
         {
           method: Methods.POST,
           headers: { "Content-Type": "application/json" },
