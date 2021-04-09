@@ -4,7 +4,6 @@ import { FlexCol, FlexRow } from "@/components/Flex";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import { commentsRoute, useMovieComments } from "@/hooks/api/useComments";
 import { moviesRoute } from "@/hooks/api/useMovie";
-import useHover from "@/hooks/useHover";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import fetcher from "@/lib/fetcher";
 import { humanReadableNumber } from "@/lib/helpers";
@@ -116,17 +115,13 @@ const Title = ({ title }: { title: string }) => (
 
 const ActionPlay = ({ movieDetails }: { movieDetails: Movie }) => {
   const { t } = useTranslation();
-  const [hoverRef, isHovered] = useHover();
 
   return (
     <div className={styles.playMovie}>
       <Link href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}>
-        <a
-          ref={hoverRef}
-          href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}
-        >
+        <a href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}>
           <PlayIcon role="button" onClick={() => console.log("Play")} />
-          {isHovered && <p>{t("pages.movies.details.watch")}</p>}
+          <p className={styles.hoverText}>{t("pages.movies.details.watch")}</p>
         </a>
       </Link>
     </div>
@@ -141,15 +136,16 @@ const ActionComment = ({
   addComment: (comment: UserCommentsOnMovies) => void;
 }) => {
   const { t } = useTranslation();
-  const [hoverRef, isHovered] = useHover();
   const [commentMode, setCommentMode] = React.useState(false);
   const close = React.useCallback(() => setCommentMode(false), []);
 
   return (
     <div className={styles.commentMovie}>
-      <button ref={hoverRef} type="button" onClick={() => setCommentMode(true)}>
+      <button type="button" onClick={() => setCommentMode(true)}>
         <CommentIcon />
-        {isHovered && <p>{t("pages.movies.details.add_comment")}</p>}
+        <p className={styles.hoverText}>
+          {t("pages.movies.details.add_comment")}
+        </p>
       </button>
 
       {commentMode && (
