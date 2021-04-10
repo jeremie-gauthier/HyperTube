@@ -119,15 +119,23 @@ const CommentBtn = ({
 }: {
   openMovieCommentModal: () => void;
 }) => (
-  <div className={styles.borderCircle}>
-    <CommentIcon role="button" onClick={openMovieCommentModal} />
-  </div>
+  <button
+    type="button"
+    className={styles.borderCircle}
+    onClick={openMovieCommentModal}
+  >
+    <CommentIcon />
+  </button>
 );
 
 const AddBtn = () => (
-  <div className={styles.borderCircle}>
-    <AddIcon role="button" onClick={() => console.log("Comment")} />
-  </div>
+  <button
+    type="button"
+    className={styles.borderCircle}
+    onClick={() => console.log("Add to my list")}
+  >
+    <AddIcon />
+  </button>
 );
 
 const MovieBtn = ({ movieId }: { movieId: string }) => (
