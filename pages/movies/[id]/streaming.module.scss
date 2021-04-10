@@ -1,0 +1,4 @@
+.container {
+  @apply relative flex flex-1 flex-col max-w-4xl m-8 space-y-8;
+  @apply lg:m-auto lg:my-8;
+}
