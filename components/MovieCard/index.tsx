@@ -11,6 +11,7 @@ import { ReactComponent as AddIcon } from "../../public/icons/add.svg";
 import { ReactComponent as MovieIcon } from "../../public/icons/movie.svg";
 import { ReactComponent as EyeIcon } from "../../public/icons/eye.svg";
 import { FlexCol, FlexRow } from "../Flex";
+import MovieCommentModal from "../Modal/MovieCommentModal";
 
 const pictureFromArchiveOrg = (pictureDomain: string) =>
   pictureDomain?.match(/ia\d*.us.archive.org/) !== null;
@@ -21,48 +22,67 @@ type MovieProps = {
 
 export default function MovieCard({ movie }: MovieProps) {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+  const [commentMode, setCommentMode] = React.useState(false);
+  const open = React.useCallback(() => setCommentMode(true), []);
+  const close = React.useCallback(() => setCommentMode(false), []);
 
   return (
-    <div className={styles.container} ref={hoverRef}>
-      <div className={styles.poster}>
-        {pictureFromArchiveOrg(movie.picture) ? (
-          <object data={movie.picture}>
-            <img src={POSTER_DEFAULT} alt="Movie poster" />
-          </object>
-        ) : (
-          <Image
-            layout="fill"
-            src={omdbValueOrDefault(movie.picture, POSTER_DEFAULT)}
-            alt="Movie poster"
-          />
+    <>
+      <div className={styles.container} ref={hoverRef}>
+        <div className={styles.poster}>
+          {pictureFromArchiveOrg(movie.picture) ? (
+            <object data={movie.picture}>
+              <img src={POSTER_DEFAULT} alt="Movie poster" />
+            </object>
+          ) : (
+            <Image
+              layout="fill"
+              src={omdbValueOrDefault(movie.picture, POSTER_DEFAULT)}
+              alt="Movie poster"
+            />
+          )}
+        </div>
+        <h2>{movie.title}</h2>
+        {isHovered && (
+          <MovieDetails movie={movie} openMovieCommentModal={open} />
         )}
       </div>
-      <h2>{movie.title}</h2>
-      {isHovered && <MovieDetails movie={movie} />}
-    </div>
+
+      {commentMode && (
+        <MovieCommentModal
+          movie={movie}
+          close={close}
+          addComment={() => null}
+        />
+      )}
+    </>
   );
 }
 
 const MovieDetails = ({
-  movie: { runtime, year, nbDownloads, category, id },
-}: MovieProps) => (
+  movie,
+  openMovieCommentModal,
+}: MovieProps & { openMovieCommentModal: () => void }) => (
   <FlexCol className={styles.detailsContainer}>
     <FlexRow className={styles.commands}>
-      <CommandBtns movieId={id} />
+      <CommandBtns
+        movie={movie}
+        openMovieCommentModal={openMovieCommentModal}
+      />
     </FlexRow>
 
     <FlexRow className={styles.details}>
-      <p>{runtime}</p>
-      <p>{year}</p>
+      <p>{movie.runtime}</p>
+      <p>{movie.year}</p>
     </FlexRow>
     <FlexRow className={styles.details}>
       <p className={styles.truncate}>
-        {omdbValueOrDefault(category, "No category")}
+        {omdbValueOrDefault(movie.category, "No category")}
       </p>
       <FlexRow className="items-center space-x-1">
-        {nbDownloads && (
+        {movie.nbDownloads && (
           <>
-            <p>{humanReadableNumber(nbDownloads)}</p>
+            <p>{humanReadableNumber(movie.nbDownloads)}</p>
             <EyeIcon className="h-3 w-3" />
           </>
         )}
@@ -71,16 +91,19 @@ const MovieDetails = ({
   </FlexCol>
 );
 
-const CommandBtns = ({ movieId }: { movieId: string }) => (
+const CommandBtns = ({
+  movie,
+  openMovieCommentModal,
+}: MovieProps & { openMovieCommentModal: () => void }) => (
   <>
     <FlexRow className="space-x-5">
       <PlayBtn />
-      <CommentBtn />
+      <CommentBtn openMovieCommentModal={openMovieCommentModal} />
       <AddBtn />
     </FlexRow>
 
     <FlexRow>
-      <MovieBtn movieId={movieId} />
+      <MovieBtn movieId={movie.id} />
     </FlexRow>
   </>
 );
@@ -91,9 +114,13 @@ const PlayBtn = () => (
   </div>
 );
 
-const CommentBtn = () => (
+const CommentBtn = ({
+  openMovieCommentModal,
+}: {
+  openMovieCommentModal: () => void;
+}) => (
   <div className={styles.borderCircle}>
-    <CommentIcon role="button" onClick={() => console.log("Comment")} />
+    <CommentIcon role="button" onClick={openMovieCommentModal} />
   </div>
 );
 
