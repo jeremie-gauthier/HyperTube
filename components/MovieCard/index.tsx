@@ -4,6 +4,7 @@ import { humanReadableNumber, omdbValueOrDefault } from "@/lib/helpers";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import classnames from "classnames";
 import styles from "./MovieCard.module.scss";
 import { ReactComponent as PlayIcon } from "../../public/icons/play.svg";
 import { ReactComponent as CommentIcon } from "../../public/icons/comment.svg";
@@ -25,10 +26,15 @@ export default function MovieCard({ movie }: MovieProps) {
   const [commentMode, setCommentMode] = React.useState(false);
   const open = React.useCallback(() => setCommentMode(true), []);
   const close = React.useCallback(() => setCommentMode(false), []);
+  const isCommentModalOpened = commentMode === true;
+  const containerStyle = classnames({
+    [styles.container]: true,
+    [styles.containerHover]: isHovered && !isCommentModalOpened,
+  });
 
   return (
     <>
-      <div className={styles.container} ref={hoverRef}>
+      <div className={containerStyle} ref={hoverRef}>
         <div className={styles.poster}>
           {pictureFromArchiveOrg(movie.picture) ? (
             <object data={movie.picture}>
