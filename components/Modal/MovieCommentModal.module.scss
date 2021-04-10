@@ -44,5 +44,9 @@
 
   .submit {
     @apply bg-red;
+
+    &:disabled {
+      @apply bg-grey-light;
+    }
   }
 }

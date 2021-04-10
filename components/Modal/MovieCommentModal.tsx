@@ -83,7 +83,11 @@ export default function MovieCommentModal({
             <button type="button" className={styles.cancel} onClick={close}>
               {t("common.buttons.cancel")}
             </button>
-            <button type="submit" className={styles.submit}>
+            <button
+              type="submit"
+              className={styles.submit}
+              disabled={isEmpty(comment.trim())}
+            >
               {t("common.buttons.submit")}
             </button>
           </FlexRow>
