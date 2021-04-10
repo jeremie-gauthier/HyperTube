@@ -3,9 +3,8 @@ import Modal from "@/components/Modal";
 import { useTranslation } from "react-i18next";
 import { Movie } from "@/types/movie";
 import isEmpty from "@ramda/isempty";
-import fetcher from "@/lib/fetcher";
+import { fetcherPOST } from "@/lib/fetcher";
 import { moviesRoute } from "@/hooks/api/useMovie";
-import { Methods } from "@/types/requests";
 import { UserCommentsOnMovies, Comment } from "@/types/comment";
 import pipe from "@ramda/pipe";
 import { useMe } from "@/hooks/api/useUser";
@@ -21,7 +20,6 @@ type MovieCommentModalProps = {
   addComment: (comment: UserCommentsOnMovies) => void;
 };
 
-// eslint-disable-next-line max-lines-per-function
 export default function MovieCommentModal({
   movie,
   close,
@@ -41,13 +39,9 @@ export default function MovieCommentModal({
     }
 
     try {
-      const newComment = await fetcher<Comment>(
+      const newComment = await fetcherPOST<Comment>(
         `${moviesRoute(movie.id)}/comments`,
-        {
-          method: Methods.POST,
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ comment: formattedComment }),
-        },
+        { comment: formattedComment },
       );
       pipe(
         () =>
@@ -66,33 +60,75 @@ export default function MovieCommentModal({
 
   return (
     <Modal close={close} className={styles.container}>
-      <FlexRow className={styles.header}>
-        <h2>{t("pages.movies.details.add_comment")}</h2>
-        <Cross onClick={close} />
-      </FlexRow>
-
-      <FlexCol className={styles.body}>
-        <form onSubmit={handleSubmitComment}>
-          <textarea
-            placeholder={t("pages.movies.details.type_your_comment")}
-            value={comment}
-            onChange={(evt) => setComment(evt.target.value)}
-            rows={7}
-          />
-          <FlexRow className={styles.buttons}>
-            <button type="button" className={styles.cancel} onClick={close}>
-              {t("common.buttons.cancel")}
-            </button>
-            <button
-              type="submit"
-              className={styles.submit}
-              disabled={isEmpty(comment.trim())}
-            >
-              {t("common.buttons.submit")}
-            </button>
-          </FlexRow>
-        </form>
-      </FlexCol>
+      <ModalHeader close={close} />
+      <ModalBody
+        comment={comment}
+        onChange={(evt) => setComment(evt.target.value)}
+        close={close}
+        onSubmit={handleSubmitComment}
+      />
     </Modal>
   );
 }
+
+const ModalHeader = ({ close }: { close: () => void }) => {
+  const { t } = useTranslation();
+
+  return (
+    <FlexRow className={styles.header}>
+      <h2>{t("pages.movies.details.add_comment")}</h2>
+      <Cross onClick={close} />
+    </FlexRow>
+  );
+};
+
+const ModalBody = ({
+  comment,
+  onChange,
+  close,
+  onSubmit,
+}: {
+  comment: string;
+  onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+  close: () => void;
+  onSubmit: (evt: React.FormEvent<HTMLFormElement>) => Promise<void>;
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <FlexCol className={styles.body}>
+      <form onSubmit={onSubmit}>
+        <textarea
+          placeholder={t("pages.movies.details.type_your_comment")}
+          value={comment}
+          onChange={onChange}
+          rows={7}
+        />
+        <FlexRow className={styles.buttons}>
+          <CancelBtn onClick={close} />
+          <SubmitBtn disabled={isEmpty(comment.trim())} />
+        </FlexRow>
+      </form>
+    </FlexCol>
+  );
+};
+
+const SubmitBtn = ({ disabled }: { disabled: boolean }) => {
+  const { t } = useTranslation();
+
+  return (
+    <button type="submit" className={styles.submit} disabled={disabled}>
+      {t("common.buttons.submit")}
+    </button>
+  );
+};
+
+const CancelBtn = ({ onClick }: { onClick: () => void }) => {
+  const { t } = useTranslation();
+
+  return (
+    <button type="button" className={styles.cancel} onClick={onClick}>
+      {t("common.buttons.cancel")}
+    </button>
+  );
+};
