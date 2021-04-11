@@ -5,6 +5,7 @@ import { API, Methods } from "@/types/requests";
 import ArchiveOrgAPI from "@/lib/external-api/ArchiveOrg";
 import OMDB from "@/lib/external-api/OMDB";
 import { OmdbMovieFound } from "@/types/movie";
+import PublicDomainTorrentsAPI from "@/lib/external-api/PublicDomainTorrents";
 
 type MovieRequest = NextApiRequest & {
   query: {
@@ -50,6 +51,10 @@ async function fetchMoviesFromExternalAPI(
         category,
       );
       return moviesArchiveOrg;
+    case API.PUBLIC_DOMAIN_TORRENTS:
+      const PublicDomain = new PublicDomainTorrentsAPI();
+      const moviesPublicDomain = await PublicDomain.get(search);
+      return moviesPublicDomain;
     default:
       // list of registered movies
       return [];

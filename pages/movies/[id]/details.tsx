@@ -16,6 +16,7 @@ import ScrollBar from "@/components/Scrollbar";
 import Spinner from "@/components/Spinner";
 import MovieCommentModal from "@/components/Modal/MovieCommentModal";
 import isEmpty from "@ramda/isempty";
+import PublicDomainTorrentsAPI from "@/lib/external-api/PublicDomainTorrents";
 // eslint-disable-next-line max-len
 import { ReactComponent as CommentIcon } from "../../../public/icons/comment.svg";
 import { ReactComponent as EyeIcon } from "../../../public/icons/eye.svg";
@@ -88,9 +89,12 @@ export const getServerSideProps = async ({
   const api = process.env.HYPERTUBE_API_URL;
 
   try {
-    const ArchiveOrg = new ArchiveOrgAPI();
+    const externalAPI = Number(id)
+      ? new PublicDomainTorrentsAPI()
+      : new ArchiveOrgAPI();
+
     const [movieDetails, movieComments] = await Promise.all([
-      ArchiveOrg.getAllFromId(id),
+      externalAPI.getAllFromId(id) as Promise<Movie>,
       fetcher<CommentsForMovie[]>(
         `${api}${moviesRoute(id)}${commentsRoute({
           start: 0,
@@ -118,8 +122,8 @@ const ActionPlay = ({ movieDetails }: { movieDetails: Movie }) => {
 
   return (
     <div className={styles.playMovie}>
-      <Link href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}>
-        <a href={`/movies/${movieDetails.archiveOrgIdentifier}/streaming`}>
+      <Link href={`/movies/${movieDetails.id}/streaming`}>
+        <a href={`/movies/${movieDetails.id}/streaming`}>
           <PlayIcon role="button" onClick={() => console.log("Play")} />
           <p className={styles.hoverText}>{t("pages.movies.details.watch")}</p>
         </a>

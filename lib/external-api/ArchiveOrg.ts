@@ -126,9 +126,10 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       movies.map(async (movie) => {
         // no picture from OMDB but have an ArchiveOrg id
         let pictureFromMetaData = POSTER_DEFAULT;
-        if (!movie.picture && movie.archiveOrgIdentifier) {
+        let torrentFile = null;
+        if (!movie.picture && movie.id) {
           const metadata = await promiseRetry(
-            () => this.getMetaData(movie.archiveOrgIdentifier as string),
+            () => this.getMetaData(movie.id),
             RETRIES,
             DELAY_RETRY,
           );
@@ -140,12 +141,14 @@ export default class ArchiveOrgAPI extends ExternalAPI {
             pictureFromMetaData = res.ok
               ? `http://${iaDir}/__ia_thumb.jpg`
               : POSTER_DEFAULT;
+            torrentFile = `http://${iaDir}/${movie.id}_archive.torrent`;
           }
         }
         return {
           ...movie,
           category: movie.category ?? category,
           picture: movie.picture ?? pictureFromMetaData,
+          torrent: torrentFile,
         } as Movie;
       }),
     );
@@ -334,7 +337,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
       ...ArchiveOrgAPI.runtimeParser(runtime),
       synopsis: description ?? null,
       nbDownloads: downloads ?? null,
-      archiveOrgIdentifier: identifier ?? null,
+      id: identifier,
     };
   }
 }

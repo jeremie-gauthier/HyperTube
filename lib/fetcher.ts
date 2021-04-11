@@ -1,4 +1,5 @@
 import i18n from "@/locales/i18n";
+import { Methods } from "@/types/requests";
 
 class FetchError extends Error {
   info: Record<string, string>;
@@ -30,4 +31,12 @@ export default async function fetcher<Data>(
     );
   }
   return res.status === 204 ? {} : res.json();
+}
+
+export async function fetcherPOST<Data>(url: RequestInfo, body: Partial<Data>) {
+  return fetcher<Data>(url, {
+    method: Methods.POST,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
 }

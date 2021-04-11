@@ -1,5 +1,5 @@
 .container {
-  @apply p-6 bg-grey-dark rounded flex-1 max-w-2xl space-y-8 mx-8;
+  @apply p-6 bg-grey-dark rounded flex-1 max-w-2xl space-y-8 mx-8 z-50;
   @apply md:m-0;
 
   img {
@@ -44,5 +44,9 @@
 
   .submit {
     @apply bg-red;
+
+    &:disabled {
+      @apply bg-grey-light;
+    }
   }
 }

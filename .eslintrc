@@ -14,7 +14,7 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint", "react", "prettier", "jest"],
+  "plugins": ["@typescript-eslint", "react", "prettier", "jest", "security"],
   "extends": [
     "airbnb",
     "plugin:@typescript-eslint/recommended",
@@ -23,6 +23,7 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    "plugin:security/recommended",
     "prettier",
     "prettier/@typescript-eslint",
     "prettier/react"

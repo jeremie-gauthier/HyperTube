@@ -18,10 +18,16 @@ export type BaseSWR<Data> = Pick<
 export enum API {
   ARCHIVE_ORG = "https://archive.org/",
   OMDB = "https://www.omdbapi.com/",
-  YTS = "https://yts.mx/api/v2/movie_details.json",
+  PUBLIC_DOMAIN_TORRENTS = "http://publicdomaintorrents.info/",
 }
 
 export enum ARCHIVE_ORG {
   ADVANCED_SEARCH = "advancedsearch.php",
   METADATA = "metadata",
+}
+
+export enum PUBLIC_DOMAIN_TORRENTS {
+  SEARCH_ALL = "nshowcat.html?category=ALL",
+  SEARCH_ID = "nshowmovie.html?movieid=",
+  AVI_TORRENT_EXT = ".avi.torrent",
 }

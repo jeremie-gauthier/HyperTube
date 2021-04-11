@@ -49,6 +49,7 @@ export default class OMDBAPI extends ExternalAPI {
       Actors,
       Language,
       Production,
+      Year,
     } = movieFromExternalAPI;
 
     return {
@@ -61,6 +62,7 @@ export default class OMDBAPI extends ExternalAPI {
       picture: OMDBAPI.dataOrNull(Poster),
       rating: OMDBAPI.dataOrNull(imdbRating),
       production: OMDBAPI.dataOrNull(Production),
+      year: OMDBAPI.dataOrNull(Year),
     };
   }
 }
