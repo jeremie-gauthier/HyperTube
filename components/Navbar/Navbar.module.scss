@@ -17,6 +17,10 @@
     input {
       @apply text-sm bg-black outline-none;
     }
+
+    svg {
+      @apply h-4 w-4 cursor-pointer self-center;
+    }
   }
 }
 

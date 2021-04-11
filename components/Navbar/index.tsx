@@ -4,7 +4,6 @@ import { FlexCol, FlexRow } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import ActiveLink from "@/components/ActiveLink";
-import { RootState } from "@/state/types";
 import useSelector from "@/hooks/useSelector";
 import useDispatch from "@/hooks/useDispatch";
 import { setSearchInput } from "@/state/movies/actions";
@@ -136,20 +135,12 @@ const BrandLogo = () => (
 
 const SearchInput = () => {
   const { t } = useTranslation();
-  const searchInput = useSelector(
-    (state: RootState) => state.movie.searchInput,
-  ) as string;
-  const dispatch = useDispatch();
+  const router = useRouter();
+  const searchInput = useSelector((state) => state.movie.searchInput);
   const isVisible = searchInput.length > 0;
   const [showInput, setShowInput] = React.useState(isVisible);
-  const cancelSearch = classnames({
-    "cursor-pointer h-4 w-4": true,
-    invisible: !isVisible,
-  });
-
-  const handleSearch = () => {
-    console.log(`Request movies with name [${searchInput}]`);
-  };
+  const cancelSearch = classnames({ invisible: !isVisible });
+  const dispatch = useDispatch();
 
   const handleClose = () => {
     dispatch(setSearchInput(""));
@@ -158,15 +149,16 @@ const SearchInput = () => {
 
   return showInput ? (
     <FlexRow className={styles.searchGroup}>
-      <Magnifier
-        className="h-4 w-4"
-        onClick={handleSearch}
-        data-testid="submit-search"
-      />
+      <Link href="/">
+        <a href="/">
+          <Magnifier data-testid="submit-search" />
+        </a>
+      </Link>
       <input
         placeholder={t("components.navbar.search")}
         value={searchInput}
         onChange={(evt) => dispatch(setSearchInput(evt.target.value))}
+        onKeyDown={(evt) => (evt.key === "Enter" ? router.push("/") : null)}
         onBlur={() => !isVisible && setShowInput(false)}
         autoFocus
       />
