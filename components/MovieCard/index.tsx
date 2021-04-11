@@ -78,7 +78,10 @@ const MovieDetails = ({
     </FlexRow>
 
     <FlexRow className={styles.details}>
-      <p>{movie.runtime}</p>
+      <FlexRow className="items-center space-x-2">
+        {movie.rating && <p className="border rounded px-1">{movie.rating}</p>}
+        <p>{movie.runtime}</p>
+      </FlexRow>
       <p>{movie.year}</p>
     </FlexRow>
     <FlexRow className={styles.details}>
