@@ -21,10 +21,11 @@ type MoviesProps = {
 function Movies({ initialData }: MoviesProps) {
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 250);
-  const { movies, isLoading } = useMovieSearch();
+  const { movies, isLoading, loadMore, isReachingEnd } = useMovieSearch();
+  const canLoadMore = !(isEmpty(movies) || isReachingEnd);
 
   return (
-    <ScrollBar>
+    <ScrollBar onYReachEnd={() => canLoadMore && loadMore()}>
       <main className={styles.container}>
         <MovieCategories selectedCategory={null} />
         <MoviesList
@@ -59,15 +60,6 @@ type MoviesListProps = {
 const MoviesList = ({ movies, isLoading, displayCount }: MoviesListProps) => {
   const { t } = useTranslation();
 
-  if (isLoading) {
-    return (
-      <FlexCol className={styles.loadingMovies}>
-        <p>{t("common.buttons.loading")}</p>
-        <Spinner />
-      </FlexCol>
-    );
-  }
-
   return (
     <>
       {displayCount && (
@@ -82,13 +74,21 @@ const MoviesList = ({ movies, isLoading, displayCount }: MoviesListProps) => {
         />
       )}
       <FlexRow className={styles.mosaicMovies}>
-        {movies.map((movie) => (
+        {movies.map((movie, idx) => (
           <MovieCard
-            key={`${movie.title}-${movie.year}-${movie.nbDownloads}`}
+            // eslint-disable-next-line react/no-array-index-key
+            key={`${movie.title}-${movie.year}-${movie.nbDownloads}_${idx}`}
             movie={movie}
           />
         ))}
       </FlexRow>
+
+      {isLoading && (
+        <FlexCol className={styles.loadingMovies}>
+          <p>{t("common.buttons.loading")}</p>
+          <Spinner />
+        </FlexCol>
+      )}
     </>
   );
 };
