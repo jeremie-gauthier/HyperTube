@@ -15,8 +15,8 @@ export default function useMovieFilter(movies: Movie[]) {
       setMoviesFiltered(
         movies.filter(
           (movie) =>
-            movie.title.match(new RegExp(debouncedSearch, "i")) ||
-            movie.synopsis?.match(debouncedSearch),
+            movie.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            movie.synopsis?.includes(debouncedSearch),
         ),
       );
     }

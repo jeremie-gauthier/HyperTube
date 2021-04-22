@@ -23,7 +23,7 @@ export default class PublicDomainTorrentsAPI extends ExternalAPI {
   private static _movieMatchSearch = (
     link: HTMLAnchorElement | HTMLAreaElement,
     search: string,
-  ) => link.innerHTML.match(new RegExp(search, "i"));
+  ) => link.innerHTML.toLowerCase().includes(search.toLowerCase());
 
   async get(search?: string) {
     if (!search) return [];

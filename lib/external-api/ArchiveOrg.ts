@@ -189,7 +189,7 @@ export default class ArchiveOrgAPI extends ExternalAPI {
     const dedupeMovies = movies
       .filter((movie, idx) =>
         movies.findIndex((m) =>
-          m.title?.toString().match(new RegExp(movie.title, "i")),
+          m.title?.toString().toLowerCase().includes(movie.title.toLowerCase()),
         ) === idx
           ? movie
           : null,
