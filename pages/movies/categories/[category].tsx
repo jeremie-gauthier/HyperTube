@@ -69,6 +69,8 @@ export async function getStaticProps({
   try {
     const ArchiveOrg = new ArchiveOrgAPI();
     const movies = await ArchiveOrg.getAllCompileTime(
+      // False positive here, this object is access statically
+      // eslint-disable-next-line security/detect-object-injection
       allMovieCategories[category],
     );
     console.log(`[${category}] OK ${movies.length}`);

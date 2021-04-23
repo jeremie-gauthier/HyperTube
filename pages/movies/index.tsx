@@ -12,6 +12,9 @@ import MoviesResults from "@/components/MoviesResults";
 import { useTranslation } from "react-i18next";
 import useDebounce from "@/hooks/useDebounce";
 import Spinner from "@/components/Spinner";
+import SortOptions, { SortBy } from "@/components/Label/SortOptions";
+import { useRouter } from "next/router";
+import useMovieSort from "@/hooks/useMovieSort";
 import styles from "./movies.module.scss";
 
 type MoviesProps = {
@@ -19,17 +22,22 @@ type MoviesProps = {
 };
 
 function Movies({ initialData }: MoviesProps) {
+  const { query } = useRouter();
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 250);
   const { movies, isLoading, loadMore, isReachingEnd } = useMovieSearch();
-  const canLoadMore = !(isEmpty(movies) || isReachingEnd);
+  const canLoadMore =
+    !isEmpty(movies) && !isReachingEnd && !isEmpty(debouncedSearch);
+  const movieSet = isEmpty(debouncedSearch) ? initialData : movies;
+  const sortedMovies = useMovieSort(movieSet);
 
   return (
     <ScrollBar onYReachEnd={() => canLoadMore && loadMore()}>
       <main className={styles.container}>
         <MovieCategories selectedCategory={null} />
+        <SortOptions selectedSort={(query.sort as SortBy) ?? null} />
         <MoviesList
-          movies={isEmpty(debouncedSearch) ? initialData : movies}
+          movies={sortedMovies}
           isLoading={isLoading}
           displayCount={!isEmpty(debouncedSearch)}
         />
