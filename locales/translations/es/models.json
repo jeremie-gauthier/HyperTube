@@ -11,6 +11,12 @@
 			"romance": "Romance",
 			"sci_fi": "Ciencia ficción",
 			"western": "Western"
+		},
+		"sort": {
+			"ratings": "Calificaciones",
+			"titles": "Títulos",
+			"views": "Vistas",
+			"years": "Fechas"
 		}
 	},
 	"user": {

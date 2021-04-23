@@ -11,6 +11,12 @@
 			"romance": "ロマンス",
 			"sci_fi": "SF",
 			"western": "ウエスタン"
+		},
+		"sort": {
+			"ratings": "評価",
+			"titles": "タイトル",
+			"views": "視聴回数",
+			"years": "年"
 		}
 	},
 	"user": {
