@@ -42,6 +42,7 @@ async function fetchMoviesFromExternalAPI(
   source: string,
   search?: string,
   category?: string | null,
+  page?: number,
 ) {
   switch (source) {
     case API.ARCHIVE_ORG:
@@ -49,6 +50,7 @@ async function fetchMoviesFromExternalAPI(
       const moviesArchiveOrg = await ArchiveOrg.getWithDetails(
         search,
         category,
+        page,
       );
       return moviesArchiveOrg;
     case API.PUBLIC_DOMAIN_TORRENTS:
@@ -72,7 +74,7 @@ async function fetchMovieDetailsFromOMDB(title: string, year: string) {
 
 async function getMovies(req: MovieRequest, res: NextApiResponse) {
   const {
-    query: { source, search, category, title, year },
+    query: { source, search, category, title, year, page },
   } = req;
 
   logRequests(req);
@@ -81,7 +83,7 @@ async function getMovies(req: MovieRequest, res: NextApiResponse) {
   // Or are part of the `category` category
   if (search || category) {
     const movies = await tryCatch(
-      () => fetchMoviesFromExternalAPI(source, search, category),
+      () => fetchMoviesFromExternalAPI(source, search, category, page),
       () => null,
     );
     return res.status(200).json({ movies });
