@@ -30,8 +30,9 @@ export default function SortOptions({
   const router = useRouter();
   const SortOptionsList = Object.values(SortBy);
   const isCurrentSort = (sort: SortBy) => sort === selectedSort;
+  const pathname = router.asPath.split("?")[0];
   const getLink = (sort: SortBy) =>
-    `${router.pathname}?sort=${sort}&order=${
+    `${pathname}?sort=${sort}&order=${
       isCurrentSort(sort)
         ? getReverseOrder((router.query.order ?? Order.DESCENDING) as Order)
         : Order.ASCENDING
