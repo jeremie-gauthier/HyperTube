@@ -4,6 +4,7 @@ import React from "react";
 import Label from "@/components/Label";
 import { FlexRow } from "@/components/Flex";
 import { useTranslation } from "react-i18next";
+import UpArrow from "../../public/icons/up-arrow.svg";
 import styles from "./Label.module.scss";
 
 export enum SortBy {
@@ -51,6 +52,17 @@ export default function SortOptions({
             <Label
               text={t(`models.movie.sort.${sort}`)}
               isActive={isCurrentSort(sort)}
+              Icon={
+                isCurrentSort(sort) ? (
+                  <UpArrow
+                    className={
+                      router.query.order === Order.DESCENDING
+                        ? "transform rotate-180"
+                        : ""
+                    }
+                  />
+                ) : null
+              }
             />
           </a>
         </Link>

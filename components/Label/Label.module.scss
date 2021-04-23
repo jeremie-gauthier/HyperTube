@@ -1,5 +1,5 @@
 .default {
-  @apply border rounded-full text-center px-2 py-1 cursor-pointer font-bold;
+  @apply border rounded-full text-center px-2 py-1 cursor-pointer font-bold items-center space-x-2;
 }
 
 .active {
@@ -17,7 +17,7 @@
 .labelsList {
   @apply space-y-2 space-x-2 flex-wrap justify-center;
 
-  :first-child {
+  & > :first-child {
     @apply mt-2 ml-2;
   }
 
@@ -27,5 +27,9 @@
     div {
       @apply text-red border-red border-opacity-75;
     }
+  }
+
+  svg {
+    @apply fill-current text-red h-4 w-4;
   }
 }
