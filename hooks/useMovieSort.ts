@@ -41,15 +41,12 @@ export default function useMovieSort(movies: Movie[]) {
       }
     };
 
-    console.log(query.sort);
     if (
       !deepCmp(movies, prevMovies ?? []) ||
       prevSort !== query.sort ||
       prevOrder !== query.order
     ) {
-      console.log(query.sort, ">>> OK");
       const sortingList = sortOnQueryChange();
-      console.log(sortingList);
       setSortedMovies(sortingList);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
