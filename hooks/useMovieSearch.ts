@@ -24,7 +24,7 @@ export default function useMovieSearch() {
     isLoading: isArchiveOrgLoading,
     loadMore,
     isReachingEnd,
-  } = useArchiveOrgSearch(search);
+  } = useArchiveOrgSearch(debouncedSearch);
 
   const {
     movies: moviesPublicDomain,
