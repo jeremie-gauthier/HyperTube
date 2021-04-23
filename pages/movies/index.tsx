@@ -1,3 +1,4 @@
+import React from "react";
 import SiteLayout from "@/components/Layouts/SiteLayout";
 import MovieCard from "@/components/MovieCard";
 import { Movie } from "@/types/movie";
@@ -12,7 +13,7 @@ import MoviesResults from "@/components/MoviesResults";
 import { useTranslation } from "react-i18next";
 import useDebounce from "@/hooks/useDebounce";
 import Spinner from "@/components/Spinner";
-import SortOptions, { SortBy } from "@/components/Label/SortOptions";
+import SortOptions, { Order, SortBy } from "@/components/Label/SortOptions";
 import { useRouter } from "next/router";
 import useMovieSort from "@/hooks/useMovieSort";
 import styles from "./movies.module.scss";
@@ -22,7 +23,7 @@ type MoviesProps = {
 };
 
 function Movies({ initialData }: MoviesProps) {
-  const { query } = useRouter();
+  const router = useRouter();
   const search = useSelector((state) => state.movie.searchInput);
   const debouncedSearch = useDebounce(search, 250);
   const { movies, isLoading, loadMore, isReachingEnd } = useMovieSearch();
@@ -31,11 +32,21 @@ function Movies({ initialData }: MoviesProps) {
   const movieSet = isEmpty(debouncedSearch) ? initialData : movies;
   const sortedMovies = useMovieSort(movieSet);
 
+  React.useEffect(() => {
+    if (!isEmpty(debouncedSearch) && router.query.sort === undefined) {
+      const sortByTitlesURL = `?sort=${SortBy.TITLES}&order=${Order.ASCENDING}`;
+      router.push(sortByTitlesURL, sortByTitlesURL, {
+        shallow: true,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch]);
+
   return (
     <ScrollBar onYReachEnd={() => canLoadMore && loadMore()}>
       <main className={styles.container}>
         <MovieCategories selectedCategory={null} />
-        <SortOptions selectedSort={(query.sort as SortBy) ?? null} />
+        <SortOptions selectedSort={(router.query.sort as SortBy) ?? null} />
         <MoviesList
           movies={sortedMovies}
           isLoading={isLoading}
