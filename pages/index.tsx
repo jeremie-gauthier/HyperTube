@@ -34,7 +34,8 @@ function Movies({ initialData }: MoviesProps) {
 
   React.useEffect(() => {
     if (!isEmpty(debouncedSearch) && router.query.sort === undefined) {
-      const sortByTitlesURL = `?sort=${SortBy.TITLES}&order=${Order.ASCENDING}`;
+      const pathname = router.asPath.split("?")[0];
+      const sortByTitlesURL = `${pathname}?sort=${SortBy.TITLES}&order=${Order.ASCENDING}`;
       router.push(sortByTitlesURL, sortByTitlesURL, {
         shallow: true,
       });
