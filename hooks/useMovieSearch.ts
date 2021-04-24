@@ -24,7 +24,7 @@ export default function useMovieSearch() {
     isLoading: isArchiveOrgLoading,
     loadMore,
     isReachingEnd,
-  } = useArchiveOrgSearch(search);
+  } = useArchiveOrgSearch(debouncedSearch);
 
   const {
     movies: moviesPublicDomain,
@@ -58,7 +58,9 @@ const useArchiveOrgSearch = (search: string) => {
     moviesArchiveOrg?.map((movies) => movies.movies ?? []) ?? []
   ).flat();
 
-  const loadMore = () => !isLoadingMore && setSize((size) => size + 1);
+  const loadMore = () => {
+    if (!isEmpty(search) && !isLoadingMore) setSize((size) => size + 1);
+  };
 
   return { movies, isLoading: isLoadingMore ?? false, loadMore, isReachingEnd };
 };

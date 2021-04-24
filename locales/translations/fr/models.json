@@ -11,6 +11,12 @@
 			"romance": "Romance",
 			"sci_fi": "Sci-Fi",
 			"western": "Western"
+		},
+		"sort": {
+			"ratings": "Notes",
+			"titles": "Titres",
+			"views": "Vues",
+			"years": "Dates"
 		}
 	},
 	"user": {

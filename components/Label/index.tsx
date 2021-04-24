@@ -6,9 +6,10 @@ import styles from "./Label.module.scss";
 type LabelProps = React.HTMLAttributes<HTMLDivElement> & {
   text: string;
   isActive: boolean;
+  Icon?: React.ReactNode | null;
 };
 
-function Label({ text, isActive, ...rest }: LabelProps) {
+function Label({ text, isActive, Icon, ...rest }: LabelProps) {
   const labelStyle = classname({
     [styles.active]: isActive,
     [styles.inactive]: !isActive,
@@ -17,9 +18,14 @@ function Label({ text, isActive, ...rest }: LabelProps) {
 
   return (
     <FlexRow className={labelStyle} {...rest}>
-      {text}
+      <p>{text}</p>
+      {Icon && <div>{Icon}</div>}
     </FlexRow>
   );
 }
+
+Label.defaultProps = {
+  Icon: null,
+};
 
 export default Label;

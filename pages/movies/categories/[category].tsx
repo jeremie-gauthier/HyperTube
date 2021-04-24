@@ -11,6 +11,9 @@ import MovieCategories from "@/components/Label/MovieCategories";
 import useMovieSearch from "@/hooks/useMovieFilter";
 import useMoviePagination from "@/hooks/useMoviePagination";
 import MoviesResults from "@/components/MoviesResults";
+import useMovieSort from "@/hooks/useMovieSort";
+import SortOptions, { SortBy } from "@/components/Label/SortOptions";
+import { useRouter } from "next/router";
 import styles from "../movies.module.scss";
 
 type HomeProps = {
@@ -20,6 +23,7 @@ type HomeProps = {
 
 function Home({ movies, selectedCategory }: HomeProps) {
   const { t } = useTranslation();
+  const { query } = useRouter();
   const { moviesPagination, incrementPagination } = useMoviePagination(
     movies,
     selectedCategory,
@@ -28,6 +32,7 @@ function Home({ movies, selectedCategory }: HomeProps) {
   const moviesToShow = showMoviesFiltered ? moviesFiltered : moviesPagination;
   const hasMoviesNotLoaded =
     !showMoviesFiltered && moviesPagination.length < movies.length;
+  const sortedMovies = useMovieSort(moviesToShow);
 
   return (
     <ScrollBar
@@ -35,9 +40,10 @@ function Home({ movies, selectedCategory }: HomeProps) {
     >
       <main className={styles.container}>
         <MovieCategories selectedCategory={selectedCategory} />
+        <SortOptions selectedSort={(query.sort as SortBy) ?? null} />
         <MoviesResults
           text={
-            isEmpty(moviesToShow)
+            isEmpty(sortedMovies)
               ? t("pages.movies.empty_set")
               : t("pages.movies.result", {
                   count: showMoviesFiltered
@@ -46,7 +52,7 @@ function Home({ movies, selectedCategory }: HomeProps) {
                 })
           }
         />
-        <MoviesList movies={moviesToShow} />
+        <MoviesList movies={sortedMovies} />
       </main>
     </ScrollBar>
   );
@@ -69,6 +75,8 @@ export async function getStaticProps({
   try {
     const ArchiveOrg = new ArchiveOrgAPI();
     const movies = await ArchiveOrg.getAllCompileTime(
+      // False positive here, this object is access statically
+      // eslint-disable-next-line security/detect-object-injection
       allMovieCategories[category],
     );
     console.log(`[${category}] OK ${movies.length}`);
