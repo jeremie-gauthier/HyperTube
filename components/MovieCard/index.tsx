@@ -106,7 +106,7 @@ const CommandBtns = ({
 }: MovieProps & { openMovieCommentModal: () => void }) => (
   <>
     <FlexRow className="space-x-5">
-      <PlayBtn />
+      <PlayBtn movieId={movie.id} />
       <CommentBtn openMovieCommentModal={openMovieCommentModal} />
       <AddBtn />
     </FlexRow>
@@ -117,9 +117,13 @@ const CommandBtns = ({
   </>
 );
 
-const PlayBtn = () => (
+const PlayBtn = ({ movieId }: { movieId: string }) => (
   <div className={styles.fullCircle}>
-    <PlayIcon role="button" onClick={() => console.log("Play")} />
+    <Link href={`/movies/${movieId}/details?autoplay=true`}>
+      <a href={`/movies/${movieId}/details?autoplay=true`}>
+        <PlayIcon role="button" />
+      </a>
+    </Link>
   </div>
 );
 

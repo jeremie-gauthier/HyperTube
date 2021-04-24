@@ -10,17 +10,16 @@ import { humanReadableNumber } from "@/lib/helpers";
 import { CommentsForMovie, UserCommentsOnMovies } from "@/types/comment";
 import { Movie } from "@/types/movie";
 import { Methods } from "@/types/requests";
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import ScrollBar from "@/components/Scrollbar";
 import Spinner from "@/components/Spinner";
 import MovieCommentModal from "@/components/Modal/MovieCommentModal";
 import isEmpty from "@ramda/isempty";
 import PublicDomainTorrentsAPI from "@/lib/external-api/PublicDomainTorrents";
+import { useRouter } from "next/router";
 // eslint-disable-next-line max-len
 import { ReactComponent as CommentIcon } from "../../../public/icons/comment.svg";
 import { ReactComponent as EyeIcon } from "../../../public/icons/eye.svg";
-import { ReactComponent as PlayIcon } from "../../../public/icons/play.svg";
 import styles from "./details.module.scss";
 
 type DetailsProps = {
@@ -46,6 +45,7 @@ function Details({ movieDetails, movieComments }: DetailsProps) {
     <ScrollBar onYReachEnd={loadMoreComments}>
       <main className={styles.container}>
         <Title title={movieDetails?.title} />
+        <MoviePlayer />
         <Statistics
           year={movieDetails.year}
           rating={movieDetails.rating}
@@ -63,7 +63,6 @@ function Details({ movieDetails, movieComments }: DetailsProps) {
           isLoadingMoreComments={isLoadingMoreComments}
         />
 
-        <ActionPlay movieDetails={movieDetails} />
         <ActionComment
           movieDetails={movieDetails}
           addComment={(comment: UserCommentsOnMovies) =>
@@ -117,18 +116,13 @@ const Title = ({ title }: { title: string }) => (
   <h1 className={styles.title}>{title}</h1>
 );
 
-const ActionPlay = ({ movieDetails }: { movieDetails: Movie }) => {
-  const { t } = useTranslation();
+const MoviePlayer = () => {
+  const { query } = useRouter();
 
   return (
-    <div className={styles.playMovie}>
-      <Link href={`/movies/${movieDetails.id}/streaming`}>
-        <a href={`/movies/${movieDetails.id}/streaming`}>
-          <PlayIcon role="button" onClick={() => console.log("Play")} />
-          <p className={styles.hoverText}>{t("pages.movies.details.watch")}</p>
-        </a>
-      </Link>
-    </div>
+    <video controls autoPlay={query?.autoplay === "true"}>
+      <track kind="captions" />
+    </video>
   );
 };
 
